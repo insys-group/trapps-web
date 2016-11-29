@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Person, PersonType } from '../model/person.models';
 @Component({
   selector: 'app-person',
   templateUrl: './person.component.html',
@@ -24,22 +24,4 @@ export class PersonComponent implements OnInit {
   ngOnInit() {
     
   }
-}
-
-export class Person {
-  id: number;
-  businessId: number;
-  firstName: string;
-  lastName: string;
-  phone: string;
-  email: string;
-  personType: string;
-  addressId: number;
-}
-
-export class PersonType {
-    static EMPLOYEE : string = "Employee";
-    static CANDIDATE : string = "Candidate";
-    static PIVOTAL : string = "Pivotal";
-    static VENDOR : string = "Vendor";
 }

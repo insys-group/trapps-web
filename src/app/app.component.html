@@ -1,4 +1,18 @@
-<h1>
-  {{title}}
-</h1>
-<app-person></app-person>
+<div>
+  <header>
+    <h1>
+      {{title}}
+    </h1>
+    <nav>
+      <ul>
+        <li><a href="" [routerLink]="['/persons']">Persons</a></li>    
+        <li><a href="" [routerLink]="['/businesses']">Businesses</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <section>
+      <router-outlet></router-outlet>
+    </section>
+  </main>
+</div>
