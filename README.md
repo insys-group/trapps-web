@@ -35,18 +35,18 @@ This application will have following hierarchy for models, components and servic
 /app/models/address.model 
 
 ## Adding a new component
-Go into the target component folder e.g. /app/components/roles 
-ng g component role-list 
+Go into the target component folder e.g. /app/components/roles  
+Execute angular cli command <code>ng g component role-list</code>
 
 ## Adding a new service
-Go into /app/services folder 
-Create service class 
-Add entry in the providers array in the file /app/app.module.ts 
+Go into /app/services folder  
+Create service class  
+Add entry in the providers array in the file /app/app.module.ts  
 
 ## Adding a new model
-Go into the folder /app/models 
-Create the file containing the model classes(s) 
+Go into the folder /app/models  
+Create the file containing the model classes(s)  
 
 ## Add a new route  
-Add a route entry in the routes array in the file /app/app-routing.module.ts. 
+Add a route entry in the routes array in the file /app/app-routing.module.ts.  
 
