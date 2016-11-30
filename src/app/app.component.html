@@ -1,18 +1,26 @@
-<div>
-  <header>
-    <h1>
-      {{title}}
-    </h1>
-    <nav>
-      <ul>
-        <li><a href="" [routerLink]="['/persons']">Persons</a></li>    
-        <li><a href="" [routerLink]="['/businesses']">Businesses</a></li>
-      </ul>
-    </nav>
-  </header>
-  <main>
-    <section>
-      <router-outlet></router-outlet>
-    </section>
-  </main>
-</div>
+<header>
+  <nav class="navbar navbar-light bg-faded">
+    <ul class="nav navbar-nav">
+      <li class="navbar-brand">
+        <a href="">INSYS-Pivotal</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-item nav-link" href="" [routerLink]="['/persons']">Persons</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-item nav-link" href="" [routerLink]="['/roles']">Roles</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Business
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="" [routerLink]="['/businesses']">All</a>
+          <a class="dropdown-item" href="" [routerLink]="['/businesses']">Client</a>
+          <a class="dropdown-item" href=""[routerLink]="['/businesses']" >Vendor</a>
+        </div>
+      </li>
+    </ul>
+  </nav>
+</header>
+<router-outlet></router-outlet>
