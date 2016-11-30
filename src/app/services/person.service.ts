@@ -6,7 +6,7 @@ import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/do'
 import 'rxjs/add/operator/catch'
 
-import { Person } from '../components/persons/model/person.models';
+import { Person } from '../models/person.model';
 @Injectable()
 export class PersonService {
     constructor(private http: Http) {}

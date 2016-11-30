@@ -12,13 +12,41 @@ npm install -g angular-cli
 ## Run application
 ng serve --host 0.0.0.0 --port 4201 --live-reload-port 49153
 
-## Add new component
-ng g component component_name
 
-This application will have components for each domain and these components will go inside its own folder under app,
+This application will have following hierarchy for models, components and services.
 
-/app
-/app/business    
-/app/opportunity  
-/app/person
+### Compoenents
+/app/components 
+/app/components/businesses     
+/app/components/roles  
+/app/components/persons 
+/app/components/addresses 
+
+### Services
+/app/services 
+/app/services/person.service  
+/app/services/address.service  
+/app/services/business.service  
+
+### Models
+/app/models 
+/app/models/person.model 
+/app/models/business.model  
+/app/models/address.model 
+
+## Adding a new component
+Go into the target component folder e.g. /app/components/roles  
+Execute angular cli command <code>ng g component role-list</code>
+
+## Adding a new service
+Go into /app/services folder  
+Create service class  
+Add entry in the providers array in the file /app/app.module.ts  
+
+## Adding a new model
+Go into the folder /app/models  
+Create the file containing the model classes(s)  
+
+## Add a new route  
+Add a route entry in the routes array in the file /app/app-routing.module.ts.  
 
