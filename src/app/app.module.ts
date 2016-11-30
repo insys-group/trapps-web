@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { PersonComponent } from './components/persons/person/person.component';
@@ -32,6 +33,7 @@ import { RoleListComponent } from './components/roles/role-list/role-list.compon
     BrowserModule,
     FormsModule,
     HttpModule,
+    NgbModule.forRoot(),
     AppRoutingModule
   ],
   providers: [PersonService],
