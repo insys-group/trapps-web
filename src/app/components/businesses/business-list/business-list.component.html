@@ -1,3 +1,5 @@
-<p>
-  business-list works!
-</p>
+<ul>
+  <li *ngFor="let business of businesses">
+    <a href="businesses/{{business.id}}">{{business.name}} {{business.addresses}}</a>
+  </li>
+</ul>
