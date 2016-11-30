@@ -26,4 +26,8 @@ export class PersonListComponent implements OnInit {
   ngOnInit() {
     this.getPersons();
   }
+
+    createNewPerson(): void {
+    console.log('will call new component');
+  }
 }
