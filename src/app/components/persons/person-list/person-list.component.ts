@@ -7,9 +7,12 @@ import { Observable } from 'rxjs/Observable';
   selector: 'app-person-list',
   templateUrl: './person-list.component.html',
   styleUrls: ['./person-list.component.css']
+
+
 })
 
 export class PersonListComponent implements OnInit {
+  closeResult: string;
 
   errorMessage: string;
   persons: Person[];
@@ -25,5 +28,9 @@ export class PersonListComponent implements OnInit {
   }
   ngOnInit() {
     this.getPersons();
+  }
+
+    createNewPerson() {
+    console.log('will call new component');
   }
 }
