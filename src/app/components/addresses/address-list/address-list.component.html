@@ -1,3 +1,5 @@
-<p>
-  address-list works!
-</p>
+<ul>
+  <li *ngFor="let address of addresses">
+    <a href="address/{{address.id}}">{{address.address_1}} {{address.address_2}} {{address.city}} {{address.state}} {{address.zip_code}}</a>
+  </li>
+</ul>
