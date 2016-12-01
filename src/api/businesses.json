@@ -4,33 +4,33 @@
       "id": 0,
       "businessId": 0,
       "name": "Business 0",
-      "description": "",
+      "description": "rr",
       "addresses": "123 fake st",
-      "businessType": BusinessType.Vendor
+      "businessType": "BusinessType.Vendor"
     },
     {
       "id": 1,
       "businessId": 1,
       "name": "Business 1",
-      "description": "",
+      "description": "rr",
       "addresses": "1234 fake st",
-      "businessType": BusinessType.Vendor
+      "businessType": "BusinessType.Vendor"
     },
     {
       "id": 2,
       "businessId": 2,
       "name": "Business 2",
-      "description": "",
+      "description": "rr",
       "addresses": "12345 fake st",
-      "businessType": BusinessType.Vendor
+      "businessType": "BusinessType.Vendor"
     },
     {
       "id": 3,
       "businessId": 3,
       "name": "Business 3",
-      "description": "",
+      "description": "rr",
       "addresses": "123456 fake st",
-      "businessType": BusinessType.Vendor
+      "businessType": "BusinessType.Vendor"
     }
   ]
 }
