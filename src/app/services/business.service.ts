@@ -6,7 +6,9 @@ import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/do'
 import 'rxjs/add/operator/catch'
 
-import { Business } from '../components/businesses/model/business.models';
+
+import { Business } from '../models/business.model';
+
 @Injectable()
 export class BusinessService {
     constructor(private http: Http) {}
@@ -23,3 +25,4 @@ export class BusinessService {
         return Observable.throw(error.json().error || 'Server error');
     }
 }
+

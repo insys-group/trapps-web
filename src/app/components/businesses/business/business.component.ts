@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Business, BusinessType } from  '../model/business.models';
+import { Business , BusinessType} from '../../../models/business.model';
 @Component({
   selector: 'app-business',
   templateUrl: './business.component.html',
