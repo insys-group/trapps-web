@@ -10,26 +10,23 @@ import { Observable } from 'rxjs/Observable';
 })
 export class BusinessListComponent implements OnInit {
 
-//  errorMessage: string;
-//  businesses: Business[];
-//
-//  constructor(private businessService: BusinessService) { }
-//
-//  getBusinesses() {
-//    this.businessService.getBusinesses()
-//    .subscribe(
-//      businesses => this.businesses = businesses,
-//      error => this.errorMessage = error
-//    );
-//  }
-//
-//  ngOnInit() {
-//    this.getBusinesses();
-//  }
-  
-  constructor() { }
+  errorMessage: string;
+  businesses: Business[];
+
+  constructor(private businessService: BusinessService) { }
+
+  getBusinesses() {
+    this.businessService.getBusinesses()
+    .subscribe(
+      businesses => this.businesses = businesses,
+      error => this.errorMessage = error
+    );
+  }
 
   ngOnInit() {
+    this.getBusinesses();
   }
+  
+ 
 
 }
