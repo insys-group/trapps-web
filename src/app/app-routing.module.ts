@@ -5,13 +5,17 @@ import { PersonComponent } from './components/persons/person/person.component';
 import { PersonListComponent } from './components/persons/person-list/person-list.component';
 import { BusinessComponent } from './components/businesses/business/business.component';
 import { BusinessListComponent } from './components/businesses/business-list/business-list.component';
+import { AddressComponent } from './components/addresses/address/address.component';
+import { AddressListComponent } from './components/addresses/address-list/address-list.component';
 
 const routes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: 'persons'},
     { path: 'persons', component: PersonListComponent},
     { path: 'person/:id', component: PersonComponent},
     { path: 'businesses', component: BusinessListComponent},
-    { path: 'business/:id', component: BusinessComponent}
+    { path: 'business/:id', component: BusinessComponent},
+    { path: 'address', component: AddressListComponent},
+    { path: 'address/:id', component: AddressComponent}
 ];
 
 @NgModule({
