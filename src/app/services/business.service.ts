@@ -11,7 +11,9 @@ import { Business } from '../models/business.model';
 
 @Injectable()
 export class BusinessService {
-    constructor(private http: Http) {}
+    constructor(private http: Http) {
+        console.log('Instantiating service ****************** ' + Date.now());
+    }
 
     getBusinesses() {
         return this.http.get('/api/businesses.json')
