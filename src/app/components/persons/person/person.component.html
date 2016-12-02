@@ -1,5 +1,129 @@
-<p>Name: {{person.firstName}} {{person.lastName}}</p>
-<p>Phone: {{person.phone}}</p>
-<p>Email: {{person.email}}</p>
-<p>Person Type: {{person.personType}}</p>  
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    Personal Information
+                </div>
+                <div class="card-block">
+                    <div [hidden]="submitted"></div>
+                    <form (ngSubmit)="save()" #personForm="ngForm">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="personType">Person Type</label>
+                                    <select class="form-control" id="personType" required [(ngModel)]="person.personType" name="personType" #personType="ngModel">
+                                        <option *ngFor="let personType of personTypes" [value]="personType">{{personType}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="business">Employer</label>
+                                    <select class="form-control" id="business" required [(ngModel)]="person.business" name="business" #personType="ngModel">
+                                        <option *ngFor="let business of businesses" [value]="business">{{business}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
 
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="firstName">First Name</label>
+                                    <input type="text" class="form-control" id="firstName" required [(ngModel)]="person.firstName" name="firstName" #firstName="ngModel">
+                                    <div [hidden]="firstName.valid || firstName.pristine" class="alert alert-danger">
+                                        First name is required
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="lastName">Last Name</label>
+                                    <input type="text" class="form-control" id="lastName" required [(ngModel)]="person.lastName" name="lastName" #lastName="ngModel">
+                                    <div [hidden]="lastName.valid || lastName.pristine" class="alert alert-danger">
+                                        Last name is required
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="phone">Phone</label>
+                                    <input type="text" class="form-control" id="phone" required pattern="^\d{3}-\d{3}-\d{4}$" [(ngModel)]="person.phone" name="phone" #phone="ngModel" placeholder="999-999-9999">
+                                </div>
+                                <div [hidden]="phone.valid || phone.pristine" class="alert alert-danger">
+                                    Phone is required in the format 999-999-9999
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="text" class="form-control" id="email" required [(ngModel)]="person.email" name="email" #email="ngModel">
+                                </div>
+                                <div [hidden]="email.valid || email.pristine" class="alert alert-danger">
+                                    Email is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="title">Title</label>
+                                    <input type="text" class="form-control" id="title" required [(ngModel)]="person.title" name="title" #title="ngModel">
+                                </div>
+                                <div [hidden]="title.valid || title.pristine" class="alert alert-danger">
+                                    Title is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <button type="submit" class="btn btn-primary" [disabled]="!personForm.form.valid">Save</button>
+                                <button type="button" class="btn btn-danger" (click)="delete()">Delete</button>
+                                <button type="button" class="btn btn-primary" (click)="cancel()">Close</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-header">
+                    Address
+                </div>
+                <div class="card-block">
+                    This is Address
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6" *ngIf="skills===true">
+            <div class="card">
+                <div class="card-header">
+                    Professional Skills
+                </div>
+                <div class="card-block">
+                    This is skills
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" *ngIf="documents===true">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    Documents
+                </div>
+                <div class="card-block">
+                    List of Documents
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

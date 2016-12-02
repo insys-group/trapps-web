@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { PersonService } from '../../../services/person.service';
 import { Person } from '../../../models/person.model';
 import { Observable } from 'rxjs/Observable';
@@ -16,18 +17,24 @@ export class PersonListComponent implements OnInit {
 
   errorMessage: string;
   persons: Person[];
+  personTypes: string[] = ['Employee', 'Candidate', 'Client', 'Vendor', 'Pivotal']
+  personType: string = 'Employee';
 
-  constructor(private personService: PersonService) { }
+  constructor(private router: Router, private personService: PersonService) { }
 
-  getPersons() {
-    this.personService.getPersons()
-    .subscribe(
-      persons => this.persons = persons,
-      error => this.errorMessage = error
-    );
-  }
   ngOnInit() {
-    this.getPersons();
+    console.log('Enter: PersonListComponent.ngOnInit()');
+    this.personService.getPersons().subscribe(
+      persons => {this.persons=persons;
+      });
+  }
+
+  onSelect(person: Person) {
+    this.router.navigate(['/persons', person.id]);
+  }
+
+  create() {
+    this.router.navigate(['/persons', 0, {personType: this.personType}]);
   }
 
     createNewPerson() {

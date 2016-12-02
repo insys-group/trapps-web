@@ -10,10 +10,10 @@ import { RoleListComponent } from './components/roles/role-list/role-list.compon
 import { AddressComponent } from './components/addresses/address/address.component';
 import { AddressListComponent } from './components/addresses/address-list/address-list.component';
 
-const routes: Routes = [
+const appRoutes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: 'persons'},
     { path: 'persons', component: PersonListComponent},
-    { path: 'person/:id', component: PersonComponent},
+    { path: 'persons/:id', component: PersonComponent},
     { path: 'businesses', component: BusinessListComponent},
     { path: 'business/:id', component: BusinessComponent},
     { path: 'roles', component: RoleListComponent},
@@ -22,7 +22,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes)],
+    imports: [RouterModule.forRoot(appRoutes)],
     exports: [RouterModule]
 })
 
