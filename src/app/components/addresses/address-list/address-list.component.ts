@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AddressService } from '../../../services/address.service';
 import { Address } from '../../../models/address.model';
-import { Observable } from 'rxjs/Observable';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-address-list',
@@ -10,24 +10,29 @@ import { Observable } from 'rxjs/Observable';
 })
 
 export class AddressListComponent implements OnInit {
- errorMessage: string;
+  closeResult: string;
+
+  errorMessage: string;
   addresses: Address[];
 
-  constructor(private addressService: AddressService) { }
-
-  getAddresses() {
-    this.addressService.getAddresses()
-    .subscribe(
-      addresses => this.addresses = addresses,
-      error => this.errorMessage = error
-    );
-  }
+  constructor(private router: Router, private AddressService: AddressService) { }
 
   ngOnInit() {
-    this.getAddresses();
+    console.log('Enter: AddressListComponent.ngOnInit()');
+    this.AddressService.getAddresses().subscribe(
+      addresses => {this.addresses=addresses;
+      });
+  }
+
+  onSelect(Address: Address) {
+    this.router.navigate(['/address', Address.id]);
+  }
+
+  create() {
+    this.router.navigate(['/address', 0]);
   }
 
     createNewAddress() {
-      console.log('will call new component');
-    }
+    console.log('will call new component');
+  }
 }
