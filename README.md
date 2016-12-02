@@ -9,6 +9,9 @@ brew install npm
 ## Install angular cli 
 npm install -g angular-cli
 
+## Install bootstrap
+npm install bootstrap@next
+
 ## Run application
 ng serve --host 0.0.0.0 --port 4201 --live-reload-port 49153
 

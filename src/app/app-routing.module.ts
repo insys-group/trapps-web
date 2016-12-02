@@ -7,14 +7,18 @@ import { BusinessComponent } from './components/businesses/business/business.com
 import { BusinessListComponent } from './components/businesses/business-list/business-list.component';
 import { RoleComponent } from './components/roles/role/role.component';
 import { RoleListComponent } from './components/roles/role-list/role-list.component';
+import { AddressComponent } from './components/addresses/address/address.component';
+import { AddressListComponent } from './components/addresses/address-list/address-list.component';
 
 const appRoutes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: 'persons'},
     { path: 'persons', component: PersonListComponent},
     { path: 'persons/:id', component: PersonComponent},
     { path: 'businesses', component: BusinessListComponent},
-    { path: 'businesses/:id', component: BusinessComponent},
-    { path: 'roles', component: RoleListComponent}
+    { path: 'business/:id', component: BusinessComponent},
+    { path: 'roles', component: RoleListComponent},
+    { path: 'address', component: AddressListComponent},
+    { path: 'address/:id', component: AddressComponent}
 ];
 
 @NgModule({

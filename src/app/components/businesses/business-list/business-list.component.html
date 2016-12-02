@@ -1,3 +1,11 @@
+<button class="btn btn-primary btn-sm">Create Client</button>
+<button class="btn btn-warning btn-sm">Edit Client</button>
+<ul>
+  <li *ngFor="let business of businesses">
+    <a href="businesses/{{business.id}}">{{business.name}} {{business.addresses}}</a>
+  </li>
+</ul>
 <p>
   business-list works!
 </p>
+

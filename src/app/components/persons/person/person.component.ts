@@ -23,6 +23,7 @@ export class PersonComponent implements OnInit {
 
   constructor(
     private personService: PersonService,
+    private router: Router,
     private route: ActivatedRoute,
     private location: Location
   ) { }
@@ -55,16 +56,15 @@ export class PersonComponent implements OnInit {
 
   private init(): void {
     if(this.person.personType==='Employee' || this.person.personType==='Candidate') {
+      this.personTypes = ['Employee', 'Candidate'];
+      this.businesses = ['INSYS Group'];
+      this.person.business='INSYS Group';
       this.skills=true;
       this.documents=true;
     } else {
+      this.personTypes = [this.person.personType];
       this.skills=false;
       this.documents=false;
-    }
-    if(this.person.personType==='Employee' || this.person.personType==='Candidate'){
-      this.personTypes = ['Employee', 'Candidate'];
-    } else {
-      this.personTypes = [this.person.personType];
     }
   }
 
@@ -79,7 +79,7 @@ export class PersonComponent implements OnInit {
 
   delete(): void {
     console.log('Enter: PersonComponent.delete()');
-    this.personService.delete(this.person.id).subscribe(() => null, this.handleError);
+    this.personService.delete(this.person.id).subscribe(() => this.router.navigate(['/persons']), this.handleError);
   }
 
   cancel(): void {
