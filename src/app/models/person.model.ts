@@ -6,6 +6,8 @@ export class Person {
   phone: string;
   email: string;
   personType: string;
+  title: string;
+  business: string;
   addressId: number;
 }
 

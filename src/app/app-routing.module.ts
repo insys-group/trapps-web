@@ -8,17 +8,17 @@ import { BusinessListComponent } from './components/businesses/business-list/bus
 import { RoleComponent } from './components/roles/role/role.component';
 import { RoleListComponent } from './components/roles/role-list/role-list.component';
 
-const routes: Routes = [
+const appRoutes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: 'persons'},
     { path: 'persons', component: PersonListComponent},
-    { path: 'person/:id', component: PersonComponent},
+    { path: 'persons/:id', component: PersonComponent},
     { path: 'businesses', component: BusinessListComponent},
-    { path: 'business/:id', component: BusinessComponent},
+    { path: 'businesses/:id', component: BusinessComponent},
     { path: 'roles', component: RoleListComponent}
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes)],
+    imports: [RouterModule.forRoot(appRoutes)],
     exports: [RouterModule]
 })
 

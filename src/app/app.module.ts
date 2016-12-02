@@ -2,7 +2,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { RouterModule, Routes } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 
 import { AppComponent } from './app.component';
 import { PersonComponent } from './components/persons/person/person.component';
@@ -11,19 +14,28 @@ import { AppRoutingModule } from './app-routing.module';
 import { BusinessListComponent } from './components/businesses/business-list/business-list.component';
 import { BusinessComponent } from './components/businesses/business/business.component';
 
-import { PersonService } from './services/person.service';
+import { PersonService, InMemoryPersonService } from './services/person.service';
 import { AddressComponent } from './components/addresses/address/address.component';
 import { AddressListComponent } from './components/addresses/address-list/address-list.component';
 import { RoleComponent } from './components/roles/role/role.component';
 import { RoleListComponent } from './components/roles/role-list/role-list.component';
-
+/*
+const appRoutes: Routes = [
+    { path: '', pathMatch: 'full', redirectTo: 'persons'},
+    { path: 'persons', component: PersonListComponent},
+    { path: 'persons/:id', component: PersonComponent},
+    { path: 'businesses', component: BusinessListComponent},
+    { path: 'businesses/:id', component: BusinessComponent},
+    { path: 'roles', component: RoleListComponent}
+];
+*/
 @NgModule({
   declarations: [
     AppComponent,
     PersonComponent,
     PersonListComponent,
-    BusinessListComponent,
     BusinessComponent,
+    BusinessListComponent,
     AddressComponent,
     AddressListComponent,
     RoleComponent,
@@ -34,6 +46,8 @@ import { RoleListComponent } from './components/roles/role-list/role-list.compon
     FormsModule,
     HttpModule,
     NgbModule.forRoot(),
+    InMemoryWebApiModule.forRoot(InMemoryPersonService),
+    //RouterModule.forRoot(appRoutes)
     AppRoutingModule
   ],
   providers: [PersonService],

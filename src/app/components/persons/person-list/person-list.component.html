@@ -1,5 +1,36 @@
+<div class="container">
+
+<div class="form-group">
+    <label for="personType">Person Type</label>
+    <div>
+    <select class="form-control" id="personType"
+            required
+            [(ngModel)]="personType" name="personType"
+            >
+        <option value="Employee">Employee</option>
+        <option value="Candidate">Candidate</option>
+        <option value="Client">Client Contact</option>
+        <option value="Vendor">Vendor Contact</option>
+        <option value="Pivotal">Pivotal Contact</option>
+    </select>
+    <button type="button" class="btn btn-primary" (click)="create()">New</button>
+    </div>
+</div>
+<!--
+<div class="form-group">
+    <label for="personType">Person Type</label>
+    <select class="form-control" id="personType"
+            required
+            [(ngModel)]="personType" name="personType"
+            #personType="ngModel" >
+        <option *ngFor="let personType of personTypes" [value]="personType">{{personType}}</option>
+    </select>
+</div>
+-->
+
 <ul>
-  <li *ngFor="let person of persons">
-    <a href="person/{{person.id}}">{{person.firstName}} {{person.lastName}}</a>
+  <li *ngFor="let person of persons" (click)="onSelect(person)">
+    {{person.firstName}} {{person.lastName}}
   </li>
 </ul>
+</div>
