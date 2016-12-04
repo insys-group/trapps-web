@@ -15,7 +15,7 @@ import { BusinessListComponent } from './components/businesses/business-list/bus
 import { BusinessComponent } from './components/businesses/business/business.component';
 
 import { PersonService, InMemoryPersonService } from './services/person.service';
-import { BusinessService } from './services/business.service';
+import { BusinessService, InMemoryBusinessService } from './services/business.service';
 import { AddressComponent } from './components/addresses/address/address.component';
 import { AddressListComponent } from './components/addresses/address-list/address-list.component';
 import { RoleComponent } from './components/roles/role/role.component';
@@ -39,6 +39,7 @@ import { RoleListComponent } from './components/roles/role-list/role-list.compon
     HttpModule,
     NgbModule.forRoot(),
     InMemoryWebApiModule.forRoot(InMemoryPersonService),
+     InMemoryWebApiModule.forRoot(InMemoryBusinessService),
     AppRoutingModule
   ],
   providers: [PersonService,BusinessService],

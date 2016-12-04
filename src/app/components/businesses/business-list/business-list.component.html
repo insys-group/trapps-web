@@ -1,11 +1,26 @@
-<button class="btn btn-primary btn-sm">Create Client</button>
-<button class="btn btn-warning btn-sm">Edit Client</button>
-<ul>
-  <li *ngFor="let business of businesses">
-    <a href="businesses/{{business.id}}">{{business.name}} {{business.addresses}}</a>
+<div class="container">
+
+<div class="form-group">
+    <label for="businessType">Business Type</label>
+    <div>
+    <select class="form-control" id="businessType"
+            required
+            [(ngModel)]="businessType" name="businessType"
+            >
+        <option value="Client">Client</option>
+        <option value="PivotalLabs">PivotalLabs</option>
+        <option value="Pivotal">Pivotal</option>
+        <option value="Vendor">Vendor</option>
+        <option value="Insys">Insys</option>
+    </select>
+    <button type="button" class="btn btn-primary" (click)="create()">New</button>
+    </div>
+</div>
+
+<ul class="business">
+  <li *ngFor="let business of businesses" (click)="onSelect(business)">
+    {{business.name}} {{business.description}} {{business.businessType}}
   </li>
 </ul>
-<p>
-  business-list works!
-</p>
+</div>
 
