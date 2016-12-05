@@ -23,9 +23,7 @@ export class AddressListComponent implements OnInit {
 
   ngOnInit() {
     console.log('Enter: AddressListComponent.ngOnInit()');
-    this.addressService.getAddresses().subscribe(
-      addresses => {this.addresses=addresses;
-      });
+    this.addressService.getAddresses().subscribe(addresses => {this.addresses=addresses;});
   }
 
   onSelect(address: Address) {

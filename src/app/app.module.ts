@@ -44,7 +44,7 @@ import { RoleListComponent } from './components/roles/role-list/role-list.compon
     InMemoryWebApiModule.forRoot(InMemoryPersonService),
     AppRoutingModule
   ],
-  providers: [PersonService,BusinessService],
+  providers: [PersonService,BusinessService,AddressService],
 
   bootstrap: [AppComponent]
 })

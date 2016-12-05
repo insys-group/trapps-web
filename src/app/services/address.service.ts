@@ -13,7 +13,7 @@ import { Address } from '../models/address.model';
 @Injectable()
 export class AddressService implements OnInit {
     private headers = new Headers({ 'Content-Type': 'application/json' });
-    private resourseUrl = '/api/addresses';
+    private resourceUrl = '/api/addresses.json';
 
     constructor(private http: Http) { 
         console.log('Instantiating service ****************** AddressService ' + Date.now());
@@ -24,9 +24,9 @@ export class AddressService implements OnInit {
      }
 
     getAddresses(): Observable<Array<Address>> {
-        console.log('Address service  getAddresses ' + Date.now());
-        return this.http.get(this.resourseUrl)
-        .map(response =>response.json().data as Address[])
+       return this.http.get(this.resourceUrl)
+        .map((response: Response) => response.json().data as Address[])
+        .do(data => console.log('Addresses : ' + data))
         .catch(this.handleError);
     }
 
@@ -59,8 +59,9 @@ export class AddressService implements OnInit {
         return this.http
             .delete(url, { headers: this.headers })
             .catch(this.handleError);
-    }*/
-    
+    }
+    */
+
     private handleError(error: Response): Observable<any> {
         console.error('An error occurred ', error.toString);
         return Observable.throw(error.json().error || 'Server error');
