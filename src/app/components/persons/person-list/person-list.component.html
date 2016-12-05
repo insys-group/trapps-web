@@ -32,10 +32,9 @@
     </select>
 </div>
 -->
-<ul class="list-group">
+<div class="list-group">
+  
+<button type="button" class="list-group-item list-group-item-action" *ngFor="let person of persons" (click)="onSelect(person)">{{person.firstName}} {{person.lastName}}</button>
  
-  <li class="list-group-item" *ngFor="let person of persons" (click)="onSelect(person)">
-     {{person.firstName}} {{person.lastName}} 
-  </li>
-</ul>
+</div>
 
