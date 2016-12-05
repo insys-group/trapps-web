@@ -27,11 +27,11 @@ export class AddressListComponent implements OnInit {
   }
 
   onSelect(address: Address) {
-    this.router.navigate(['/address', address.id]);
+    this.router.navigate(['/addresses', address.id]);
   }
 
   create() {
-    this.router.navigate(['/address', 0]);
+    this.router.navigate(['/addresses', 0]);
   }
 
     createNewAddress() {
