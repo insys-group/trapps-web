@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class FilterPersonTypePipe implements PipeTransform {
 
-    transform(value: any, [status]): any {
-        return value.filter((item) => item.status === status);
+    transform(value: any, [personType]): any {
+        return value.filter((item) => item.personType === personType);
     }
 }

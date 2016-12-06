@@ -7,7 +7,7 @@
     <select class="form-control" #sel (change)="select.emit(sel.value)" 
             
             >
-                <option *ngFor=" let status of personTypes">{{status}}</option>
+                <option *ngFor=" let personType of personTypes">{{personType}}</option>
 
     </select>
 
