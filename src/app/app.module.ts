@@ -20,6 +20,7 @@ import { AddressComponent } from './components/addresses/address/address.compone
 import { AddressListComponent } from './components/addresses/address-list/address-list.component';
 import { RoleComponent } from './components/roles/role/role.component';
 import { RoleListComponent } from './components/roles/role-list/role-list.component';
+import { FilterPersonTypePipe } from './pipes/filter-person-type.pipe';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { RoleListComponent } from './components/roles/role-list/role-list.compon
     AddressComponent,
     AddressListComponent,
     RoleComponent,
-    RoleListComponent
+    RoleListComponent,
+    FilterPersonTypePipe
   ],
   imports: [
     BrowserModule,
