@@ -32,7 +32,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="name">Description</label>
-                                    <input type="text" class="form-control" id="description" required [(ngModel)]="business.description" name="description" #name="ngModel">
+                                    <input type="text" class="form-control" id="description" required [(ngModel)]="business.description" name="description" #description="ngModel">
                                     <div [hidden]="description.valid || description.pristine" class="alert alert-danger">
                                         Description is required
                                     </div>

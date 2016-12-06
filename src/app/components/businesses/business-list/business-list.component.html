@@ -19,7 +19,7 @@
 
 <ul class="business">
   <li *ngFor="let business of businesses" (click)="onSelect(business)">
-    {{business.name}} {{business.description}} {{business.businessType}}
+    Name: {{business.name}}, Description:  {{business.description}} , BusinessType: {{business.businessType}}
   </li>
 </ul>
 </div>

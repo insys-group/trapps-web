@@ -38,8 +38,8 @@ import { RoleListComponent } from './components/roles/role-list/role-list.compon
     FormsModule,
     HttpModule,
     NgbModule.forRoot(),
-    InMemoryWebApiModule.forRoot(InMemoryPersonService),
-     InMemoryWebApiModule.forRoot(InMemoryBusinessService),
+ //   InMemoryWebApiModule.forRoot(InMemoryPersonService),
+    InMemoryWebApiModule.forRoot(InMemoryBusinessService),
     AppRoutingModule
   ],
   providers: [PersonService,BusinessService],
