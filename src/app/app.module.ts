@@ -14,12 +14,18 @@ import { AppRoutingModule } from './app-routing.module';
 import { BusinessListComponent } from './components/businesses/business-list/business-list.component';
 import { BusinessComponent } from './components/businesses/business/business.component';
 
-import { PersonService, InMemoryPersonService } from './services/person.service';
-import { BusinessService, InMemoryBusinessService } from './services/business.service';
+
+import { TrappsInMemoryDbService } from './services/trappsdb.service';
+import { BusinessService } from './services/business.service';
+import { NotificationService } from './services/notification.service';
+import { PersonService } from './services/person.service';
+import { AddressService } from './services/address.service';
 import { AddressComponent } from './components/addresses/address/address.component';
 import { AddressListComponent } from './components/addresses/address-list/address-list.component';
+
 import { RoleComponent } from './components/roles/role/role.component';
 import { RoleListComponent } from './components/roles/role-list/role-list.component';
+import { NotificationDialogComponent } from './components/dialogs/notification-dialog/notification-dialog.component';
 
 @NgModule({
   declarations: [
@@ -31,19 +37,19 @@ import { RoleListComponent } from './components/roles/role-list/role-list.compon
     AddressComponent,
     AddressListComponent,
     RoleComponent,
-    RoleListComponent
+    RoleListComponent,
+    NotificationDialogComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     NgbModule.forRoot(),
- //   InMemoryWebApiModule.forRoot(InMemoryPersonService),
-    InMemoryWebApiModule.forRoot(InMemoryBusinessService),
+    InMemoryWebApiModule.forRoot(TrappsInMemoryDbService),
     AppRoutingModule
   ],
-  providers: [PersonService,BusinessService],
-
+  providers: [PersonService, BusinessService, AddressService, NotificationService],
+  entryComponents: [NotificationDialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

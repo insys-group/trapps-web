@@ -1,26 +1,40 @@
 import { Component, OnInit } from '@angular/core';
 import { AddressService } from '../../../services/address.service';
+//import { Service } from '../../../services/person.service';
 import { Address } from '../../../models/address.model';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-address-list',
   templateUrl: './address-list.component.html',
   styleUrls: ['./address-list.component.css']
 })
+
 export class AddressListComponent implements OnInit {
- errorMessage: string;
-  address: Address[];
+  closeResult: string;
 
-  constructor(private addressService: AddressService) { }
+  errorMessage: string;
+  addresses: Address[];
 
-  getAddresses() {
-    this.addressService.getAddresses()
-    .subscribe(
-      address => this.address = address,
-      error => this.errorMessage = error
-    );
+  constructor(private router: Router, private addressService: AddressService) { 
+     console.log('AddressListComponent constructor');
   }
+
   ngOnInit() {
-    this.getAddresses();
+    console.log('Enter: AddressListComponent.ngOnInit()');
+    this.addressService.getAddresses().subscribe(addresses => {this.addresses=addresses;});
+  }
+
+  onSelect(address: Address) {
+    this.router.navigate(['/addresses', address.id]);
+  }
+
+  create() {
+    this.router.navigate(['/addresses', 0]);
+  }
+
+    createNewAddress() {
+    console.log('will call new component');
   }
 }
