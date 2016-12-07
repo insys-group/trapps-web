@@ -1,13 +1,11 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { InMemoryDbService } from 'angular-in-memory-web-api';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/toPromise';
-
+import 'rxjs/add/observable/throw';
 import { Person } from '../models/person.model';
 
 @Injectable()
@@ -57,66 +55,7 @@ export class PersonService implements OnInit {
     }
     
     private handleError(error: Response): Observable<any> {
-        console.error('An error occurred ', error.toString);
-        return Observable.throw(error.json().error || 'Server error');
+        console.error('An error occurred ', JSON.stringify(error));
+        return Observable.throw(error.json().error);
     }
-}
-
-export class InMemoryPersonService implements InMemoryDbService {
-  createDb() {
-      console.log('InMemoryPersonService() *************' + Date.now());
-    let persons = [
-      {
-        "id": 30,
-        "firstName": "Muhammad",
-        "lastName": "Sabir",
-        "phone": "631-983-9075",
-        "email": "msabir@insys.com",
-        "personType": "Employee",
-        "business": "INSYS Group",
-        "title": "Architect"
-      },
-      {
-        "id": 31,
-        "firstName": "Kris",
-        "lastName": "Krishna",
-        "phone": "203-456-7890",
-        "email": "kshitiz@insys.com",
-        "personType": "Employee",
-        "business": "INSYS Group",
-        "title": "Architect"
-      },
-      {
-        "id": 32,
-        "firstName": "Christopher",
-        "lastName": "Umbel",
-        "phone": "203-456-7890",
-        "email": "cumbel@pivotal.io",
-        "personType": "Pivotal",
-        "business": "Pivotal",
-        "title": "Architect"
-      },
-      {
-        "id": 33,
-        "firstName": "Michael",
-        "lastName": "Forte",
-        "phone": "203-456-7890",
-        "email": "mforte@accenture.com",
-        "personType": "Vendor",
-        "business": "Aptium",
-        "title": "Manager"
-      },
-      {
-        "id": 34,
-        "firstName": "Werner",
-        "lastName": "Vogels",
-        "phone": "203-456-7890",
-        "email": "mforte@comcast.com",
-        "personType": "Client",
-        "business": "Comcast",
-        "title": "Manager"
-      }
-    ];
-    return { persons };
-  }
 }
