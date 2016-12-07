@@ -7,10 +7,10 @@ import { Observable } from 'rxjs/Observable';
 export class NotificationService {
     constructor(private modalService: NgbModal) {}
 
-    ask(title: string, message: string, buttons: Array<string>): Observable<any> {
+    ask(message: string, buttons: Array<string>): Observable<any> {
         return Observable.create(observer => {
             const modalRef = this.modalService.open(NotificationDialogComponent);
-            modalRef.componentInstance.data = {title: title, 
+            modalRef.componentInstance.data = { 
                 body: message, 
                 buttons: buttons, 
                 'messageClass': 'text-warning', 
@@ -25,9 +25,9 @@ export class NotificationService {
         });
     }
 
-    info(title: string, message: string): void {
+    info(message: string): void {
         const modalRef = this.modalService.open(NotificationDialogComponent);
-        modalRef.componentInstance.data = {title: title, 
+        modalRef.componentInstance.data = { 
             body: message, 
             buttons: ['Close'], 
             'messageClass': 'text-success', 
@@ -35,9 +35,9 @@ export class NotificationService {
         modalRef.result.then(result => null,reason => null);
     }
 
-    error(title: string, message: string): void {
+    error(message: string): void {
         const modalRef = this.modalService.open(NotificationDialogComponent);
-        modalRef.componentInstance.data = {title: title, 
+        modalRef.componentInstance.data = { 
             body: message, 
             buttons: ['Close'], 
             'messageClass': 'text-danger', 

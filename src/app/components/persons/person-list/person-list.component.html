@@ -16,17 +16,6 @@
     <button type="button" class="btn btn-primary" (click)="create()">New</button>
     </div>
 </div>
-<!--
-<div class="form-group">
-    <label for="personType">Person Type</label>
-    <select class="form-control" id="personType"
-            required
-            [(ngModel)]="personType" name="personType"
-            #personType="ngModel" >
-        <option *ngFor="let personType of personTypes" [value]="personType">{{personType}}</option>
-    </select>
-</div>
--->
 
 <ul class="person">
   <li *ngFor="let person of persons" (click)="onSelect(person)">

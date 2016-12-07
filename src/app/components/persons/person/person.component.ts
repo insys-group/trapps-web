@@ -82,7 +82,7 @@ export class PersonComponent implements OnInit {
 
   delete(): void {
     console.log('Enter: PersonComponent.delete()');
-    this.notificationService.ask('Info', 'Do you really want to delete?', ["Yes", "No"])
+    this.notificationService.ask('Do you really want to delete?', ["Yes", "No"])
       .subscribe(
         result => {
           if(result==='Yes') {
@@ -101,11 +101,11 @@ export class PersonComponent implements OnInit {
 
   private handleError(error: any): void {
     console.error('An error occurred', error);
-    this.notificationService.error('Error', 'An Error occured ' + error);
+    this.notificationService.error('An Error occured ' + error);
   }
 
   private handleSuccess(person: Person): void {
     this.person=person;
-    this.notificationService.info('Info', 'Data saved successfully');
+    this.notificationService.info('Data saved successfully');
   }
 }
