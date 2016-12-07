@@ -21,20 +21,6 @@
 <div class="container">
 
     <div class="list-group">
-
         <button type="button" class="list-group-item list-group-item-action" *ngFor="let person of persons | filterPersonType: sel.value" (click)="onSelect(person)"> {{person.firstName}} {{person.lastName}}</button>
     </div>
 </div>
-
-
-<!--
-<div class="form-group">
-    <label for="personType">Person Type</label>
-    <select class="form-control" id="personType"
-            required
-            [(ngModel)]="personType" name="personType"
-            #personType="ngModel" >
-        <option *ngFor="let personType of personTypes" [value]="personType">{{personType}}</option>
-    </select>
-</div>
--->
