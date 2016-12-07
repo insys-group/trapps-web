@@ -11,6 +11,7 @@ import { Observable } from 'rxjs/Observable';
 })
 
 export class PersonListComponent implements OnInit {
+  
   closeResult: string;
 
   errorMessage: string;
