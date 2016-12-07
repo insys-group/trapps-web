@@ -53,3 +53,8 @@ Create the file containing the model classes(s)
 ## Add a new route  
 Add a route entry in the routes array in the file /app/app-routing.module.ts.  
 
+## Using notifications
+Import and Inject NotificationService in your components constructor. There are three methods in the service, ask(), info() and error(). Please use appropriate method. PersonListCompnent and PersonComponent has the example usage.
+
+## Using Inmemory Db service
+Add your records into TrappsInMemoryDbService and they will become available as the endpoint.
