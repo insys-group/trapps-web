@@ -16,10 +16,12 @@ import { BusinessComponent } from './components/businesses/business/business.com
 
 import { PersonService, InMemoryPersonService } from './services/person.service';
 import { BusinessService } from './services/business.service';
+import { NotificationService } from './services/notification.service';
 import { AddressComponent } from './components/addresses/address/address.component';
 import { AddressListComponent } from './components/addresses/address-list/address-list.component';
 import { RoleComponent } from './components/roles/role/role.component';
 import { RoleListComponent } from './components/roles/role-list/role-list.component';
+import { NotificationDialogComponent } from './components/dialogs/notification-dialog/notification-dialog.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import { RoleListComponent } from './components/roles/role-list/role-list.compon
     AddressComponent,
     AddressListComponent,
     RoleComponent,
-    RoleListComponent
+    RoleListComponent,
+    NotificationDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -41,8 +44,8 @@ import { RoleListComponent } from './components/roles/role-list/role-list.compon
     InMemoryWebApiModule.forRoot(InMemoryPersonService),
     AppRoutingModule
   ],
-  providers: [PersonService,BusinessService],
-
+  providers: [PersonService, BusinessService, NotificationService],
+  entryComponents: [NotificationDialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

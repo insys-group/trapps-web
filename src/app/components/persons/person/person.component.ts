@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Person, PersonType } from '../../../models/person.model';
 import { PersonService } from '../../../services/person.service';
+import { NotificationService } from '../../../services/notification.service'
 import { Router } from '@angular/router';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
@@ -25,7 +26,8 @@ export class PersonComponent implements OnInit {
     private personService: PersonService,
     private router: Router,
     private route: ActivatedRoute,
-    private location: Location
+    private location: Location,
+    private notificationService: NotificationService
   ) { }
 
   ngOnInit(): void {
@@ -70,24 +72,40 @@ export class PersonComponent implements OnInit {
 
   save(): void {
     console.log('Enter: PersonComponent.save()' + this.person.id);
+    
     if(this.person.id===0) {
-      this.personService.create(this.person).subscribe(person => this.person=person, this.handleError);
+      this.personService.create(this.person).subscribe(person => this.handleSuccess(person), this.handleError);
     } else {
-      this.personService.update(this.person).subscribe(person => this.person=person, this.handleError);
+      this.personService.update(this.person).subscribe(person => this.handleSuccess(person), this.handleError);
     }
   }
 
   delete(): void {
     console.log('Enter: PersonComponent.delete()');
-    this.personService.delete(this.person.id).subscribe(() => this.router.navigate(['/persons']), this.handleError);
+    this.notificationService.ask('Info', 'Do you really want to delete?', ["Yes", "No"])
+      .subscribe(
+        result => {
+          if(result==='Yes') {
+            this.personService.delete(this.person.id).subscribe(() => this.router.navigate(['/persons']), this.handleError);
+          } else {
+            console.log('Dont want to delete the record');
+          }
+        },
+        () => null
+      );
   }
 
   cancel(): void {
     this.location.back();
   }
 
-  private handleError(error: any): Promise<any> {
+  private handleError(error: any): void {
     console.error('An error occurred', error);
-    return Promise.reject(error.message || error);
+    this.notificationService.error('Error', 'An Error occured ' + error);
+  }
+
+  private handleSuccess(person: Person): void {
+    this.person=person;
+    this.notificationService.info('Info', 'Data saved successfully');
   }
 }
