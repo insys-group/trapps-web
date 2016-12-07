@@ -1,7 +1,8 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { InMemoryDbService } from 'angular-in-memory-web-api';
+import {Resource, ResourceParams, ResourceAction, ResourceMethod} from 'ng2-resource-rest';
+//import { InMemoryDbService } from 'angular-in-memory-web-api';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
@@ -13,7 +14,7 @@ import { Address } from '../models/address.model';
 @Injectable()
 export class AddressService implements OnInit {
     private headers = new Headers({ 'Content-Type': 'application/json' });
-    private resourceUrl = '/api/addresses';
+    private resourceUrl = 'http://localhost:8081/api/v1/addresses';
 
     constructor(private http: Http) { 
         console.log('Instantiating service ****************** AddressService ' + Date.now());
@@ -25,7 +26,7 @@ export class AddressService implements OnInit {
 
     getAddresses(): Observable<Array<Address>> {
        return this.http.get(this.resourceUrl) 
-        .map((response: Response) => response.json().data as Address[])
+        .map((response: Response) => response.json().data._embedded.addresses)
         .do(data => console.log('Addresses : ' + data))
         .catch(this.handleError);
     }
@@ -70,35 +71,35 @@ export class AddressService implements OnInit {
     }
 }
 
-export class InMemoryAddressService implements InMemoryDbService {
-  createDb() {
-      console.log('InMemoryAddressService() *************' + Date.now());
-    let addresses = [
-      {
-            "id": 130,
-            "address_1": "343 Derass rd",
-            "address_2": "",
-            "city": "NY",
-            "state": "NY",
-            "zip_code": "34545"
-        },
-        {
-            "id": 131,
-            "address_1": "33 Fgrr rd",
-            "address_2": "",
-            "city": "Paramus",
-            "state": "NJ",
-            "zip_code": "367676"
-        },
-        {
-            "id": 132,
-            "address_1": "232 Cddss rd",
-            "address_2": "",
-            "city": "Wsedr",
-            "state": "NJ",
-            "zip_code": "78997"
-        }
-    ];
-    return { addresses };
-  }
-}
+// export class InMemoryAddressService implements InMemoryDbService {
+//   createDb() {
+//       console.log('InMemoryAddressService() *************' + Date.now());
+//     let addresses = [
+//       {
+//             "id": 130,
+//             "address_1": "343 Derass rd",
+//             "address_2": "",
+//             "city": "NY",
+//             "state": "NY",
+//             "zip_code": "34545"
+//         },
+//         {
+//             "id": 131,
+//             "address_1": "33 Fgrr rd",
+//             "address_2": "",
+//             "city": "Paramus",
+//             "state": "NJ",
+//             "zip_code": "367676"
+//         },
+//         {
+//             "id": 132,
+//             "address_1": "232 Cddss rd",
+//             "address_2": "",
+//             "city": "Wsedr",
+//             "state": "NJ",
+//             "zip_code": "78997"
+//         }
+//     ];
+//     return { addresses };
+//   }
+// }
