@@ -6,6 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { ResourceModule } from 'ng2-resource-rest';
 
 import { AppComponent } from './app.component';
 import { PersonComponent } from './components/persons/person/person.component';
@@ -16,6 +17,8 @@ import { BusinessComponent } from './components/businesses/business/business.com
 
 import { TrappsInMemoryDbService } from './services/trappsdb.service';
 import { BusinessService } from './services/business.service';
+
+import { AddressService } from './services/address.service';
 import { NotificationService } from './services/notification.service';
 import { PersonService } from './services/person.service';
 import { AddressService } from './services/address.service';
@@ -44,6 +47,9 @@ import { NotificationDialogComponent } from './components/dialogs/notification-d
     FormsModule,
     HttpModule,
     NgbModule.forRoot(),
+    //InMemoryWebApiModule.forRoot(InMemoryPersonService),
+    //InMemoryWebApiModule.forRoot(InMemoryAddressService),
+    ResourceModule.forRoot(),
     InMemoryWebApiModule.forRoot(TrappsInMemoryDbService),
     AppRoutingModule
   ],
