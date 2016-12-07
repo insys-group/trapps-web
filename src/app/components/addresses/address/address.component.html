@@ -1,5 +1,57 @@
-<p>Address_1: {{address.address_1}}</p>
-<p>Address_2: {{address.address_2}}</p>
-<p>City: {{address.city}}<p>
-<p>State: {{address.state}}<p>
-<p>Zip Code: {{address.zip_code}}<p>  
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    Address Information
+                </div>
+                <div class="card-block">
+                    <div [hidden]="submitted"></div>
+                    <form (ngSubmit)="save()" #addressForm="ngForm">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="address1">Address 1</label>
+                                    <input type="text" class="form-control" id="address1" required [(ngModel)]="address.address_1" name="address1" #address1="ngModel">
+                                    <div [hidden]="address1.valid || address1.pristine" class="alert alert-danger">
+                                        Address 1 is required
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="address2">Address 2</label>
+                                    <input type="text" class="form-control" id="address2" [(ngModel)]="address.address_2" name="address2" #address2="ngModel">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="city">City</label>
+                                    <input type="text" class="form-control" id="city" required [(ngModel)]="address.city" name="city" #city="ngModel">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="state">State</label>
+                                    <input type="text" class="form-control" id="state" required [(ngModel)]="address.state" name="state" #state="ngModel">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="zipcode">Zip Code</label>
+                                    <input type="text" class="form-control" id="zipcode" required [(ngModel)]="address.zip_code" name="zipcode" #zipcode="ngModel">
+                                </div>
+                            </div>
+                        </div>
+
+                            <div class="col-sm-12">
+                                <button type="submit" class="btn btn-primary" [disabled]="!addressForm.form.valid">Save</button>
+                                <button type="button" class="btn btn-danger" (click)="delete()">Delete</button>
+                                <button type="button" class="btn btn-primary" (click)="cancel()">Close</button>
+                            </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

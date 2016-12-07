@@ -1,5 +1,9 @@
-<ul>
-  <li *ngFor="let address of addresses">
-    <a href="address/{{address.id}}">{{address.address_1}} {{address.address_2}} {{address.city}} {{address.state}} {{address.zip_code}}</a>
-  </li>
+<div class="container">
+<ul class="address">
+   <li *ngFor="let address of addresses" (click)="onSelect(address)">
+     {{address.address_1}} {{address.address_2}} {{address.city}} {{address.state}} {{address.zip_code}}
+   </li>
 </ul>
+
+<button class="btn btn-primary btn-sm" (click)="create()">Create new address</button>
+</div>
