@@ -1,0 +1,11 @@
+<div class="container-fluid">
+  <!--div class="modal-header">
+    <h4 class="modal-title" [ngClass]="data.titleClass">{{data.title}}</h4>
+  </div-->
+  <div class="modal-body">
+    <p [ngClass]="data.messageClass">{{data.body}}</p>
+  </div>
+  <div class="modal-footer">
+    <button *ngFor="let button of data.buttons;" type="button" class="btn btn-primary btn-space" (click)="activeModal.close(button)"> {{button}}</button>
+  </div>
+</div>
