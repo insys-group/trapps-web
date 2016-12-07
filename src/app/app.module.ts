@@ -24,6 +24,8 @@ import { AddressListComponent } from './components/addresses/address-list/addres
 
 import { RoleComponent } from './components/roles/role/role.component';
 import { RoleListComponent } from './components/roles/role-list/role-list.component';
+import { FilterPersonTypePipe } from './pipes/filter-person-type.pipe';
+
 import { NotificationDialogComponent } from './components/dialogs/notification-dialog/notification-dialog.component';
 
 @NgModule({
@@ -37,6 +39,7 @@ import { NotificationDialogComponent } from './components/dialogs/notification-d
     AddressListComponent,
     RoleComponent,
     RoleListComponent,
+    FilterPersonTypePipe,
     NotificationDialogComponent
   ],
   imports: [
