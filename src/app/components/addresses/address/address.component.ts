@@ -56,7 +56,7 @@ export class AddressComponent implements OnInit {
   save(): void {
     if(this.address.id===null) {
       console.log('Enter: AddressComponent.save()' + this.address.id);
-      this.addressService.save(this.address);//.subscribe(address => this.address=address);
+      this.addressService.save(this.address).$observable.subscribe(address => this.address=address);
     } else {
       console.log('Enter: AddressComponent.update()' + this.address.id);
       this.addressService.update(this.address).$observable.subscribe(address => this.address=address, this.handleError);

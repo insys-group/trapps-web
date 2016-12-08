@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AddressService } from '../../../services/address.service';
 import { AddressRes } from '../../../resources/address.resource';
-//import { NewAddressRes } from '../../../resources/addressCrud.resource';
+import { NewAddressRes } from '../../../resources/addressCrud.resource';
 import { Address } from '../../../models/address.model';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
@@ -29,12 +29,8 @@ export class AddressListComponent implements OnInit {
     let ret = this.addressService.query()
     .$observable
       .subscribe(data => {
-        //console.log('Addresses : ' + JSON.stringify(data, null, 4));
         this.addresses = data.content;
       });
-    //console.log('out ' + JSON.stringify(ret.content, null, 4) );
-    //this.addresses = ret.content;
-   //this.addressService.getAddresses().subscribe(addresses => {this.addresses=addresses;});
     console.log('out 1 ' + this.addresses);
   }
 
