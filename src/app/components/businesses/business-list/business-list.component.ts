@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BusinessService } from '../../../services/business.service';
 import { Business } from '../../../models/business.model';
-import { Observable } from 'rxjs/Observable';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-business-list',
@@ -10,21 +10,32 @@ import { Observable } from 'rxjs/Observable';
 })
 export class BusinessListComponent implements OnInit {
 
+  closeResult: string;
+
   errorMessage: string;
   businesses: Business[];
+  businessTypes: string[] = ['Client', 'PivotalLabs', 'Pivotal', 'Vendor', 'Insys']
+  businessType: string = 'PivotalLabs';
 
-  constructor(private businessService: BusinessService) { }
-
-  getBusinesses() {
-    this.businessService.getBusinesses()
-    .subscribe(
-      businesses => this.businesses = businesses,
-      error => this.errorMessage = error
-    );
-  }
+  constructor(private router: Router, private businessService: BusinessService) { }
 
   ngOnInit() {
-    this.getBusinesses();
+    console.log('Enter: BusinessListComponent.ngOnInit()');
+    this.businessService.getBusinesses().subscribe(
+      businesses => {this.businesses=businesses;
+      });
+  }
+
+  onSelect(business: Business) {
+    this.router.navigate(['/businesses', business.id]);
+  }
+
+  create() {
+    this.router.navigate(['/businesses', 0, {businessType: this.businessType}]);
+  }
+
+    createNewBusiness() {
+    console.log('will call new component');
   }
   
  
