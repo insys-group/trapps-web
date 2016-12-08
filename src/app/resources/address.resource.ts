@@ -40,7 +40,9 @@ export class AddressRes extends Resource {
   get: ResourceMethod<{id: any}, IResource>;
 
   @ResourceAction({
-    method: RequestMethod.Post
+    method: RequestMethod.Post,
+    path: '',
+    headers: { 'Content-Type': 'application/json' }
   })
   save: ResourceMethod<IResource, IResource>;
 
@@ -58,6 +60,7 @@ export class AddressRes extends Resource {
 
   // Alias to save
   create(data: IResource, callback?: (res: IResource) => any): IResource {
+    console.log('save() ' + JSON.stringify(data));
     return this.save(data, callback);
   }
 
