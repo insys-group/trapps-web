@@ -57,11 +57,27 @@ export class PersonService implements OnInit {
     }
 
     getPersonSkills(personId: number): Observable<Array<PersonSkill>> {
-        return this.http.get(this.personSkillsUrl)
+        const url = `${this.personSkillsUrl}/?personId=${personId}`;
+        return this.http.get(url)
         .map(response =>response.json().data as PersonSkill[])
         .catch(this.handleError);
     }
-    
+
+    createSkills(personSkills: PersonSkill[]): Observable<PersonSkill[]> {
+        console.log('Enter: PersonService.createSkills()' + JSON.stringify(personSkills));
+        return this.http
+            .post(this.personSkillsUrl, personSkills, { headers: this.headers })
+            .map(response => response.json().data as PersonSkill[])
+            .catch(this.handleError);
+    }
+
+    deleteSkill(id: number): Observable<void> {
+        const url = `${this.personSkillsUrl}/${id}`;
+        return this.http
+            .delete(url, { headers: this.headers })
+            .catch(this.handleError);
+    }
+
     private handleError(error: Response): Observable<any> {
         console.error('An error occurred ', JSON.stringify(error));
         return Observable.throw(error.json().error);
