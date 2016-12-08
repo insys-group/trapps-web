@@ -74,9 +74,9 @@ export class PersonComponent implements OnInit {
     console.log('Enter: PersonComponent.save()' + this.person.id);
     
     if(this.person.id===0) {
-      this.personService.create(this.person).subscribe(person => this.handleSuccess(person), this.handleError);
+      this.personService.createPerson(this.person).subscribe(person => this.handleSuccess(person), this.handleError);
     } else {
-      this.personService.update(this.person).subscribe(person => this.handleSuccess(person), this.handleError);
+      this.personService.updatePerson(this.person).subscribe(person => this.handleSuccess(person), this.handleError);
     }
   }
 
@@ -86,7 +86,7 @@ export class PersonComponent implements OnInit {
       .subscribe(
         result => {
           if(result==='Yes') {
-            this.personService.delete(this.person.id).subscribe(() => this.router.navigate(['/persons']), this.handleError);
+            this.personService.deletePerson(this.person.id).subscribe(() => this.router.navigate(['/persons']), this.handleError);
           } else {
             console.log('Dont want to delete the record');
           }
