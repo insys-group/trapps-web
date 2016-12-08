@@ -18,7 +18,7 @@ export class AddressListComponent implements OnInit {
   errorMessage: string;
   addresses: Address[];
 
-  constructor(private router: Router, private addressService: AddressRes) { 
+  constructor(private router: Router, private addressService: AddressRes) {
      console.log('AddressListComponent constructor');
   }
 
@@ -28,7 +28,7 @@ export class AddressListComponent implements OnInit {
     .$observable
       .subscribe(data => {
         //console.log('Addresses : ' + JSON.stringify(data, null, 4));
-        this.addresses = data.content; 
+        this.addresses = data.content;
       });
     //console.log('out ' + JSON.stringify(ret.content, null, 4) );
     //this.addresses = ret.content;

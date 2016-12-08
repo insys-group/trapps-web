@@ -13,7 +13,7 @@ import { Address } from '../models/address.model';
 
 interface IResource extends Address {
   links?: any;
-  content?: any;  
+  content?: any;
 }
 
 interface IResources extends IResource
@@ -37,7 +37,7 @@ export class AddressService implements OnInit {
      }
 
     query(): Observable<IResources> {
-       return this.http.get(this.resourceUrl, { headers: this.headers }) 
+       return this.http.get(this.resourceUrl, { headers: this.headers })
         .map(response => response.json().data as IResources)
         .do(data => console.log('Addresses : ' + JSON.stringify(data, null, 4)))
         .catch(this.handleError);
@@ -64,7 +64,7 @@ export class AddressService implements OnInit {
     update(address: Address): Observable<Address> {
         const url = `${this.resourceUrl}/${address.id}`;
         return this.http
-            .put(url, JSON.stringify(address), { headers: this.headers })            
+            .put(url, JSON.stringify(address), { headers: this.headers })
             .map(() => Address)
             .catch(this.handleError);
     }
