@@ -50,7 +50,7 @@ import { NotificationDialogComponent } from './components/dialogs/notification-d
     FormsModule,
     HttpModule,
     NgbModule.forRoot(),
-    InMemoryWebApiModule.forRoot(TrappsInMemoryDbService),
+  //  InMemoryWebApiModule.forRoot(TrappsInMemoryDbService),
     ResourceModule.forRoot(),
     AppRoutingModule
   ],
