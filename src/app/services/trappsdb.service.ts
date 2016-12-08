@@ -4,7 +4,7 @@ import { InMemoryDbService } from 'angular-in-memory-web-api';
 export class TrappsInMemoryDbService implements InMemoryDbService {
   createDb() {
       console.log('InMemoryAddressService() *************' + Date.now());
-  /*  let addresses = [
+    let addresses = [
       {
             "id": 130,
             "address_1": "343 Derass rd",
@@ -29,7 +29,7 @@ export class TrappsInMemoryDbService implements InMemoryDbService {
             "state": "NJ",
             "zip_code": "78997"
         }
-    ]; */
+    ]; 
 
     let persons = [
       {
@@ -83,7 +83,39 @@ export class TrappsInMemoryDbService implements InMemoryDbService {
         "title": "Manager"
       }
     ];
-<<<<<<< HEAD
+
+    let personSkills = [
+      {
+        "id": 10,
+        "personId": 30,
+        "name": "Spring"
+      },
+      {
+        "id": 11,
+        "personId": 30,
+        "name": "JPA"
+      },
+      {
+        "id": 12,
+        "personId": 30,
+        "name": "Angular"
+      },
+      {
+        "id": 13,
+        "personId": 31,
+        "name": "Spring"
+      },
+      {
+        "id": 14,
+        "personId": 31,
+        "name": "JPA"
+      },
+      {
+        "id": 15,
+        "personId": 31,
+        "name": "Angular"
+      }
+    ];
    
     let businesses = [
       {
@@ -123,9 +155,7 @@ export class TrappsInMemoryDbService implements InMemoryDbService {
       }
     ];
     
-    return { addresses: addresses, persons: persons, businesses:businesses };
-=======
-    return { /*addresses: addresses,*/ persons: persons };
->>>>>>> 160a657bc6d6a4ab7d834995dc517973d0b71bed
+
+    return { "addresses": addresses, "persons": persons, "businesses": businesses, "personskills": personSkills };
   }
 }

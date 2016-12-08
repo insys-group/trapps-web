@@ -27,9 +27,11 @@ import { AddressComponent } from './components/addresses/address/address.compone
 import { AddressListComponent } from './components/addresses/address-list/address-list.component';
 import { RoleComponent } from './components/roles/role/role.component';
 import { RoleListComponent } from './components/roles/role-list/role-list.component';
+
 import { FilterPersonTypePipe } from './pipes/filter-person-type.pipe';
 
 import { NotificationDialogComponent } from './components/dialogs/notification-dialog/notification-dialog.component';
+import { PersonSkillsComponent } from './components/persons/person-skills/person-skills.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +44,7 @@ import { NotificationDialogComponent } from './components/dialogs/notification-d
     AddressListComponent,
     RoleComponent,
     RoleListComponent,
+    PersonSkillsComponent,
     FilterPersonTypePipe,
     NotificationDialogComponent
   ],

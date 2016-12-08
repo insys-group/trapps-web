@@ -11,6 +11,12 @@ export class Person {
   addressId: number;
 }
 
+export class PersonSkill {
+  id: number;
+  personId: number;
+  name: string
+}
+
 export class PersonType {
     static EMPLOYEE : string = "Employee";
     static CANDIDATE : string = "Candidate";

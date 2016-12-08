@@ -6,12 +6,14 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
-import { Person } from '../models/person.model';
+import { Person, PersonSkill } from '../models/person.model';
+
 
 @Injectable()
 export class PersonService implements OnInit {
     private headers = new Headers({ 'Content-Type': 'application/json' });
     private personsUrl = '/api/persons';
+    private personSkillsUrl = '/api/personskills';
 
     constructor(private http: Http) { 
         console.log('Instantiating service ****************** ' + Date.now());
@@ -31,7 +33,7 @@ export class PersonService implements OnInit {
         .catch(this.handleError);
     }
 
-    create(person: Person): Observable<Person> {
+    createPerson(person: Person): Observable<Person> {
         console.log('Enter: PersonService.create()' + JSON.stringify(person));
         return this.http
             .post(this.personsUrl, person, { headers: this.headers })
@@ -39,7 +41,7 @@ export class PersonService implements OnInit {
             .catch(this.handleError);
     }
 
-    update(person: Person): Observable<Person> {
+    updatePerson(person: Person): Observable<Person> {
         const url = `${this.personsUrl}/${person.id}`;
         return this.http
             .put(url, JSON.stringify(person), { headers: this.headers })            
@@ -47,13 +49,43 @@ export class PersonService implements OnInit {
             .catch(this.handleError);
     }
 
-    delete(id: number): Observable<void> {
+    deletePerson(id: number): Observable<void> {
         const url = `${this.personsUrl}/${id}`;
         return this.http
             .delete(url, { headers: this.headers })
             .catch(this.handleError);
     }
-    
+
+    getPersonSkills(personId: number): Observable<Array<PersonSkill>> {
+        const url = `${this.personSkillsUrl}/?personId=${personId}`;
+        return this.http.get(url)
+        .map(response =>response.json().data as PersonSkill[])
+        .catch(this.handleError);
+    }
+
+    createSkill(personSkill: PersonSkill): Observable<PersonSkill> {
+        console.log('Enter: PersonService.createSkill()' + JSON.stringify(personSkill));
+        return this.http
+            .post(this.personSkillsUrl, personSkill, { headers: this.headers })
+            .map(response => response.json().data as PersonSkill)
+            .catch(this.handleError);
+    }
+
+    createSkills(personSkills: PersonSkill[]): Observable<PersonSkill[]> {
+        console.log('Enter: PersonService.createSkills()' + JSON.stringify(personSkills));
+        return this.http
+            .post(this.personSkillsUrl, personSkills, { headers: this.headers })
+            .map(response => response.json().data as PersonSkill[])
+            .catch(this.handleError);
+    }
+
+    deleteSkill(id: number): Observable<void> {
+        const url = `${this.personSkillsUrl}/${id}`;
+        return this.http
+            .delete(url, { headers: this.headers })
+            .catch(this.handleError);
+    }
+
     private handleError(error: Response): Observable<any> {
         console.error('An error occurred ', JSON.stringify(error));
         return Observable.throw(error.json().error);
