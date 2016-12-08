@@ -47,10 +47,8 @@ import { NotificationDialogComponent } from './components/dialogs/notification-d
     FormsModule,
     HttpModule,
     NgbModule.forRoot(),
-    //InMemoryWebApiModule.forRoot(InMemoryPersonService),
-    //InMemoryWebApiModule.forRoot(InMemoryAddressService),
     ResourceModule.forRoot(),
-   // InMemoryWebApiModule.forRoot(TrappsInMemoryDbService),
+    //InMemoryWebApiModule.forRoot(TrappsInMemoryDbService),
     AppRoutingModule
   ],
   providers: [PersonService, BusinessService, AddressService, NotificationService],

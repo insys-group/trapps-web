@@ -25,7 +25,7 @@ interface IResources extends IResource
 
 @Injectable()
 @ResourceParams({
-    url: 'http://localhost:8081/api/v1/addresses'
+    url: 'http://localhost:8081/api/addresses'
 })
 export class AddressRes extends Resource {
 

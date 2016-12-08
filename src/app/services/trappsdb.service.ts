@@ -4,7 +4,7 @@ import { InMemoryDbService } from 'angular-in-memory-web-api';
 export class TrappsInMemoryDbService implements InMemoryDbService {
   createDb() {
       console.log('InMemoryAddressService() *************' + Date.now());
-    let addresses = [
+  /*  let addresses = [
       {
             "id": 130,
             "address_1": "343 Derass rd",
@@ -29,7 +29,7 @@ export class TrappsInMemoryDbService implements InMemoryDbService {
             "state": "NJ",
             "zip_code": "78997"
         }
-    ];
+    ]; */
 
     let persons = [
       {
@@ -83,6 +83,6 @@ export class TrappsInMemoryDbService implements InMemoryDbService {
         "title": "Manager"
       }
     ];
-    return { addresses: addresses, persons: persons };
+    return { /*addresses: addresses,*/ persons: persons };
   }
 }
