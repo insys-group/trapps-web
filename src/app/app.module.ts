@@ -6,6 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { ResourceModule } from 'ng2-resource-rest';
 
 import { AppComponent } from './app.component';
 import { PersonComponent } from './components/persons/person/person.component';
@@ -22,7 +23,6 @@ import { PersonService } from './services/person.service';
 import { AddressService } from './services/address.service';
 import { AddressComponent } from './components/addresses/address/address.component';
 import { AddressListComponent } from './components/addresses/address-list/address-list.component';
-
 import { RoleComponent } from './components/roles/role/role.component';
 import { RoleListComponent } from './components/roles/role-list/role-list.component';
 import { FilterPersonTypePipe } from './pipes/filter-person-type.pipe';
@@ -49,6 +49,7 @@ import { NotificationDialogComponent } from './components/dialogs/notification-d
     HttpModule,
     NgbModule.forRoot(),
     InMemoryWebApiModule.forRoot(TrappsInMemoryDbService),
+    ResourceModule.forRoot(),
     AppRoutingModule
   ],
   providers: [PersonService, BusinessService, AddressService, NotificationService],

@@ -1,6 +1,11 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+<<<<<<< HEAD
+=======
+import {Resource, ResourceParams, ResourceAction, ResourceMethod} from 'ng2-resource-rest';
+//import { InMemoryDbService } from 'angular-in-memory-web-api';
+>>>>>>> 09f0104ea082f711055d58009ece1253288e1b3a
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
@@ -12,7 +17,7 @@ import { Address } from '../models/address.model';
 @Injectable()
 export class AddressService implements OnInit {
     private headers = new Headers({ 'Content-Type': 'application/json' });
-    private resourceUrl = '/api/addresses';
+    private resourceUrl = 'http://localhost:8081/api/v1/addresses';
 
     constructor(private http: Http) { 
         console.log('Instantiating service ****************** AddressService ' + Date.now());
@@ -24,7 +29,7 @@ export class AddressService implements OnInit {
 
     getAddresses(): Observable<Array<Address>> {
        return this.http.get(this.resourceUrl) 
-        .map((response: Response) => response.json().data as Address[])
+        .map((response: Response) => response.json().data._embedded.addresses)
         .do(data => console.log('Addresses : ' + data))
         .catch(this.handleError);
     }
@@ -68,3 +73,4 @@ export class AddressService implements OnInit {
         return Observable.throw(error.json().error || 'Server error');
     }
 }
+

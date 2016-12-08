@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AddressService } from '../../../services/address.service';
-//import { Service } from '../../../services/person.service';
+import { AddressRes } from '../../../resources/address.resource';
+//import { NewAddressRes } from '../../../resources/addressCrud.resource';
 import { Address } from '../../../models/address.model';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
@@ -17,13 +18,20 @@ export class AddressListComponent implements OnInit {
   errorMessage: string;
   addresses: Address[];
 
-  constructor(private router: Router, private addressService: AddressService) { 
+  //constructor(private router: Router, private addressService: NewAddressRes) { 
+  constructor(private router: Router, private addressService: AddressRes) { 
      console.log('AddressListComponent constructor');
   }
 
   ngOnInit() {
     console.log('Enter: AddressListComponent.ngOnInit()');
-    this.addressService.getAddresses().subscribe(addresses => {this.addresses=addresses;});
+    let ret = this.addressService.query()
+      .$observable
+      .subscribe(data => {this.addresses = data.content; console.log('Addresses : ' + JSON.stringify(data, null, 4))});
+    //console.log('out ' + JSON.stringify(ret.content));
+    //this.addresses = ret.content;
+   //this.addressService.getAddresses().subscribe(addresses => {this.addresses=addresses;});
+    console.log('out 1 ' + this.addresses);
   }
 
   onSelect(address: Address) {
