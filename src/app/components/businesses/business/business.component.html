@@ -1,4 +1,66 @@
-<p>Name: {{business.name}} </p>
-<p>Description: {{business.description}}</p>
-<p>Addresses: {{business.addresses}}</p>
-<p>Business Type: {{business.businessType}}</p>  
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    Business Information
+                </div>
+                <div class="card-block">
+                    <div [hidden]="submitted"></div>
+                    <form (ngSubmit)="save()" #businessForm="ngForm">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="businessType">Business Type</label>
+                                    <select class="form-control" id="businessType" required [(ngModel)]="business.businessType" name="businessType" #businessType="ngModel">
+                                        <option *ngFor="let businessType of businessTypes" [value]="businessType">{{businessType}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="name">Name</label>
+                                    <input type="text" class="form-control" id="name" required [(ngModel)]="business.name" name="name" #name="ngModel">
+                                    <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+                                        Name is required
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="name">Description</label>
+                                    <input type="text" class="form-control" id="description" required [(ngModel)]="business.description" name="description" #description="ngModel">
+                                    <div [hidden]="description.valid || description.pristine" class="alert alert-danger">
+                                        Description is required
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <button type="submit" class="btn btn-primary" [disabled]="!businessForm.form.valid">Save</button>
+                                <button type="button" class="btn btn-danger" (click)="delete()">Delete</button>
+                                <button type="button" class="btn btn-primary" (click)="cancel()">Close</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-header">
+                    Address
+                </div>
+                <div class="card-block">
+                    This is Address
+                </div>
+            </div>
+        </div>
+</div>
