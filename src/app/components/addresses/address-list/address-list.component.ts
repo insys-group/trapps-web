@@ -20,15 +20,19 @@ export class AddressListComponent implements OnInit {
 
   //constructor(private router: Router, private addressService: NewAddressRes) { 
   constructor(private router: Router, private addressService: AddressRes) { 
+
      console.log('AddressListComponent constructor');
   }
 
   ngOnInit() {
     console.log('Enter: AddressListComponent.ngOnInit()');
     let ret = this.addressService.query()
-      .$observable
-      .subscribe(data => {this.addresses = data.content; console.log('Addresses : ' + JSON.stringify(data, null, 4))});
-    //console.log('out ' + JSON.stringify(ret.content));
+    .$observable
+      .subscribe(data => {
+        //console.log('Addresses : ' + JSON.stringify(data, null, 4));
+        this.addresses = data.content;
+      });
+    //console.log('out ' + JSON.stringify(ret.content, null, 4) );
     //this.addresses = ret.content;
    //this.addressService.getAddresses().subscribe(addresses => {this.addresses=addresses;});
     console.log('out 1 ' + this.addresses);

@@ -1,11 +1,9 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-<<<<<<< HEAD
-=======
+
 import {Resource, ResourceParams, ResourceAction, ResourceMethod} from 'ng2-resource-rest';
-//import { InMemoryDbService } from 'angular-in-memory-web-api';
->>>>>>> 09f0104ea082f711055d58009ece1253288e1b3a
+
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
@@ -13,6 +11,18 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/toPromise';
 
 import { Address } from '../models/address.model';
+
+interface IResource extends Address {
+  links?: any;
+  content?: any;
+}
+
+interface IResources extends IResource
+ {
+  links?: any;
+  content?: Array<IResource>;
+  page?: any;
+}
 
 @Injectable()
 export class AddressService implements OnInit {
@@ -27,40 +37,40 @@ export class AddressService implements OnInit {
       console.log('ngOnInit ****************** AddressService ' + Date.now());
      }
 
-    getAddresses(): Observable<Array<Address>> {
-       return this.http.get(this.resourceUrl) 
-        .map((response: Response) => response.json().data._embedded.addresses)
-        .do(data => console.log('Addresses : ' + data))
+    query(): Observable<IResources> {
+       return this.http.get(this.resourceUrl, { headers: this.headers })
+        .map(response => response.json().data as IResources)
+        .do(data => console.log('Addresses : ' + JSON.stringify(data, null, 4)))
         .catch(this.handleError);
     }
 
    
-    getAddress(id: number): Observable<Address> {
+    get(id: number): Observable<IResource> {
         console.log('AddressService.getAddres id= ' + id + ' and url = ' 
         + `${this.resourceUrl}/${id}`);
         return this.http.get(`${this.resourceUrl}/${id}`)
-        .map(response =>response.json().data as Address)
+        .map(response =>response.json().data as IResource)
         .do(data => console.log('Address Found by Id ' + data.id))
         .catch(this.handleError);
     }
 
-    create(Address: Address): Observable<Address> {
-        console.log('Enter: AddressService.create()' + JSON.stringify(Address));
+    save(address: Address): Observable<IResource> {
+        console.log('Enter: AddressService.create()' + JSON.stringify(address));
         return this.http
-            .post(this.resourceUrl, Address, { headers: this.headers })
-            .map(response => response.json().data as Address)
+            .post(this.resourceUrl, address, { headers: this.headers })
+            .map(response => response.json().data as IResource)
             .catch(this.handleError);
     }
 
-    update(Address: Address): Observable<Address> {
-        const url = `${this.resourceUrl}/${Address.id}`;
+    update(address: Address): Observable<Address> {
+        const url = `${this.resourceUrl}/${address.id}`;
         return this.http
-            .put(url, JSON.stringify(Address), { headers: this.headers })            
+            .put(url, JSON.stringify(address), { headers: this.headers })
             .map(() => Address)
             .catch(this.handleError);
     }
 
-    delete(id: number): Observable<void> {
+    remove(id: number): Observable<void> {
         const url = `${this.resourceUrl}/${id}`;
         return this.http
             .delete(url, { headers: this.headers })

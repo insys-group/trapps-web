@@ -18,9 +18,9 @@ interface IResource extends Address {
 
 interface IResources extends IResource
  {
-  links: any;
-  content: Array<IResource>;
-  page: any;
+  links?: any;
+  content?: Array<IResource>;
+  page?: any;
 }
 
 @Injectable()
@@ -30,7 +30,7 @@ interface IResources extends IResource
 export class AddressRes extends Resource {
 
   @ResourceAction({
-    isArray: false , map: function(x: Object): IResources  { return x as IResources }
+    isArray: false , map: function(data: Object): IResources  { return data as IResources; }
   })
   query: ResourceMethod<IQueryInput, IResources>;
 
@@ -40,7 +40,9 @@ export class AddressRes extends Resource {
   get: ResourceMethod<{id: any}, IResource>;
 
   @ResourceAction({
-    method: RequestMethod.Post
+    method: RequestMethod.Post,
+    path: '',
+    headers: { 'Content-Type': 'application/json' }
   })
   save: ResourceMethod<IResource, IResource>;
 
@@ -58,6 +60,7 @@ export class AddressRes extends Resource {
 
   // Alias to save
   create(data: IResource, callback?: (res: IResource) => any): IResource {
+    console.log('save() ' + JSON.stringify(data));
     return this.save(data, callback);
   }
 

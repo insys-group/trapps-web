@@ -18,9 +18,11 @@ import { BusinessComponent } from './components/businesses/business/business.com
 
 import { TrappsInMemoryDbService } from './services/trappsdb.service';
 import { BusinessService } from './services/business.service';
+
 import { NotificationService } from './services/notification.service';
 import { PersonService } from './services/person.service';
 import { AddressService } from './services/address.service';
+
 import { AddressComponent } from './components/addresses/address/address.component';
 import { AddressListComponent } from './components/addresses/address-list/address-list.component';
 import { RoleComponent } from './components/roles/role/role.component';
