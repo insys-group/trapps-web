@@ -26,7 +26,7 @@ export class AddressService implements OnInit {
 
     getAddresses(): Observable<Array<Address>> {
        return this.http.get(this.resourceUrl) 
-        .map((response: Response) => response.json().data._embedded.addresses)
+        .map((response: Response) => response.json().data)
         .do(data => console.log('Addresses : ' + data))
         .catch(this.handleError);
     }

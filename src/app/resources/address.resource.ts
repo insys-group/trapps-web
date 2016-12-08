@@ -18,9 +18,9 @@ interface IResource extends Address {
 
 interface IResources extends IResource
  {
-  links: any;
-  content: Array<IResource>;
-  page: any;
+  links?: any;
+  content?: Array<IResource>;
+  page?: any;
 }
 
 @Injectable()
@@ -30,7 +30,7 @@ interface IResources extends IResource
 export class AddressRes extends Resource {
 
   @ResourceAction({
-    isArray: false , map: function(x: Object): IResources  { return x as IResources }
+    isArray: false , map: function(data: Object): IResources  { return data as IResources; }
   })
   query: ResourceMethod<IQueryInput, IResources>;
 
