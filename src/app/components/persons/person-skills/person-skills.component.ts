@@ -52,29 +52,33 @@ export class PersonSkillsComponent implements OnInit {
   saveSkills(): void {
     let newSkills: PersonSkill[] = this.findNotIn(this.personSkills, this._personSkills);
     let deletedSkills: PersonSkill[] = this.findNotIn(this._personSkills, this.personSkills);
-    newSkills.forEach(skill => console.log(`New Skill ${skill.name}`));
+
+    newSkills.forEach(skill => {
+      console.log(`Creating Skill ${skill.name}`);
+      this.personService.createSkill(skill)
+        .subscribe(
+          skill=>console.log(`Created Skill ${JSON.stringify(skill)}`),
+          this.handleError
+        );
+    });
+
     deletedSkills.forEach(skill => 
       {
-        console.log(`Deleted Skill ${skill.name}`);
+        console.log(`Deleting Skill ${skill.name}`);
         this.personService.deleteSkill(skill.id)
           .subscribe(  
-            () => console.log(`Delete Skill ${JSON.stringify(skill)}`), 
+            () => console.log(`Deleted Skill ${JSON.stringify(skill)}`), 
             this.handleError
           );
       }
-    );
-    this.personService.createSkills(newSkills)
-    .subscribe(
-      personSkills => personSkills.forEach(skill=>console.log(`Saved Skill ${JSON.stringify(skill)}`)),
-      this.handleError
-    );
+    ); 
   }
 
   private findNotIn(sourceSkills: PersonSkill[], targetSkills: PersonSkill[]): PersonSkill[] {
     let skills: PersonSkill[]=new Array<PersonSkill>();
 
     sourceSkills.forEach(skill=>{
-      let matchSkill=targetSkills.find(targetSkill=>targetSkill.name===skill.name);
+      let matchSkill=targetSkills.find(targetSkill=>targetSkill.name.toLowerCase()===skill.name.toLowerCase());
       if(matchSkill===undefined) {
         skills.push(skill);
       }
@@ -90,7 +94,7 @@ export class PersonSkillsComponent implements OnInit {
 
   onChange(event): void {
     let self=this;
-    let result=this.personSkills.find((skill, index, arr) => {return skill.name===this.skillName;});
+    let result=this.personSkills.find((skill, index, arr) => {return skill.name.toLowerCase()===this.skillName.toLowerCase();});
     this.exists=result !== undefined;
   }
 

@@ -63,6 +63,14 @@ export class PersonService implements OnInit {
         .catch(this.handleError);
     }
 
+    createSkill(personSkill: PersonSkill): Observable<PersonSkill> {
+        console.log('Enter: PersonService.createSkill()' + JSON.stringify(personSkill));
+        return this.http
+            .post(this.personSkillsUrl, personSkill, { headers: this.headers })
+            .map(response => response.json().data as PersonSkill)
+            .catch(this.handleError);
+    }
+
     createSkills(personSkills: PersonSkill[]): Observable<PersonSkill[]> {
         console.log('Enter: PersonService.createSkills()' + JSON.stringify(personSkills));
         return this.http
