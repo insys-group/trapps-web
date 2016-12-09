@@ -88,9 +88,11 @@ export class PersonService implements OnInit {
     }
 
     getPersonDocuments(personId: number): Observable<Array<PersonDocument>> {
+        console.log(`Enter: getPersonDocuments(${personId})`);
         const url = `${this.personDocumentsUrl}/?personId=${personId}`;
         return this.http.get(url)
         .map(response =>response.json().data as PersonDocument[])
+        .do(data => console.log(JSON.stringify(data)))
         .catch(this.handleError);
     }
 
