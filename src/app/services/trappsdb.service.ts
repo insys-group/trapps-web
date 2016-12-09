@@ -153,7 +153,6 @@ export class TrappsInMemoryDbService implements InMemoryDbService {
       }
     ];
 
-
     let personSkills = [
       {
         "id": 10,
