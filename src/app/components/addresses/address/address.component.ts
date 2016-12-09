@@ -15,7 +15,17 @@ import 'rxjs/add/operator/take';
 })
 
 export class AddressComponent implements OnInit {
+ private _addressId = 0 ;
+  @Input()
+  set addressId(addressId: number) {
+    console.log(`Enter: AddressComponent.@Input ${addressId}`);
+    this._addressId = addressId;
+  }
+
   address: Address = new Address();
+  isShowSave = true;
+  isShowClose = true;
+  isShowDelete = true;
 
   constructor(
     private addressService: AddressRes,
