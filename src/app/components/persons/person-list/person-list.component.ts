@@ -31,8 +31,6 @@ export class PersonListComponent implements OnInit {
       error => this.notificationService.error(error.json().error)
     );
     this.select.emit(this.personTypes[0]);
-
-
   }
 
   onSelect(person: Person) {

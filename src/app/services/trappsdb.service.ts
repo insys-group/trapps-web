@@ -83,6 +83,45 @@ export class TrappsInMemoryDbService implements InMemoryDbService {
         "title": "Manager"
       }
     ];
-    return { addresses: addresses, persons: persons };
+   
+    let businesses = [
+      {
+        "id": 30,
+        "name": "Pivotal-Labs",
+        "description": "Pivotal-Labs for trainging and R&D",
+        "addresses": "pivtoal-lab street",
+        "businessType": "PivotalLabs"
+      },
+      {
+         "id": 31,
+        "name": "Client",
+        "description": "Business for CF and Spring",
+        "addresses": "client 1 street",
+        "businessType": "Client"
+      },
+      {
+         "id": 32,
+        "name": "Pivotal",
+        "description": "Business Partners for Technologies",
+        "addresses": "pivotal 1 street",
+        "businessType": "Pivotal"
+      },
+      {
+        "id": 33,
+        "name": "Vendor",
+        "description": "Business Vednors for Technologies",
+        "addresses": "vendor 1 street",
+        "businessType": "Vendor"
+      },
+      {
+        "id": 34,
+        "name": "Insys",
+        "description": "Insys group for Technologies",
+        "addresses": "isnys 1 street",
+        "businessType": "Insys"
+      }
+    ];
+    
+    return { addresses: addresses, persons: persons, businesses:businesses };
   }
 }

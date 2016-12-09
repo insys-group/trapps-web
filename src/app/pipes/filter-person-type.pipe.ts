@@ -16,7 +16,6 @@ export class FilterPersonTypePipe implements PipeTransform {
             }
             else {
                 return item.personType === personType;
-
             }
         });
     }
