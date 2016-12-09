@@ -17,6 +17,13 @@ export class PersonSkill {
   name: string
 }
 
+export class PersonDocument {
+  id: number;
+  personId: number;
+  name: string;
+  fileName: string;
+}
+
 export class PersonType {
     static EMPLOYEE : string = "Employee";
     static CANDIDATE : string = "Candidate";

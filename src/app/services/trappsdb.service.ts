@@ -89,7 +89,6 @@ export class TrappsInMemoryDbService implements InMemoryDbService {
       }
     ];
 
-
     let personSkills = [
       {
         "id": 10,
@@ -120,6 +119,33 @@ export class TrappsInMemoryDbService implements InMemoryDbService {
         "id": 15,
         "personId": 31,
         "name": "Angular"
+      }
+    ];
+
+    let personDocuments = [
+      {
+        "id": 10,
+        "personId": 30,
+        "name": "Resume",
+        "fileName": "resume-012016.doc"
+      },
+      {
+        "id": 11,
+        "personId": 30,
+        "name": "INSYS Profile",
+        "fileName": "insys-profile-092016.doc"
+      },
+      {
+        "id": 12,
+        "personId": 31,
+        "name": "Resume",
+        "fileName": "resume-082016.doc"
+      },
+      {
+        "id": 13,
+        "personId": 31,
+        "name": "INSYS Profile",
+        "fileName": "insys-profile-102016.doc"
       }
     ];
    
