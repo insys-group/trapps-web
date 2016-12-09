@@ -2,6 +2,7 @@ import { Component, OnInit, EventEmitter } from '@angular/core';
 import { BusinessService } from '../../../services/business.service';
 import { Business, BusinessType } from '../../../models/business.model';
 import { Router } from '@angular/router';
+import { NotificationService } from '../../../services/notification.service';
 
 @Component({
   selector: 'app-business-list',
@@ -19,12 +20,13 @@ export class BusinessListComponent implements OnInit {
 
   select = new EventEmitter();
 
-  constructor(private router: Router, private businessService: BusinessService) { }
+  constructor(private router: Router, private businessService: BusinessService, private notificationService: NotificationService) { }
 
   ngOnInit() {
     console.log('Enter: BusinessListComponent.ngOnInit()');
     this.businessService.getBusinesses().subscribe(
-      businesses => { this.businesses=businesses; }
+      businesses =>  this.businesses=businesses,
+      error => this.notificationService.error(error.json().error)
     );
 
     this.select.emit(this.businessTypes[0]);
