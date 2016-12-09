@@ -12,7 +12,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="address1">Address 1</label>
-                                    <input type="text" class="form-control" id="address1" required [(ngModel)]="address.address_1" name="address1" #address1="ngModel">
+                                    <input type="text" class="form-control" id="address1" required [(ngModel)]="address.address1" name="address1" #address1="ngModel">
                                     <div [hidden]="address1.valid || address1.pristine" class="alert alert-danger">
                                         Address 1 is required
                                     </div>
@@ -21,7 +21,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="address2">Address 2</label>
-                                    <input type="text" class="form-control" id="address2" [(ngModel)]="address.address_2" name="address2" #address2="ngModel">
+                                    <input type="text" class="form-control" id="address2" [(ngModel)]="address.address2" name="address2" #address2="ngModel">
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -39,15 +39,15 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="zipcode">Zip Code</label>
-                                    <input type="text" class="form-control" id="zipcode" required [(ngModel)]="address.zip_code" name="zipcode" #zipcode="ngModel">
+                                    <input type="text" class="form-control" id="zipcode" required [(ngModel)]="address.zipCode" name="zipcode" #zipcode="ngModel">
                                 </div>
                             </div>
                         </div>
 
                             <div class="col-sm-12">
-                                <button type="submit" class="btn btn-primary" [disabled]="!addressForm.form.valid">Save</button>
-                                <button type="button" class="btn btn-danger" (click)="delete()">Delete</button>
-                                <button type="button" class="btn btn-primary" (click)="cancel()">Close</button>
+                                <button type="submit" class="btn btn-primary" *ngIf="isShowSave===true" [disabled]="!addressForm.form.valid">Save</button>
+                                <button type="button" class="btn btn-danger" *ngIf="isShowDelete===true" (click)="delete()">Delete</button>
+                                <button type="button" class="btn btn-primary" *ngIf="isShowClose===true" (click)="cancel()">Close</button>
                             </div>
                     </form>
                 </div>
