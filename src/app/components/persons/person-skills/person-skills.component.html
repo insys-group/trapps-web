@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-6">
+      <input type="text" [(ngModel)]="skillName" (input)="onChange($event)"/>
+    </div>
+    <div class="col-sm-6">
+      <button type="button" class="btn btn-primary" (click)="addSkill()" [disabled]="exists">Add</button>
+    </div>
+  </div>
+  <br/>
+  <div class="row">
+    <div class="col-sm-12">
+      <div>
+        <ul class="list-group">
+          <li class="list-group-item" *ngFor="let personSkill of personSkills">
+            <a href="javascript:void(0)" (click)=removeSkill(personSkill.name)><span class="float-xs-right">&times;</span></a>
+            {{personSkill.name}}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <br/>
+  <div class="row">
+    <div class="col-sm-12">
+      <button type="button" class="btn btn-primary" (click)="saveSkills()">Save</button>
+      <button type="button" class="btn btn-primary" (click)="resetSkills()">Reset</button>
+    </div>
+  </div>
+
+</div>

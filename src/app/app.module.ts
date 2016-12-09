@@ -20,15 +20,17 @@ import { BusinessService } from './services/business.service';
 import { NotificationService } from './services/notification.service';
 import { PersonService } from './services/person.service';
 import { AddressService } from './services/address.service';
+
 import { AddressComponent } from './components/addresses/address/address.component';
 import { AddressListComponent } from './components/addresses/address-list/address-list.component';
-
 import { RoleComponent } from './components/roles/role/role.component';
 import { RoleListComponent } from './components/roles/role-list/role-list.component';
+
 import { FilterPersonTypePipe } from './pipes/filter-person-type.pipe';
 import { FilterBusinessTypePipe } from './pipes/filter-business-type.pipe';
 
 import { NotificationDialogComponent } from './components/dialogs/notification-dialog/notification-dialog.component';
+import { PersonSkillsComponent } from './components/persons/person-skills/person-skills.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +43,7 @@ import { NotificationDialogComponent } from './components/dialogs/notification-d
     AddressListComponent,
     RoleComponent,
     RoleListComponent,
+    PersonSkillsComponent,
     FilterPersonTypePipe,
     FilterBusinessTypePipe,
     NotificationDialogComponent

@@ -17,7 +17,7 @@ export class PersonListComponent implements OnInit {
 
   errorMessage: string;
   persons: Person[];
-  personTypes: string[] = ['Employee', 'Candidate', 'Client', 'Vendor', 'Pivotal']
+  personTypes: string[] = ['All', 'Employee', 'Candidate', 'Client', 'Vendor', 'Pivotal']
   personType: string = 'Employee';
 
   select = new EventEmitter();
@@ -27,9 +27,11 @@ export class PersonListComponent implements OnInit {
   ngOnInit() {
     console.log('Enter: PersonListComponent.ngOnInit()');
     this.personService.getPersons().subscribe(
-      persons => this.persons=persons,
-      error =>  this.notificationService.error(error.json().error));
-      this.select.emit(this.personTypes[0]);
+      persons => this.persons = persons,
+      error => this.notificationService.error(error.json().error)
+    );
+    
+    this.select.emit(this.personTypes[0]);
   }
 
   onSelect(person: Person) {
@@ -37,7 +39,7 @@ export class PersonListComponent implements OnInit {
   }
 
   create() {
-    this.router.navigate(['/persons', 0, {personType: this.personType}]);
+    this.router.navigate(['/persons', 0, { personType: this.personType }]);
   }
 
   createNewPerson() {

@@ -9,6 +9,7 @@ export class FilterBusinessTypePipe implements PipeTransform {
         if (!value) {
             return [];
         }
+        
         return value.filter(function(item){
             return item.businessType === businessType;
         });
