@@ -1,13 +1,14 @@
-
-
-  <nav class="navbar navbar-light bg-faded">
-
-      <button class="navbar-toggler hidden-lg-up" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"></button>
-      <div class="collapse navbar-toggleable-md" id="navbarResponsive">
+<nav class="navbar navbar-light bg-faded">
+  <ul class="nav navbar-nav">
+    <li class="navbar-brand">
+      <a href="">INSYS-Pivotal</a>
+    </li>
+  </ul>
+  <button class="navbar-toggler hidden-lg-up" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
+    aria-expanded="false" aria-label="Toggle navigation"></button>
+  <div class="collapse navbar-toggleable-md" id="navbarResponsive">
     <ul class="nav navbar-nav">
-      <li class="navbar-brand">
-        <a href="">INSYS-Pivotal</a>
-      </li>
+
       <li class="nav-item">
         <a class="nav-item nav-link" [routerLink]="['/persons']">Persons</a>
       </li>
@@ -21,7 +22,7 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
           <a class="dropdown-item" [routerLink]="['/businesses']">All</a>
           <a class="dropdown-item" [routerLink]="['/businesses']">Client</a>
-          <a class="dropdown-item" [routerLink]="['/businesses']" >Vendor</a>
+          <a class="dropdown-item" [routerLink]="['/businesses']">Vendor</a>
         </div>
       </li>
       <li class="nav-item">
@@ -29,6 +30,6 @@
       </li>
     </ul>
   </div>
-  </nav>
-  <router-outlet></router-outlet>
+</nav>
+<router-outlet></router-outlet>
 <template ngbModalContainer></template>
