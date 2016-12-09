@@ -152,7 +152,7 @@ export class TrappsInMemoryDbService implements InMemoryDbService {
         "uploadTimestamp": new Date()
       }
     ];
-   
+
     let businesses = [
       {
         "id": 30,
