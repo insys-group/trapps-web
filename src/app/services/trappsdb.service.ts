@@ -7,27 +7,27 @@ export class TrappsInMemoryDbService implements InMemoryDbService {
     let addresses = [
       {
             "id": 130,
-            "address_1": "343 Derass rd",
-            "address_2": "",
+            "address1": "343 Derass rd",
+            "address2": "",
             "city": "NY",
             "state": "NY",
-            "zip_code": "34545"
+            "zipCode": "34545"
         },
         {
             "id": 131,
-            "address_1": "33 Fgrr rd",
-            "address_2": "",
+            "address1": "33 Fgrr rd",
+            "address2": "",
             "city": "Paramus",
             "state": "NJ",
-            "zip_code": "367676"
+            "zipCode": "367676"
         },
         {
             "id": 132,
-            "address_1": "232 Cddss rd",
-            "address_2": "",
+            "address1": "232 Cddss rd",
+            "address2": "",
             "city": "Wsedr",
             "state": "NJ",
-            "zip_code": "78997"
+            "zipCode": "78997"
         }
     ];
 
@@ -40,7 +40,8 @@ export class TrappsInMemoryDbService implements InMemoryDbService {
         "email": "msabir@insys.com",
         "personType": "Employee",
         "business": "INSYS Group",
-        "title": "Architect"
+        "title": "Architect",
+        "addressId": 130
       },
       {
         "id": 31,
@@ -50,7 +51,8 @@ export class TrappsInMemoryDbService implements InMemoryDbService {
         "email": "kshitiz@insys.com",
         "personType": "Employee",
         "business": "INSYS Group",
-        "title": "Architect"
+        "title": "Architect",
+        "addressId": 131
       },
       {
         "id": 32,
@@ -60,7 +62,8 @@ export class TrappsInMemoryDbService implements InMemoryDbService {
         "email": "cumbel@pivotal.io",
         "personType": "Pivotal",
         "business": "Pivotal",
-        "title": "Architect"
+        "title": "Architect",
+        "addressId": 130
       },
       {
         "id": 33,
@@ -70,7 +73,8 @@ export class TrappsInMemoryDbService implements InMemoryDbService {
         "email": "mforte@accenture.com",
         "personType": "Vendor",
         "business": "Aptium",
-        "title": "Manager"
+        "title": "Manager",
+        "addressId": 132
       },
       {
         "id": 34,
@@ -80,9 +84,11 @@ export class TrappsInMemoryDbService implements InMemoryDbService {
         "email": "mforte@comcast.com",
         "personType": "Client",
         "business": "Comcast",
-        "title": "Manager"
+        "title": "Manager",
+        "addressId": 130
       }
     ];
+
 
     let personSkills = [
       {
