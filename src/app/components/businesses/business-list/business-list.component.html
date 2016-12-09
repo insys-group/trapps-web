@@ -1,26 +1,25 @@
 <div class="container">
-
-<div class="form-group">
+  <div class="form-group">
     <label for="businessType">Business Type</label>
     <div>
-    <select class="form-control" id="businessType"
-            required
-            [(ngModel)]="businessType" name="businessType"
-            >
-        <option value="Client">Client</option>
-        <option value="PivotalLabs">PivotalLabs</option>
-        <option value="Pivotal">Pivotal</option>
-        <option value="Vendor">Vendor</option>
-        <option value="Insys">Insys</option>
-    </select>
-    <button type="button" class="btn btn-primary" (click)="create()">New</button>
+      <select class="form-control" #sel (change)="select.emit(sel.value)">
+        <option *ngFor="let businessType of businessTypes">{{businessType}}</option>
+      </select>
     </div>
+  </div>
 </div>
 
-<ul class="business">
-  <li *ngFor="let business of businesses" (click)="onSelect(business)">
-    Name: {{business.name}}, Description:  {{business.description}} , BusinessType: {{business.businessType}}
-  </li>
-</ul>
+<div class="container">
+  <button type="button" class="btn btn-primary" (click)="create()" [hidden]= "sel.value === 'All'">
+    New
+  </button>
 </div>
 
+<div class="container">
+  <div class="list-group">
+    <button type="button" class="list-group-item list-group-item-action"
+      *ngFor="let business of businesses | filterBusinessType: sel.value"
+      (click)="onSelect(business)">
+      {{business.name}}
+  </button>
+</div>

@@ -89,7 +89,6 @@ export class TrappsInMemoryDbService implements InMemoryDbService {
       }
     ];
 
-
     let personSkills = [
       {
         "id": 10,
@@ -122,6 +121,33 @@ export class TrappsInMemoryDbService implements InMemoryDbService {
         "name": "Angular"
       }
     ];
+
+    let personDocuments = [
+      {
+        "id": 10,
+        "personId": 30,
+        "name": "Resume",
+        "fileName": "resume-012016.doc"
+      },
+      {
+        "id": 11,
+        "personId": 30,
+        "name": "INSYS Profile",
+        "fileName": "insys-profile-092016.doc"
+      },
+      {
+        "id": 12,
+        "personId": 31,
+        "name": "Resume",
+        "fileName": "resume-082016.doc"
+      },
+      {
+        "id": 13,
+        "personId": 31,
+        "name": "INSYS Profile",
+        "fileName": "insys-profile-102016.doc"
+      }
+    ];
    
     let businesses = [
       {
@@ -129,7 +155,7 @@ export class TrappsInMemoryDbService implements InMemoryDbService {
         "name": "Pivotal-Labs",
         "description": "Pivotal-Labs for trainging and R&D",
         "addresses": "pivtoal-lab street",
-        "businessType": "PivotalLabs"
+        "businessType": "Pivotal-Labs"
       },
       {
          "id": 31,
@@ -160,8 +186,7 @@ export class TrappsInMemoryDbService implements InMemoryDbService {
         "businessType": "Insys"
       }
     ];
-    
 
-    return { "addresses": addresses, "persons": persons, "businesses": businesses, "personskills": personSkills };
+    return { "addresses": addresses, "persons": persons, "businesses": businesses, "personskills": personSkills, "persondocuments": personDocuments };
   }
 }

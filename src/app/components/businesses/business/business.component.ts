@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Business , BusinessType} from '../../../models/business.model';
+import { Business , BusinessType } from '../../../models/business.model';
 import { BusinessService } from '../../../services/business.service';
 import { Router } from '@angular/router';
 import { ActivatedRoute, Params } from '@angular/router';
@@ -12,11 +12,12 @@ import 'rxjs/add/operator/take';
   templateUrl: './business.component.html',
   styleUrls: ['./business.component.css']
 })
-export class BusinessComponent implements OnInit {
- business: Business = new Business();
- businessTypes: string[] = ['Client', 'PivotalLabs', 'Pivotal', 'Vendor', 'Insys'];
-  businesses: string[] = ['Comcast', 'Aptium', 'Pivotal', 'INSYS Group'];
 
+export class BusinessComponent implements OnInit {
+  business: Business = new Business();
+  businessTypes: string[] = [BusinessType.ALL, BusinessType.CLIENT, BusinessType.PLABS,
+    BusinessType.PIVOTAL, BusinessType.VENDOR, BusinessType.INSYS];
+  businesses: string[] = ['Comcast', 'Aptium', 'Pivotal', 'INSYS Group'];
 
   constructor(
     private businessService: BusinessService,
@@ -24,7 +25,6 @@ export class BusinessComponent implements OnInit {
     private route: ActivatedRoute,
     private location: Location
   ) { }
- 
 
   ngOnInit() : void {
     console.log(`Enter: BusinessComponent.ngOnInit()`);
@@ -51,7 +51,7 @@ export class BusinessComponent implements OnInit {
       }
     });
   }
-  
+
   private init(): void {
     if(this.business.businessType==='Insys' || this.business.businessType==='Client') {
       this.businessTypes = ['Insys', 'Client'];
@@ -60,7 +60,7 @@ export class BusinessComponent implements OnInit {
       this.businessTypes = [this.business.businessType];
     }
   }
-  
+
   save(): void {
     console.log('Enter: BusinessComponent.save()' + this.business.id);
     if(this.business.id===0) {
@@ -83,5 +83,4 @@ export class BusinessComponent implements OnInit {
     console.error('An error occurred', error);
     return Promise.reject(error.message || error);
   }
-
 }
