@@ -191,6 +191,8 @@ export class TrappsInMemoryDbService implements InMemoryDbService {
         "id": 30,
         "name": "Pivotal-Labs",
         "description": "Pivotal-Labs for trainging and R&D",
+        "addresses": "pivtoal-lab street",
+        "addressId": 133,
         "addressId": 133,
         "businessType": "Pivotal-Labs"
       },
