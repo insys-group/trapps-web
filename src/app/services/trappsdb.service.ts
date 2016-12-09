@@ -83,6 +83,40 @@ export class TrappsInMemoryDbService implements InMemoryDbService {
         "title": "Manager"
       }
     ];
+
+
+    let personSkills = [
+      {
+        "id": 10,
+        "personId": 30,
+        "name": "Spring"
+      },
+      {
+        "id": 11,
+        "personId": 30,
+        "name": "JPA"
+      },
+      {
+        "id": 12,
+        "personId": 30,
+        "name": "Angular"
+      },
+      {
+        "id": 13,
+        "personId": 31,
+        "name": "Spring"
+      },
+      {
+        "id": 14,
+        "personId": 31,
+        "name": "JPA"
+      },
+      {
+        "id": 15,
+        "personId": 31,
+        "name": "Angular"
+      }
+    ];
    
     let businesses = [
       {
@@ -122,6 +156,7 @@ export class TrappsInMemoryDbService implements InMemoryDbService {
       }
     ];
     
-    return { addresses: addresses, persons: persons, businesses:businesses };
+
+    return { "addresses": addresses, "persons": persons, "businesses": businesses, "personskills": personSkills };
   }
 }
