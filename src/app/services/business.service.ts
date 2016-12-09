@@ -1,7 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { InMemoryDbService } from 'angular-in-memory-web-api';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
@@ -61,48 +60,4 @@ export class BusinessService implements OnInit {
         console.error('An error occurred ', error.toString);
         return Observable.throw(error.json().error || 'Server error');
     }
-}
-
-export class InMemoryBusinessService implements InMemoryDbService {
-  createDb() {
-    console.log('InMemoryBusinessService() *************' + Date.now());
-    let businesses = [
-      {
-        "id": 30,
-        "name": BusinessType.PLABS,
-        "description": "Pivotal-Labs for training and R&D",
-        "addresses": "pivtoal-lab street",
-        "businessType": BusinessType.PLABS
-      },
-      {
-        "id": 31,
-        "name": BusinessType.CLIENT,
-        "description": "Business for CF and Spring",
-        "addresses": "client 1 street",
-        "businessType": BusinessType.CLIENT
-      },
-      {
-        "id": 32,
-        "name": BusinessType.PIVOTAL,
-        "description": "Business Partners for Technologies",
-        "addresses": "pivotal 1 street",
-        "businessType": BusinessType.PIVOTAL
-      },
-      {
-        "id": 33,
-        "name": BusinessType.VENDOR,
-        "description": "Business Vednors for Technologies",
-        "addresses": "vendor 1 street",
-        "businessType": BusinessType.VENDOR
-      },
-      {
-        "id": 34,
-        "name": BusinessType.INSYS,
-        "description": "Insys group for Technologies",
-        "addresses": "isnys 1 street",
-        "businessType": BusinessType.INSYS
-      }
-    ];
-    return { businesses };
-  }
 }
