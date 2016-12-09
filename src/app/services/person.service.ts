@@ -6,7 +6,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
-import { Person, PersonSkill } from '../models/person.model';
+import { Person, PersonSkill, PersonDocument } from '../models/person.model';
 
 
 @Injectable()
@@ -14,6 +14,7 @@ export class PersonService implements OnInit {
     private headers = new Headers({ 'Content-Type': 'application/json' });
     private personsUrl = '/api/persons';
     private personSkillsUrl = '/api/personskills';
+    private personDocumentsUrl = '/api/persondocuments';
 
     constructor(private http: Http) { 
         console.log('Instantiating service ****************** ' + Date.now());
@@ -84,6 +85,13 @@ export class PersonService implements OnInit {
         return this.http
             .delete(url, { headers: this.headers })
             .catch(this.handleError);
+    }
+
+    getPersonDocuments(personId: number): Observable<Array<PersonDocument>> {
+        const url = `${this.personDocumentsUrl}/?personId=${personId}`;
+        return this.http.get(url)
+        .map(response =>response.json().data as PersonDocument[])
+        .catch(this.handleError);
     }
 
     private handleError(error: Response): Observable<any> {

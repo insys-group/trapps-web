@@ -8,9 +8,9 @@ import 'rxjs/add/observable/merge';
 //import 'rxjs/add/operator/mergeDelayError';
 
 @Component({
-  selector: 'app-person-skills',
-  templateUrl: './person-skills.component.html',
-  styleUrls: ['./person-skills.component.css']
+  selector: 'app-person-documents',
+  templateUrl: './person-documents.component.html',
+  styleUrls: ['./person-documents.component.css']
 })
 
 export class PersonDocumentsComponent implements OnInit {
@@ -36,7 +36,7 @@ export class PersonDocumentsComponent implements OnInit {
       );
   }
 
-  addSkill(): void {
+  addDocument(): void {
     let newSkill = new PersonDocument();
     newSkill.id = 0;
     newSkill.name = this.skillName;
@@ -76,10 +76,10 @@ export class PersonDocumentsComponent implements OnInit {
     );
   }
 
-  private deleteAll(skills: PersonDocument[]): Observable<any> {
+  private deleteAll(documents: PersonDocument[]): Observable<any> {
     let httpCounter: Array<number> = [];
     return Observable.create(observer => {
-      skills.forEach(skill => {
+      documents.forEach(skill => {
         console.log(`Creating Skill ${skill.name}`);
         this.personService.deleteSkill(skill.id)
           .subscribe(
@@ -87,13 +87,13 @@ export class PersonDocumentsComponent implements OnInit {
             error => {
               observer.error(error);
               httpCounter.push(1);
-              if (httpCounter.length === skills.length) {
+              if (httpCounter.length === documents.length) {
                 observer.complete();
               }
             },
             () => {
               httpCounter.push(1);
-              if (httpCounter.length === skills.length) {
+              if (httpCounter.length === documents.length) {
                 observer.complete();
               }
             }
@@ -102,10 +102,10 @@ export class PersonDocumentsComponent implements OnInit {
     });
   }
 
-  private saveAll(skills: PersonDocument[]): Observable<any> {
+  private saveAll(documents: PersonDocument[]): Observable<any> {
     let httpCounter: Array<number> = [];
     return Observable.create(observer => {
-      skills.forEach(skill => {
+      documents.forEach(skill => {
         console.log(`Creating Skill ${skill.name}`);
         // if(skill.name==='Spark' || skill.name==='AWS') {
         //   observer.error(`Skill ${skill.name} cannot be saved.`);
@@ -116,13 +116,13 @@ export class PersonDocumentsComponent implements OnInit {
             error => {
               observer.error(error);
               httpCounter.push(1);
-              if (httpCounter.length === skills.length) {
+              if (httpCounter.length === documents.length) {
                 observer.complete();
               }
             },
             () => {
               httpCounter.push(1);
-              if (httpCounter.length === skills.length) {
+              if (httpCounter.length === documents.length) {
                 observer.complete();
               }
             }
@@ -134,16 +134,16 @@ export class PersonDocumentsComponent implements OnInit {
   }
 
   private findNotIn(sourceSkills: PersonDocument[], targetSkills: PersonDocument[]): PersonDocument[] {
-    let skills: PersonDocument[] = new Array<PersonDocument>();
+    let documents: PersonDocument[] = new Array<PersonDocument>();
 
     sourceSkills.forEach(skill => {
       let matchSkill = targetSkills.find(targetSkill => targetSkill.name.toLowerCase() === skill.name.toLowerCase());
       if (matchSkill === undefined) {
-        skills.push(skill);
+        documents.push(skill);
       }
     });
 
-    return skills;
+    return documents;
   }
 
   resetSkills(): void {

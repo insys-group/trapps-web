@@ -127,25 +127,29 @@ export class TrappsInMemoryDbService implements InMemoryDbService {
         "id": 10,
         "personId": 30,
         "name": "Resume",
-        "fileName": "resume-012016.doc"
+        "fileName": "resume-012016.doc",
+        "uploadTimestamp": new Date()
       },
       {
         "id": 11,
         "personId": 30,
         "name": "INSYS Profile",
-        "fileName": "insys-profile-092016.doc"
+        "fileName": "insys-profile-092016.doc",
+        "uploadTimestamp": new Date()
       },
       {
         "id": 12,
         "personId": 31,
         "name": "Resume",
-        "fileName": "resume-082016.doc"
+        "fileName": "resume-082016.doc",
+        "uploadTimestamp": new Date()
       },
       {
         "id": 13,
         "personId": 31,
         "name": "INSYS Profile",
-        "fileName": "insys-profile-102016.doc"
+        "fileName": "insys-profile-102016.doc",
+        "uploadTimestamp": new Date()
       }
     ];
    

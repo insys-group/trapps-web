@@ -22,6 +22,7 @@ export class PersonDocument {
   personId: number;
   name: string;
   fileName: string;
+  uploadTimestamp: Date
 }
 
 export class PersonType {
