@@ -16,7 +16,7 @@ export class BusinessComponent implements OnInit {
  business: Business = new Business();
  businessTypes: string[] = ['Client', 'PivotalLabs', 'Pivotal', 'Vendor', 'Insys'];
   businesses: string[] = ['Comcast', 'Aptium', 'Pivotal', 'INSYS Group'];
-
+  address: boolean;
 
   constructor(
     private businessService: BusinessService,
@@ -59,6 +59,7 @@ export class BusinessComponent implements OnInit {
     } else {
       this.businessTypes = [this.business.businessType];
     }
+    this.address = true;
   }
   
   save(): void {
