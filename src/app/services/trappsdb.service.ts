@@ -191,37 +191,30 @@ export class TrappsInMemoryDbService implements InMemoryDbService {
         "id": 30,
         "name": "Pivotal-Labs",
         "description": "Pivotal-Labs for trainging and R&D",
-        "addresses": "pivtoal-lab street",
-        "addressId": 133,
-        "addressId": 133,
         "businessType": "Pivotal-Labs"
       },
       {
          "id": 31,
         "name": "Client",
         "description": "Business for CF and Spring",
-        "addressId": 134,
         "businessType": "Client"
       },
       {
          "id": 32,
         "name": "Pivotal",
         "description": "Business Partners for Technologies",
-        "addressId": 135,
         "businessType": "Pivotal"
       },
       {
         "id": 33,
         "name": "Vendor",
         "description": "Business Vednors for Technologies",
-        "addressId": 136,
         "businessType": "Vendor"
       },
       {
         "id": 34,
         "name": "Insys",
         "description": "Insys group for Technologies",
-        "addressId": 137,
         "businessType": "Insys"
       }
     ];
