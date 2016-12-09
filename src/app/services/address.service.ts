@@ -39,19 +39,19 @@ export class AddressService implements OnInit {
         .catch(this.handleError);
     }
 
-    create(Address: Address): Observable<Address> {
-        console.log('Enter: AddressService.create()' + JSON.stringify(Address));
+    create(address: Address): Observable<Address> {
+        console.log('Enter: AddressService.create()' + JSON.stringify(address));
         return this.http
-            .post(this.resourceUrl, Address, { headers: this.headers })
+            .post(this.resourceUrl, address, { headers: this.headers })
             .map(response => response.json().data as Address)
             .catch(this.handleError);
     }
 
-    update(Address: Address): Observable<Address> {
-        const url = `${this.resourceUrl}/${Address.id}`;
+    update(address: Address): Observable<Address> {
+        const url = `${this.resourceUrl}/${address.id}`;
         return this.http
-            .put(url, JSON.stringify(Address), { headers: this.headers })            
-            .map(() => Address)
+            .put(url, JSON.stringify(address), { headers: this.headers })            
+            .map(() => address)
             .catch(this.handleError);
     }
 
