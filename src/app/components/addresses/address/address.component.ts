@@ -27,31 +27,46 @@ export class AddressComponent implements OnInit {
   isShowClose = true;
   isShowDelete = true;
 
-  constructor(
-    private addressService: AddressRes,
+   constructor(
+    private addressService: AddressService,
     private router: Router,
     private route: ActivatedRoute,
-    private location: Location
+    private location: Location, 
+    private notificationService: NotificationService
   ) { }
+
 
   ngOnInit(): void {
     console.log(`Enter: AddressComponent.ngOnInit()`);
     let id = 0;
-    this.route.params.subscribe(params => {
-      id = +params['id'];
-      console.log(`Parameter Id is ${id}`);
-      if (id > 0) {
-        this.addressService.get({id})
-        .$observable
-          .subscribe(
-            address => {this.address = address;},
-            error => this.handleError
-          );
+     if (this._addressId){
+        console.log(`AddressComponent.ngOnInit() this.addressId = ${this._addressId}`);
+        id = this._addressId;
+        this.isShowClose = false;
+        this.isShowDelete = false;
       } else {
-        this.init();
-      }
-    });
-    console.log('Addresses : ' + JSON.stringify(this.address, null, 4));
+        this.route.params.subscribe(params => {
+        id = +params['id'];
+        console.log(`Parameter Id is ${id} , ${this._addressId}`);
+      })
+    }
+   
+   if (id > 0) {
+      this.load(id);
+   } else {
+      this.init();
+   };
+  }
+
+
+  public load(id: number): void {
+    if (id) {
+     this.addressService.getAddress(id)
+      .subscribe(
+        address => {this.address = address;},
+        error => this.handleError
+      );
+    }
   }
 
   private init(): void {
