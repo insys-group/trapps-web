@@ -9,7 +9,7 @@ export class Business {
 
 export class BusinessType {
   static CLIENT: string = "Client";
-  static PIVOTALLABS: string = "PivotalLabs";
+  static PLABS: string = "Pivotal-Labs";
   static PIVOTAL: string = "Pivotal";
   static VENDOR: string = "Vendor";
   static INSYS: string = "Insys";

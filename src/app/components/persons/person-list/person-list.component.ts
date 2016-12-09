@@ -6,13 +6,13 @@ import { Observable } from 'rxjs/Observable';
 import { NotificationService } from '../../../services/notification.service';
 
 @Component({
-  selector: 'app-person-list',    
+  selector: 'app-person-list',
   templateUrl: './person-list.component.html',
   styleUrls: ['./person-list.component.css']
 })
 
 export class PersonListComponent implements OnInit {
-  
+
   closeResult: string;
 
   errorMessage: string;
@@ -26,13 +26,10 @@ export class PersonListComponent implements OnInit {
 
   ngOnInit() {
     console.log('Enter: PersonListComponent.ngOnInit()');
-this.personService.getPersons().subscribe(
-  persons => this.persons=persons,
-  error =>  this.notificationService.error(error.json().error)
-  );
+    this.personService.getPersons().subscribe(
+      persons => this.persons=persons,
+      error =>  this.notificationService.error(error.json().error));
       this.select.emit(this.personTypes[0]);
-
-      
   }
 
   onSelect(person: Person) {
@@ -43,7 +40,7 @@ this.personService.getPersons().subscribe(
     this.router.navigate(['/persons', 0, {personType: this.personType}]);
   }
 
-    createNewPerson() {
+  createNewPerson() {
     console.log('will call new component');
   }
 }

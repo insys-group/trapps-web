@@ -26,6 +26,7 @@ import { AddressListComponent } from './components/addresses/address-list/addres
 import { RoleComponent } from './components/roles/role/role.component';
 import { RoleListComponent } from './components/roles/role-list/role-list.component';
 import { FilterPersonTypePipe } from './pipes/filter-person-type.pipe';
+import { FilterBusinessTypePipe } from './pipes/filter-business-type.pipe';
 
 import { NotificationDialogComponent } from './components/dialogs/notification-dialog/notification-dialog.component';
 
@@ -41,6 +42,7 @@ import { NotificationDialogComponent } from './components/dialogs/notification-d
     RoleComponent,
     RoleListComponent,
     FilterPersonTypePipe,
+    FilterBusinessTypePipe,
     NotificationDialogComponent
   ],
   imports: [

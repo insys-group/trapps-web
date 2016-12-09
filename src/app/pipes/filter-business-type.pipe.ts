@@ -1,10 +1,10 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'filterBusinessType',
+  name: 'filterBusinessType'
 })
-export class FilterBusinessTypePipe implements PipeTransform {
 
+export class FilterBusinessTypePipe implements PipeTransform {
     transform(value: any, businessType): any {
         if (!value) {
             return [];
