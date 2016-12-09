@@ -54,7 +54,7 @@ import { PersonSkillsComponent } from './components/persons/person-skills/person
     FormsModule,
     HttpModule,
     NgbModule.forRoot(),
-    InMemoryWebApiModule.forRoot(TrappsInMemoryDbService),
+    //InMemoryWebApiModule.forRoot(TrappsInMemoryDbService),
     ResourceModule.forRoot(),
     AppRoutingModule
   ],

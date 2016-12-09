@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Address } from '../../../models/address.model';
 import { AddressService } from '../../../services/address.service';
 import { Router } from '@angular/router';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 import { AddressRes } from '../../../resources/address.resource';
+import { NotificationService } from '../../../services/notification.service';
 
 import 'rxjs/add/operator/take';
 
@@ -28,7 +29,7 @@ export class AddressComponent implements OnInit {
   isShowDelete = true;
 
    constructor(
-    private addressService: AddressService,
+    private addressService: AddressRes,
     private router: Router,
     private route: ActivatedRoute,
     private location: Location, 
@@ -58,10 +59,9 @@ export class AddressComponent implements OnInit {
    };
   }
 
-
   public load(id: number): void {
     if (id) {
-     this.addressService.getAddress(id)
+     this.addressService.get({id}).$observable
       .subscribe(
         address => {this.address = address;},
         error => this.handleError
