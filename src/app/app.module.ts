@@ -56,7 +56,7 @@ import { PersonDocumentsComponent } from './components/persons/person-documents/
     FormsModule,
     HttpModule,
     NgbModule.forRoot(),
-    InMemoryWebApiModule.forRoot(TrappsInMemoryDbService),
+    //InMemoryWebApiModule.forRoot(TrappsInMemoryDbService),
     ResourceModule.forRoot(),
     AppRoutingModule
   ],
