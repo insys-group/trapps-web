@@ -8,8 +8,7 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/toPromise';
 
-import { Business } from '../models/business.model';
-import { BusinessType } from '../models/business.model';
+import { Business, BusinessType } from '../models/business.model';
 
 @Injectable()
 export class BusinessService implements OnInit {
@@ -71,19 +70,19 @@ export class InMemoryBusinessService implements InMemoryDbService {
       {
         "id": 30,
         "name": BusinessType.PLABS,
-        "description": "Pivotal-Labs for trainging and R&D",
+        "description": "Pivotal-Labs for training and R&D",
         "addresses": "pivtoal-lab street",
         "businessType": BusinessType.PLABS
       },
       {
-         "id": 31,
+        "id": 31,
         "name": BusinessType.CLIENT,
         "description": "Business for CF and Spring",
         "addresses": "client 1 street",
         "businessType": BusinessType.CLIENT
       },
       {
-         "id": 32,
+        "id": 32,
         "name": BusinessType.PIVOTAL,
         "description": "Business Partners for Technologies",
         "addresses": "pivotal 1 street",

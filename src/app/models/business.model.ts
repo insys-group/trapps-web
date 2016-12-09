@@ -8,6 +8,7 @@ export class Business {
 }
 
 export class BusinessType {
+  static ALL: string = "All";
   static CLIENT: string = "Client";
   static PLABS: string = "Pivotal-Labs";
   static PIVOTAL: string = "Pivotal";

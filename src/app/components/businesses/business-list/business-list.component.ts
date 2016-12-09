@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { BusinessService } from '../../../services/business.service';
 import { Business, BusinessType } from '../../../models/business.model';
 import { Router } from '@angular/router';
@@ -13,11 +13,11 @@ export class BusinessListComponent implements OnInit {
   closeResult: string;
   errorMessage: string;
   businesses: Business[];
-  businessTypes: string[] = [ BusinessType.CLIENT, BusinessType.PLABS,
-    BusinessType.PIVOTAL, BusinessType.VENDOR, BusinessType.INSYS
-  ];
-
+  businessTypes: string[] = [ BusinessType.ALL, BusinessType.CLIENT, BusinessType.PLABS,
+    BusinessType.PIVOTAL, BusinessType.VENDOR, BusinessType.INSYS]
   businessType: string = BusinessType.PLABS;
+
+  select = new EventEmitter();
 
   constructor(private router: Router, private businessService: BusinessService) { }
 
@@ -26,6 +26,8 @@ export class BusinessListComponent implements OnInit {
     this.businessService.getBusinesses().subscribe(
       businesses => { this.businesses=businesses; }
     );
+
+    this.select.emit(this.businessTypes[0]);
   }
 
   onSelect(business: Business) {
