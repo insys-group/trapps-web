@@ -21,6 +21,7 @@ export class PersonComponent implements OnInit {
 
   skills: boolean;
   documents: boolean;
+  address: boolean;
 
   constructor(
     private personService: PersonService,
@@ -63,6 +64,7 @@ export class PersonComponent implements OnInit {
       this.person.business='INSYS Group';
       this.skills=true;
       this.documents=true;
+      this.address=true;
     } else {
       this.personTypes = [this.person.personType];
       this.skills=false;
