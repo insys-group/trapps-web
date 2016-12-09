@@ -27,6 +27,7 @@ import { RoleComponent } from './components/roles/role/role.component';
 import { RoleListComponent } from './components/roles/role-list/role-list.component';
 
 import { FilterPersonTypePipe } from './pipes/filter-person-type.pipe';
+import { FilterBusinessTypePipe } from './pipes/filter-business-type.pipe';
 
 import { NotificationDialogComponent } from './components/dialogs/notification-dialog/notification-dialog.component';
 import { PersonSkillsComponent } from './components/persons/person-skills/person-skills.component';
@@ -44,6 +45,7 @@ import { PersonSkillsComponent } from './components/persons/person-skills/person
     RoleListComponent,
     PersonSkillsComponent,
     FilterPersonTypePipe,
+    FilterBusinessTypePipe,
     NotificationDialogComponent
   ],
   imports: [
