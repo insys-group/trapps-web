@@ -15,7 +15,7 @@ import 'rxjs/add/operator/take';
 
 export class BusinessComponent implements OnInit {
   business: Business = new Business();
-  businessTypes: string[] = [BusinessType.CLIENT, BusinessType.PLABS,
+  businessTypes: string[] = [BusinessType.ALL, BusinessType.CLIENT, BusinessType.PLABS,
     BusinessType.PIVOTAL, BusinessType.VENDOR, BusinessType.INSYS];
   businesses: string[] = ['Comcast', 'Aptium', 'Pivotal', 'INSYS Group'];
 

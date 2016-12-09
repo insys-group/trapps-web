@@ -116,14 +116,14 @@ export class TrappsInMemoryDbService implements InMemoryDbService {
         "name": "Angular"
       }
     ];
-   
+
     let businesses = [
       {
         "id": 30,
         "name": "Pivotal-Labs",
         "description": "Pivotal-Labs for trainging and R&D",
         "addresses": "pivtoal-lab street",
-        "businessType": "PivotalLabs"
+        "businessType": "Pivotal-Labs"
       },
       {
          "id": 31,
@@ -154,7 +154,7 @@ export class TrappsInMemoryDbService implements InMemoryDbService {
         "businessType": "Insys"
       }
     ];
-    
+
     return { "addresses": addresses, "persons": persons, "businesses": businesses, "personskills": personSkills };
   }
 }

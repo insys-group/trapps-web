@@ -38,7 +38,7 @@ export class BusinessListComponent implements OnInit {
     this.router.navigate(['/businesses', 0, {businessType: this.businessType}]);
   }
 
-    createNewBusiness() {
+  createNewBusiness() {
     console.log('will call new component');
   }
 }
