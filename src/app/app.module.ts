@@ -6,6 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { ResourceModule } from 'ng2-resource-rest';
 
 import { AppComponent } from './app.component';
 import { PersonComponent } from './components/persons/person/person.component';
@@ -56,6 +57,7 @@ import { PersonDocumentsComponent } from './components/persons/person-documents/
     HttpModule,
     NgbModule.forRoot(),
     InMemoryWebApiModule.forRoot(TrappsInMemoryDbService),
+    ResourceModule.forRoot(),
     AppRoutingModule
   ],
   providers: [PersonService, BusinessService, AddressService, NotificationService],

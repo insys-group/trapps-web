@@ -1,10 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Address } from '../../../models/address.model';
 import { AddressService } from '../../../services/address.service';
 import { Router } from '@angular/router';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
-import { NotificationService } from '../../../services/notification.service';
+import { AddressRes } from '../../../resources/address.resource';
 
 import 'rxjs/add/operator/take';
 
@@ -14,52 +14,38 @@ import 'rxjs/add/operator/take';
   styleUrls: ['./address.component.css']
 })
 
-export class AddressComponent implements OnInit {  
-  private _addressId = 0 ;
-  @Input() 
-  set addressId(addressId: number) {
-    console.log(`Enter: AddressComponent.@Input ${addressId}`);
-    this._addressId = addressId;
-  }
-
+export class AddressComponent implements OnInit {
   address: Address = new Address();
-  isShowSave = true;
-  isShowClose = true;
-  isShowDelete = true;
 
   constructor(
-    private addressService: AddressService,
+    private addressService: AddressRes,
     private router: Router,
     private route: ActivatedRoute,
-    private location: Location, 
-    private notificationService: NotificationService
+    private location: Location
   ) { }
-
 
   ngOnInit(): void {
     console.log(`Enter: AddressComponent.ngOnInit()`);
     let id = 0;
-     if (this._addressId){
-        console.log(`AddressComponent.ngOnInit() this.addressId = ${this._addressId}`);
-        id = this._addressId;
-        this.isShowClose = false;
-        this.isShowDelete = false;
+    this.route.params.subscribe(params => {
+      id = +params['id'];
+      console.log(`Parameter Id is ${id}`);
+      if (id > 0) {
+        this.addressService.get({id})
+        .$observable
+          .subscribe(
+            address => {this.address = address;},
+            error => this.handleError
+          );
       } else {
-        this.route.params.subscribe(params => {
-        id = +params['id'];
-        console.log(`Parameter Id is ${id} , ${this._addressId}`);
-      })
-    }
-   
-   if (id > 0) {
-      this.load(id);
-   } else {
-      this.init();
-   };
+        this.init();
+      }
+    });
+    console.log('Addresses : ' + JSON.stringify(this.address, null, 4));
   }
 
   private init(): void {
-      this.address.id=0;
+      this.address.id=null;
       this.address.address1='';
       this.address.address2='';
       this.address.city='';
@@ -67,29 +53,20 @@ export class AddressComponent implements OnInit {
       this.address.zipCode='';
   }
 
-  public load(id: number): void {
-    if (id) {
-     this.addressService.getAddress(id)
-      .subscribe(
-        address => {this.address = address;},
-        error => this.handleError
-      );
-    }
-  }
-
   save(): void {
-    console.log('Enter: AddressComponent.save()' + this.address.id);
-    if(this.address.id===0) {
-      this.addressService.create(this.address).subscribe(address => this.address=address, this.handleError);
+    if(this.address.id===null) {
+      console.log('Enter: AddressComponent.save()' + this.address.id);
+      this.addressService.save(this.address).$observable.subscribe(address => this.address=address);
     } else {
-      this.addressService.update(this.address).subscribe(address => this.address=address, this.handleError);
+      console.log('Enter: AddressComponent.update()' + this.address.id);
+      this.addressService.update(this.address).$observable.subscribe(address => this.address=address, this.handleError);
     }
     //this.router.navigate(['/addresses']);
   }
 
   delete(): void {
     console.log('Enter: AddressComponent.delete()');
-    this.addressService.delete(this.address.id).subscribe(() => this.router.navigate(['/addresses']), this.handleError);
+    this.addressService.remove({ id: this.address.id }).$observable.subscribe(() => this.router.navigate(['/addresses']), this.handleError);
   }
 
   cancel(): void {
