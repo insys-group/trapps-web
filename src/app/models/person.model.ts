@@ -18,6 +18,8 @@ export class PersonSkill {
 }
 
 export class PersonType {
+    static ALL : string = "All";
+    static CLIENT : string = "Client";
     static EMPLOYEE : string = "Employee";
     static CANDIDATE : string = "Candidate";
     static PIVOTAL : string = "Pivotal";
