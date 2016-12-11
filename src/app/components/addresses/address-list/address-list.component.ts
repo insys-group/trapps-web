@@ -18,7 +18,7 @@ export class AddressListComponent implements OnInit {
   errorMessage: string;
   addresses: Address[];
 
-  constructor(private router: Router, private addressService: NewAddressRes) {
+  constructor(private router: Router, private addressService: AddressRes) {
      console.log('AddressListComponent constructor');
   }
 
