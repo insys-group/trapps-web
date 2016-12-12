@@ -2,27 +2,27 @@
     "data": [
         {
             "id": 130,
-            "address_1": "343 Derass rd",
-            "address_2": "",
+            "address1": "343 Derass rd",
+            "address2": "",
             "city": "NY",
             "state": "NY",
-            "zip_code": "34545"
+            "zipCode": "34545"
         },
         {
             "id": 131,
-            "address_1": "33 Fgrr rd",
-            "address_2": "",
+            "address1": "33 Fgrr rd",
+            "address2": "",
             "city": "Paramus",
             "state": "NJ",
-            "zip_code": "367676"
+            "zipCode": "367676"
         },
         {
             "id": 132,
-            "address_1": "232 Cddss rd",
-            "address_2": "",
+            "address1": "232 Cddss rd",
+            "address2": "",
             "city": "Wsedr",
             "state": "NJ",
-            "zip_code": "78997"
+            "zipCode": "78997"
         }
     ]
 }

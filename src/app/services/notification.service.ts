@@ -10,16 +10,16 @@ export class NotificationService {
     ask(message: string, buttons: Array<string>): Observable<any> {
         return Observable.create(observer => {
             const modalRef = this.modalService.open(NotificationDialogComponent);
-            modalRef.componentInstance.data = { 
-                body: message, 
-                buttons: buttons, 
-                'messageClass': 'text-warning', 
+            modalRef.componentInstance.data = {
+                body: message,
+                buttons: buttons,
+                'messageClass': 'text-warning',
                 'titleClass': 'text-danger'};
             modalRef.result.then(
-                result => { 
+                result => {
                     console.log('Returned is ' + result);
                     observer.next(result)
-                }, 
+                },
                 reason => null
             );
         });
@@ -27,21 +27,21 @@ export class NotificationService {
 
     info(message: string): void {
         const modalRef = this.modalService.open(NotificationDialogComponent);
-        modalRef.componentInstance.data = { 
-            body: message, 
-            buttons: ['Close'], 
-            'messageClass': 'text-success', 
+        modalRef.componentInstance.data = {
+            body: message,
+            buttons: ['Close'],
+            'messageClass': 'text-success',
             'titleClass': 'text-primary'};
         modalRef.result.then(result => null,reason => null);
     }
 
     error(message: string): void {
         const modalRef = this.modalService.open(NotificationDialogComponent);
-        modalRef.componentInstance.data = { 
-            body: message, 
-            buttons: ['Close'], 
-            'messageClass': 'text-danger', 
+        modalRef.componentInstance.data = {
+            body: message,
+            buttons: ['Close'],
+            'messageClass': 'text-danger',
             'titleClass': 'text-primary'};
-        modalRef.result.then(result => null,reason => null); 
+        modalRef.result.then(result => null,reason => null);
     }
 }

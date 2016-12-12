@@ -1,7 +1,7 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { PersonService } from '../../../services/person.service';
-import { Person } from '../../../models/person.model';
+import { Person, PersonType } from '../../../models/person.model';
 import { Observable } from 'rxjs/Observable';
 import { NotificationService } from '../../../services/notification.service';
 
@@ -16,9 +16,14 @@ export class PersonListComponent implements OnInit {
   closeResult: string;
 
   errorMessage: string;
+
   persons: Person[];
-  personTypes: string[] = ['All', 'Employee', 'Candidate', 'Client', 'Vendor', 'Pivotal']
-  personType: string = 'Employee';
+
+  personTypes: string[] = [PersonType.ALL, PersonType.EMPLOYEE,
+                          PersonType.CANDIDATE, PersonType.CLIENT,
+                          PersonType.VENDOR, PersonType.PIVOTAL]
+
+  personType: string = PersonType.EMPLOYEE;
 
   select = new EventEmitter();
 
@@ -30,9 +35,8 @@ export class PersonListComponent implements OnInit {
       persons => this.persons = persons,
       error => this.notificationService.error(error.json().error)
     );
+
     this.select.emit(this.personTypes[0]);
-
-
   }
 
   onSelect(person: Person) {
@@ -43,7 +47,4 @@ export class PersonListComponent implements OnInit {
     this.router.navigate(['/persons', 0, { personType: this.personType }]);
   }
 
-  createNewPerson() {
-    console.log('will call new component');
-  }
 }

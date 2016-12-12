@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Address } from '../../../models/address.model';
 import { AddressService } from '../../../services/address.service';
 import { Router } from '@angular/router';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
-import { AddressRes } from '../../../resources/address.resource';
+import { NotificationService } from '../../../services/notification.service';
 
 import 'rxjs/add/operator/take';
 
@@ -15,33 +15,57 @@ import 'rxjs/add/operator/take';
 })
 
 export class AddressComponent implements OnInit {
-  address: Address = new Address();
+ private _addressId = 0 ;
+  @Input()
+  set addressId(addressId: number) {
+    console.log(`Enter: AddressComponent.@Input ${addressId}`);
+    this._addressId = addressId;
+  }
 
-  constructor(
-    private addressService: AddressRes,
+  address: Address = new Address();
+  isShowSave = true;
+  isShowClose = true;
+  isShowDelete = true;
+
+   constructor(
+    private addressService: AddressService,
     private router: Router,
     private route: ActivatedRoute,
-    private location: Location
+    private location: Location, 
+    private notificationService: NotificationService
   ) { }
+
 
   ngOnInit(): void {
     console.log(`Enter: AddressComponent.ngOnInit()`);
     let id = 0;
-    this.route.params.subscribe(params => {
-      id = +params['id'];
-      console.log(`Parameter Id is ${id}`);
-      if (id > 0) {
-        this.addressService.get({id})
-        .$observable
-          .subscribe(
-            address => {this.address = address;},
-            error => this.handleError
-          );
+     if (this._addressId){
+        console.log(`AddressComponent.ngOnInit() this.addressId = ${this._addressId}`);
+        id = this._addressId;
+        this.isShowClose = false;
+        this.isShowDelete = false;
       } else {
-        this.init();
-      }
-    });
-    console.log('Addresses : ' + JSON.stringify(this.address, null, 4));
+        this.route.params.subscribe(params => {
+        id = +params['id'];
+        console.log(`Parameter Id is ${id} , ${this._addressId}`);
+      })
+    }
+   
+   if (id > 0) {
+      this.load(id);
+   } else {
+      this.init();
+   };
+  }
+
+  public load(id: number): void {
+    if (id) {
+     this.addressService.get({id}).$observable
+      .subscribe(
+        address => {this.address = address;},
+        error => this.handleError
+      );
+    }
   }
 
   private init(): void {

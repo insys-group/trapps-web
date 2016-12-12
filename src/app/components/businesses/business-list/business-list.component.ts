@@ -1,29 +1,35 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { BusinessService } from '../../../services/business.service';
-import { Business } from '../../../models/business.model';
+import { Business, BusinessType } from '../../../models/business.model';
 import { Router } from '@angular/router';
+import { NotificationService } from '../../../services/notification.service';
 
 @Component({
   selector: 'app-business-list',
   templateUrl: './business-list.component.html',
   styleUrls: ['./business-list.component.css']
 })
+
 export class BusinessListComponent implements OnInit {
-
   closeResult: string;
-
   errorMessage: string;
   businesses: Business[];
-  businessTypes: string[] = ['Client', 'PivotalLabs', 'Pivotal', 'Vendor', 'Insys']
-  businessType: string = 'PivotalLabs';
+  businessTypes: string[] = [ BusinessType.ALL, BusinessType.CLIENT, BusinessType.PLABS,
+    BusinessType.PIVOTAL, BusinessType.VENDOR, BusinessType.INSYS]
+  businessType: string = BusinessType.PLABS;
 
-  constructor(private router: Router, private businessService: BusinessService) { }
+  select = new EventEmitter();
+
+  constructor(private router: Router, private businessService: BusinessService, private notificationService: NotificationService) { }
 
   ngOnInit() {
     console.log('Enter: BusinessListComponent.ngOnInit()');
     this.businessService.getBusinesses().subscribe(
-      businesses => {this.businesses=businesses;
-      });
+      businesses =>  this.businesses=businesses,
+      error => this.notificationService.error(error.json().error)
+    );
+
+    this.select.emit(this.businessTypes[0]);
   }
 
   onSelect(business: Business) {
@@ -34,10 +40,7 @@ export class BusinessListComponent implements OnInit {
     this.router.navigate(['/businesses', 0, {businessType: this.businessType}]);
   }
 
-    createNewBusiness() {
+  createNewBusiness() {
     console.log('will call new component');
   }
-  
- 
-
 }

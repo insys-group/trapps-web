@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-6">
+      <input type="file" [(ngModel)]="documentName"/>
+    </div>
+    <div class="col-sm-6">
+      <button type="button" class="btn btn-primary" (click)="uploadDocument()">Upload</button>
+    </div>
+  </div>
+  <br/>
+  <div class="row">
+    <div class="col-sm-12">
+      <div>
+        <ul class="list-group">
+          <li class="list-group-item" *ngFor="let personDocument of personDocuments">
+            {{personDocument.uploadTimestamp | date: 'dd/MM/yyyy HH:mm:ss'}} - <a href="downloadDocument(personDocument)">{{personDocument.fileName}}</a>
+            <a href="javascript:void(0)" (click)=deleteDocument(personDocument)><span class="float-xs-right">&times;</span></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <br/>
+</div>

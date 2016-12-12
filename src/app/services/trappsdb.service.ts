@@ -1,4 +1,3 @@
-
 import { InMemoryDbService } from 'angular-in-memory-web-api';
 
 export class TrappsInMemoryDbService implements InMemoryDbService {
@@ -7,29 +6,29 @@ export class TrappsInMemoryDbService implements InMemoryDbService {
     let addresses = [
       {
             "id": 130,
-            "address_1": "343 Derass rd",
-            "address_2": "",
+            "address1": "343 Derass rd",
+            "address2": "",
             "city": "NY",
             "state": "NY",
-            "zip_code": "34545"
+            "zipCode": "34545"
         },
         {
             "id": 131,
-            "address_1": "33 Fgrr rd",
-            "address_2": "",
+            "address1": "33 Fgrr rd",
+            "address2": "",
             "city": "Paramus",
             "state": "NJ",
-            "zip_code": "367676"
+            "zipCode": "367676"
         },
         {
             "id": 132,
-            "address_1": "232 Cddss rd",
-            "address_2": "",
+            "address1": "232 Cddss rd",
+            "address2": "",
             "city": "Wsedr",
             "state": "NJ",
-            "zip_code": "78997"
+            "zipCode": "78997"
         }
-    ]; 
+    ];
 
     let persons = [
       {
@@ -40,7 +39,8 @@ export class TrappsInMemoryDbService implements InMemoryDbService {
         "email": "msabir@insys.com",
         "personType": "Employee",
         "business": "INSYS Group",
-        "title": "Architect"
+        "title": "Architect",
+        "addressId": 130
       },
       {
         "id": 31,
@@ -50,7 +50,8 @@ export class TrappsInMemoryDbService implements InMemoryDbService {
         "email": "kshitiz@insys.com",
         "personType": "Employee",
         "business": "INSYS Group",
-        "title": "Architect"
+        "title": "Architect",
+        "addressId": 131
       },
       {
         "id": 32,
@@ -60,7 +61,8 @@ export class TrappsInMemoryDbService implements InMemoryDbService {
         "email": "cumbel@pivotal.io",
         "personType": "Pivotal",
         "business": "Pivotal",
-        "title": "Architect"
+        "title": "Architect",
+        "addressId": 130
       },
       {
         "id": 33,
@@ -70,7 +72,8 @@ export class TrappsInMemoryDbService implements InMemoryDbService {
         "email": "mforte@accenture.com",
         "personType": "Vendor",
         "business": "Aptium",
-        "title": "Manager"
+        "title": "Manager",
+        "addressId": 132
       },
       {
         "id": 34,
@@ -80,9 +83,11 @@ export class TrappsInMemoryDbService implements InMemoryDbService {
         "email": "mforte@comcast.com",
         "personType": "Client",
         "business": "Comcast",
-        "title": "Manager"
+        "title": "Manager",
+        "addressId": 130
       }
     ];
+
 
     let personSkills = [
       {
@@ -116,14 +121,46 @@ export class TrappsInMemoryDbService implements InMemoryDbService {
         "name": "Angular"
       }
     ];
-   
+
+    let personDocuments = [
+      {
+        "id": 10,
+        "personId": 30,
+        "name": "Resume",
+        "fileName": "resume-012016.doc",
+        "uploadTimestamp": new Date()
+      },
+      {
+        "id": 11,
+        "personId": 30,
+        "name": "INSYS Profile",
+        "fileName": "insys-profile-092016.doc",
+        "uploadTimestamp": new Date()
+      },
+      {
+        "id": 12,
+        "personId": 31,
+        "name": "Resume",
+        "fileName": "resume-082016.doc",
+        "uploadTimestamp": new Date()
+      },
+      {
+        "id": 13,
+        "personId": 31,
+        "name": "INSYS Profile",
+        "fileName": "insys-profile-102016.doc",
+        "uploadTimestamp": new Date()
+      }
+    ];
+
     let businesses = [
       {
         "id": 30,
         "name": "Pivotal-Labs",
         "description": "Pivotal-Labs for trainging and R&D",
         "addresses": "pivtoal-lab street",
-        "businessType": "PivotalLabs"
+        "addressId": 133,
+        "businessType": "Pivotal-Labs"
       },
       {
          "id": 31,
@@ -154,8 +191,7 @@ export class TrappsInMemoryDbService implements InMemoryDbService {
         "businessType": "Insys"
       }
     ];
-    
 
-    return { "addresses": addresses, "persons": persons, "businesses": businesses, "personskills": personSkills };
+    return { "addresses": addresses, "persons": persons, "businesses": businesses, "personskills": personSkills, "persondocuments": personDocuments };
   }
 }
