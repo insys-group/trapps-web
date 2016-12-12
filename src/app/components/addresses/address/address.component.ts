@@ -4,7 +4,6 @@ import { AddressService } from '../../../services/address.service';
 import { Router } from '@angular/router';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
-import { AddressRes } from '../../../resources/address.resource';
 import { NotificationService } from '../../../services/notification.service';
 
 import 'rxjs/add/operator/take';
@@ -29,7 +28,7 @@ export class AddressComponent implements OnInit {
   isShowDelete = true;
 
    constructor(
-    private addressService: AddressRes,
+    private addressService: AddressService,
     private router: Router,
     private route: ActivatedRoute,
     private location: Location, 
