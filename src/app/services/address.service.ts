@@ -1,12 +1,9 @@
 import {Injectable} from '@angular/core';
-import {Resource, ResourceParams, ResourceAction, ResourceMethod} from 'ng2-resource-rest';
-import {RequestMethod} from '@angular/http';
+import {ResourceParams} from 'ng2-resource-rest';
 import {Address} from '../models/address.model';
 import {CRUDResource} from '../resources/crud.resource';
 import { Http, Headers, Response } from '@angular/http';
 import { Injector } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { IResources } from '../resources/crud.resource';
 
 
 @Injectable()
