@@ -31,6 +31,7 @@ import { FilterBusinessTypePipe } from './pipes/filter-business-type.pipe';
 
 import { NotificationDialogComponent } from './components/dialogs/notification-dialog/notification-dialog.component';
 import { PersonSkillsComponent } from './components/persons/person-skills/person-skills.component';
+import { PersonDocumentsComponent } from './components/persons/person-documents/person-documents.component';
 
 @NgModule({
   declarations: [
@@ -45,8 +46,9 @@ import { PersonSkillsComponent } from './components/persons/person-skills/person
     RoleListComponent,
     PersonSkillsComponent,
     FilterPersonTypePipe,
-    FilterBusinessTypePipe,
-    NotificationDialogComponent
+    NotificationDialogComponent,
+    PersonDocumentsComponent,
+    FilterBusinessTypePipe
   ],
   imports: [
     BrowserModule,

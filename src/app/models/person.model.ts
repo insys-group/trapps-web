@@ -17,6 +17,14 @@ export class PersonSkill {
   name: string
 }
 
+export class PersonDocument {
+  id: number;
+  personId: number;
+  name: string;
+  fileName: string;
+  uploadTimestamp: Date
+}
+
 export class PersonType {
     static ALL : string = "All";
     static CLIENT : string = "Client";
