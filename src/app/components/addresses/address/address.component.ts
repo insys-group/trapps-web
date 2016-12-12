@@ -60,7 +60,7 @@ export class AddressComponent implements OnInit {
 
   public load(id: number): void {
     if (id) {
-     this.addressService.get({id}).$observable
+     this.addressService.getOne({id})
       .subscribe(
         address => {this.address = address;},
         error => this.handleError
@@ -80,17 +80,17 @@ export class AddressComponent implements OnInit {
   save(): void {
     if(this.address.id===null) {
       console.log('Enter: AddressComponent.save()' + this.address.id);
-      this.addressService.save(this.address).$observable.subscribe(address => this.address=address);
+      this.addressService.create(this.address).subscribe(address => this.address=address);
     } else {
       console.log('Enter: AddressComponent.update()' + this.address.id);
-      this.addressService.update(this.address).$observable.subscribe(address => this.address=address, this.handleError);
+      this.addressService.update(this.address).subscribe(address => this.address=address, this.handleError);
     }
     //this.router.navigate(['/addresses']);
   }
 
   delete(): void {
     console.log('Enter: AddressComponent.delete()');
-    this.addressService.remove({ id: this.address.id }).$observable.subscribe(() => this.router.navigate(['/addresses']), this.handleError);
+    this.addressService.delete(this.address.id).subscribe(() => this.router.navigate(['/addresses']), this.handleError);
   }
 
   cancel(): void {

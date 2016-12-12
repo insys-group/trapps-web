@@ -23,8 +23,7 @@ export class AddressListComponent implements OnInit {
 
   ngOnInit() {
     console.log('Enter: AddressListComponent.ngOnInit()');
-    this.addressService.query()
-    .$observable
+    this.addressService.getAll()
       .subscribe(data => {
         this.addresses = data.content;
       });
