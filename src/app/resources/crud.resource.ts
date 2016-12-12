@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Resource, ResourceParams, ResourceAction, ResourceMethod} from 'ng2-resource-rest';
 import {RequestMethod} from '@angular/http';
-import { Address } from '../models/address.model';
 
 interface IQueryInput {
   page?: number;
@@ -11,9 +10,9 @@ interface IQueryInput {
   isRead?: string;
 }
 
-interface IResource extends Address {
+export interface IResource {
   links?: any;
-  content?: any;  
+  content?: any;
 }
 
 interface IResources extends IResource
@@ -23,12 +22,7 @@ interface IResources extends IResource
   page?: any;
 }
 
-@Injectable()
-@ResourceParams({
-    url: 'http://localhost:8081/api/v1/addresses'
-})
-export class AddressRes extends Resource {
-
+export class CRUDResource<T extends IResource> extends Resource {
   @ResourceAction({
     isArray: false , map: function(data: Object): IResources  { return data as IResources; }
   })
@@ -37,20 +31,20 @@ export class AddressRes extends Resource {
   @ResourceAction({
     path: '/{!id}'
   })
-  get: ResourceMethod<{id: any}, IResource>;
+  get: ResourceMethod<{id: any}, T>;
 
   @ResourceAction({
     method: RequestMethod.Post,
     path: '',
     headers: { 'Content-Type': 'application/json' }
   })
-  save: ResourceMethod<IResource, IResource>;
+  save: ResourceMethod<T, T>;
 
   @ResourceAction({
     method: RequestMethod.Put,
     path: '/{!id}'
   })
-  update: ResourceMethod<IResource, IResource>;
+  update: ResourceMethod<T, T>;
 
   @ResourceAction({
     method: RequestMethod.Delete,
@@ -59,7 +53,7 @@ export class AddressRes extends Resource {
   remove: ResourceMethod<{id: any}, any>;
 
   // Alias to save
-  create(data: IResource, callback?: (res: IResource) => any): IResource {
+  create(data: T, callback?: (res: T) => any): T {
     console.log('save() ' + JSON.stringify(data));
     return this.save(data, callback);
   }
