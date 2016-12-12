@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AddressService } from '../../../services/address.service';
-import { AddressRes } from '../../../resources/address.resource';
-import { NewAddressRes } from '../../../resources/addressCrud.resource';
 import { Address } from '../../../models/address.model';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
+import { IResource } from '../../../resources/crud.resource';
 
 @Component({
   selector: 'app-address-list',
@@ -16,18 +15,15 @@ export class AddressListComponent implements OnInit {
   closeResult: string;
 
   errorMessage: string;
-  addresses: Address[];
+  addresses: IResource[];
 
-  //constructor(private router: Router, private addressService: NewAddressRes) { 
-  constructor(private router: Router, private addressService: AddressRes) { 
-
+  constructor(private router: Router, private addressService: AddressService) {
      console.log('AddressListComponent constructor');
   }
 
   ngOnInit() {
     console.log('Enter: AddressListComponent.ngOnInit()');
-    let ret = this.addressService.query()
-    .$observable
+    this.addressService.getAll()
       .subscribe(data => {
         this.addresses = data.content;
       });

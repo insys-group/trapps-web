@@ -1,4 +1,6 @@
-export class Address {
+import { IResource } from '../resources/crud.resource';
+
+export class Address implements IResource {
     id:number;
     address1: string;
     address2: string;

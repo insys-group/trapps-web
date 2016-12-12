@@ -18,7 +18,6 @@ import { BusinessComponent } from './components/businesses/business/business.com
 
 import { TrappsInMemoryDbService } from './services/trappsdb.service';
 import { BusinessService } from './services/business.service';
-
 import { NotificationService } from './services/notification.service';
 import { PersonService } from './services/person.service';
 import { AddressService } from './services/address.service';
@@ -57,7 +56,7 @@ import { PersonDocumentsComponent } from './components/persons/person-documents/
     FormsModule,
     HttpModule,
     NgbModule.forRoot(),
-   InMemoryWebApiModule.forRoot(TrappsInMemoryDbService),
+    //InMemoryWebApiModule.forRoot(TrappsInMemoryDbService),
     ResourceModule.forRoot(),
     AppRoutingModule
   ],
