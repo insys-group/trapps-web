@@ -3,6 +3,7 @@ import { BusinessService } from '../../../services/business.service';
 import { Business, BusinessType } from '../../../models/business.model';
 import { Router } from '@angular/router';
 import { NotificationService } from '../../../services/notification.service';
+import { IResource} from '../../../resources/crud.resource'
 
 @Component({
   selector: 'app-business-list',
@@ -13,7 +14,7 @@ import { NotificationService } from '../../../services/notification.service';
 export class BusinessListComponent implements OnInit {
   closeResult: string;
   errorMessage: string;
-  businesses: Business[];
+  businesses: IResource[];
   businessTypes: string[] = [ BusinessType.ALL, BusinessType.CLIENT, BusinessType.PLABS,
     BusinessType.PIVOTAL, BusinessType.VENDOR, BusinessType.INSYS]
   businessType: string = BusinessType.PLABS;
@@ -24,8 +25,8 @@ export class BusinessListComponent implements OnInit {
 
   ngOnInit() {
     console.log('Enter: BusinessListComponent.ngOnInit()');
-    this.businessService.getBusinesses().subscribe(
-      businesses =>  this.businesses=businesses,
+    this.businessService.getAll().subscribe(
+      businesses =>  this.businesses=businesses.content,
       error => this.notificationService.error(error.json().error)
     );
 

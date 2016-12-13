@@ -36,7 +36,7 @@ export class BusinessComponent implements OnInit {
       businessType=params['businessType'];
       console.log(`Parameter Id is ${id}`);
       if (id > 0) {
-        this.businessService.getBusiness(id)
+        this.businessService.getOne(id)
           .subscribe(
             business => {this.business = business; this.init();},
             error => this.handleError
