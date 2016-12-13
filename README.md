@@ -9,6 +9,9 @@ brew install npm
 ## Install angular cli 
 npm install -g angular-cli
 
+## Install all dependencies
+npm install  
+
 ## Install bootstrap
 npm install bootstrap@next
 
