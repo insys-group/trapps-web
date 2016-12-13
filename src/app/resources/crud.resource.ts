@@ -60,7 +60,7 @@ export class CRUDResource<T extends IResource> extends Resource {
   }
 
   public getAll() { return this.query().$observable; }
-  public getOne(id: any) { return this.get(id).$observable; }
+  public getOne(id: any) { return this.get({id: id}).$observable; }
   public create(obj: T) { return this.save(obj).$observable; }
   public update(obj: T) { return this._update(obj).$observable; }
   public delete(id: any) { return this.remove({id: id}).$observable; }

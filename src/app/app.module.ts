@@ -15,7 +15,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { BusinessListComponent } from './components/businesses/business-list/business-list.component';
 import { BusinessComponent } from './components/businesses/business/business.component';
 
-
+import { ConstantService } from './services/constant.service';
 import { TrappsInMemoryDbService } from './services/trappsdb.service';
 import { BusinessService } from './services/business.service';
 import { NotificationService } from './services/notification.service';
@@ -60,7 +60,7 @@ import { PersonDocumentsComponent } from './components/persons/person-documents/
     ResourceModule.forRoot(),
     AppRoutingModule
   ],
-  providers: [PersonService, BusinessService, AddressService, NotificationService],
+  providers: [ConstantService, PersonService, BusinessService, AddressService, NotificationService],
   entryComponents: [NotificationDialogComponent],
   bootstrap: [AppComponent]
 })

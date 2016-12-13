@@ -3,7 +3,8 @@ import { BusinessService } from '../../../services/business.service';
 import { Business, BusinessType } from '../../../models/business.model';
 import { Router } from '@angular/router';
 import { NotificationService } from '../../../services/notification.service';
-import { IResource} from '../../../resources/crud.resource'
+import { IResource } from '../../../resources/crud.resource';
+import {ConstantService} from  '../../../services/constant.service';
 
 @Component({
   selector: 'app-business-list',
@@ -21,10 +22,14 @@ export class BusinessListComponent implements OnInit {
 
   select = new EventEmitter();
 
-  constructor(private router: Router, private businessService: BusinessService, private notificationService: NotificationService) { }
+  constructor(private router: Router, 
+  private businessService: BusinessService, 
+  private notificationService: NotificationService,
+  private constantService: ConstantService) { }
 
   ngOnInit() {
     console.log('Enter: BusinessListComponent.ngOnInit()');
+    this.businessService.setUrl(this.constantService.API_ENDPOINT + this.constantService.ADDRESS_RES);
     this.businessService.getAll().subscribe(
       businesses =>  this.businesses=businesses.content,
       error => this.notificationService.error(error.json().error)

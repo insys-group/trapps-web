@@ -11,7 +11,7 @@ import { AddressComponent } from './components/addresses/address/address.compone
 import { AddressListComponent } from './components/addresses/address-list/address-list.component';
 
 const appRoutes: Routes = [
-    { path: '', pathMatch: 'full', redirectTo: 'addresses'},
+    { path: '', pathMatch: 'full', redirectTo: 'businesses'},
     { path: 'persons', component: PersonListComponent},
     { path: 'persons/:id', component: PersonComponent},
     { path: 'businesses', component: BusinessListComponent},
