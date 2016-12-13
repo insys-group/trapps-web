@@ -14,9 +14,9 @@ import 'rxjs/add/operator/take';
   styleUrls: ['./address.component.css']
 })
 
-export class AddressComponent implements OnInit {  
-  private _addressId = 0 ;
-  @Input() 
+export class AddressComponent implements OnInit {
+ private _addressId = 0 ;
+  @Input()
   set addressId(addressId: number) {
     console.log(`Enter: AddressComponent.@Input ${addressId}`);
     this._addressId = addressId;
@@ -27,7 +27,7 @@ export class AddressComponent implements OnInit {
   isShowClose = true;
   isShowDelete = true;
 
-  constructor(
+   constructor(
     private addressService: AddressService,
     private router: Router,
     private route: ActivatedRoute,
@@ -58,18 +58,9 @@ export class AddressComponent implements OnInit {
    };
   }
 
-  private init(): void {
-      this.address.id=0;
-      this.address.address1='';
-      this.address.address2='';
-      this.address.city='';
-      this.address.state='';
-      this.address.zipCode='';
-  }
-
   public load(id: number): void {
     if (id) {
-     this.addressService.getAddress(id)
+     this.addressService.getOne({id})
       .subscribe(
         address => {this.address = address;},
         error => this.handleError
@@ -77,11 +68,21 @@ export class AddressComponent implements OnInit {
     }
   }
 
+  private init(): void {
+      this.address.id=null;
+      this.address.address1='';
+      this.address.address2='';
+      this.address.city='';
+      this.address.state='';
+      this.address.zipCode='';
+  }
+
   save(): void {
-    console.log('Enter: AddressComponent.save()' + this.address.id);
-    if(this.address.id===0) {
-      this.addressService.create(this.address).subscribe(address => this.address=address, this.handleError);
+    if(this.address.id===null) {
+      console.log('Enter: AddressComponent.save()' + this.address.id);
+      this.addressService.create(this.address).subscribe(address => this.address=address);
     } else {
+      console.log('Enter: AddressComponent.update()' + this.address.id);
       this.addressService.update(this.address).subscribe(address => this.address=address, this.handleError);
     }
     //this.router.navigate(['/addresses']);
