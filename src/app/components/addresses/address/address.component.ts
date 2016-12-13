@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 import { NotificationService } from '../../../services/notification.service';
+import {ConstantService} from  '../../../services/constant.service';
 
 import 'rxjs/add/operator/take';
 
@@ -32,12 +33,14 @@ export class AddressComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private location: Location, 
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private constantService: ConstantService
   ) { }
 
 
   ngOnInit(): void {
     console.log(`Enter: AddressComponent.ngOnInit()`);
+    this.addressService.setUrl(this.constantService.API_ENDPOINT + this.constantService.ADDRESS_RES);
     let id = 0;
      if (this._addressId){
         console.log(`AddressComponent.ngOnInit() this.addressId = ${this._addressId}`);
@@ -60,7 +63,7 @@ export class AddressComponent implements OnInit {
 
   public load(id: number): void {
     if (id) {
-     this.addressService.getOne({id})
+     this.addressService.getOne(id)
       .subscribe(
         address => {this.address = address;},
         error => this.handleError

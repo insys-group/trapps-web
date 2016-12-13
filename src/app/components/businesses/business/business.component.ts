@@ -36,7 +36,7 @@ export class BusinessComponent implements OnInit {
       businessType=params['businessType'];
       console.log(`Parameter Id is ${id}`);
       if (id > 0) {
-        this.businessService.getBusiness(id)
+        this.businessService.getOne(id)
           .subscribe(
             business => {this.business = business; this.init();},
             error => this.handleError
@@ -44,9 +44,9 @@ export class BusinessComponent implements OnInit {
       } else {
         this.business.id=0;
         if(businessType!='') {
-          this.business.businessType=businessType;
+          this.business.entityType=businessType;
         } else {
-          this.business.businessType='Insys';
+          this.business.entityType='Insys';
         }
         this.init();
       }
@@ -54,11 +54,11 @@ export class BusinessComponent implements OnInit {
   }
 
   private init(): void {
-    if(this.business.businessType==='Insys' || this.business.businessType==='Client') {
+    if(this.business.entityType==='Insys' || this.business.entityType==='Client') {
       this.businessTypes = ['Insys', 'Client'];
       this.businesses = ['INSYS Group'];
     } else {
-      this.businessTypes = [this.business.businessType];
+      this.businessTypes = [this.business.entityType];
     }
     this.address = true;
   }

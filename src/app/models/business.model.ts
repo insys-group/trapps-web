@@ -1,10 +1,10 @@
-export class Business {
+import { IResource } from '../resources/crud.resource';
+
+export class Business implements IResource{
   id: number;
-  businessId: number;
   name: string;
   description: string;
-  addresses: string;
-  businessType: string;
+  entityType: string;
 }
 
 export class BusinessType {

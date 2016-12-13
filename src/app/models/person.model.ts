@@ -8,7 +8,7 @@ export class Person {
   personType: string;
   title: string;
   business: string;
-  addressId: number;
+  address: number;
 }
 
 export class PersonSkill {

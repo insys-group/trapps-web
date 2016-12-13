@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Person, PersonType } from '../../../models/person.model';
-import { PersonService } from '../../../services/person.service';
+import { NewPersonService } from '../../../services/newperson.service';
 import { NotificationService } from '../../../services/notification.service'
 import { Router } from '@angular/router';
 import { ActivatedRoute, Params } from '@angular/router';
@@ -24,7 +24,7 @@ export class PersonComponent implements OnInit {
   address: boolean;
 
   constructor(
-    private personService: PersonService,
+    private personService: NewPersonService,
     private router: Router,
     private route: ActivatedRoute,
     private location: Location,
@@ -40,7 +40,7 @@ export class PersonComponent implements OnInit {
       personType=params['personType'];
       console.log(`Parameter Id is ${id}`);
       if (id > 0) {
-        this.personService.getPerson(id)
+        this.personService.getOne(id)
           .subscribe(
             person => {this.person = person; this.init();},
             error => this.handleError
@@ -64,21 +64,21 @@ export class PersonComponent implements OnInit {
       this.person.business='INSYS Group';
       this.skills=true;
       this.documents=true;
-      this.address=true;
     } else {
       this.personTypes = [this.person.personType];
       this.skills=false;
       this.documents=false;
     }
+    this.address=true;
   }
 
   save(): void {
     console.log('Enter: PersonComponent.save()' + this.person.id);
     
     if(this.person.id===0) {
-      this.personService.createPerson(this.person).subscribe(person => this.handleSuccess(person), this.handleError);
+      this.personService.create(this.person).subscribe(person => this.handleSuccess(person), this.handleError);
     } else {
-      this.personService.updatePerson(this.person).subscribe(person => this.handleSuccess(person), this.handleError);
+      this.personService.update(this.person).subscribe(person => this.handleSuccess(person), this.handleError);
     }
   }
 
@@ -88,7 +88,7 @@ export class PersonComponent implements OnInit {
       .subscribe(
         result => {
           if(result==='Yes') {
-            this.personService.deletePerson(this.person.id).subscribe(() => this.router.navigate(['/persons']), this.handleError);
+            this.personService.delete(this.person.id).subscribe(() => this.router.navigate(['/persons']), this.handleError);
           } else {
             console.log('Dont want to delete the record');
           }
