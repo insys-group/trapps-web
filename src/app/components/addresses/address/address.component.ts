@@ -8,6 +8,7 @@ import { NotificationService } from '../../../services/notification.service';
 import {ConstantService} from  '../../../services/constant.service';
 import { Http} from '@angular/http';
 import { Injector } from '@angular/core';
+import {CRUDResource} from '../../../resources/crud.resource';
 
 import 'rxjs/add/operator/take';
 
@@ -77,10 +78,9 @@ export class AddressComponent implements OnInit {
 
   public load(id: number): void {
     if (id) {
-     this.setBaseUrl;
      this.addressService.getOne(id)
       .subscribe(
-        address => {this._address = address;},
+        address => {this._address = address},
         error => this.handleError
       );
     }
@@ -88,10 +88,11 @@ export class AddressComponent implements OnInit {
 
  public loadByUrl(url: string): void {
     if (url) {
-     this.addressService.getByUrl(url)
+     let service = new AddressService(this.http, this.injector);
+     service.getByUrl(url)
       .subscribe(
-        address => {this._address = address; this.setBaseUrl;},
-        error => {this.setBaseUrl; this.handleError}
+        address => {this._address = address},
+        error => {this.handleError}
       );
     }
   }
@@ -112,7 +113,6 @@ export class AddressComponent implements OnInit {
   }
 
    public saveSynh() {
-    this.setBaseUrl;
     if(this._address.id===null) {
       console.log('Enter: AddressComponent.save()' + this._address.id);
       return this.addressService.createNew(this._address)
@@ -135,7 +135,6 @@ export class AddressComponent implements OnInit {
 
   delete(): void {
     console.log('Enter: AddressComponent.delete()');
-     this.setBaseUrl;
     this.addressService.delete(this._address.id).subscribe(() => this.router.navigate(['/addresses']), this.handleError);
   }
 
