@@ -1,3 +1,10 @@
-<p>
-  role-list works!
-</p>
+<div class="container">
+   <label for="roleList">Role list</label>
+
+  <div class="list-group">
+    <button type="button" class="list-group-item list-group-item-action" *ngFor="let role of roles"
+      (click)="onSelect(person)">
+      {{role.name}}
+  </button>
+  </div>
+</div>
