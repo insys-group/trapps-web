@@ -5,6 +5,7 @@ export class Business implements IResource{
   name: string;
   description: string;
   entityType: string;
+  locations: string[];
 }
 
 export class BusinessType {
