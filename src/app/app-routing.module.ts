@@ -17,6 +17,7 @@ const appRoutes: Routes = [
     { path: 'businesses', component: BusinessListComponent},
     { path: 'businesses/:id', component: BusinessComponent},
     { path: 'roles', component: RoleListComponent},
+    { path: 'roles/:id', component: RoleComponent},
     { path: 'addresses', component: AddressListComponent},
     { path: 'addresses/:id', component: AddressComponent}
 ];
