@@ -1,14 +1,17 @@
-export class Person {
+import { Address } from '../models/address.model';
+import { Business } from '../models/business.model';
+import { IResource } from '../resources/crud.resource';
+
+export class Person extends IResource {
   id: number;
-  businessId: number;
   firstName: string;
   lastName: string;
   phone: string;
   email: string;
   personType: string;
   title: string;
-  business: string;
-  addressId: number;
+  businessEntity: Business;
+  address: Address;
 }
 
 export class PersonSkill {

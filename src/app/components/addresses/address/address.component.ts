@@ -5,6 +5,10 @@ import { Router } from '@angular/router';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 import { NotificationService } from '../../../services/notification.service';
+import {ConstantService} from  '../../../services/constant.service';
+import { Http} from '@angular/http';
+import { Injector } from '@angular/core';
+import {CRUDResource} from '../../../resources/crud.resource';
 
 import 'rxjs/add/operator/take';
 
@@ -22,28 +26,42 @@ export class AddressComponent implements OnInit {
     this._addressId = addressId;
   }
 
-  address: Address = new Address();
-  isShowSave = true;
-  isShowClose = true;
-  isShowDelete = true;
+  private _address: Address = new Address();
+
+  set address(address: Address) {
+    console.log(`Enter: AddressComponent.set ${address}`);
+    this._address = address;
+  }
+  get address(): Address {
+    return this._address;
+  }
+
+  isShowSave = false;
+  isShowClose = false;
+  isShowDelete = false;
 
    constructor(
     private addressService: AddressService,
     private router: Router,
     private route: ActivatedRoute,
     private location: Location, 
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private constantService: ConstantService,
+    private http: Http,
+    private injector: Injector
   ) { }
 
+  private setBaseUrl(){
+    this.addressService.setUrl(this.constantService.API_ENDPOINT + this.constantService.ADDRESS_RES);
+  }
 
   ngOnInit(): void {
     console.log(`Enter: AddressComponent.ngOnInit()`);
+    this.setBaseUrl;
     let id = 0;
      if (this._addressId){
-        console.log(`AddressComponent.ngOnInit() this.addressId = ${this._addressId}`);
+        console.log(`AddressComponent.ngOnInit() this._addressId = ${this._addressId}`);
         id = this._addressId;
-        this.isShowClose = false;
-        this.isShowDelete = false;
       } else {
         this.route.params.subscribe(params => {
         id = +params['id'];
@@ -60,37 +78,64 @@ export class AddressComponent implements OnInit {
 
   public load(id: number): void {
     if (id) {
-     this.addressService.getOne({id})
+     this.addressService.getOne(id)
       .subscribe(
-        address => {this.address = address;},
+        address => {this._address = address},
         error => this.handleError
       );
     }
   }
 
-  private init(): void {
-      this.address.id=null;
-      this.address.address1='';
-      this.address.address2='';
-      this.address.city='';
-      this.address.state='';
-      this.address.zipCode='';
+ public loadByUrl(url: string): void {
+    if (url) {
+     let service = new AddressService(this.http, this.injector);
+     service.getByUrl(url)
+      .subscribe(
+        address => {this._address = address},
+        error => {this.handleError}
+      );
+    }
   }
 
-  save(): void {
-    if(this.address.id===null) {
-      console.log('Enter: AddressComponent.save()' + this.address.id);
-      this.addressService.create(this.address).subscribe(address => this.address=address);
+ public enableEdit(): void {
+      this.isShowSave = false;
+      this.isShowDelete = false;
+      this.isShowClose = false;
+  }
+
+  private init(): void {
+      this._address.id=null;
+      this._address.address1='';
+      this._address.address2='';
+      this._address.city='';
+      this._address.state='';
+      this._address.zipCode='';
+  }
+
+   public saveSynh() {
+    if(this._address.id===null) {
+      console.log('Enter: AddressComponent.save()' + this._address.id);
+      return this.addressService.createNew(this._address)
     } else {
-      console.log('Enter: AddressComponent.update()' + this.address.id);
-      this.addressService.update(this.address).subscribe(address => this.address=address, this.handleError);
+      console.log('Enter: AddressComponent.update()' + this._address.id);
+      return this.addressService.update(this._address)
     }
-    //this.router.navigate(['/addresses']);
+  }
+
+  public save(): void {
+     this.saveSynh().subscribe(
+        address => {
+          this._address = address;
+          console.log(`Enter:  AddressComponent.save() ok address = ${JSON.stringify(address)}`);
+          },
+        error => {this.handleError}
+      );
+    console.log(`Enter:  AddressComponent.save() ok = ${JSON.stringify(this._address)}`);
   }
 
   delete(): void {
     console.log('Enter: AddressComponent.delete()');
-    this.addressService.delete(this.address.id).subscribe(() => this.router.navigate(['/addresses']), this.handleError);
+    this.addressService.delete(this._address.id).subscribe(() => this.router.navigate(['/addresses']), this.handleError);
   }
 
   cancel(): void {
