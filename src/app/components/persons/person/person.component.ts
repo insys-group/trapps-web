@@ -97,7 +97,8 @@ export class PersonComponent implements OnInit, AfterViewInit {
           "name" : "business_entity 1",
           "description" : "business_entity 1",
           "entityType" : "Insys",
-          "id" : 15};
+          "id" : 15,
+          "address": null};
   }
 
   save(): void {

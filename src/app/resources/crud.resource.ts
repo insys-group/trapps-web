@@ -69,4 +69,5 @@ export class CRUDResource<T extends IResource> extends Resource {
   public update(obj: T) { return this._update(obj).$observable; }
   public delete(id: any) { return this.remove({id: id}).$observable; }
   public getByUrl(url: string) { this.setUrl(url); return this._getByUrl().$observable; }
+  public getAllByUrl(url: string) { this.setUrl(url); return this.query().$observable; }
 }

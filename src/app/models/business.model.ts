@@ -1,11 +1,12 @@
 import { IResource } from '../resources/crud.resource';
+import { Address } from '../models/address.model';
 
 export class Business extends IResource {
   id: number;
   name: string;
   description: string;
   entityType: string;
-  locations: string[];
+  address: Address;
 }
 
 export class BusinessType {
