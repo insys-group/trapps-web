@@ -7,6 +7,7 @@ import { Injector } from '@angular/core';
 
 @Injectable()
 @ResourceParams({
+  url: 'http://localhost:8081/api/v1/addresses'
 })
 export class AddressService extends CRUDResource<Address> {
 constructor(http: Http, injector: Injector) {

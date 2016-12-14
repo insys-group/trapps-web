@@ -66,7 +66,7 @@ export class BusinessComponent implements OnInit {
   save(): void {
     console.log('Enter: BusinessComponent.save()' + this.business.id);
     if(this.business.id===0) {
-      this.businessService.create(this.business).subscribe(business => this.business=business, this.handleError);
+      this.businessService.createNew(this.business).subscribe(business => this.business=business, this.handleError);
     } else {
       this.businessService.update(this.business).subscribe(business => this.business=business, this.handleError);
     }

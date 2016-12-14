@@ -11,14 +11,14 @@ interface IQueryInput {
   isRead?: string;
 }
 
-export interface IResource {
-  links?: any;
-  content?: any;
+export class IResource {
+  links?: Array<any>;
+  content?: Array<any>;
 }
 
-export interface IResources extends IResource
+export interface IResources
  {
-  links?: any;
+  links?: Array<any>;
   content?: Array<IResource>;
   page?: any;
 }
@@ -53,15 +53,20 @@ export class CRUDResource<T extends IResource> extends Resource {
   })
   remove: ResourceMethod<{id: any}, any>;
 
+ @ResourceAction({
+  })
+  _getByUrl: ResourceMethod<IQueryInput, T>;
+
   // Alias to save
-  _create(data: T, callback?: (res: T) => any): T {
-    console.log('save() ' + JSON.stringify(data));
+  create(data: T, callback?: (res: T) => any): T {
+    console.log(` CRUDResource save() url=${this.getUrl}, data= ${JSON.stringify(data)} `);
     return this.save(data, callback);
   }
 
   public getAll() { return this.query().$observable; }
   public getOne(id: any) { return this.get({id: id}).$observable; }
-  public create(obj: T) { return this.save(obj).$observable; }
+  public createNew(obj: T) { return this.save(obj).$observable; }
   public update(obj: T) { return this._update(obj).$observable; }
   public delete(id: any) { return this.remove({id: id}).$observable; }
+  public getByUrl(url: string) { this.setUrl(url); return this._getByUrl().$observable; }
 }
