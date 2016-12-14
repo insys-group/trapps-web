@@ -51,9 +51,13 @@ private findInArray(arr: Array<{rel : string; href: string}>, name: string): str
               this.init();
             if (this.business.links){       
                let link = this.findInArray(this.business.links,'addresses');
-               console.log(`Enter: BusinessComponent.ngAfterViewInit() link= ${link} `);
-               this.addressComponent.loadByUrl(link);
-               this.business.address = this.addressComponent.address;
+               this.addressComponent.loadByUrl(link).subscribe(
+                      address => {
+                        this.addressComponent.address = address.content[0];
+                        console.log(`Enter: BusinessComponent.ngAfterViewInit() address= ${JSON.stringify(this.addressComponent.address)} `);
+                      },
+                      error => {this.handleError}
+                  )
               }
             },
             error => this.handleError
