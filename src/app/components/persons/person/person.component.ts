@@ -93,10 +93,10 @@ export class PersonComponent implements OnInit, AfterViewInit {
       this.documents=false;
     }
     this.address=true;
-    this.person.businessEntity={
+    this.person.business={
           "name" : "business_entity 1",
           "description" : "business_entity 1",
-          "entityType" : "Insys",
+          "businessType" : "Insys",
           "id" : 15,
           "address": null};
   }
@@ -124,7 +124,7 @@ export class PersonComponent implements OnInit, AfterViewInit {
   }
 
   delete(): void {
-    console.log('Enter: PersonComponent.delete()');
+    console.log('Enter: PersonComponent.delete()' );
     this.notificationService.ask('Do you really want to delete?', ["Yes", "No"])
       .subscribe(
         result => {

@@ -84,11 +84,11 @@ private findInArray(arr: Array<{rel : string; href: string}>, name: string): str
   }
 
   private init(): void {
-    if(this.business.entityType==='Insys' || this.business.entityType==='Client') {
+    if(this.business.businessType==='Insys' || this.business.businessType==='Client') {
       this.businessTypes = ['Insys', 'Client'];
       this.businesses = ['INSYS Group'];
     } else {
-      this.businessTypes = [this.business.entityType];
+      this.businessTypes = [this.business.businessType];
     }
     this.address = true;
   }
