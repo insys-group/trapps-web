@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { RoleService } from '../../../services/role.service';
-import { Roles } from '../../../models/roles.model';
+import { Roles, Skill } from '../../../models/roles.model';
 import { Observable } from 'rxjs/Observable';
 import { NotificationService } from '../../../services/notification.service';
 import { IResource } from '../../../resources/crud.resource';
@@ -28,6 +28,7 @@ export class RoleListComponent implements OnInit {
     console.log('Enter: RoleListComponent.ngOnInit()');
     this.roleService.getAll().subscribe(
       roles => this.roles = roles.content,
+
       error => this.notificationService.error(error.json().error)
     );
  }
