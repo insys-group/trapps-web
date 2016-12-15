@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Person, PersonType } from '../../../models/person.model';
-import { NewPersonService } from '../../../services/newperson.service';
+import { PersonService } from '../../../services/person.service';
 import { NotificationService } from '../../../services/notification.service'
 import { Router } from '@angular/router';
 import { ActivatedRoute, Params } from '@angular/router';
@@ -22,6 +22,7 @@ export class PersonComponent implements OnInit, AfterViewInit {
   personType: string;
   personTypes: string[] = ['Employee', 'Candidate', 'Client', 'Vendor', 'Pivotal'];
   businesses: string[] = ['Comcast', 'Aptium', 'Pivotal', 'INSYS Group'];
+  business: string;
 
   skills: boolean;
   documents: boolean;
@@ -46,8 +47,10 @@ export class PersonComponent implements OnInit, AfterViewInit {
             if (this.person.links){
                let link = this.findInArray(this.person.links,'address');
                console.log(`Enter: PersonComponent.ngAfterViewInit() link= ${link} `);
-               this.addressComponent.loadByUrl(link);
-               this.person.address = this.addressComponent.address;
+               this.addressComponent.loadByUrl(link).subscribe(
+                  data => {this.addressComponent.address = data}
+                , error => {console.log(`Error:  PersonComponent person.update() `); this.handleError}
+              );
               }
             },
             error => this.handleError
@@ -64,7 +67,7 @@ export class PersonComponent implements OnInit, AfterViewInit {
   }
 
   constructor(
-    private personService: NewPersonService,
+    private personService: PersonService,
     private router: Router,
     private route: ActivatedRoute,
     private location: Location,
@@ -73,6 +76,7 @@ export class PersonComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     console.log(`Enter: PersonComponent.ngOnInit()`);
+    this.init();
     this.route.params.subscribe(params => {
       this.id = +params['id'];
       this.personType=params['personType'];
@@ -96,9 +100,16 @@ export class PersonComponent implements OnInit, AfterViewInit {
     this.person.business={
           "name" : "business_entity 1",
           "description" : "business_entity 1",
+<<<<<<< HEAD
           "businessType" : "Insys",
           "id" : 15,
           "address": null};
+=======
+          "entityType" : "Insys",
+          "id" : 15,
+          "addresses": null
+        };
+>>>>>>> 48e4f00708bbf5446d971b33331e5e804f39515b
   }
 
   save(): void {

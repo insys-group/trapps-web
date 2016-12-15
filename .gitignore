@@ -33,4 +33,8 @@ testem.log
 #System Files
 .DS_Store
 Thumbs.db
+<<<<<<< HEAD
 trapps-web.iml
+=======
+/trapps-web.iml
+>>>>>>> 48e4f00708bbf5446d971b33331e5e804f39515b

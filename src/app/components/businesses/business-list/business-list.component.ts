@@ -28,7 +28,7 @@ export class BusinessListComponent implements OnInit {
   private notificationService: NotificationService,
   private constantService: ConstantService) { }
 
-  ngOnInit() {
+ ngOnInit() {
     console.log('Enter: BusinessListComponent.ngOnInit()');
     this.businessService.setUrl(this.constantService.API_ENDPOINT + this.constantService.BUSINESS_RES);
     this.businessService.getAll().subscribe(
@@ -38,6 +38,7 @@ export class BusinessListComponent implements OnInit {
     );
     this.select.emit(this.businessTypes[0]);
   }
+
 
   onSelect(business: Business) {
     this.router.navigate(['/businesses', business.id]);

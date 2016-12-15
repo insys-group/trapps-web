@@ -24,6 +24,7 @@ import { AddressService } from './services/address.service';
 
 import { AddressComponent } from './components/addresses/address/address.component';
 import { AddressListComponent } from './components/addresses/address-list/address-list.component';
+import { AddressListInnerComponent } from './components/addresses/address-list-inner/address-list-inner.component';
 import { RoleComponent } from './components/roles/role/role.component';
 import { RoleListComponent } from './components/roles/role-list/role-list.component';
 
@@ -43,6 +44,7 @@ import { PersonDocumentsComponent } from './components/persons/person-documents/
     BusinessListComponent,
     AddressComponent,
     AddressListComponent,
+    AddressListInnerComponent,
     RoleComponent,
     RoleListComponent,
     PersonSkillsComponent,

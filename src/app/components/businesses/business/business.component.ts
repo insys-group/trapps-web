@@ -75,14 +75,15 @@ private findInArray(arr: Array<{rel : string; href: string}>, name: string): str
     console.log(`Exit: BusinessComponent.ngAfterViewInit() this.business.address= ${this.business.address} `);
   }
 
-  ngOnInit(): void {
+ngOnInit(): void {
     console.log(`Entering: BusinessComponent.ngOnInit()`);
     this.route.params.subscribe(params => {
       this.id = +params['id'];
       this.businessType=params['businessType'];
-      console.log(`Parameter Id is ${this.id}  ${this.businessType}`);
+      console.log(`Parameter Id is ${this.id}`);
     });
   }
+
 
   private init(): void {
     if(this.business.businessType==='Insys' || this.business.businessType==='Client') {

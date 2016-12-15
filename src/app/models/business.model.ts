@@ -6,7 +6,7 @@ export class Business extends IResource {
   name: string;
   description: string;
   businessType: string;
-  address: Address;
+  addresses: Address[];
 }
 
 export class BusinessType {
