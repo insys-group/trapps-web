@@ -82,15 +82,6 @@ export class AddressComponent implements OnInit {
       this.isShowClose = false;
   }
 
-  private init(): void {
-      this._address.id=null;
-      this._address.address1='';
-      this._address.address2='';
-      this._address.city='';
-      this._address.state='';
-      this._address.zipCode='';
-  }
-
    public saveSynh() {
     if(this._address.id===null) {
       console.log('Enter: AddressComponent.save()' + this._address.id);
