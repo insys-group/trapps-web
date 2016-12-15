@@ -5,7 +5,7 @@ export class Business extends IResource {
   id: number;
   name: string;
   description: string;
-  entityType: string;
+  businessType: string;
   address: Address;
 }
 

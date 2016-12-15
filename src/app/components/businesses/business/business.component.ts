@@ -15,14 +15,15 @@ import { NotificationService } from '../../../services/notification.service'
   styleUrls: ['./business.component.css']
 })
 
-export class BusinessComponent implements OnInit {
+export class BusinessComponent implements OnInit, AfterViewInit {
   business: Business = new Business();
+  businessType: string;
   businessTypes: string[] = [BusinessType.ALL, BusinessType.CLIENT, BusinessType.PLABS,
     BusinessType.PIVOTAL, BusinessType.VENDOR, BusinessType.INSYS];
   businesses: string[] = ['Comcast', 'Aptium', 'Pivotal', 'INSYS Group'];
   address: boolean;
   id: number;
-  businessType: string;
+  
 
   @ViewChild(AddressComponent)
   private addressComponent: AddressComponent;
@@ -63,10 +64,10 @@ private findInArray(arr: Array<{rel : string; href: string}>, name: string): str
             error => this.handleError
           );
       } else {
-        if(this.business.entityType!='') {
-          this.business.entityType=this.business.entityType;
+        if(this.business.businessType!='') {
+          this.business.businessType=this.business.businessType;
         } else {
-          this.business.entityType='Vendor';
+          this.business.businessType='Vendor';
         }
         this.init();
       }
