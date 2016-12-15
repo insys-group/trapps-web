@@ -20,7 +20,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="business">Employer</label>
-                                    <select class="form-control" id="business" required [(ngModel)]="person.business" name="business" #personType="ngModel">
+                                    <select disable="true" class="form-control" id="business" required [(ngModel)]="business" name="business" #personType="ngModel">
                                         <option *ngFor="let business of businesses" [value]="business">{{business}}</option>
                                     </select>
                                 </div>

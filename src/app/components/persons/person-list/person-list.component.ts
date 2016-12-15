@@ -1,6 +1,6 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
-import { NewPersonService } from '../../../services/newperson.service';
+import { PersonService } from '../../../services/person.service';
 import { Person, PersonType } from '../../../models/person.model';
 import { Observable } from 'rxjs/Observable';
 import { NotificationService } from '../../../services/notification.service';
@@ -28,7 +28,7 @@ export class PersonListComponent implements OnInit {
 
   select = new EventEmitter();
 
-  constructor(private router: Router, private personService: NewPersonService, private notificationService: NotificationService) { }
+  constructor(private router: Router, private personService: PersonService, private notificationService: NotificationService) { }
 
   ngOnInit() {
     console.log('Enter: PersonListComponent.ngOnInit()');

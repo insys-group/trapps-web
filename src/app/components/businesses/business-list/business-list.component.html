@@ -20,8 +20,8 @@
 <div class="container">
   <div class="list-group">
     <button type="button" class="list-group-item list-group-item-action"
-      *ngFor="let business of businesses | filterBusinessType: sel.value"
-      (click)="onSelect(business)">
-      1212 {{business.name}}
-  </button>
+      *ngFor="let business of businesses | filterBusinessType: sel.value" (click)="onSelect(business)">
+        {{business.name}}
+    </button>
+  </div>
 </div>

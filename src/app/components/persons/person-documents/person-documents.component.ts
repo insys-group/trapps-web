@@ -22,13 +22,13 @@ export class PersonDocumentsComponent implements OnInit {
   documentName: string;
 
   ngOnInit() {
-    this.personService.getPersonDocuments(this.personId)
+    /*this.personService.getPersonDocuments(this.personId)
       .subscribe(
       personDocuments => {
         this.personDocuments = personDocuments;
       },
       this.handleError
-      );
+      );*/
   }
 
   uploadDocument(): void {
