@@ -16,40 +16,60 @@ import { NotificationService } from '../../../services/notification.service';
 })
 
 export class AddressListInnerComponent implements OnInit {
+  
   closeResult: string;
-
   errorMessage: string;
-  addresses: IResource[];
-  private addressService: AddressService;
+ private _addresses: Address[];
 
-  constructor(private router: Router, 
+  set address(addresses: Address[]) {
+    console.log(`Enter: AddressComponent.set ${_addresses}`);
+    this._addresses = addresses;
+  }
+  get addresses(): Address[] {
+    return this._addresses;
+  }
+
+  constructor(
+    private addressService: AddressService,
+    private router: Router, 
     private http: Http,
     private injector: Injector,
     private constantService: ConstantService,
-    private notificationService: NotificationService) 
+    private notificationService: NotificationService
+    ) 
     {
      console.log('AddressListComponent constructor');
      this.addressService = new AddressService(http , injector);
      }
 
   ngOnInit() {
-    this.addressService.getAll()
-      .subscribe(
-        data => {this.addresses = data.content;},
-        error => this.notificationService.error(error.json().error)
-      );
-    console.log('out 1 ' + this.addresses);
+    console.log('ngOnInit() = ' + this.addresses);
   }
 
-  onSelect(address: Address) {
-    this.router.navigate(['/addresses', address.id]);
+ public loadByUrl(url: string) {
+    if (url) {
+     let service = new AddressService(this.http, this.injector);
+     return service.getByUrl(url);
+    } else {
+      return null;
+    }
   }
 
-  create() {
+   public save() {
+    if(this._address.id===null) {
+      console.log('Enter: AddressComponent.save()' + this._address.id);
+      return this.addressService.createNew(this._address)
+    } else {
+      console.log('Enter: AddressComponent.update()' + this._address.id);
+      return this.addressService.update(this._address)
+    }
+  }
+  add() {
     this.router.navigate(['/addresses', 0]);
   }
 
-    createNewAddress() {
-    console.log('will call new component');
+  delete() {
+    this.router.navigate(['/addresses', 0]);
   }
+
 }

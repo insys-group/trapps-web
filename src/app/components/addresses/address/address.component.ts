@@ -19,15 +19,7 @@ import 'rxjs/add/operator/take';
 })
 
 export class AddressComponent implements OnInit {
- private _addressId = 0 ;
-  @Input()
-  set addressId(addressId: number) {
-    console.log(`Enter: AddressComponent.@Input ${addressId}`);
-    this._addressId = addressId;
-  }
-
-  private _address: Address = new Address();
-
+  private _address: Address;
   set address(address: Address) {
     console.log(`Enter: AddressComponent.set ${address}`);
     this._address = address;
@@ -51,29 +43,18 @@ export class AddressComponent implements OnInit {
     private injector: Injector
   ) { }
 
-  private setBaseUrl(){
-    this.addressService.setUrl(this.constantService.API_ENDPOINT + this.constantService.ADDRESS_RES);
-  }
-
   ngOnInit(): void {
     console.log(`Enter: AddressComponent.ngOnInit()`);
-    this.setBaseUrl;
     let id = 0;
-     if (this._addressId){
-        console.log(`AddressComponent.ngOnInit() this._addressId = ${this._addressId}`);
-        id = this._addressId;
-      } else {
         this.route.params.subscribe(params => {
         id = +params['id'];
-        console.log(`Parameter Id is ${id} , ${this._addressId}`);
+       if (id > 0 && (params[this.constantService.ADDRESS_RES])) {
+         console.log(`Parameter Id is ${id}`);
+          this.load(id);
+        } else {
+          this._address = Address.getInstance();
+        };
       })
-    }
-   
-   if (id > 0) {
-      this.load(id);
-   } else {
-      this.init();
-   };
   }
 
   public load(id: number): void {
