@@ -74,7 +74,7 @@ private findInArray(arr: Array<{rel : string; href: string}>, name: string): str
   }
 
   ngOnInit(): void {
-    console.log(`Enter: BusinessComponent.ngOnInit()`);
+    console.log(`Entering: BusinessComponent.ngOnInit()`);
     this.route.params.subscribe(params => {
       this.id = +params['id'];
       this.businessType=params['businessType'];
