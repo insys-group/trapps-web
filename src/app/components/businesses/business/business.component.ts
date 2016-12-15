@@ -15,7 +15,7 @@ import { NotificationService } from '../../../services/notification.service'
   styleUrls: ['./business.component.css']
 })
 
-export class BusinessComponent implements OnInit {
+export class BusinessComponent implements OnInit , AfterViewInit{
   business: Business = new Business();
   businessTypes: string[] = [BusinessType.ALL, BusinessType.CLIENT, BusinessType.PLABS,
     BusinessType.PIVOTAL, BusinessType.VENDOR, BusinessType.INSYS];
@@ -63,10 +63,10 @@ private findInArray(arr: Array<{rel : string; href: string}>, name: string): str
             error => this.handleError
           );
       } else {
-        if(this.business.entityType!='') {
-          this.business.entityType=this.business.entityType;
+        if(this.business.businessType!='') {
+          this.business.businessType=this.business.businessType;
         } else {
-          this.business.entityType='Vendor';
+          this.business.businessType='Vendor';
         }
         this.init();
       }
@@ -74,7 +74,7 @@ private findInArray(arr: Array<{rel : string; href: string}>, name: string): str
   }
 
   ngOnInit(): void {
-    console.log(`Enter: BusinessComponent.ngOnInit()`);
+    console.log(`Entering: BusinessComponent.ngOnInit()`);
     this.route.params.subscribe(params => {
       this.id = +params['id'];
       this.businessType=params['businessType'];
@@ -83,11 +83,11 @@ private findInArray(arr: Array<{rel : string; href: string}>, name: string): str
   }
 
   private init(): void {
-    if(this.business.entityType==='Insys' || this.business.entityType==='Client') {
+    if(this.business.businessType==='Insys' || this.business.businessType==='Client') {
       this.businessTypes = ['Insys', 'Client'];
       this.businesses = ['INSYS Group'];
     } else {
-      this.businessTypes = [this.business.entityType];
+      this.businessTypes = [this.business.businessType];
     }
     this.address = true;
   }

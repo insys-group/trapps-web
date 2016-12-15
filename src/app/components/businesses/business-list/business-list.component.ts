@@ -2,6 +2,7 @@ import { Component, OnInit, EventEmitter } from '@angular/core';
 import { BusinessService } from '../../../services/business.service';
 import { Business, BusinessType } from '../../../models/business.model';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
 import { NotificationService } from '../../../services/notification.service';
 import { IResource } from '../../../resources/crud.resource';
 import {ConstantService} from  '../../../services/constant.service';
@@ -31,10 +32,10 @@ export class BusinessListComponent implements OnInit {
     console.log('Enter: BusinessListComponent.ngOnInit()');
     this.businessService.setUrl(this.constantService.API_ENDPOINT + this.constantService.BUSINESS_RES);
     this.businessService.getAll().subscribe(
-      businesses =>  this.businesses=businesses.content,
+      businesses =>  {this.businesses=businesses.content;
+        this.businesses.forEach(business=>console.log(`Business is ${JSON.stringify(business)}`));} ,
       error => this.notificationService.error(error.json().error)
     );
-
     this.select.emit(this.businessTypes[0]);
   }
 

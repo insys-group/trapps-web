@@ -78,9 +78,10 @@ export class AddressComponent implements OnInit {
 
   public load(id: number): void {
     if (id) {
+    console.log('Enter: load(): '+ id)
      this.addressService.getOne(id)
       .subscribe(
-        address => {this._address = address},
+        address => {this._address = address; console.log('Enter: this.address ' + JSON.stringify(address));},
         error => this.handleError
       );
     }
