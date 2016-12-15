@@ -1,3 +1,35 @@
-<p>
-  role works!
-</p>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    Role Information
+                </div>
+                <div class="card-block">
+                    <div [hidden]="submitted"></div>
+                    <form (ngSubmit)="save()" #roleForm="ngForm">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="roleType">Role</label>
+                                    <input type="text" class="form-control" >
+                                    
+                                </div>
+                            </div>
+                            
+                            
+                            
+                            
+                        </div>
+
+                            <div class="col-sm-12">
+                                <button type="submit" class="btn btn-primary">Save</button>
+                                <button type="button" class="btn btn-danger"  (click)="delete()">Delete</button>
+                                <button type="button" class="btn btn-primary" (click)="cancel()">Close</button>
+                            </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
