@@ -23,7 +23,7 @@ export class PersonComponent implements OnInit, AfterViewInit {
   personTypes: string[] = ['Employee', 'Candidate', 'Client', 'Vendor', 'Pivotal'];
   businesses: string[] = ['Comcast', 'Aptium', 'Pivotal', 'INSYS Group'];
   business: string;
-  
+
   skills: boolean;
   documents: boolean;
   address: boolean;
@@ -48,7 +48,7 @@ export class PersonComponent implements OnInit, AfterViewInit {
                let link = this.findInArray(this.person.links,'address');
                console.log(`Enter: PersonComponent.ngAfterViewInit() link= ${link} `);
                this.addressComponent.loadByUrl(link).subscribe(
-                  data => {this.addressComponent.address = data} 
+                  data => {this.addressComponent.address = data}
                 , error => {console.log(`Error:  PersonComponent person.update() `); this.handleError}
               );
               }
