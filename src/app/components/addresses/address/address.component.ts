@@ -86,14 +86,12 @@ export class AddressComponent implements OnInit {
     }
   }
 
- public loadByUrl(url: string): void {
+ public loadByUrl(url: string) {
     if (url) {
      let service = new AddressService(this.http, this.injector);
-     service.getByUrl(url)
-      .subscribe(
-        address => {this._address = address},
-        error => {this.handleError}
-      );
+      return service.getByUrl(url);
+    } else {
+      return null;
     }
   }
 
