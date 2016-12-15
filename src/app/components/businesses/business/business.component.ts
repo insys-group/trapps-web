@@ -17,9 +17,9 @@ import { NotificationService } from '../../../services/notification.service'
 
 export class BusinessComponent implements OnInit , AfterViewInit{
   business: Business = new Business();
-  businessTypes: string[] = [BusinessType.ALL, BusinessType.CLIENT, BusinessType.PLABS,
+  businessTypes: string[] = [BusinessType.CLIENT, BusinessType.PLABS,
     BusinessType.PIVOTAL, BusinessType.VENDOR, BusinessType.INSYS];
-  businesses: string[] = ['Comcast', 'Aptium', 'Pivotal', 'INSYS Group'];
+  businesses: string[] = ['Comcast', 'Aptium',  'Pivotal', 'INSYS Group'];
   address: boolean;
   id: number;
   businessType: string;
@@ -63,14 +63,16 @@ private findInArray(arr: Array<{rel : string; href: string}>, name: string): str
             error => this.handleError
           );
       } else {
-        if(this.business.businessType!='') {
-          this.business.businessType=this.business.businessType;
+        if(this.businessType != ' ') {
+          this.business.businessType=this.businessType;
+            console.log(`Enter: Check Business Type not empty = ${this.business.businessType}` );
         } else {
           this.business.businessType='Vendor';
+             console.log(`Enter: Check Business Type empty = ${this.business.businessType}` );
         }
         this.init();
       }
-    console.log(`Enter: BusinessComponent.ngAfterViewInit() this.business.address= ${this.business.address} `);
+    console.log(`Exit: BusinessComponent.ngAfterViewInit() this.business.address= ${this.business.address} `);
   }
 
   ngOnInit(): void {
@@ -78,7 +80,7 @@ private findInArray(arr: Array<{rel : string; href: string}>, name: string): str
     this.route.params.subscribe(params => {
       this.id = +params['id'];
       this.businessType=params['businessType'];
-      console.log(`Parameter Id is ${this.id}`);
+      console.log(`Parameter Id is ${this.id}  ${this.businessType}`);
     });
   }
 
@@ -93,12 +95,25 @@ private findInArray(arr: Array<{rel : string; href: string}>, name: string): str
   }
 
   save(): void {
-    console.log('Enter: BusinessComponent.save()' + this.business.id);
-    if(this.business.id===0) {
-      this.businessService.createNew(this.business).subscribe(business => this.business=business, this.handleError);
-    } else {
-      this.businessService.update(this.business).subscribe(business => this.business=business, this.handleError);
-    }
+   console.log('Enter: BusinessComponent address.save() ' + this.addressComponent.address.id);
+    this.addressComponent.saveSynh().subscribe(
+        address => {
+          this.addressComponent.address = address;
+          this.business.address = address;
+           console.log(`Exit:  BusinessComponent address.save() ok address = ${JSON.stringify(address)}`);
+           console.log(`Enter:  BusinessComponent business.save()  or update() ${JSON.stringify(this.business)}`);
+            if(this.business.id) {
+               this.businessService.update(this.business).subscribe(person => this.handleSuccess(person)
+              , error => {console.log(`Error:  BusinessComponent business.update() `); this.handleError}
+              );
+            } else {
+              this.businessService.createNew(this.business).subscribe(person => this.handleSuccess(person)
+              , error => {console.log(`Error:  BusinessComponent business.save() `); this.handleError}
+              );
+            }
+        },
+        error => {console.log(`Error:  PersonComponent address.save() `); this.handleError}
+    );
   }
 
   delete(): void {

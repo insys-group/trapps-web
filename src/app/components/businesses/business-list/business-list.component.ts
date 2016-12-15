@@ -19,7 +19,7 @@ export class BusinessListComponent implements OnInit {
   businesses: IResource[];
   businessTypes: string[] = [ BusinessType.ALL, BusinessType.CLIENT, BusinessType.PLABS,
     BusinessType.PIVOTAL, BusinessType.VENDOR, BusinessType.INSYS]
-  businessType: string = BusinessType.PLABS;
+  businessType: string =BusinessType.ALL;
 
   select = new EventEmitter();
 

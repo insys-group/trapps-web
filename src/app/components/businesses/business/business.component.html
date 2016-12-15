@@ -13,7 +13,7 @@
                                 <div class="form-group">
                                     <label for="businessType">Business Type</label>
                                     <select class="form-control" id="businessType" required [(ngModel)]="business.businessType" name="businessType" #businessType="ngModel">
-                                        <option *ngFor="let businessType of businessTypes" [value]="businessType">{{businessType}}</option>
+                                        <option *ngFor="let businessType of businessTypes"  [value]="businessType">{{businessType}}</option>
                                     </select>
                                 </div>
                             </div>
