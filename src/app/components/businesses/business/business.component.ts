@@ -16,14 +16,15 @@ import { NotificationService } from '../../../services/notification.service'
   styleUrls: ['./business.component.css']
 })
 
-export class BusinessComponent implements OnInit , AfterViewInit{
+export class BusinessComponent implements OnInit, AfterViewInit {
   business: Business = new Business();
-  businessTypes: string[] = [BusinessType.CLIENT, BusinessType.PLABS,
-    BusinessType.PIVOTAL, BusinessType.VENDOR, BusinessType.INSYS];
+  businessType: string;
+  businessTypes: string[] = [BusinessType.ALL, BusinessType.CLIENT, BusinessType.PLABS,
+  BusinessType.PIVOTAL, BusinessType.VENDOR, BusinessType.INSYS];
   businesses: string[] = ['Comcast', 'Aptium',  'Pivotal', 'INSYS Group'];
   address: boolean;
   id: number;
-  businessType: string;
+  
 
   //@ViewChild(AddressListInnerComponent)
  //private addressComponent: AddressListInnerComponent;
