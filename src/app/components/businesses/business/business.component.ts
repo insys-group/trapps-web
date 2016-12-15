@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 import 'rxjs/add/operator/take';
+import { AddressListInnerComponent } from '../../addresses/address-list-inner/address-list-inner.component';
 import { AddressComponent } from '../../addresses/address/address.component';
 import { AfterViewInit, ViewChildren, ViewChild, ContentChildren, ContentChild } from '@angular/core';
 import { NotificationService } from '../../../services/notification.service'
@@ -24,8 +25,10 @@ export class BusinessComponent implements OnInit , AfterViewInit{
   id: number;
   businessType: string;
 
-  @ViewChild(AddressComponent)
-  private addressComponent: AddressComponent;
+  //@ViewChild(AddressListInnerComponent)
+ //private addressComponent: AddressListInnerComponent;
+ @ViewChild(AddressComponent)
+ private addressComponent: AddressComponent;
 
   constructor(
     private businessService: BusinessService,
@@ -72,7 +75,7 @@ private findInArray(arr: Array<{rel : string; href: string}>, name: string): str
         }
         this.init();
       }
-    console.log(`Exit: BusinessComponent.ngAfterViewInit() this.business.address= ${this.business.address} `);
+    console.log(`Exit: BusinessComponent.ngAfterViewInit() this.business.address= ${this.business.addresses} `);
   }
 
 ngOnInit(): void {
@@ -94,27 +97,19 @@ ngOnInit(): void {
     }
     this.address = true;
   }
-
-  save(): void {
-   console.log('Enter: BusinessComponent address.save() ' + this.addressComponent.address.id);
-    this.addressComponent.saveSynh().subscribe(
-        address => {
-          this.addressComponent.address = address;
-          this.business.address = address;
-           console.log(`Exit:  BusinessComponent address.save() ok address = ${JSON.stringify(address)}`);
-           console.log(`Enter:  BusinessComponent business.save()  or update() ${JSON.stringify(this.business)}`);
+    
+ save(): void {
+       this.business.addresses = [this.addressComponent.address];
             if(this.business.id) {
-               this.businessService.update(this.business).subscribe(person => this.handleSuccess(person)
-              , error => {console.log(`Error:  BusinessComponent business.update() `); this.handleError}
+               this.businessService.update(this.business).subscribe(business => this.handleSuccess(business)
+              , error => {console.log(`Error: BusinessComponent person.update() `); this.handleError}
               );
             } else {
-              this.businessService.createNew(this.business).subscribe(person => this.handleSuccess(person)
-              , error => {console.log(`Error:  BusinessComponent business.save() `); this.handleError}
+              this.businessService.createNew(this.business).subscribe(business => this.handleSuccess(business)
+              , error => {console.log(`Error:  BusinessComponent person.save() `); this.handleError}
               );
             }
-        },
-        error => {console.log(`Error:  PersonComponent address.save() `); this.handleError}
-    );
+        error => {console.log(`Error:  BusinessComponent address.save() `); this.handleError}
   }
 
   delete(): void {
