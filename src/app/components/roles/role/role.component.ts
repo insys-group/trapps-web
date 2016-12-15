@@ -43,6 +43,20 @@ export class RoleComponent implements OnInit {
   }
 }
 
+  save(): void {
+
+            if(this.role.id) {
+               this.roleService.update(this.role).subscribe(role => this.handleSuccess(role)
+              , error => {console.log(`Error:  PersonComponent person.update() `); this.handleError}
+              );
+            } else {
+              this.roleService.createNew(this.role).subscribe(role => this.handleSuccess(role)
+              , error => {console.log(`Error:  PersonComponent person.save() `); this.handleError}
+              );
+            }
+        error => {console.log(`Error:  PersonComponent address.save() `); this.handleError}
+  }
+
   cancel(): void {
     this.location.back();
   }
