@@ -33,11 +33,6 @@ export class BusinessComponent implements OnInit {
     private notificationService: NotificationService
   ) { }
 
-private findInArray(arr: Array<{rel : string; href: string}>, name: string): string {
-    let result = arr.filter(item => item.rel === name)[0];
-    return result.href;
-  }
-
   ngAfterViewInit() {
     console.log(`Enter: BusinessComponent.ngAfterViewInit() this.addressComponent= ${this.addressComponent} `);
      if (this.id > 0) {
@@ -45,13 +40,11 @@ private findInArray(arr: Array<{rel : string; href: string}>, name: string): str
           .subscribe(
             business => {
               this.business = business; 
-              console.log(`Enter: Check Business Link this.business.links = ${JSON.stringify(this.business.links)}` );
-              this.init();
               this.addressComponent.addresses = this.business.addresses;
             },
             error => this.handleError
           );
-      } else {
+      } else {  
         if(this.business.entityType!='') {
           this.business.entityType=this.business.entityType;
         } else {
@@ -71,12 +64,12 @@ private findInArray(arr: Array<{rel : string; href: string}>, name: string): str
   }
 
   private init(): void {
-    if(this.business.entityType==='Insys' || this.business.entityType==='Client') {
+   /* if(this.business.entityType==='Insys' || this.business.entityType==='Client') {
       this.businessTypes = ['Insys', 'Client'];
       this.businesses = ['INSYS Group'];
     } else {
       this.businessTypes = [this.business.entityType];
-    }
+    }*/
   }
 
   save(): void {
@@ -85,8 +78,10 @@ private findInArray(arr: Array<{rel : string; href: string}>, name: string): str
     if(this.business.id===0) {
       this.businessService.createNew(this.business).subscribe(business => this.business=business, this.handleError);
     } else {
+      console.log(`update = ${JSON.stringify(this.business)} `);
       this.businessService.update(this.business).subscribe(business => this.business=business, this.handleError);
     }
+    this.notificationService.info('Business Data saved successfully');
   }
 
   delete(): void {

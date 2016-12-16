@@ -43,7 +43,7 @@ export class CRUDResource<T extends IResource> extends Resource {
 
   @ResourceAction({
     method: RequestMethod.Put,
-    path: '/{!id}'
+    path: '/put/{!id}',
   })
   _update: ResourceMethod<T, T>;
 
