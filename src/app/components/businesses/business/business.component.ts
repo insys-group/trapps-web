@@ -4,7 +4,7 @@ import { BusinessService } from '../../../services/business.service';
 import { Router } from '@angular/router';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
-import { AddressComponent } from '../../addresses/address/address.component';
+import { AddressListInnerComponent } from '../../addresses/address-list-inner/address-list-inner.component';
 import { AfterViewInit, ViewChildren, ViewChild, ContentChildren, ContentChild } from '@angular/core';
 import { NotificationService } from '../../../services/notification.service'
 
@@ -19,12 +19,11 @@ export class BusinessComponent implements OnInit {
   businessTypes: string[] = [BusinessType.ALL, BusinessType.CLIENT, BusinessType.PLABS,
     BusinessType.PIVOTAL, BusinessType.VENDOR, BusinessType.INSYS];
   businesses: string[] = ['Comcast', 'Aptium', 'Pivotal', 'INSYS Group'];
-  address: boolean;
   id: number;
   businessType: string;
 
-  @ViewChild(AddressComponent)
-  private addressComponent: AddressComponent;
+  @ViewChild(AddressListInnerComponent)
+  private addressComponent: AddressListInnerComponent;
 
   constructor(
     private businessService: BusinessService,
@@ -48,16 +47,7 @@ private findInArray(arr: Array<{rel : string; href: string}>, name: string): str
               this.business = business; 
               console.log(`Enter: Check Business Link this.business.links = ${JSON.stringify(this.business.links)}` );
               this.init();
-            if (this.business.links){       
-               let link = this.findInArray(this.business.links,'addresses');
-               this.addressComponent.loadByUrl(link).subscribe(
-                      address => {
-                        this.addressComponent.address = address.content[0];
-                        console.log(`Enter: BusinessComponent.ngAfterViewInit() address= ${JSON.stringify(this.addressComponent.address)} `);
-                      },
-                      error => {this.handleError}
-                  )
-              }
+              this.addressComponent.addresses = this.business.addresses;
             },
             error => this.handleError
           );
@@ -87,11 +77,11 @@ private findInArray(arr: Array<{rel : string; href: string}>, name: string): str
     } else {
       this.businessTypes = [this.business.entityType];
     }
-    this.address = true;
   }
 
   save(): void {
     console.log('Enter: BusinessComponent.save()' + this.business.id);
+    this.business.addresses = this.addressComponent.addresses;
     if(this.business.id===0) {
       this.businessService.createNew(this.business).subscribe(business => this.business=business, this.handleError);
     } else {
