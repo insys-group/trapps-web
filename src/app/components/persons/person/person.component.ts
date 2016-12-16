@@ -44,14 +44,7 @@ export class PersonComponent implements OnInit, AfterViewInit {
             person => {
               this.person = person; 
               this.init();
-            if (this.person.links){
-               let link = this.findInArray(this.person.links,'address');
-               console.log(`Enter: PersonComponent.ngAfterViewInit() link= ${link} `);
-               this.addressComponent.loadByUrl(link).subscribe(
-                  data => {this.addressComponent.address = data}
-                , error => {console.log(`Error:  PersonComponent person.update() `); this.handleError}
-              );
-              }
+              this.addressComponent.address = this.person.address;
             },
             error => this.handleError
           );
@@ -108,11 +101,7 @@ export class PersonComponent implements OnInit, AfterViewInit {
 
   save(): void {
     console.log('Enter: PersonComponent address.save() ' + this.addressComponent.address.id);
-    this.addressComponent.saveSynh().subscribe(
-        address => {
-          this.addressComponent.address = address;
-          this.person.address = address;
-           console.log(`Enter:  PersonComponent address.save() ok address = ${JSON.stringify(address)}`);
+          this.person.address = this.addressComponent.address;
            console.log(`Enter:  PersonComponent person.save()  ${JSON.stringify(this.person)}`);
             if(this.person.id) {
                this.personService.update(this.person).subscribe(person => this.handleSuccess(person)
@@ -123,9 +112,6 @@ export class PersonComponent implements OnInit, AfterViewInit {
               , error => {console.log(`Error:  PersonComponent person.save() `); this.handleError}
               );
             }
-        },
-        error => {console.log(`Error:  PersonComponent address.save() `); this.handleError}
-    );
   }
 
   delete(): void {

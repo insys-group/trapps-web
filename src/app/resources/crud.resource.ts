@@ -43,9 +43,15 @@ export class CRUDResource<T extends IResource> extends Resource {
 
   @ResourceAction({
     method: RequestMethod.Put,
-    path: '/put/{!id}',
+    path: '/{!id}',
   })
   _update: ResourceMethod<T, T>;
+
+ @ResourceAction({
+    method: RequestMethod.Put,
+    path: '/put/1',
+  })
+  _updateSubRes: ResourceMethod<T, T>;
 
   @ResourceAction({
     method: RequestMethod.Delete,
@@ -67,6 +73,7 @@ export class CRUDResource<T extends IResource> extends Resource {
   public getOne(id: any) { return this.get({id: id}).$observable; }
   public createNew(obj: T) { return this.save(obj).$observable; }
   public update(obj: T) { return this._update(obj).$observable; }
+  public updateSubRes(obj: T) { return this._updateSubRes(obj).$observable; }
   public delete(id: any) { return this.remove({id: id}).$observable; }
   public getByUrl(url: string) { this.setUrl(url); return this._getByUrl().$observable; }
 }
