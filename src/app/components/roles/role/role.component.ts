@@ -21,6 +21,7 @@ export class RoleComponent implements OnInit {
   
   id: number;
   roleType: string;
+  skillType: string;
 
   constructor(private roleService: RoleService,
               private location: Location,    
@@ -34,6 +35,8 @@ export class RoleComponent implements OnInit {
       this.route.params.subscribe(params => {
       this.id = +params['id'];
       this.roleType=params['roleType'];
+      this.skillType=params['skillType'];
+
       console.log(`Parameter Id is ${this.id}`);
     });
   }
@@ -52,8 +55,8 @@ export class RoleComponent implements OnInit {
 }
 
   save(): void {
-   // this.role.skills = [ {id: this.role.id, name: "Java"}]
-   
+    this.role.skills = [ {id: this.role.id, name: "Swift"}]
+  
       if(this.role.id) {
                 console.log ("this is id " + this.role.id)
 

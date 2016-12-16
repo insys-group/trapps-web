@@ -4,10 +4,10 @@ export class Roles extends IResource {
     id: number;
     name: string;
     skill: string;
-   // skills: Skill []
+    skills: Skill []
 }
 
 export class Skill {
   id: number;
-  name: string
+  name: string;
 }
