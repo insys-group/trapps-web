@@ -10,7 +10,7 @@ export class Person extends IResource {
   email: string;
   personType: string;
   title: string;
-  businessEntity: Business;
+  business: Business;
   address: Address;
 }
 
