@@ -4,8 +4,7 @@ import { Router } from '@angular/router';
 import { ActivatedRoute, Params } from '@angular/router';
 import { NotificationService } from '../../../services/notification.service'
 import { RoleService } from '../../../services/role.service';
-import { SkillService } from '../../../services/skill.service';
-import { Roles, Skill } from '../../../models/roles.model';
+import { Roles } from '../../../models/roles.model';
 import { IResource } from '../../../resources/crud.resource';
 
 @Component({
@@ -15,19 +14,18 @@ import { IResource } from '../../../resources/crud.resource';
 })
 export class RoleComponent implements OnInit {
   role: Roles = new Roles();
-  skill: Skill = new Skill();
 
-  skills: IResource[];
   
   id: number;
   roleType: string;
   skillType: string;
 
+  skills: IResource[];
+
   constructor(private roleService: RoleService,
               private location: Location,    
               private route: ActivatedRoute,
               private router: Router,
-              private skillService: SkillService,
               private notificationService: NotificationService) { }
 
   ngOnInit(): void {
@@ -55,7 +53,7 @@ export class RoleComponent implements OnInit {
 }
 
   save(): void {
-    this.role.skills = [ {id: this.role.id, name: "Swift"}]
+   // this.role.skills = [ {id: this.role.id, name: "Swift"}]
   
       if(this.role.id) {
                 console.log ("this is id " + this.role.id)
@@ -72,6 +70,7 @@ export class RoleComponent implements OnInit {
         }
         error => {console.log(`Error:  RoleComponent role.save() `); this.handleError}
   }
+
 
   cancel(): void {
     this.location.back();
@@ -92,6 +91,7 @@ export class RoleComponent implements OnInit {
       );
   }
 
+
   private handleError(error: any): void {
     console.error('An error occurred', error);
     this.notificationService.error('An Error occured ' + error);
@@ -102,9 +102,9 @@ export class RoleComponent implements OnInit {
     this.notificationService.info('Data saved successfully');
   }
 
-    getSkillList() {
+  getSkillList() {
     console.log('Enter: RoleListComponent.ngOnInit()');
-    this.skillService.getAll().subscribe(
+    this.roleService.getAll().subscribe(
       skills => this.skills = skills.content,
 
       error => this.notificationService.error(error.json().error)

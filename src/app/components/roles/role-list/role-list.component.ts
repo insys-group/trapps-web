@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { RoleService } from '../../../services/role.service';
-import { Roles, Skill } from '../../../models/roles.model';
+import { Roles } from '../../../models/roles.model';
 import { Observable } from 'rxjs/Observable';
 import { NotificationService } from '../../../services/notification.service';
 import { IResource } from '../../../resources/crud.resource';
