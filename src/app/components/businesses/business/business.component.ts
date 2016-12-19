@@ -77,13 +77,11 @@ export class BusinessComponent implements OnInit {
     this.business.addresses = this.addressComponent.addresses;
     if(this.business.id) {
       console.log(`update = ${JSON.stringify(this.business)} `);
-      this.businessService.updateSubRes(this.business).subscribe(business => this.business=business, this.handleError);
+      this.businessService.updateSubRes(this.business).subscribe(business => {this.business=business;  this.notificationService.info('Business Data saved successfully');}, this.handleError);
     } else {
       console.log(`new = ${JSON.stringify(this.business)} `);
-      this.businessService.createNew(this.business).subscribe(business => this.business=business, this.handleError);
-  
+      this.businessService.createNew(this.business).subscribe(business => {this.business=business;  this.notificationService.info('Business Data saved successfully');}, this.handleError);
     }
-    this.notificationService.info('Business Data saved successfully');
   }
 
   delete(): void {
