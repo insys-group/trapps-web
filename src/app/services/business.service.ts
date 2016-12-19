@@ -11,7 +11,6 @@ import { Injector } from '@angular/core';
 })
 export class BusinessService extends CRUDResource<Business> {
 constructor(http: Http, injector: Injector) {
-      console.log('Instantiating service  BusinessService ****************** ' + Date.now());
       super(http , injector)
     }
 }

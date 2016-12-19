@@ -1,6 +1,6 @@
-import { IResource } from '../resources/crud.resource';
+import { RestResource } from './rest.model';
 
-export class Business extends IResource {
+export class Business extends RestResource {
   id: number;
   name: string;
   description: string;

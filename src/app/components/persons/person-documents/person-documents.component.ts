@@ -22,6 +22,7 @@ export class PersonDocumentsComponent implements OnInit {
   documentName: string;
 
   ngOnInit() {
+    /*
     this.personService.getPersonDocuments(this.personId)
       .subscribe(
       personDocuments => {
@@ -29,6 +30,7 @@ export class PersonDocumentsComponent implements OnInit {
       },
       this.handleError
       );
+      */
   }
 
   uploadDocument(): void {

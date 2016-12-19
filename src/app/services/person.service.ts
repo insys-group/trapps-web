@@ -1,13 +1,14 @@
+import { Injector } from '@angular/core';
 import { Injectable, OnInit } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { ResourceParams } from 'ng2-resource-rest';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import { Person, PersonSkill, PersonDocument } from '../models/person.model';
-
 
 @Injectable()
 export class PersonService implements OnInit {
@@ -17,7 +18,6 @@ export class PersonService implements OnInit {
     private personDocumentsUrl = '/api/persondocuments';
 
     constructor(private http: Http) { 
-        console.log('Instantiating service ****************** ' + Date.now());
     }
     ngOnInit() {  }
 

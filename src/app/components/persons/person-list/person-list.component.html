@@ -2,7 +2,7 @@
   <div class="form-group">
     <label for="personType">Person Type</label>
     <div>
-      <select class="form-control" #sel (change)="select.emit(sel.value)">
+      <select class="form-control" #sel (change)="select.emit(sel.value)" [(ngModel)]="personType">
         <option *ngFor="let personType of personTypes">{{personType}}</option>
       </select>
     </div>

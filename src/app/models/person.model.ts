@@ -1,8 +1,9 @@
-import { Address } from '../models/address.model';
-import { Business } from '../models/business.model';
-import { IResource } from '../resources/crud.resource';
+import { Address } from './address.model';
+import { Business } from './business.model';
+import { RestResource } from './rest.model';
+import { Observable } from 'rxjs/Observable';
 
-export class Person extends IResource {
+export class Person extends RestResource {
   id: number;
   firstName: string;
   lastName: string;
@@ -10,20 +11,20 @@ export class Person extends IResource {
   email: string;
   personType: string;
   title: string;
-  businessEntity: Business;
+  business: Business;
   address: Address;
 }
 
-export class PersonSkill {
+export class PersonSkill extends RestResource {
   id: number;
-  personId: number;
-  name: string
+  person: Person;
+  name: string;
+  scale: number;
 }
 
-export class PersonDocument {
+export class PersonDocument extends RestResource {
   id: number;
-  personId: number;
-  name: string;
+  person: Person;
   fileName: string;
   uploadTimestamp: Date
 }
@@ -35,4 +36,11 @@ export class PersonType {
     static CANDIDATE : string = "Candidate";
     static PIVOTAL : string = "Pivotal";
     static VENDOR : string = "Vendor";
+}
+
+export interface ChildViewComponent {
+  loadDataAsync<T>(url: string): Observable<T>;
+  isSaveReady(): boolean;
+  saveAsync<T>(): Observable<T>;
+  save(): void;
 }

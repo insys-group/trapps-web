@@ -20,8 +20,8 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="business">Employer</label>
-                                    <select class="form-control" id="business" required [(ngModel)]="person.business" name="business" #personType="ngModel">
-                                        <option *ngFor="let business of businesses" [value]="business">{{business}}</option>
+                                    <select class="form-control" id="business" required [ngModel]="selectedBusiness" name="business" (change)='onChange($event)' #business="ngModel">
+                                        <option *ngFor="let business of businesses" [ngValue]="business">{{business.name}}</option>
                                     </select>
                                 </div>
                             </div>
@@ -53,12 +53,14 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="phone">Phone</label>
-                                    <input type="text" class="form-control" id="phone" required pattern="^\d{3}-\d{3}-\d{4}$" [(ngModel)]="person.phone" name="phone" #phone="ngModel" placeholder="999-999-9999">
+                                    <input type="text" class="form-control" id="phone" required
+                                    [(ngModel)]="person.phone" name="phone" #phone="ngModel" placeholder="999-999-9999">
                                 </div>
                                 <div [hidden]="phone.valid || phone.pristine" class="alert alert-danger">
                                     Phone is required in the format 999-999-9999
                                 </div>
                             </div>
+
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="email">Email</label>
@@ -102,7 +104,7 @@
                     Professional Skills
                 </div>
                 <div class="card-block">
-                    <app-person-skills [personId]="person.id"></app-person-skills>
+                    <app-person-skills [person]="person" [url]="skillsUrl"></app-person-skills>
                 </div>
             </div>
         </div>
