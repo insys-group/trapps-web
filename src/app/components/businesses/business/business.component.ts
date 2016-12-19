@@ -4,9 +4,7 @@ import { BusinessService } from '../../../services/business.service';
 import { Router } from '@angular/router';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
-import 'rxjs/add/operator/take';
 import { AddressListInnerComponent } from '../../addresses/address-list-inner/address-list-inner.component';
-import { AddressComponent } from '../../addresses/address/address.component';
 import { AfterViewInit, ViewChildren, ViewChild, ContentChildren, ContentChild } from '@angular/core';
 import { NotificationService } from '../../../services/notification.service'
 
@@ -21,15 +19,10 @@ export class BusinessComponent implements OnInit, AfterViewInit {
   businessType: string;
   businessTypes: string[] = [BusinessType.ALL, BusinessType.CLIENT, BusinessType.PLABS,
   BusinessType.PIVOTAL, BusinessType.VENDOR, BusinessType.INSYS];
-  businesses: string[] = ['Comcast', 'Aptium',  'Pivotal', 'INSYS Group'];
-  address: boolean;
+  businesses: string[] = ['Comcast', 'Aptium', 'Pivotal', 'INSYS Group'];
   id: number;
-  
-
-  //@ViewChild(AddressListInnerComponent)
- //private addressComponent: AddressListInnerComponent;
- @ViewChild(AddressComponent)
- private addressComponent: AddressComponent;
+  @ViewChild(AddressListInnerComponent)
+  private addressComponent: AddressListInnerComponent;
 
   constructor(
     private businessService: BusinessService,
@@ -39,11 +32,6 @@ export class BusinessComponent implements OnInit, AfterViewInit {
     private notificationService: NotificationService
   ) { }
 
-private findInArray(arr: Array<{rel : string; href: string}>, name: string): string {
-    let result = arr.filter(item => item.rel === name)[0];
-    return result.href;
-  }
-
   ngAfterViewInit() {
     console.log(`Enter: BusinessComponent.ngAfterViewInit() this.addressComponent= ${this.addressComponent} `);
      if (this.id > 0) {
@@ -51,18 +39,7 @@ private findInArray(arr: Array<{rel : string; href: string}>, name: string): str
           .subscribe(
             business => {
               this.business = business; 
-              console.log(`Enter: Check Business Link this.business.links = ${JSON.stringify(this.business.links)}` );
-              this.init();
-            if (this.business.links){       
-               let link = this.findInArray(this.business.links,'addresses');
-               this.addressComponent.loadByUrl(link).subscribe(
-                      address => {
-                        this.addressComponent.address = address.content[0];
-                        console.log(`Enter: BusinessComponent.ngAfterViewInit() address= ${JSON.stringify(this.addressComponent.address)} `);
-                      },
-                      error => {this.handleError}
-                  )
-              }
+              this.addressComponent.addresses = this.business.addresses;
             },
             error => this.handleError
           );
@@ -90,16 +67,17 @@ ngOnInit(): void {
 
 
   private init(): void {
+
     if(this.business.businessType==='Insys' || this.business.businessType==='Client') {
       this.businessTypes = ['Insys', 'Client'];
       this.businesses = ['INSYS Group'];
     } else {
       this.businessTypes = [this.business.businessType];
     }
-    this.address = true;
+    //this.address = true;
   }
     
- save(): void {
+ /* save(): void {
        this.business.addresses = [this.addressComponent.address];
             if(this.business.id) {
                this.businessService.update(this.business).subscribe(business => this.handleSuccess(business)
@@ -110,7 +88,26 @@ ngOnInit(): void {
               , error => {console.log(`Error:  BusinessComponent person.save() `); this.handleError}
               );
             }
-        error => {console.log(`Error:  BusinessComponent address.save() `); this.handleError}
+        error => {console.log(`Error:  BusinessComponent address.save() `); this.handleError} 
+
+   if(this.business.entityType==='Insys' || this.business.entityType==='Client') {
+      this.businessTypes = ['Insys', 'Client'];
+      this.businesses = ['INSYS Group'];
+    } else {
+      this.businessTypes = [this.business.entityType];
+    }
+  }  */
+
+  save(): void {
+    console.log('Enter: BusinessComponent.save()' + this.business.id);
+    this.business.addresses = this.addressComponent.addresses;
+    if(this.business.id) {
+      console.log(`update = ${JSON.stringify(this.business)} `);
+      this.businessService.updateSubRes(this.business).subscribe(business => {this.business=business;  this.notificationService.info('Business Data saved successfully');}, this.handleError);
+    } else {
+      console.log(`new = ${JSON.stringify(this.business)} `);
+      this.businessService.createNew(this.business).subscribe(business => {this.business=business;  this.notificationService.info('Business Data saved successfully');}, this.handleError);
+    }
   }
 
   delete(): void {

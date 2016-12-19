@@ -43,12 +43,6 @@
                                 </div>
                             </div>
                         </div>
-
-                            <div class="col-sm-12">
-                                <button type="submit" class="btn btn-primary" *ngIf="isShowSave===true" [disabled]="!addressForm.form.valid">Save</button>
-                                <button type="button" class="btn btn-danger" *ngIf="isShowDelete===true" (click)="delete()">Delete</button>
-                                <button type="button" class="btn btn-primary" *ngIf="isShowClose===true" (click)="cancel()">Close</button>
-                            </div>
                     </form>
                 </div>
             </div>
