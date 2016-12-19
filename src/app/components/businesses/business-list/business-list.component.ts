@@ -29,10 +29,12 @@ export class BusinessListComponent implements OnInit {
 
   ngOnInit() {
     console.log('Enter: BusinessListComponent.ngOnInit()');
-    this.businessService.setUrl(this.constantService.API_ENDPOINT + this.constantService.ADDRESS_RES);
+    this.businessService.setUrl(this.constantService.API_ENDPOINT + this.constantService.BUSINESS_RES);
     this.businessService.getAll().subscribe(
-      businesses =>  this.businesses=businesses.content,
-      error => this.notificationService.error(error.json().error)
+      businesses =>  {
+        this.businesses=businesses.content
+        console.log(`Enter: BusinessListComponent.ngOnInit() this.businesses= ${JSON.stringify(this.businesses)} `);
+      }, error => this.notificationService.error(error.json().error)
     );
 
     this.select.emit(this.businessTypes[0]);

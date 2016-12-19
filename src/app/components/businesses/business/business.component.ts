@@ -4,8 +4,9 @@ import { BusinessService } from '../../../services/business.service';
 import { Router } from '@angular/router';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
-
-import 'rxjs/add/operator/take';
+import { AddressListInnerComponent } from '../../addresses/address-list-inner/address-list-inner.component';
+import { AfterViewInit, ViewChildren, ViewChild, ContentChildren, ContentChild } from '@angular/core';
+import { NotificationService } from '../../../services/notification.service'
 
 @Component({
   selector: 'app-business',
@@ -18,57 +19,68 @@ export class BusinessComponent implements OnInit {
   businessTypes: string[] = [BusinessType.ALL, BusinessType.CLIENT, BusinessType.PLABS,
     BusinessType.PIVOTAL, BusinessType.VENDOR, BusinessType.INSYS];
   businesses: string[] = ['Comcast', 'Aptium', 'Pivotal', 'INSYS Group'];
-  address: boolean;
+  id: number;
+  businessType: string;
+
+  @ViewChild(AddressListInnerComponent)
+  private addressComponent: AddressListInnerComponent;
 
   constructor(
     private businessService: BusinessService,
     private router: Router,
     private route: ActivatedRoute,
-    private location: Location
+    private location: Location,
+    private notificationService: NotificationService
   ) { }
 
-  ngOnInit() : void {
-    console.log(`Enter: BusinessComponent.ngOnInit()`);
-    let id = 0;
-    let businessType = '';
-    this.route.params.subscribe(params => {
-      id = +params['id'];
-      businessType=params['businessType'];
-      console.log(`Parameter Id is ${id}`);
-      if (id > 0) {
-        this.businessService.getOne(id)
+  ngAfterViewInit() {
+    console.log(`Enter: BusinessComponent.ngAfterViewInit() this.addressComponent= ${this.addressComponent} `);
+     if (this.id > 0) {
+        this.businessService.getOne(this.id)
           .subscribe(
-            business => {this.business = business; this.init();},
+            business => {
+              this.business = business; 
+              this.addressComponent.addresses = this.business.addresses;
+            },
             error => this.handleError
           );
-      } else {
-        this.business.id=0;
-        if(businessType!='') {
-          this.business.entityType=businessType;
+      } else {  
+        if(this.business.entityType!='') {
+          this.business.entityType=this.business.entityType;
         } else {
-          this.business.entityType='Insys';
+          this.business.entityType='Vendor';
         }
         this.init();
       }
+  }
+
+  ngOnInit(): void {
+    console.log(`Enter: BusinessComponent.ngOnInit()`);
+    this.route.params.subscribe(params => {
+      this.id = +params['id'];
+      this.businessType=params['businessType'];
+      console.log(`Parameter Id is ${this.id}`);
     });
   }
 
   private init(): void {
-    if(this.business.entityType==='Insys' || this.business.entityType==='Client') {
+   /* if(this.business.entityType==='Insys' || this.business.entityType==='Client') {
       this.businessTypes = ['Insys', 'Client'];
       this.businesses = ['INSYS Group'];
     } else {
       this.businessTypes = [this.business.entityType];
-    }
-    this.address = true;
+    }*/
   }
 
   save(): void {
     console.log('Enter: BusinessComponent.save()' + this.business.id);
-    if(this.business.id===0) {
-      this.businessService.createNew(this.business).subscribe(business => this.business=business, this.handleError);
+    this.business.addresses = this.addressComponent.addresses;
+    if(this.business.id) {
+      console.log(`update = ${JSON.stringify(this.business)} `);
+      this.businessService.updateSubRes(this.business).subscribe(business => {this.business=business;  this.notificationService.info('Business Data saved successfully');}, this.handleError);
     } else {
-      this.businessService.update(this.business).subscribe(business => this.business=business, this.handleError);
+      console.log(`new = ${JSON.stringify(this.business)} `);
+      this.businessService.createNew(this.business).subscribe(business => {this.business=business;  this.notificationService.info('Business Data saved successfully');}, this.handleError);
     }
   }
 
@@ -81,8 +93,13 @@ export class BusinessComponent implements OnInit {
     this.location.back();
   }
 
-  private handleError(error: any): Promise<any> {
+   private handleError(error: any): void {
     console.error('An error occurred', error);
-    return Promise.reject(error.message || error);
+    this.notificationService.error('An Error occured ' + error);
+  }
+
+  private handleSuccess(business: Business): void {
+    this.business=business;
+    this.notificationService.info('Business Data saved successfully');
   }
 }

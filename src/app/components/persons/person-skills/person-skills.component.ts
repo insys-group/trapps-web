@@ -26,14 +26,14 @@ export class PersonSkillsComponent implements OnInit {
   exists: boolean = true;
 
   ngOnInit() {
-    this.personService.getPersonSkills(this.personId)
+  /*  this.personService.getPersonSkills(this.personId)
       .subscribe(
       personSkills => {
         this.personSkills = personSkills;
         this._personSkills = this.copySkills(personSkills);
       },
       this.handleError
-      );
+      );*/
   }
 
   addSkill(): void {
