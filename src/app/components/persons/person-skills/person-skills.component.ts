@@ -16,60 +16,26 @@ import 'rxjs/add/observable/merge';
 
 export class PersonSkillsComponent implements ChildViewComponent, OnInit, OnChanges {
   constructor(private restService: RestService, private notificationService: NotificationService) { }
+
   @Input()
   person: Person;
 
   @Input()
-  url: string;
-
   personSkills: Array<PersonSkill>;
   _personSkills: Array<PersonSkill>;
 
   skillName: string;
   exists: boolean = true;
 
-  initialized: boolean = false;
-
   ngOnChanges() {
-    console.log(`PersonSkillsComponent*************** ngOnChanges(${this.url}, ${this.person.id})`);
-    if(this.url && !this.initialized) {
-      console.log('Loading data now');
-      this.loadDataAsync(this.url)
-      .subscribe(
-        personSkills => console.log(`Person Skills loaded successfully`),
-        () => {}
-      );
-      this.initialized=true;
-    }
+    this.personSkills=this.person.skills;
+    console.log(`PersonSkillsComponent*************** ngOnChanges()`);
   }
 
   ngOnInit() {
-    console.log(`PersonSkillsComponent*************** ngOnInit(${this.url}, ${this.person.id})`);
+    console.log(`PersonSkillsComponent*************** ngOnInit()`);
   }
 
-  /*
-  ngDoCheck() {
-    console.log(`PersonSkillsComponent*************** ngDoCheck(${this.url}, ${this.personId})`);
-  }
-  
-  ngAfterContentInit() {
-    console.log(`PersonSkillsComponent*************** ngAfterContentInit(${this.url}, ${this.personId})`);
-  }
-  
-  ngAfterContentChecked() {
-    console.log(`PersonSkillsComponent*************** ngAfterContentChecked(${this.url}, ${this.personId})`);
-  } 
-  
-  ngAfterViewInit() {
-    console.log(`PersonSkillsComponent*************** ngAfterViewInit(${this.url}, ${this.personId})`);
-    //this.loadDataAsync(this.url);
-    //this.initialized=true;
-  } 
-  
-  ngAfterViewChecked() {
-    console.log(`PersonSkillsComponent*************** ngAfterViewChecked(${this.url}, ${this.personId})`);
-  }
-  */
   addSkill(): void {
     let newSkill = new PersonSkill();
     newSkill.id = 0;

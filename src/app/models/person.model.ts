@@ -13,18 +13,18 @@ export class Person extends RestResource {
   title: string;
   business: Business;
   address: Address;
+  documents: Array<PersonDocument>;
+  skills: Array<PersonSkill>;
 }
 
 export class PersonSkill extends RestResource {
   id: number;
-  person: Person;
   name: string;
   scale: number;
 }
 
 export class PersonDocument extends RestResource {
   id: number;
-  person: Person;
   fileName: string;
   uploadTimestamp: Date
 }
