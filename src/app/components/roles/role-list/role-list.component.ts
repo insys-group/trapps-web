@@ -13,7 +13,6 @@ import { IResource } from '../../../resources/crud.resource';
 })
 export class RoleListComponent implements OnInit {
   closeResult: string;
-
   errorMessage: string;
 
   roles: IResource[];
@@ -21,17 +20,16 @@ export class RoleListComponent implements OnInit {
   constructor(private router: Router, private roleService: RoleService, private notificationService: NotificationService) { }
 
   ngOnInit() {
-    this.getRoleList();  
+    this.getRoleList();
   }
 
   getRoleList() {
     console.log('Enter: RoleListComponent.ngOnInit()');
     this.roleService.getAll().subscribe(
       roles => this.roles = roles.content,
-
       error => this.notificationService.error(error.json().error)
     );
- }
+  }
 
   onSelect(role: Roles) {
     this.router.navigate(['/roles', role.id]);
