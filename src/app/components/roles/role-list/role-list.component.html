@@ -1,19 +1,18 @@
 <div class="container">
-
-<div class="container">
-  <div class="form-group">
-    <button type="button" class="btn btn-primary" (click)="create()">New </button>
+  <div>
+    <label for="personType">Roles</label>
   </div>
 </div>
 
-
+<div class="container">
+  <div class="form-group">
+    <button type="button" class="btn btn-primary" (click)="create()">New</button>
+  </div>
 </div>
 
 <div class="container">
-
   <div class="list-group">
-    <button type="button" class="list-group-item list-group-item-action" *ngFor="let role of roles"
-      (click)="onSelect(role)">
+    <button type="button" class="list-group-item list-group-item-action" *ngFor="let role of roles" (click)="onSelect(role)">
       {{role.name}}
   </button>
   </div>
