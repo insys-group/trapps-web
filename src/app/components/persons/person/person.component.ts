@@ -93,7 +93,7 @@ export class PersonComponent implements OnInit, AfterViewInit {
     this.person.business={
           "name" : "business_entity 1",
           "description" : "business_entity 1",
-          "entityType" : "Insys",
+          "businessType" : "Insys",
           "id" : 15,
           "addresses": null
         };

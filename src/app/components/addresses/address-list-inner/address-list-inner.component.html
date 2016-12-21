@@ -1,6 +1,6 @@
 <div class="container">
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-14">
             <div class="card">
                 <div class="card-header">
                     Address Information
@@ -23,7 +23,7 @@
                                             <a href="javascript:void(0)" (click)=delete(i)><span
                                                     class="float-xs-right">&times;</span></a>
 
-                                            <div class="col-sm-4">
+                                            <div class="col-sm-2">
                                                 <div class="form-group">
                                                     <label for="address1">Address 1</label>
                                                     <input type="text" class="form-control" id="address1" required
@@ -44,7 +44,6 @@
                                                 </div>
                                             </div>
                                             <div class="col-sm-2">
-
                                                 <div class="form-group">
                                                     <label for="city">City</label>
                                                     <input type="text" class="form-control" id="city" required
@@ -59,7 +58,6 @@
                                                 </div>
                                             </div>
                                             <div class="col-sm-2">
-
                                                 <div class="form-group">
                                                     <label for="zipcode">Zip Code</label>
                                                     <input type="text" class="form-control" id="zipcode" required
@@ -67,8 +65,15 @@
                                                            #zipcode="ngModel">
                                                 </div>
                                             </div>
+                                            <div class="col-sm-2">
+                                                <div class="form-group">
+                                                    <label for="country">Country</label>
+                                                    <input type="text" class="form-control" id="country" required
+                                                           [(ngModel)]="address.country" name="country"
+                                                           #countrycode="ngModel">
+                                                </div>
+                                            </div>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
