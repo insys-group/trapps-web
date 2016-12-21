@@ -1,10 +1,12 @@
 import { RestResource } from './rest.model';
+import { Address } from './address.model';
 
 export class Business extends RestResource {
   id: number;
   name: string;
   description: string;
   entityType: string;
+  addresses: Address[];
 }
 
 export class BusinessType {

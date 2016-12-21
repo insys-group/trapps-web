@@ -14,22 +14,23 @@ import 'rxjs/add/observable/merge';
   styleUrls: ['./person-skills.component.css']
 })
 
-export class PersonSkillsComponent implements ChildViewComponent, OnInit, OnChanges {
+export class PersonSkillsComponent implements OnInit, OnChanges {
   constructor(private restService: RestService, private notificationService: NotificationService) { }
 
   @Input()
   person: Person;
-
-  @Input()
-  personSkills: Array<PersonSkill>;
   _personSkills: Array<PersonSkill>;
 
   skillName: string;
   exists: boolean = true;
 
   ngOnChanges() {
-    this.personSkills=this.person.skills;
     console.log(`PersonSkillsComponent*************** ngOnChanges()`);
+    if(this.person) {
+      this._personSkills=this.copySkills(this.person.personSkills);
+    }
+    //this.personSkills=this.person.personSkills;
+    //this._personSkills=this.copySkills(this.personSkills);
   }
 
   ngOnInit() {
@@ -40,20 +41,47 @@ export class PersonSkillsComponent implements ChildViewComponent, OnInit, OnChan
     let newSkill = new PersonSkill();
     newSkill.id = 0;
     newSkill.name = this.skillName;
-    newSkill.person = this.person;
     newSkill.scale = 0;
-    this.personSkills.push(newSkill);
+    this.person.personSkills.push(newSkill);
     this.exists = true;
     this.skillName = '';
   }
 
   removeSkill(skillName: string): void {
     console.log(`Skill to be removed ${skillName}`);
-    let index = this.personSkills.findIndex(skill => skill.name === skillName);
+    let index = this.person.personSkills.findIndex(skill => skill.name === skillName);
     console.log(`Skill Index ${index}`);
-    this.personSkills.splice(index, 1);
+    this.person.personSkills.splice(index, 1);
   }
 
+  resetSkills(): void {
+    console.log('Total Skills ' + this._personSkills.length);
+    this.person.personSkills = this.copySkills(this._personSkills);
+  }
+
+  onChange(event): void {
+    let self = this;
+    let result = this.person.personSkills.find((skill, index, arr) => { return skill.name.toLowerCase() === this.skillName.toLowerCase(); });
+    this.exists = result !== undefined;
+  }
+
+  private handleError(error: any): void {
+    console.error('An error occurred', error);
+    this.notificationService.error('An Error occured ' + error);
+  }
+
+  private copySkills(personSkills: Array<PersonSkill>): Array<PersonSkill> {
+    return personSkills.map(skill => {
+      let newSkill = new PersonSkill();
+      newSkill.id = skill.id; newSkill.name = skill.name; newSkill.scale = skill.scale; newSkill.links = skill.links;
+      return newSkill;
+    });
+  }
+
+
+}
+
+/*
   saveSkills(): void {
     this.saveAsync()
     .subscribe(
@@ -127,46 +155,24 @@ export class PersonSkillsComponent implements ChildViewComponent, OnInit, OnChan
 
     return skills;
   }
+*/
 
-  resetSkills(): void {
-    console.log('Total Skills ' + this._personSkills.length);
-    this.personSkills = this.copySkills(this._personSkills);
-  }
-
-  onChange(event): void {
-    let self = this;
-    let result = this.personSkills.find((skill, index, arr) => { return skill.name.toLowerCase() === this.skillName.toLowerCase(); });
-    this.exists = result !== undefined;
-  }
-
-  private handleError(error: any): void {
-    console.error('An error occurred', error);
-    this.notificationService.error('An Error occured ' + error);
-  }
-
-  private copySkills(personSkills: Array<PersonSkill>): Array<PersonSkill> {
-    return personSkills.map(skill => {
-      let newSkill = new PersonSkill();
-      newSkill.id = skill.id; newSkill.name = skill.name; newSkill.scale = skill.scale; newSkill.person = skill.person; newSkill.links = skill.links;
-      return newSkill;
-    });
-  }
-
+  /*
   public loadDataAsync(url: string): Observable<Array<PersonSkill>> {
     console.log('Enter: loadDataAsync()');
     return this.restService.getAll<PersonSkill>(url)
       .do(
-        personSkills => {
-          console.log(`Person skills loaded ${personSkills.length}`);
-          this.personSkills = personSkills;
-          this.personSkills.forEach(skill=>skill.person=this.person);
-          this._personSkills = this.copySkills(this.personSkills);
+        skills => {
+          console.log(`Person skills loaded ${skills.length}`);
+          this.skills = skills;
+          this.skills.forEach(skill=>skill.person=this.person);
+          this._skills = this.copySkills(this.skills);
           if(this.skillName) {
-            this.exists=this.personSkills.find((skill, index, arr) => skill.name.toLowerCase() === this.skillName.toLowerCase()) !== undefined;
+            this.exists=this.skills.find((skill, index, arr) => skill.name.toLowerCase() === this.skillName.toLowerCase()) !== undefined;
           } else {
             this.exists=false;
           }
-          return this.personSkills;
+          return this.skills;
         },
         this.handleError
       );
@@ -178,8 +184,8 @@ export class PersonSkillsComponent implements ChildViewComponent, OnInit, OnChan
 
   public saveAsync(): Observable<Array<PersonSkill>> {
     let errorRecords: Array<any> = [];
-    let newSkills: Array<PersonSkill> = this.findNotIn(this.personSkills, this._personSkills);
-    let deletedSkills: Array<PersonSkill> = this.findNotIn(this._personSkills, this.personSkills);
+    let newSkills: Array<PersonSkill> = this.findNotIn(this.skills, this._skills);
+    let deletedSkills: Array<PersonSkill> = this.findNotIn(this._skills, this.skills);
 
     let saveObservable = this.saveAll(newSkills);
     let deleteObservable = this.deleteAll(deletedSkills);
@@ -203,20 +209,19 @@ export class PersonSkillsComponent implements ChildViewComponent, OnInit, OnChan
   public save(): void {
     
   }
-
-}
+  */
   /*
   public loadData(url: string): void {
     console.log('Enter: loadDataAsync()');
     this.restService.getAll<PersonSkill>(url)
-      .do(personSkills => {console.log('Running Map '); return personSkills;})
+      .do(skills => {console.log('Running Map '); return skills;})
       .subscribe(
-        personSkills => {
-          console.log(`Person skills loaded ${personSkills.length}`);
-          this.personSkills = personSkills;
-          this._personSkills = this.copySkills(personSkills);
+        skills => {
+          console.log(`Person skills loaded ${skills.length}`);
+          this.skills = skills;
+          this._skills = this.copySkills(skills);
           if(this.skillName) {
-            this.exists=this.personSkills.find((skill, index, arr) => skill.name.toLowerCase() === this.skillName.toLowerCase()) !== undefined;
+            this.exists=this.skills.find((skill, index, arr) => skill.name.toLowerCase() === this.skillName.toLowerCase()) !== undefined;
           } else {
             this.exists=false;
           }

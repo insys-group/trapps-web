@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Person, PersonType } from '../../../models/person.model';
+import { Person, PersonType, PersonSkill, PersonDocument } from '../../../models/person.model';
 import { Business } from '../../../models/business.model';
 import { RestLocations } from '../../../models/rest.model';
 import { RestService } from '../../../services/rest.service';
@@ -26,12 +26,6 @@ export class PersonComponent implements OnInit, AfterViewInit {
   //used when navigation is used
   id: number;
   personType: string;
-
-  //Resource location for skills
-  skillsUrl: string;
-
-  //Resource location for documents
-  documentsUrl: string;
 
   //person object to show on the view
   person: Person = new Person();
@@ -62,7 +56,9 @@ export class PersonComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
     private location: Location,
     private notificationService: NotificationService
-  ) { }
+  ) { 
+    console.log(`Enter: PersonComponent()`);
+  }
 
   //executes when component initializes
   ngOnInit(): void {
@@ -70,7 +66,7 @@ export class PersonComponent implements OnInit, AfterViewInit {
     this.route.params.subscribe(params => {
       this.id = +params['id'];
       this.personType=params['personType'];
-      console.log("After parsing query strings ********************  " + this.personType);
+      console.log(`After parsing query strings ********************  Person Type ${this.personType} Person Id ${this.id}`);
       if(this.personType===undefined || this.personType==='' || this.personType===PersonType.CANDIDATE || this.personType===PersonType.EMPLOYEE) {
         this.skills=true;
         this.documents=true;
@@ -88,13 +84,6 @@ export class PersonComponent implements OnInit, AfterViewInit {
                   this.initExistingPerson();
                   if (this.person.links) {
                     this.initBusiness();
-                    this.initAddress();
-                    if(this.skills) {
-                      this.initSkills();
-                    }
-                    if(this.documents) {
-                      this.initDocuments();
-                    }
                   }
                 },
                 error => {}
@@ -108,17 +97,6 @@ export class PersonComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-/*
-    if(this.personType==='' || this.personType===PersonType.CANDIDATE || this.personType===PersonType.EMPLOYEE) {
-      this.skills=true;
-      this.documents=true;
-      this.initSkills();
-      this.initDocuments();
-    } else {
-      this.skills=false;
-      this.documents=false;
-    }
-    */
   }
 
   //sets the view state based on the request parameters
@@ -157,7 +135,7 @@ export class PersonComponent implements OnInit, AfterViewInit {
             return personBusiness;
           });
         
-        if(this.person.personType==='Employee' || this.person.personType==='Candidate') {
+        if(this.person.personType===PersonType.EMPLOYEE || this.person.personType===PersonType.CANDIDATE) {
           let business = this._businesses.find(business => business.name.toUpperCase().indexOf('INSYS')>=0);
           this.businesses = [business];
         } else {
@@ -172,7 +150,11 @@ export class PersonComponent implements OnInit, AfterViewInit {
     console.log(`Loading person data`);
     return this.restService.getOne<Person>(`${RestLocations.PERSON_URL}${this.id}`)
       .do(
-        person => this.person = person,
+        person => {
+          this.person = person;
+          this.addressComponent.address=person.address;
+          console.log(`Person loaded is ${JSON.stringify(person)}`);
+        },
         error => this.handleError
       );
   }
@@ -196,41 +178,9 @@ export class PersonComponent implements OnInit, AfterViewInit {
     }
   }
 
-  private initAddress(): void {
-    let link = this.restService.getLink("address", this.person.links);
-    if(link) {
-      console.log(`Enter: PersonComponent.initAddress() link= ${link} `);
-      this.addressComponent.loadByUrl(link.href);
-      this.person.address = this.addressComponent.address;
-    }
-  }
-
-  private initDocuments(): void {
-    let link = this.restService.getLink("documents", this.person.links);
-    console.log(`Enter: PersonComponent.initDocuments() link= ${link} `);
-    //this.addressComponent.loadByUrl(link);
-    //this.person.address = this.addressComponent.address;
-  }
-
-  private initSkills(): void {
-    let link = this.restService.getLink("skills", this.person.links);
-    console.log(`Enter: PersonComponent.initSkills() link= ${link} `);
-    this.skillsUrl=link.href;
-    /*
-    this.personSkillsComponent.loadDataAsync(link.href)
-    .subscribe(
-      skills => console.log(`Skills loaded ${skills.length}`),
-      () => {}
-    );*/ 
-  }
-
   save(): void {
     console.log('Enter: PersonComponent address.save() ' + this.addressComponent.address.id);
-    this.addressComponent.saveSynh().subscribe(
-        address => {
-          this.addressComponent.address = address;
-          this.person.address = address;
-           console.log(`Enter:  PersonComponent address.save() ok address = ${JSON.stringify(address)}`);
+          this.person.address = this.addressComponent.address;
            console.log(`Enter:  PersonComponent person.save()  ${JSON.stringify(this.person)}`);
             if(this.person.id) {
                this.restService.update<Person>(this.person).subscribe(person => this.handleSuccess(person)
@@ -241,9 +191,6 @@ export class PersonComponent implements OnInit, AfterViewInit {
               , error => {console.log(`Error:  PersonComponent person.save() `); this.handleError}
               );
             }
-        },
-        error => {console.log(`Error:  PersonComponent address.save() `); this.handleError}
-    );
   }
 
   delete(): void {
@@ -268,6 +215,7 @@ export class PersonComponent implements OnInit, AfterViewInit {
   onChange(event: any): void {
     console.log(`value is ${JSON.stringify(this.person.business)}`);
   }
+  
   private handleError(error: any): void {
     console.error('An error occurred', error);
     this.notificationService.error('An Error occured ' + error);

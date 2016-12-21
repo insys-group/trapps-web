@@ -2,7 +2,6 @@ import { Injector } from '@angular/core';
 import { Injectable, OnInit } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { ResourceParams } from 'ng2-resource-rest';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
@@ -58,42 +57,24 @@ export class PersonService implements OnInit {
     }
 
     getPersonSkills(personId: number): Observable<Array<PersonSkill>> {
-        const url = `${this.personSkillsUrl}/?personId=${personId}`;
-        return this.http.get(url)
-        .map(response =>response.json().data as PersonSkill[])
-        .catch(this.handleError);
+        return null;
     }
 
     createSkill(personSkill: PersonSkill): Observable<PersonSkill> {
         console.log('Enter: PersonService.createSkill()' + JSON.stringify(personSkill));
-        return this.http
-            .post(this.personSkillsUrl, personSkill, { headers: this.headers })
-            .map(response => response.json().data as PersonSkill)
-            .catch(this.handleError);
+         return null;
     }
 
     createSkills(personSkills: PersonSkill[]): Observable<PersonSkill[]> {
-        console.log('Enter: PersonService.createSkills()' + JSON.stringify(personSkills));
-        return this.http
-            .post(this.personSkillsUrl, personSkills, { headers: this.headers })
-            .map(response => response.json().data as PersonSkill[])
-            .catch(this.handleError);
+         return null;
     }
 
     deleteSkill(id: number): Observable<void> {
-        const url = `${this.personSkillsUrl}/${id}`;
-        return this.http
-            .delete(url, { headers: this.headers })
-            .catch(this.handleError);
+        return null;
     }
 
     getPersonDocuments(personId: number): Observable<Array<PersonDocument>> {
-        console.log(`Enter: getPersonDocuments(${personId})`);
-        const url = `${this.personDocumentsUrl}/?personId=${personId}`;
-        return this.http.get(url)
-        .map(response =>response.json().data as PersonDocument[])
-        .do(data => console.log(JSON.stringify(data)))
-        .catch(this.handleError);
+        return null;
     }
 
     private handleError(error: Response): Observable<any> {

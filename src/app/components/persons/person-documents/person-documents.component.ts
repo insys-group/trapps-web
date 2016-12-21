@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { PersonDocument } from '../../../models/person.model';
+import { Person, PersonDocument } from '../../../models/person.model';
 import { PersonService } from '../../../services/person.service';
 import { NotificationService } from '../../../services/notification.service';
 import { Observable } from 'rxjs/Observable';
@@ -15,22 +15,11 @@ import 'rxjs/add/observable/merge';
 export class PersonDocumentsComponent implements OnInit {
   constructor(private personService: PersonService, private notificationService: NotificationService) { }
   @Input()
-  personId: number;
-
-  personDocuments: PersonDocument[];
+  person: Person;
 
   documentName: string;
 
   ngOnInit() {
-    /*
-    this.personService.getPersonDocuments(this.personId)
-      .subscribe(
-      personDocuments => {
-        this.personDocuments = personDocuments;
-      },
-      this.handleError
-      );
-      */
   }
 
   uploadDocument(): void {

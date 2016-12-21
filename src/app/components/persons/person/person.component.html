@@ -96,7 +96,7 @@
     </div>
     <div class="row">
         <div class="col-sm-6">
-            <app-address></app-address>
+            <app-address [address]="person.address"></app-address>
         </div>
         <div class="col-sm-6" *ngIf="skills===true">
             <div class="card">
@@ -104,7 +104,7 @@
                     Professional Skills
                 </div>
                 <div class="card-block">
-                    <app-person-skills [person]="person" [url]="skillsUrl"></app-person-skills>
+                    <app-person-skills [person]="person"></app-person-skills>
                 </div>
             </div>
         </div>
@@ -116,7 +116,7 @@
                     Documents
                 </div>
                 <div class="card-block">
-                    <app-person-documents [personId]="person.id"></app-person-documents>
+                    <app-person-documents [person]="person"></app-person-documents>
                 </div>
             </div>
         </div>

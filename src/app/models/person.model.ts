@@ -11,10 +11,10 @@ export class Person extends RestResource {
   email: string;
   personType: string;
   title: string;
-  business: Business;
-  address: Address;
-  documents: Array<PersonDocument>;
-  skills: Array<PersonSkill>;
+  business: Business = new Business();
+  address: Address = new Address();
+  personDocuments: Array<PersonDocument> = new Array<PersonDocument>();
+  personSkills: Array<PersonSkill>=new Array<PersonSkill>();
 }
 
 export class PersonSkill extends RestResource {
