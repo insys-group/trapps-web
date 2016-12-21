@@ -27,7 +27,11 @@ export class RoleListComponent implements OnInit {
     console.log('Enter: RoleListComponent.ngOnInit()');
     this.roleService.getAll().subscribe(
       roles => this.roles = roles.content,
+
       error => this.notificationService.error(error.json().error)
+
+                    //console.log(`Enter rohitttttttttttttt: BusinessListComponent.ngOnInit() this.businesses= ${JSON.stringify(this.roles)} `);
+
     );
   }
 

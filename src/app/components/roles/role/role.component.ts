@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { ActivatedRoute, Params } from '@angular/router';
 import { NotificationService } from '../../../services/notification.service'
 import { RoleService } from '../../../services/role.service';
-import { Roles } from '../../../models/roles.model';
+import { Roles, Skill } from '../../../models/roles.model';
 import { IResource } from '../../../resources/crud.resource';
 
 @Component({
@@ -15,11 +15,13 @@ import { IResource } from '../../../resources/crud.resource';
 export class RoleComponent implements OnInit {
   role: Roles = new Roles();
 
+  roles: IResource[];
+
   id: number;
   roleType: string;
   skillType: string;
 
-  skills: IResource[];
+  skill: IResource[];
 
   constructor(private roleService: RoleService,
     private location: Location,
@@ -30,10 +32,10 @@ export class RoleComponent implements OnInit {
   ngOnInit(): void {
     this.getSkillList();
     this.route.params.subscribe(params => {
-      this.id = +params['id'];
-      this.roleType = params['roleType'];
-      this.skillType = params['skillType'];
-      console.log(`Parameter Id is ${this.id}`);
+    this.id = +params['id'];
+    this.roleType = params['roleType'];
+    this.skillType = params['skillType'];
+    console.log(`Parameter Id is ${this.id}`);
     });
   }
 
@@ -48,21 +50,29 @@ export class RoleComponent implements OnInit {
         );
     }
   }
+str: string;
 
   save(): void {
-    // this.role.skills = [ {id: this.role.id, name: "Swift"}]
+     this.role.skills = [ {id: this.role.id, name: this.str}]
 
     if (this.role.id) {
       console.log("this is id " + this.role.id)
       this.roleService.update(this.role).subscribe(role => this.handleSuccess(role),
-      error => { console.log(`Error:  RoleComponent role.update() `); this.handleError }
+
+      error => { console.log(`Error:  RoleComponent role.update() `); this.handleError },
+
       );
+
     } else {
       this.roleService.createNew(this.role).subscribe(role => this.handleSuccess(role), 
       error => { console.log(`Error:  RoleComponent role.save() `); this.handleError }
       );
     }
     error => { console.log(`Error:  RoleComponent role.save() `); this.handleError }
+  }
+  saveSkills(): void {
+
+
   }
 
   cancel(): void {
@@ -95,11 +105,16 @@ export class RoleComponent implements OnInit {
   }
 
   getSkillList() {
-    console.log('Enter: RoleLComponent.ngOnInit()');
+    console.log('Enter: RoleListComponent.ngOnInit()');
     this.roleService.getAll().subscribe(
-      skills => this.skills = skills.content,
+      roles => this.roles = roles.content,
+
       error => this.notificationService.error(error.json().error)
+
     );
   }
-  
+    toNumber(){
+    this.id = +this.id;
+    console.log(this.id);
+  }
 }
