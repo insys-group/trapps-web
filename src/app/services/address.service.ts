@@ -1,3 +1,4 @@
+
 import {Injectable} from '@angular/core';
 import {ResourceParams} from 'ng2-resource-rest';
 import {Address} from '../models/address.model';
@@ -15,4 +16,3 @@ constructor(http: Http, injector: Injector) {
       super(http , injector)
     }
 }
-

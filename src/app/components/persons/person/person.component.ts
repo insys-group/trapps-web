@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Person, PersonType } from '../../../models/person.model';
-import { PersonService } from '../../../services/person.service';
+import { NewPersonService } from '../../../services/newperson.service';
 import { NotificationService } from '../../../services/notification.service'
 import { Router } from '@angular/router';
 import { ActivatedRoute, Params } from '@angular/router';
@@ -22,7 +22,6 @@ export class PersonComponent implements OnInit, AfterViewInit {
   personType: string;
   personTypes: string[] = ['Employee', 'Candidate', 'Client', 'Vendor', 'Pivotal'];
   businesses: string[] = ['Comcast', 'Aptium', 'Pivotal', 'INSYS Group'];
-  business: string;
 
   skills: boolean;
   documents: boolean;
@@ -60,7 +59,7 @@ export class PersonComponent implements OnInit, AfterViewInit {
   }
 
   constructor(
-    private personService: PersonService,
+    private personService: NewPersonService,
     private router: Router,
     private route: ActivatedRoute,
     private location: Location,
@@ -69,7 +68,6 @@ export class PersonComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     console.log(`Enter: PersonComponent.ngOnInit()`);
-    this.init();
     this.route.params.subscribe(params => {
       this.id = +params['id'];
       this.personType=params['personType'];
@@ -93,10 +91,9 @@ export class PersonComponent implements OnInit, AfterViewInit {
     this.person.business={
           "name" : "business_entity 1",
           "description" : "business_entity 1",
-          "entityType" : "Insys",
+          "businessType" : "Insys",
           "id" : 15,
-          "addresses": null
-        };
+          "addresses": null};
   }
 
   save(): void {
@@ -115,7 +112,7 @@ export class PersonComponent implements OnInit, AfterViewInit {
   }
 
   delete(): void {
-    console.log('Enter: PersonComponent.delete()');
+    console.log('Enter: PersonComponent.delete()' );
     this.notificationService.ask('Do you really want to delete?', ["Yes", "No"])
       .subscribe(
         result => {

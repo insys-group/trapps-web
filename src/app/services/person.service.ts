@@ -38,4 +38,3 @@ constructor(http: Http, injector: Injector) {
     }
 
 }
-

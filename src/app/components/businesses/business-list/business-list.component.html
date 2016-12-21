@@ -2,7 +2,7 @@
   <div class="form-group">
     <label for="businessType">Business Type</label>
     <div>
-      <select class="form-control" #sel (change)="select.emit(sel.value)">
+      <select class="form-control"  #sel  (change)="select.emit(sel.value)"  [(ngModel)]="businessType">
         <option *ngFor="let businessType of businessTypes">{{businessType}}</option>
       </select>
     </div>
@@ -20,8 +20,9 @@
 <div class="container">
   <div class="list-group">
     <button type="button" class="list-group-item list-group-item-action"
-      *ngFor="let business of businesses | filterBusinessType: sel.value" (click)="onSelect(business)">
-        {{business.name}}
-    </button>
+      *ngFor="let business of businesses | filterBusinessType: sel.value"
+      (click)="onSelect(business)">
+       {{business.name}}
+  </button>
   </div>
 </div>
