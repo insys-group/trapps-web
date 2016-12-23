@@ -23,11 +23,15 @@ export class RoleComponent implements OnInit {
 
   skill: IResource[];
 
+    newSkill: Skill;
+
   constructor(private roleService: RoleService,
     private location: Location,
     private route: ActivatedRoute,
     private router: Router,
-    private notificationService: NotificationService) { }
+    private notificationService: NotificationService) { 
+      this.newSkill = new Skill();
+    }
 
   ngOnInit(): void {
     this.getSkillList();
@@ -49,19 +53,16 @@ export class RoleComponent implements OnInit {
         error => this.handleError
         );
     }
-  }
-str: string;
+  } 
+
+ skillName: string;
 
   save(): void {
-     this.role.skills = [ {id: this.role.id, name: this.str}]
-
+      this.role.skills = [ {id: this.role.id, name: this.skillName}]
     if (this.role.id) {
       console.log("this is id " + this.role.id)
-      this.roleService.update(this.role).subscribe(role => this.handleSuccess(role),
-
-      error => { console.log(`Error:  RoleComponent role.update() `); this.handleError },
-
-      );
+      this.roleService.update(this.role).subscribe(role => {this.role=role; 
+      this.notificationService.info('Role Data saved successfully');}, this.handleError);
 
     } else {
       this.roleService.createNew(this.role).subscribe(role => this.handleSuccess(role), 
@@ -69,10 +70,6 @@ str: string;
       );
     }
     error => { console.log(`Error:  RoleComponent role.save() `); this.handleError }
-  }
-  saveSkills(): void {
-
-
   }
 
   cancel(): void {
@@ -113,8 +110,5 @@ str: string;
 
     );
   }
-    toNumber(){
-    this.id = +this.id;
-    console.log(this.id);
-  }
+
 }

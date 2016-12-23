@@ -16,16 +16,12 @@
                 </div>
               </div>
             </div>
-
-
-
-
           </form>
           <div class="row">
             <div class="col-sm-6">
               <div class="form-group">
                 <label for="skill">Skills</label>
-                <input type="text" class="form-control" id="str" [(ngModel)]="str">
+                <input type="text" class="form-control" id="skillName" [(ngModel)]="skillName" placeholder="Add Skills">
               </div>
             </div>
           </div>
@@ -33,6 +29,7 @@
             <button type="button" class="btn btn-primary" (click)="save()">Save</button>
             <button type="button" class="btn btn-danger" (click)="delete()">Delete</button>
             <button type="button" class="btn btn-primary" (click)="cancel()">Close</button>
+
           </div>
         </div>
       </div>
@@ -40,30 +37,22 @@
   </div>
 </div>
 
-
 <div class="container">
   <p>
-    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseSkill" aria-expanded="false" aria-controls="collapseSkill">
+    <button class="btn btn-primary" [disabled]="!roleForm.form.valid" type="button" data-toggle="collapse" data-target="#collapseSkill" aria-expanded="false" aria-controls="collapseSkill">
     Skills
     </button>
   </p>
-
   <div class="collapse" id="collapseSkill">
     <div class="card card-block">
       <div class="list-group">
-        <template ngFor [ngForOf]="roles" let-role>
-          {{role.name}}
-          <li *ngFor="let skills of role.skills">
+        <template ngFor [ngForOf]="roles">
+          <li class="list-group-item" *ngFor="let skills of role.skills">
             {{skills.name}}
           </li>
         </template>
       </div>
-
     </div>
   </div>
 </div>
 
-
-   
-
- 
