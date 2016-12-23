@@ -45,10 +45,10 @@ export class BusinessComponent implements OnInit {
             error => this.handleError
           );
       } else {  
-        if(this.business.entityType!='') {
-          this.business.entityType=this.business.entityType;
+        if(this.business.businessType!='') {
+          this.business.businessType=this.business.businessType;
         } else {
-          this.business.entityType='Vendor';
+          this.business.businessType='Vendor';
         }
         this.init();
       }

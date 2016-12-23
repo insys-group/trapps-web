@@ -13,8 +13,11 @@ export class AddressComponent implements OnInit {
   @Input()
   set address(address: Address) {
     console.log(`Enter: AddressComponent.set ${address}`);
-    this._address = address;
+    if(address!=undefined) {
+      this._address = address;
+    }
   }
+
   get address(): Address {
     return this._address;
   }

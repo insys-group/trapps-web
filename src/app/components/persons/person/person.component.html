@@ -20,8 +20,8 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="business">Employer</label>
-                                    <select class="form-control" id="business" required [ngModel]="selectedBusiness" name="business" (change)='onChange($event)' #business="ngModel">
-                                        <option *ngFor="let business of businesses" [ngValue]="business">{{business.name}}</option>
+                                    <select class="form-control" id="business" required [ngModel]="selectedBusiness" name="business" (change)='onChange()' #business="ngModel">
+                                        <option *ngFor="let business of businesses" [ngValue]="business">{{business}}</option>
                                     </select>
                                 </div>
                             </div>
@@ -96,7 +96,7 @@
     </div>
     <div class="row">
         <div class="col-sm-6">
-            <app-address [address]="person.address"></app-address>
+            <app-address [address]="personAddress"></app-address>
         </div>
         <div class="col-sm-6" *ngIf="skills===true">
             <div class="card">

@@ -1,11 +1,17 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-6">
-      <input type="file" [(ngModel)]="documentName"/>
+      <input #fileInput type="file"/>
+      <div (click)="uploadFile()">Submit</div>
     </div>
+    <div class="col-sm-6"></div>
+  </div>
+  <div class="row" [hidden]="progressHidden">
     <div class="col-sm-6">
-      <button type="button" class="btn btn-primary" (click)="uploadDocument()">Upload</button>
+      <div class="text-xs-center" id="progress-caption">Uploading {{fileName}} {{percentUploaded}}</div>
+      <progress class="progress progress-success" [value]="currentValue" [max]="maxValue"></progress>
     </div>
+    <div class="col-sm-6"></div>
   </div>
   <br/>
   <div class="row">

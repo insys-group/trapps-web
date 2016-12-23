@@ -22,7 +22,7 @@ export class Link {
 
 export class RestLocations {
   static PERSON_URL: string = 'http://localhost:8081/api/v1/persons/';
-  static PERSON_SKILL_URL: string = 'http://localhost:8081/api/v1/personskills/';
+  static PERSON_UPDATE_URL: string = 'http://localhost:8081/api/v1/persons/put/';
   static PERSON_DOCUMENT_URL: string = 'http://localhost:8081/api/v1/persondocuments/';
   static BUSINESS_URL: string = 'http://localhost:8081/api/v1/businesses/';
 }

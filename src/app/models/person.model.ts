@@ -11,6 +11,7 @@ export class Person extends RestResource {
   email: string;
   personType: string;
   title: string;
+  //version: number;
   business: Business = new Business();
   address: Address = new Address();
   personDocuments: Array<PersonDocument> = new Array<PersonDocument>();
@@ -21,12 +22,14 @@ export class PersonSkill extends RestResource {
   id: number;
   name: string;
   scale: number;
+  //version: number;
 }
 
 export class PersonDocument extends RestResource {
   id: number;
   fileName: string;
-  uploadTimestamp: Date
+  uploadTimestamp: Date;
+  //version: number;
 }
 
 export class PersonType {
@@ -35,6 +38,7 @@ export class PersonType {
     static EMPLOYEE : string = "Employee";
     static CANDIDATE : string = "Candidate";
     static PIVOTAL : string = "Pivotal";
+    static PLABS : string = "Pivotal-Labs";
     static VENDOR : string = "Vendor";
 }
 
