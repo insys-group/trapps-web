@@ -17,5 +17,4 @@ export class FilterRoleSkillPipe implements PipeTransform {
             return true;
         });
     }
-
 }
