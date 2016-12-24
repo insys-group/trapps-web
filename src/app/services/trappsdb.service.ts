@@ -1,4 +1,3 @@
-
 import { InMemoryDbService } from 'angular-in-memory-web-api';
 
 export class TrappsInMemoryDbService implements InMemoryDbService {
@@ -11,7 +10,8 @@ export class TrappsInMemoryDbService implements InMemoryDbService {
             "address2": "",
             "city": "NY",
             "state": "NY",
-            "zipCode": "34545"
+            "zipCode": "34545",
+            "country": "USA"
         },
         {
             "id": 131,
@@ -19,7 +19,8 @@ export class TrappsInMemoryDbService implements InMemoryDbService {
             "address2": "",
             "city": "Paramus",
             "state": "NJ",
-            "zipCode": "367676"
+            "zipCode": "367676",
+            "country": "USA"
         },
         {
             "id": 132,
@@ -27,7 +28,8 @@ export class TrappsInMemoryDbService implements InMemoryDbService {
             "address2": "",
             "city": "Wsedr",
             "state": "NJ",
-            "zipCode": "78997"
+            "zipCode": "78997",
+            "country": "USA"
         }
     ];
 

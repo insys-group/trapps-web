@@ -13,9 +13,16 @@ import { IResource } from '../../../resources/crud.resource';
   styleUrls: ['./role.component.css']
 })
 export class RoleComponent implements OnInit {
-  role: Roles = new Roles();
+
+private _skills = new Array<Skill>();
+  set addresses(skills: Skill[]) {
+    console.log(`Enter: AddressComponent.set ${skills}`);
+    this._skills = skills;
+  }
+    role: Roles = new Roles();
 
   roles: IResource[];
+      hideSkillTextView = false;
 
   id: number;
   roleType: string;
@@ -34,6 +41,9 @@ export class RoleComponent implements OnInit {
     }
 
   ngOnInit(): void {
+    if (this.id === 0) {
+      console.log ("cdhdiucgdghiiudchweoicjoiw");
+    }
     this.getSkillList();
     this.route.params.subscribe(params => {
     this.id = +params['id'];
@@ -45,6 +55,7 @@ export class RoleComponent implements OnInit {
 
   ngAfterViewInit() {
     if (this.id > 0) {
+      this.hideSkillTextView = true;
       this.roleService.getOne(this.id)
         .subscribe(
         role => {

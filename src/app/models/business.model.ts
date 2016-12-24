@@ -5,15 +5,15 @@ export class Business extends IResource {
   id: number;
   name: string;
   description: string;
-  entityType: string;
+  businessType: string;
   addresses: Address[];
 }
 
 export class BusinessType {
   static ALL: string = "All";
   static CLIENT: string = "Client";
-  static PLABS: string = "Pivotal-Labs";
+  static PLABS: string = "PivotalLabs";
   static PIVOTAL: string = "Pivotal";
   static VENDOR: string = "Vendor";
-  static INSYS: string = "Insys";
+  static INSYS: string = "INSYS";
 }
