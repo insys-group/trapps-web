@@ -3,7 +3,8 @@ import { Observable } from 'rxjs/Observable';
 import { Person, PersonType, PersonSkill, PersonDocument } from '../../../models/person.model';
 import { Address } from '../../../models/address.model';
 import { Business } from '../../../models/business.model';
-import { RestLocations, Link } from '../../../models/rest.model';
+import { Link } from '../../../models/rest.model';
+import { environment } from '../../../../environments/environment';
 import { RestService } from '../../../services/rest.service';
 import { NotificationService } from '../../../services/notification.service'
 import { Router } from '@angular/router';
@@ -137,7 +138,7 @@ export class PersonComponent implements OnInit, AfterViewInit {
 
   private loadBusinesses(): Observable<Array<Business>> {
     console.log(`Loading businesses data`);
-    return this.restService.getAll<Business>(RestLocations.BUSINESS_URL)
+    return this.restService.getAll<Business>(environment.BUSINESS_URL)
       .do(
       businesses => {
         this._businesses =
@@ -156,7 +157,7 @@ export class PersonComponent implements OnInit, AfterViewInit {
 
   loadPerson(): Observable<Person> {
     console.log(`Loading person data`);
-    return this.restService.getOne<Person>(`${RestLocations.PERSON_URL}${this.id}`)
+    return this.restService.getOne<Person>(`${environment.PERSON_URL}${this.id}`)
       .do(
       person => {
         this.initPerson(person);
@@ -204,13 +205,13 @@ export class PersonComponent implements OnInit, AfterViewInit {
       this.person.address=this.personAddress;
     }
     if(this.person.id > 0) {
-      this.restService.put<Person>(RestLocations.PERSON_UPDATE_URL+this.person.id, this.person)
+      this.restService.put<Person>(environment.PERSON_UPDATE_URL+this.person.id, this.person)
       .subscribe(
         () => this.notificationService.info('Data saved successfully'),
         error => this.notificationService.error(`Error occured while saving data ${JSON.stringify(error)}`)
       );
     } else {
-      this.restService.create<Person>(RestLocations.PERSON_URL, this.person)
+      this.restService.create<Person>(environment.PERSON_URL, this.person)
       .subscribe (
         person => {
           let business=this.person.business; this.initPerson(person); 

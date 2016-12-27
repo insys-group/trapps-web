@@ -1,7 +1,6 @@
 import { Component, Input, OnInit, OnChanges, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewChecked } from '@angular/core';
 import { Person, PersonSkill, ChildViewComponent } from '../../../models/person.model';
 import { RestService } from '../../../services/rest.service';
-import { RestLocations } from '../../../models/rest.model';
 import { NotificationService } from '../../../services/notification.service';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
@@ -21,7 +20,10 @@ export class PersonSkillsComponent implements OnInit, OnChanges {
   person: Person;
   _personSkills: Array<PersonSkill>;
 
+  scales:Array<number> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  skills:Array<string> = ['Spring', 'Cloud Foundry', 'JPA', 'REST', 'MySQL', 'Spark', 'Hadoop', 'Scala', 'AWS'];
   skillName: string;
+  scale: number=0;
   exists: boolean = true;
 
   ngOnChanges() {
@@ -41,10 +43,11 @@ export class PersonSkillsComponent implements OnInit, OnChanges {
     let newSkill = new PersonSkill();
     newSkill.id = 0;
     newSkill.name = this.skillName;
-    newSkill.scale = 0;
+    newSkill.scale = this.scale;
     this.person.personSkills.push(newSkill);
     this.exists = true;
     this.skillName = '';
+    this.scale=0;
   }
 
   removeSkill(skillName: string): void {
@@ -57,12 +60,14 @@ export class PersonSkillsComponent implements OnInit, OnChanges {
   resetSkills(): void {
     console.log('Total Skills ' + this._personSkills.length);
     this.person.personSkills = this.copySkills(this._personSkills);
+    this.skillName = '';
+    this.scale=0;
   }
 
   onChange(event): void {
     let self = this;
     let result = this.person.personSkills.find((skill, index, arr) => { return skill.name.toLowerCase() === this.skillName.toLowerCase(); });
-    this.exists = result !== undefined;
+    this.exists = (result !== undefined);
   }
 
   private handleError(error: any): void {
@@ -122,7 +127,7 @@ export class PersonSkillsComponent implements OnInit, OnChanges {
     return Observable.create(observer => {
       skills.forEach(skill => {
         console.log(`Creating Skill ${skill.name}`);
-        this.restService.create<PersonSkill>(RestLocations.PERSON_SKILL_URL, skill)
+        this.restService.create<PersonSkill>(environment.PERSON_SKILL_URL, skill)
         .subscribe(
           skill => observer.next(skill),
           error => {

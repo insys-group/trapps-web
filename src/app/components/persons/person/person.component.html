@@ -98,27 +98,14 @@
         <div class="col-sm-6">
             <app-address [address]="personAddress"></app-address>
         </div>
-        <div class="col-sm-6" *ngIf="skills===true">
-            <div class="card">
-                <div class="card-header">
-                    Professional Skills
-                </div>
-                <div class="card-block">
-                    <app-person-skills [person]="person"></app-person-skills>
-                </div>
-            </div>
+
+        <div class="col-sm-6">
+            <app-person-skills [person]="person"  *ngIf="skills===true"></app-person-skills>
         </div>
     </div>
     <div class="row" *ngIf="documents===true">
         <div class="col-sm-12">
-            <div class="card">
-                <div class="card-header">
-                    Documents
-                </div>
-                <div class="card-block">
-                    <app-person-documents [person]="person"></app-person-documents>
-                </div>
-            </div>
+            <app-person-documents [person]="person"></app-person-documents>
         </div>
     </div>
 </div>

@@ -29,6 +29,7 @@ export class PersonDocument extends RestResource {
   id: number;
   fileName: string;
   uploadTimestamp: Date;
+  downloadLink: string
   //version: number;
 }
 

@@ -20,10 +20,16 @@ export class Link {
   href: string;
 }
 
+export class UploadProgress {
+  currentValue: number;
+  maxValue: number;
+  percentUploaded: number;
+}
+/*
 export class RestLocations {
   static PERSON_URL: string = 'http://localhost:8081/api/v1/persons/';
   static PERSON_UPDATE_URL: string = 'http://localhost:8081/api/v1/persons/put/';
   static PERSON_DOCUMENT_URL: string = 'http://localhost:8081/api/v1/persondocuments/';
   static BUSINESS_URL: string = 'http://localhost:8081/api/v1/businesses/';
 }
-
+*/

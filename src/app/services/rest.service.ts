@@ -4,7 +4,7 @@ import { RequestMethod } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 
-import { Link, RestQuery, RestResource, RestPageResource } from '../models/rest.model'
+import { Link, RestQuery, RestResource, RestPageResource, UploadProgress } from '../models/rest.model'
 
 @Injectable()
 export class RestService implements OnInit {
@@ -112,7 +112,7 @@ export class RestService implements OnInit {
             xhr.open("POST", url, true);
             xhr.send(formData);
   */ 
-  upload(url: string, file: any): Observable<any> {
+  uploadFile<T>(url: string, file: any): Observable<any> {
     return Observable.create(observer => {
       var formData: any = new FormData();
       formData.append("file", file, file.name);
@@ -120,31 +120,50 @@ export class RestService implements OnInit {
 
       xhr.upload.addEventListener("loadstart", (event: Event) => {
         console.log('loadstart ********** called')
-        observer.next({'currentValue': 0, 'maxValue': 100, 'percentUploaded': (Math.round(0 / 100 * 100) + "%")});
+        let uploadProgress=new UploadProgress();
+        uploadProgress.currentValue=0;
+        uploadProgress.maxValue=100;
+        uploadProgress.percentUploaded=0;
+        observer.next(uploadProgress);
       }, false);
       xhr.upload.addEventListener("progress", (event: ProgressEvent) => {
         console.log('progress ********** called');
         if (event.lengthComputable) {
-          observer.next({'currentValue': event.loaded, 'maxValue': event.total, 'percentUploaded': (Math.round(event.loaded / event.total * 100) + "%")});
+          let uploadProgress=new UploadProgress();
+          uploadProgress.currentValue=event.loaded;
+          uploadProgress.maxValue=event.total;
+          uploadProgress.percentUploaded=Math.round(event.loaded / event.total * 100);
+          observer.next(uploadProgress);
         }
       }, false);
       xhr.upload.addEventListener("load", (event: Event) => {
         console.log('load ********** called');
-      }, false); 
+      }, false);
 
       xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
           if (xhr.status != 201) {
             console.log('Http status not 201. Error.....');
-            observer.error('Error ********');
+            observer.error('Internal server error occured while uploading file');
           } else {
+            console.log('Completing request' + JSON.stringify(JSON.parse(xhr.responseText)));
+            observer.next(JSON.parse(xhr.responseText) as T);
             observer.complete();
           }
         }
       }
       xhr.open("POST", url, true);
+      xhr.setRequestHeader("x-filename", file.name);
       xhr.send(formData);
     });
+  }
+
+  deleteFile<T>(url: string): Observable<T> {
+    console.log(`Deleting file at ${url}`);
+    return this.http
+      .delete(url, { headers: this.headers })
+      .map(response => response.json() as T)
+      .catch(this.handleError);
   }
 
   getLink(rel: string, links: Array<Link>): Link {

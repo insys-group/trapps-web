@@ -1,8 +1,7 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { Person, PersonType } from '../../../models/person.model';
-import { RestLocations } from '../../../models/rest.model';
-import { Observable } from 'rxjs/Observable';
+import { environment } from '../../../../environments/environment';import { Observable } from 'rxjs/Observable';
 import { NotificationService } from '../../../services/notification.service';
 import { RestService } from '../../../services/rest.service';
 
@@ -32,7 +31,7 @@ export class PersonListComponent implements OnInit {
 
   ngOnInit() {
     console.log('Enter: PersonListComponent.ngOnInit()');
-    this.restService.getAll<Person>(RestLocations.PERSON_URL).subscribe(
+    this.restService.getAll<Person>(environment.PERSON_URL).subscribe(
       persons => this.persons = persons,
       error => this.notificationService.error(error.json().error)
     );
