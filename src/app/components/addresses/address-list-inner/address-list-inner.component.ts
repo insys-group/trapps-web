@@ -9,6 +9,8 @@ import { Address } from '../../../models/address.model';
 
 export class AddressListInnerComponent implements OnInit {
  private _addresses = new Array<Address>();
+ private _states = ["NY", "NC", "PA"];
+    
   set addresses(addresses: Address[]) {
     console.log(`Enter: AddressComponent.set ${addresses}`);
     this._addresses = addresses;
