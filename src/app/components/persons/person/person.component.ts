@@ -232,7 +232,7 @@ export class PersonComponent implements OnInit, AfterViewInit {
       .subscribe(
       result => {
         if (result === 'Yes') {
-          this.restService.delete(this.person.id).subscribe(() => this.router.navigate(['/persons']), this.handleError);
+          this.restService.delete(this.person).subscribe(() => this.router.navigate(['/persons']), this.handleError);
         } else {
           console.log('Dont want to delete the record');
         }
