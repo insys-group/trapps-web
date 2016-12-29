@@ -7,6 +7,7 @@ export class Address extends RestResource {
     city: string;
     state: string;
     zipCode: string;
+    country: string;
 
     static getInstance() {
      let _address = new Address();
@@ -16,6 +17,7 @@ export class Address extends RestResource {
       _address.city='';
       _address.state='';
       _address.zipCode='';
+      _address.country='';
       return _address;     
     }
 }

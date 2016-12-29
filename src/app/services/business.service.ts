@@ -4,10 +4,12 @@ import {Business} from '../models/business.model';
 import {CRUDResource} from '../resources/crud.resource';
 import { Http, Headers, Response } from '@angular/http';
 import { Injector } from '@angular/core';
+import { environment } from '../../environments/environment';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 @ResourceParams({
-    url: 'http://localhost:8081/api/v1/businesses'
+    url: environment.BUSINESS_URL
 })
 export class BusinessService extends CRUDResource<Business> {
 constructor(http: Http, injector: Injector) {
