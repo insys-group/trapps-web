@@ -1,24 +1,46 @@
-<div class="container">
-  <div class="row">
-    <div class="col-sm-6">
-      <input type="file" [(ngModel)]="documentName"/>
-    </div>
-    <div class="col-sm-6">
-      <button type="button" class="btn btn-primary" (click)="uploadDocument()">Upload</button>
-    </div>
+<div class="card">
+  <div class="card-header">
+    Documents
   </div>
-  <br/>
-  <div class="row">
-    <div class="col-sm-12">
-      <div>
-        <ul class="list-group">
-          <li class="list-group-item" *ngFor="let personDocument of personDocuments">
-            {{personDocument.uploadTimestamp | date: 'dd/MM/yyyy HH:mm:ss'}} - <a href="downloadDocument(personDocument)">{{personDocument.fileName}}</a>
-            <a href="javascript:void(0)" (click)=deleteDocument(personDocument)><span class="float-xs-right">&times;</span></a>
-          </li>
-        </ul>
+  <div class="card-block">
+    <div class="row">
+
+      <!--div class="col-sm-6">
+      <input #fileInput type="file"/>
+      <div (click)="uploadFile()" class="btn btn-primary">Submit</div>
+    </div-->
+
+      <div class="col-sm-6">
+        <label class="custom-file">
+        <input type="file" #fileInput id="file" class="custom-file-input" (change)="selectFile()">
+        <span class="custom-file-control">{{file.name}}</span>
+      </label>
+      </div>
+      <div class="col-sm-2">
+        <button (click)="uploadFile()" [disabled]="!file.name" class="btn btn-primary">Upload</button>
+      </div>
+      <div class="col-sm-4"></div>
+    </div>
+    <div class="row" [hidden]="progressHidden">
+      <div class="col-sm-12">
+        <div class="text-xs-center" id="progress-caption">Uploading {{fileName}} {{percentUploaded}}</div>
+        <progress class="progress progress-success" [value]="currentValue" [max]="maxValue"></progress>
       </div>
     </div>
+    <br/>
+    <div class="row">
+      <div class="col-sm-12">
+        <div>
+          <ul class="list-group">
+            <li class="list-group-item" *ngFor="let personDocument of person.personDocuments">
+              {{personDocument.uploadTimestamp | date: 'dd/MM/yyyy HH:mm:ss'}} -
+              <a target="_self" [href]="personDocument.downloadLink" [download]="personDocument.fileName">{{personDocument.fileName}}</a>
+              <a href="javascript:void(0)" (click)=deleteFile(personDocument)><span class="float-xs-right">&times;</span></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <br/>
   </div>
-  <br/>
 </div>

@@ -21,6 +21,7 @@ import { BusinessService } from './services/business.service';
 import { NotificationService } from './services/notification.service';
 import { PersonService } from './services/person.service';
 import { AddressService } from './services/address.service';
+import { RestService } from './services/rest.service';
 
 import { AddressComponent } from './components/addresses/address/address.component';
 import { AddressListComponent } from './components/addresses/address-list/address-list.component';
@@ -62,7 +63,7 @@ import { PersonDocumentsComponent } from './components/persons/person-documents/
     ResourceModule.forRoot(),
     AppRoutingModule
   ],
-  providers: [ConstantService, PersonService, BusinessService, AddressService, NotificationService],
+  providers: [ConstantService, PersonService, RestService, BusinessService, AddressService, NotificationService],
   entryComponents: [NotificationDialogComponent],
   bootstrap: [AppComponent]
 })
