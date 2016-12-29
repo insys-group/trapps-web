@@ -9,9 +9,12 @@ import { RoleComponent } from './components/roles/role/role.component';
 import { RoleListComponent } from './components/roles/role-list/role-list.component';
 import { AddressComponent } from './components/addresses/address/address.component';
 import { AddressListComponent } from './components/addresses/address-list/address-list.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 const appRoutes: Routes = [
-    { path: '', pathMatch: 'full', redirectTo: 'persons'},
+    { path: '', pathMatch: 'full', component: DashboardComponent},
+
+   // { path: '', pathMatch: 'full', redirectTo: 'persons'},
     { path: 'persons', component: PersonListComponent},
     { path: 'persons/:id', component: PersonComponent},
     { path: 'businesses', component: BusinessListComponent},
