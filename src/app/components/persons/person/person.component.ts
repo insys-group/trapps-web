@@ -31,7 +31,7 @@ export class PersonComponent implements OnInit, AfterViewInit {
 
   //person object to show on the view
   person: Person = new Person();
-  personAddress: Address = new Address();
+  //personAddress: Address = new Address();
 
   //lookups
   personTypes: string[] = [PersonType.EMPLOYEE, PersonType.CANDIDATE, PersonType.CLIENT, PersonType.VENDOR, PersonType.PIVOTAL];
@@ -63,11 +63,13 @@ export class PersonComponent implements OnInit, AfterViewInit {
   ) {
     console.log(`Enter: PersonComponent()`);
       console.log(`Initializing address`);
+      /*
       this.personAddress.address1='';
       this.personAddress.address2='';
       this.personAddress.city='';
       this.personAddress.state='';
       this.personAddress.zipCode='';
+      */
   }
 
   //executes when component initializes
@@ -148,6 +150,7 @@ export class PersonComponent implements OnInit, AfterViewInit {
             personBusiness.name = business.name;
             personBusiness.businessType = business.businessType;
             personBusiness.description = business.description;
+            //personBusiness.version = business.version;
             return personBusiness;
           });
       },
@@ -171,7 +174,16 @@ export class PersonComponent implements OnInit, AfterViewInit {
     this.person = person;
     this.person.personSkills=this.person.personSkills
       .map(skill => {let s=new PersonSkill(); s.id=skill.id;s.name=skill.name; s.scale=skill.scale; return s;});
-    this.personAddress=this.person.address;
+    //this.personAddress=this.person.address;
+    if(!this.person.address) {
+      this.person.address=new Address();
+      this.person.address.address1='';
+      this.person.address.address2='';
+      this.person.address.city='';
+      this.person.address.state='';
+      this.person.address.zipCode='';
+      this.person.address.country='';
+    }
   }
 
   private initBusiness(): void {
@@ -187,9 +199,11 @@ export class PersonComponent implements OnInit, AfterViewInit {
           personBusiness.name = business.name;
           personBusiness.businessType = business.businessType;
           personBusiness.description = business.description;
+          //personBusiness.version = business.version;
           this.person.business = personBusiness;
           this.selectedBusiness = business.name;
-          console.log(`Assigning the Employer ${JSON.stringify(this.person.business)}`);
+          
+          console.log(`Assigning the Employer ${JSON.stringify(this.person.business)} `);
         },
         error => this.handleError('Loading business info failed')
         );
@@ -201,9 +215,16 @@ export class PersonComponent implements OnInit, AfterViewInit {
     if(this.isAddressEmpty()) {
       console.log('Looks like Address is empty***********');
       this.person.address=null;
-    } else {
-      this.person.address=this.personAddress;
     }
+    // else {
+    //   if(!this.person.address.id) {
+    //     this.person.address.version=1;
+    //   }
+    // }
+    // else {
+    //   this.person.address=this.personAddress;
+    // }
+    //this.person.business.version=1;
     if(this.person.id > 0) {
       this.restService.put<Person>(environment.PERSON_UPDATE_URL+this.person.id, this.person)
       .subscribe(
@@ -211,14 +232,15 @@ export class PersonComponent implements OnInit, AfterViewInit {
         error => this.notificationService.error(`Error occured while saving data ${JSON.stringify(error)}`)
       );
     } else {
+      //this.person.version=1;
       this.restService.create<Person>(environment.PERSON_URL, this.person)
       .subscribe (
         person => {
           let business=this.person.business; this.initPerson(person); 
           this.person.business=business; 
-          if(this.person.address) {
-            this.personAddress.id=this.person.address.id;
-          }
+          // if(this.person.address) {
+          //   this.personAddress.id=this.person.address.id;
+          // }
           this.notificationService.info('Data saved successfully');
         },
         error => this.notificationService.error(`Error occured while saving data ${JSON.stringify(error)}`)
@@ -252,12 +274,21 @@ export class PersonComponent implements OnInit, AfterViewInit {
   }
 
   isAddressEmpty(): boolean {
-    console.log(`Address is ${this.personAddress.address1} ${this.personAddress.address2} ${this.personAddress.city} ${this.personAddress.state} ${this.personAddress.zipCode}`);
-    return this.isStringEmpty(this.personAddress.address1) && this.isStringEmpty(this.personAddress.city) && 
-    this.isStringEmpty(this.personAddress.state) && this.isStringEmpty(this.personAddress.zipCode);
+    console.log(`Before save --- Address is ${JSON.stringify(this.person.address)}`);
+    // if(!this.personAddress) {
+    //   return true;
+    // }
+    if(!this.person.address) {
+      return true;
+    }
+    //console.log(`Address is ${this.personAddress.address1} ${this.personAddress.address2} ${this.personAddress.city} ${this.personAddress.state} ${this.personAddress.zipCode}`);
+    // return this.isStringEmpty(this.personAddress.address1) && this.isStringEmpty(this.personAddress.city) && 
+    // this.isStringEmpty(this.personAddress.state) && this.isStringEmpty(this.personAddress.zipCode);
+    return this.isEmpty(this.person.address.address1) && this.isEmpty(this.person.address.city) && 
+            this.isEmpty(this.person.address.state) && this.isEmpty(this.person.address.zipCode) && this.isEmpty(this.person.address.country);
   }
 
-  isStringEmpty(str: string): boolean {
+  isEmpty(str: string): boolean {
     if(str) {
       if(str.trim()) return false; else return true;
     }

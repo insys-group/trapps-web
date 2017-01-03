@@ -9,6 +9,7 @@ import { Link, RestQuery, RestResource, RestPageResource, UploadProgress } from 
 @Injectable()
 export class RestService implements OnInit {
   private headers = new Headers();
+  private loadHeaders = new Headers();
   private fileHeaders = new Headers();
 
   private personsUrl = '/api/persons';
@@ -17,7 +18,9 @@ export class RestService implements OnInit {
   
   constructor(private http: Http) {
     this.headers.append('Content-Type', 'application/json');
-    this.headers.append('ETag', '1');
+
+    this.loadHeaders.append('Content-Type', 'application/json');
+    //this.loadHeaders.append('If-None-Match', '\"0\"');
 
     this.fileHeaders.append('Content-Type', 'multipart/form-data');
     this.fileHeaders.append('Access-Control-Allow-Origin', '*');
@@ -38,14 +41,14 @@ export class RestService implements OnInit {
 
   getAll<T>(url: string): Observable<Array<T>> {
     console.log(`Loading resource(s) ${url}`);
-    return this.http.get(url)
+    return this.http.get(url, { headers: this.loadHeaders })
       .map(response => response.json().content as Array<T>)
       .catch(this.handleError);
   }
 
   getOne<T>(url: string): Observable<T> {
     console.log(`Loading resource(s) ${url}`);
-    return this.http.get(url, { headers: this.headers })
+    return this.http.get(url, { headers: this.loadHeaders })
       .map(response => response.json() as T)
       .catch(this.handleError);
   }

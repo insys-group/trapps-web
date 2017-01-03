@@ -83,7 +83,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-12">
+                            <div class="col-sm-12" style="text-align:center">
                                 <button type="submit" class="btn btn-primary" [disabled]="!personForm.form.valid">Save</button>
                                 <button type="button" class="btn btn-danger" (click)="delete()">Delete</button>
                                 <button type="button" class="btn btn-primary" (click)="cancel()">Close</button>
@@ -96,7 +96,7 @@
     </div>
     <div class="row">
         <div class="col-sm-6">
-            <app-address [address]="personAddress"></app-address>
+            <app-address [address]="person.address"></app-address>
         </div>
 
         <div class="col-sm-6">

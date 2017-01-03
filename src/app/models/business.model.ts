@@ -6,6 +6,7 @@ export class Business extends RestResource {
   name: string;
   description: string;
   businessType: string;
+  //version: number;
   addresses: Address[];
 }
 
