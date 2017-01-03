@@ -11,5 +11,6 @@ export const environment = {
   PERSON_URL:  API_URL + 'persons/',
   PERSON_UPDATE_URL: API_URL + 'persons/put/',
   PERSON_DOCUMENT_URL: API_URL + 'persondocuments/',
-  BUSINESS_URL: API_URL + 'businesses/'
+  BUSINESS_URL: API_URL + 'businesses/',
+  STATE_URL: API_URL + 'states/'
 };
