@@ -10,10 +10,14 @@ import 'rxjs/add/operator/take';
 
 export class AddressComponent implements OnInit {
   private _address: Address;
+  @Input()
   set address(address: Address) {
     console.log(`Enter: AddressComponent.set ${address}`);
-    this._address = address;
+    if(address!=undefined) {
+      this._address = address;
+    }
   }
+
   get address(): Address {
     return this._address;
   }

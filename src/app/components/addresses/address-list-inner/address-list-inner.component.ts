@@ -8,19 +8,22 @@ import { Address } from '../../../models/address.model';
 })
 
 export class AddressListInnerComponent implements OnInit {
- private _addresses = new Array<Address>();
+  private _addresses = new Array<Address>();
+  private _states = ["NY", "NC", "PA"];
+
   set addresses(addresses: Address[]) {
     console.log(`Enter: AddressComponent.set ${addresses}`);
     this._addresses = addresses;
   }
+  
   get addresses(): Address[] {
     return this._addresses;
   }
 
   constructor( ) 
-    {
-     console.log('AddressListComponent constructor');
-     }
+  {
+    console.log('AddressListComponent constructor');
+  }
 
   ngOnInit() {
     console.log('ngOnInit() = ' + this.addresses);
@@ -34,7 +37,7 @@ export class AddressListInnerComponent implements OnInit {
     this._addresses.splice(i, 1);
   }
 
-   reset() {
+  reset() {
     this._addresses = new Array<Address>();
   }
 

@@ -14,15 +14,12 @@ import { IResource } from '../../../resources/crud.resource';
 })
 export class RoleComponent implements OnInit {
 
-private _skills = new Array<Skill>();
-  set addresses(skills: Skill[]) {
-    console.log(`Enter: AddressComponent.set ${skills}`);
-    this._skills = skills;
-  }
-    role: Roles = new Roles();
+  private _skills = new Array<Skill>();
+
+  role: Roles = new Roles();
 
   roles: IResource[];
-      hideSkillTextView = false;
+  hideSkillTextView = false;
 
   id: number;
   roleType: string;
@@ -30,26 +27,26 @@ private _skills = new Array<Skill>();
 
   skill: IResource[];
 
-    newSkill: Skill;
+  newSkill: Skill;
 
   constructor(private roleService: RoleService,
     private location: Location,
     private route: ActivatedRoute,
     private router: Router,
-    private notificationService: NotificationService) { 
-      this.newSkill = new Skill();
-    }
+    private notificationService: NotificationService) {
+    this.newSkill = new Skill();
+  }
 
   ngOnInit(): void {
     if (this.id === 0) {
-      console.log ("cdhdiucgdghiiudchweoicjoiw");
+      console.log("cdhdiucgdghiiudchweoicjoiw");
     }
     this.getSkillList();
     this.route.params.subscribe(params => {
-    this.id = +params['id'];
-    this.roleType = params['roleType'];
-    this.skillType = params['skillType'];
-    console.log(`Parameter Id is ${this.id}`);
+      this.id = +params['id'];
+      this.roleType = params['roleType'];
+      this.skillType = params['skillType'];
+      console.log(`Parameter Id is ${this.id}`);
     });
   }
 
@@ -64,20 +61,22 @@ private _skills = new Array<Skill>();
         error => this.handleError
         );
     }
-  } 
+  }
 
- skillName: string;
+  skillName: string;
 
   save(): void {
-      this.role.skills = [ {id: this.role.id, name: this.skillName}]
+    this.role.skills = [{ id: this.role.id, name: this.skillName }]
     if (this.role.id) {
       console.log("this is id " + this.role.id)
-      this.roleService.update(this.role).subscribe(role => {this.role=role; 
-      this.notificationService.info('Role Data saved successfully');}, this.handleError);
+      this.roleService.update(this.role).subscribe(role => {
+        this.role = role;
+        this.notificationService.info('Role Data saved successfully');
+      }, this.handleError);
 
     } else {
-      this.roleService.createNew(this.role).subscribe(role => this.handleSuccess(role), 
-      error => { console.log(`Error:  RoleComponent role.save() `); this.handleError }
+      this.roleService.createNew(this.role).subscribe(role => this.handleSuccess(role),
+        error => { console.log(`Error:  RoleComponent role.save() `); this.handleError }
       );
     }
     error => { console.log(`Error:  RoleComponent role.save() `); this.handleError }
@@ -121,5 +120,24 @@ private _skills = new Array<Skill>();
 
     );
   }
+  set skills(skills: Skill[]) {
+    console.log(`Enter: AddressComponent.set ${skills}`);
+    this._skills = skills;
+  }
 
+  get skills(): Skill[] {
+    return this._skills;
+  }
+
+  add() {
+    this._skills = [Skill.getInstance()];
+  }
+
+  deleteSkill(i: number) {
+    this._skills.splice(i, 1);
+  }
+
+  reset() {
+    this._skills = new Array<Skill>();
+  }
 }

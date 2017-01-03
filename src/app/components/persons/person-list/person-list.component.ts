@@ -1,10 +1,9 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
-import { PersonService } from '../../../services/person.service';
 import { Person, PersonType } from '../../../models/person.model';
-import { Observable } from 'rxjs/Observable';
+import { environment } from '../../../../environments/environment';import { Observable } from 'rxjs/Observable';
 import { NotificationService } from '../../../services/notification.service';
-import { IResource } from '../../../resources/crud.resource';
+import { RestService } from '../../../services/rest.service';
 
 @Component({
   selector: 'app-person-list',
@@ -18,7 +17,7 @@ export class PersonListComponent implements OnInit {
 
   errorMessage: string;
 
-  persons: IResource[];
+  persons: Array<Person>;
 
   personTypes: string[] = [PersonType.ALL, PersonType.EMPLOYEE,
                           PersonType.CANDIDATE, PersonType.CLIENT,
@@ -28,12 +27,12 @@ export class PersonListComponent implements OnInit {
 
   select = new EventEmitter();
 
-  constructor(private router: Router, private personService: PersonService, private notificationService: NotificationService) { }
+  constructor(private router: Router, private restService: RestService, private notificationService: NotificationService) { }
 
   ngOnInit() {
     console.log('Enter: PersonListComponent.ngOnInit()');
-    this.personService.getAll().subscribe(
-      persons => this.persons = persons.content,
+    this.restService.getAll<Person>(environment.PERSON_URL).subscribe(
+      persons => this.persons = persons,
       error => this.notificationService.error(error.json().error)
     );
 

@@ -7,7 +7,7 @@ export const API_URL='http://localhost:8081/api/v1/';
 
 export const environment = {
   production: false,
-  name: 'source',
+  name: 'local',
   PERSON_URL:  API_URL + 'persons/',
   PERSON_UPDATE_URL: API_URL + 'persons/put/',
   PERSON_DOCUMENT_URL: API_URL + 'persondocuments/',
