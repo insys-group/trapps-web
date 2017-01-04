@@ -17,7 +17,7 @@ export const stateURL = environment.STATE_URL + '?page=0&size=51';
 
 export class AddressComponent implements OnInit {
   private _address: Address;
-  private _states:Array<string>;
+  private _states:Array<string> = [];
   @Input()
   set address(address: Address) {
     console.log(`Enter: AddressComponent.set ${address}`);
@@ -40,6 +40,10 @@ export class AddressComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(`Enter: AddressComponent.ngOnInit()`);
+     if (this._states.length === 0) 
+       {
+        this.loadStates();
+      }
   }
 
 private loadStates(): void {
