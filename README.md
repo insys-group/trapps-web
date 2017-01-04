@@ -61,3 +61,13 @@ Import and Inject NotificationService in your components constructor. There are 
 
 ## Using Inmemory Db service
 Add your records into TrappsInMemoryDbService and they will become available as the endpoint.
+
+## Building application for deployment
+### Development
+ng build --target=development --environment=dev
+### Production
+ng build --target=production --environment=prod
+
+## Adding a new REST end point
+Add the endpoint in Locations constant in models/rest.models.ts file.
+
