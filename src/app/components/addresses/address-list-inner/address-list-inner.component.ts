@@ -1,13 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Address } from '../../../models/address.model';
-import { Link } from '../../../models/rest.model';
+import { Link, Locations } from '../../../models/rest.model';
 import { RestService } from '../../../services/rest.service';
 import { NotificationService } from '../../../services/notification.service'
 import { State } from '../../../models/state.model';
 import { environment } from '../../../../environments/environment';
 import { Observable } from 'rxjs/Observable';
 
-export const stateURL = environment.STATE_URL + '?page=0&size=51';
 //need to fix restService.getAll() to return all data and not just the first page
 @Component({
   selector: 'app-address-list-inner',
@@ -16,6 +15,7 @@ export const stateURL = environment.STATE_URL + '?page=0&size=51';
 })
 
 export class AddressListInnerComponent implements OnInit {
+  stateURL: string='';
  private _addresses = new Array<Address>();
  private _states:Array<string>;
   set addresses(addresses: Address[]) {
@@ -32,6 +32,7 @@ export class AddressListInnerComponent implements OnInit {
             ) 
         {
           console.log('AddressListComponent constructor');
+           this.stateURL = Locations.STATE_URL + '?page=0&size=51';
         }
 
   ngOnInit() {
@@ -71,7 +72,7 @@ export class AddressListInnerComponent implements OnInit {
 private loadStates(): void {
     console.log(`Loading states data`);
     //this.restService.getAll<State>(environment.STATE_URL) see comment on stateURL above
-    this.restService.getAll<State>(stateURL)  
+    this.restService.getAll<State>(this.stateURL)  
       .subscribe(
         states => {
           this._states = states.map (state=>state.stateCode);

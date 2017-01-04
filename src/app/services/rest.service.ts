@@ -3,8 +3,7 @@ import { Http, Headers, Response } from '@angular/http';
 import { RequestMethod } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
-
-import { Link, RestQuery, RestResource, RestPageResource, UploadProgress } from '../models/rest.model'
+import { Link, RestQuery, RestResource, RestPageResource, UploadProgress, ErrorResponse } from '../models/rest.model'
 
 @Injectable()
 export class RestService implements OnInit {
@@ -36,21 +35,21 @@ export class RestService implements OnInit {
     console.log(`Loading resource(s) ${url}`);
     return this.http.get(url)
       .map(response => response.json().content as Array<T>)
-      .catch(this.handleError);
+      .catch(error => this.handleError(url, error));
   }
 
   getAll<T>(url: string): Observable<Array<T>> {
     console.log(`Loading resource(s) ${url}`);
     return this.http.get(url, { headers: this.loadHeaders })
       .map(response => response.json().content as Array<T>)
-      .catch(this.handleError);
+      .catch(error => this.handleError(url, error));
   }
 
   getOne<T>(url: string): Observable<T> {
     console.log(`Loading resource(s) ${url}`);
     return this.http.get(url, { headers: this.loadHeaders })
       .map(response => response.json() as T)
-      .catch(this.handleError);
+      .catch(error => this.handleError(url, error));
   }
 
   create<T>(url: string, resource: T): Observable<T> {
@@ -58,7 +57,7 @@ export class RestService implements OnInit {
     return this.http
       .post(url, resource, { headers: this.headers })
       .map(response => response.json() as T)
-      .catch(this.handleError);
+      .catch(error => this.handleError(url, error));
   }
 
   update<T extends RestResource>(resource: T): Observable<T> {
@@ -66,18 +65,19 @@ export class RestService implements OnInit {
     if(!link) {
       return Observable.throw(`resurce does not have 'self' link. Cannot update.`);
     }
-    console.log(`Updating resource at ${link.href}`);
+    let url=link.href;
+    console.log(`Updating resource at ${url}`);
     return this.http
-      .put(link.href, resource, { headers: this.headers })
+      .put(url, resource, { headers: this.headers })
       .map(response => response.json() as T)
-      .catch(this.handleError);
+      .catch(error => this.handleError(url, error));
   }
 
   put<T extends RestResource>(url: string, resource: T): Observable<void> {
     console.log(`Updating resource at ${url}`);
     return this.http
       .put(url, resource, { headers: this.headers })
-      .catch(this.handleError);
+      .catch(error => this.handleError(url, error));
   }
 
   delete<T extends RestResource>(resource: T): Observable<void> {
@@ -85,10 +85,11 @@ export class RestService implements OnInit {
     if(!link) {
       return Observable.throw(`resurce does not have 'self' link. Cannot update.`);
     }
-    console.log(`Deleting resource at ${link.href}`);
+    let url = link.href;
+    console.log(`Deleting resource at ${url}`);
     return this.http
-      .delete(link.href, { headers: this.headers })
-      .catch(this.handleError);
+      .delete(url, { headers: this.headers })
+      .catch(error => this.handleError(url, error));
   }
 
   /*
@@ -166,15 +167,21 @@ export class RestService implements OnInit {
     return this.http
       .delete(url, { headers: this.headers })
       .map(response => response.json() as T)
-      .catch(this.handleError);
+      .catch(error => this.handleError(url, error));
   }
 
   getLink(rel: string, links: Array<Link>): Link {
     return links.find(link => link.rel===rel);
   }
 
-  private handleError(error: Response): Observable<any> {
-    console.error('An error occurred ', JSON.stringify(error));
-    return Observable.throw(error.json().error);
+  private handleError(url: string, error: Response): Observable<any> {
+    let errorResponse: ErrorResponse;
+    if(error.status===0) {
+      errorResponse=new ErrorResponse(url, 'Application services not available right now. Please try again later.', error);
+    } else {
+      errorResponse=new ErrorResponse(url, `Error occured while communicating with services: ${error.json().error}`, error);
+    }
+    console.error('RestService.handleError() -> ', JSON.stringify(errorResponse));
+    return Observable.throw(errorResponse);
   }
 }

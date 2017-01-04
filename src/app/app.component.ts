@@ -10,6 +10,6 @@ import { environment } from 'environments/environment';
 })
 export class AppComponent {
   title = 'Hello Angular with CLI';
-  env = environment.name;
+  environment = environment;
   constructor(router:Router) {}
 }

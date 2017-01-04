@@ -3,8 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { Person, PersonType, PersonSkill, PersonDocument } from '../../../models/person.model';
 import { Address } from '../../../models/address.model';
 import { Business } from '../../../models/business.model';
-import { Link } from '../../../models/rest.model';
-import { environment } from '../../../../environments/environment';
+import { Link, Locations } from '../../../models/rest.model';
 import { RestService } from '../../../services/rest.service';
 import { NotificationService } from '../../../services/notification.service'
 import { Router } from '@angular/router';
@@ -140,7 +139,7 @@ export class PersonComponent implements OnInit, AfterViewInit {
 
   private loadBusinesses(): Observable<Array<Business>> {
     console.log(`Loading businesses data`);
-    return this.restService.getAll<Business>(environment.BUSINESS_URL)
+    return this.restService.getAll<Business>(Locations.BUSINESS_URL)
       .do(
       businesses => {
         this._businesses =
@@ -154,19 +153,19 @@ export class PersonComponent implements OnInit, AfterViewInit {
             return personBusiness;
           });
       },
-      error => this.handleError('Loading list of businesses failed.')
+      error => this.notificationService.notifyError(error)
       );
   }
 
   loadPerson(): Observable<Person> {
     console.log(`Loading person data`);
-    return this.restService.getOne<Person>(`${environment.PERSON_URL}${this.id}`)
+    return this.restService.getOne<Person>(`${Locations.PERSON_URL}${this.id}`)
       .do(
       person => {
         this.initPerson(person);
         console.log(`Person loaded is ${JSON.stringify(person)}`);
       },
-      error => this.handleError
+      error => this.notificationService.notifyError(error)
       );
   }
 
@@ -205,7 +204,7 @@ export class PersonComponent implements OnInit, AfterViewInit {
           
           console.log(`Assigning the Employer ${JSON.stringify(this.person.business)} `);
         },
-        error => this.handleError('Loading business info failed')
+        error => this.notificationService.notifyError(error)
         );
     }
   }
@@ -216,24 +215,15 @@ export class PersonComponent implements OnInit, AfterViewInit {
       console.log('Looks like Address is empty***********');
       this.person.address=null;
     }
-    // else {
-    //   if(!this.person.address.id) {
-    //     this.person.address.version=1;
-    //   }
-    // }
-    // else {
-    //   this.person.address=this.personAddress;
-    // }
-    //this.person.business.version=1;
     if(this.person.id > 0) {
-      this.restService.put<Person>(environment.PERSON_UPDATE_URL+this.person.id, this.person)
+      this.restService.put<Person>(Locations.PERSON_UPDATE_URL+this.person.id, this.person)
       .subscribe(
-        () => this.notificationService.info('Data saved successfully'),
-        error => this.notificationService.error(`Error occured while saving data ${JSON.stringify(error)}`)
+        () => this.notificationService.info(`${this.person.personType} saved successfully`),
+        error => this.notificationService.notifyError(error)
       );
     } else {
       //this.person.version=1;
-      this.restService.create<Person>(environment.PERSON_URL, this.person)
+      this.restService.create<Person>(Locations.PERSON_URL, this.person)
       .subscribe (
         person => {
           let business=this.person.business; this.initPerson(person); 
@@ -241,9 +231,9 @@ export class PersonComponent implements OnInit, AfterViewInit {
           // if(this.person.address) {
           //   this.personAddress.id=this.person.address.id;
           // }
-          this.notificationService.info('Data saved successfully');
+          this.notificationService.info(`${this.person.personType} saved successfully`);
         },
-        error => this.notificationService.error(`Error occured while saving data ${JSON.stringify(error)}`)
+        error => this.notificationService.notifyError(error)
       );
     }
   }
@@ -254,7 +244,7 @@ export class PersonComponent implements OnInit, AfterViewInit {
       .subscribe(
       result => {
         if (result === 'Yes') {
-          this.restService.delete(this.person).subscribe(() => this.router.navigate(['/persons']), this.handleError);
+          this.restService.delete(this.person).subscribe(() => this.router.navigate(['/persons']), error => this.notificationService.notifyError(error));
         } else {
           console.log('Dont want to delete the record');
         }
@@ -275,15 +265,9 @@ export class PersonComponent implements OnInit, AfterViewInit {
 
   isAddressEmpty(): boolean {
     console.log(`Before save --- Address is ${JSON.stringify(this.person.address)}`);
-    // if(!this.personAddress) {
-    //   return true;
-    // }
     if(!this.person.address) {
       return true;
     }
-    //console.log(`Address is ${this.personAddress.address1} ${this.personAddress.address2} ${this.personAddress.city} ${this.personAddress.state} ${this.personAddress.zipCode}`);
-    // return this.isStringEmpty(this.personAddress.address1) && this.isStringEmpty(this.personAddress.city) && 
-    // this.isStringEmpty(this.personAddress.state) && this.isStringEmpty(this.personAddress.zipCode);
     return this.isEmpty(this.person.address.address1) && this.isEmpty(this.person.address.city) && 
             this.isEmpty(this.person.address.state) && this.isEmpty(this.person.address.zipCode) && this.isEmpty(this.person.address.country);
   }
@@ -294,14 +278,4 @@ export class PersonComponent implements OnInit, AfterViewInit {
     }
     return true;
   }
-
-  private handleError(error: any): void {
-    console.error('An error occurred', error);
-    this.notificationService.error('An Error occured ' + error);
-  }
-  /*
-  private handleSuccess(person: Person): void {
-    this.person = person;
-    this.notificationService.info('Data saved successfully');
-  }*/
 }

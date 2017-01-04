@@ -36,6 +36,7 @@ import { NotificationDialogComponent } from './components/dialogs/notification-d
 import { PersonSkillsComponent } from './components/persons/person-skills/person-skills.component';
 import { PersonDocumentsComponent } from './components/persons/person-documents/person-documents.component';
 import { StorageSizeFormatterPipe } from './pipes/storage-size-formatter.pipe';
+import { ErrorDialogComponent } from './components/dialogs/error-dialog/error-dialog.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,9 @@ import { StorageSizeFormatterPipe } from './pipes/storage-size-formatter.pipe';
     NotificationDialogComponent,
     PersonDocumentsComponent,
     FilterBusinessTypePipe,
-    StorageSizeFormatterPipe
+    StorageSizeFormatterPipe,
+    ErrorDialogComponent,
+    ErrorDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -66,7 +69,7 @@ import { StorageSizeFormatterPipe } from './pipes/storage-size-formatter.pipe';
     AppRoutingModule
   ],
   providers: [ConstantService, PersonService, RestService, BusinessService, AddressService, NotificationService],
-  entryComponents: [NotificationDialogComponent],
+  entryComponents: [NotificationDialogComponent, ErrorDialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

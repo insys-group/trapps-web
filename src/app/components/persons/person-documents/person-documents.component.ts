@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, OnChanges, ViewChild } from '@angular/core';
 import { Person, PersonDocument } from '../../../models/person.model';
-import { UploadProgress } from '../../../models/rest.model';
+import { UploadProgress, Locations } from '../../../models/rest.model';
 import { RestService } from '../../../services/rest.service';
 import { NotificationService } from '../../../services/notification.service';
 import { Observable } from 'rxjs/Observable';
@@ -31,7 +31,7 @@ export class PersonDocumentsComponent implements OnInit, OnChanges {
   ngOnChanges() {
     if(this.person && this.person.personDocuments) {
       this.person.personDocuments.forEach(document => {
-        document.downloadLink=`${environment.PERSON_DOCUMENT_URL}${this.person.id}/${document.id}`;
+        document.downloadLink=`${Locations.PERSON_DOCUMENT_URL}${this.person.id}/${document.id}`;
       });
     }
   }
@@ -54,13 +54,13 @@ export class PersonDocumentsComponent implements OnInit, OnChanges {
       this.file = fi.files[0];
       console.log(`File to be uploaded is ${this.file.name}`);
       this.startUpload();
-      this.restService.uploadFile<PersonDocument>(`${environment.PERSON_DOCUMENT_URL}${this.person.id}/documents`, this.file)
+      this.restService.uploadFile<PersonDocument>(`${Locations.PERSON_DOCUMENT_URL}${this.person.id}/documents`, this.file)
       .subscribe (
         data => {
           if(data instanceof UploadProgress) {
             this.currentValue=data.currentValue; this.maxValue=data.maxValue; this.percentUploaded=`${data.percentUploaded}%`;
           } else {
-            data.downloadLink=`${environment.PERSON_DOCUMENT_URL}${this.person.id}/${data.id}`;
+            data.downloadLink=`${Locations.PERSON_DOCUMENT_URL}${this.person.id}/${data.id}`;
             let index=this.person.personDocuments.findIndex(d => d.fileName===data.fileName);
             if(index>-1) {
               this.person.personDocuments[index]=data;
@@ -90,7 +90,7 @@ export class PersonDocumentsComponent implements OnInit, OnChanges {
     .subscribe(
       result => {
         if (result === 'Yes') {
-          this.restService.deleteFile<PersonDocument>(`${environment.PERSON_DOCUMENT_URL}${this.person.id}/${document.id}`)
+          this.restService.deleteFile<PersonDocument>(`${Locations.PERSON_DOCUMENT_URL}${this.person.id}/${document.id}`)
           .subscribe(
             (deletedDocument) => {
               let index=this.person.personDocuments.findIndex(d => d.fileName===deletedDocument.fileName);
