@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, OnChanges, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewChecked } from '@angular/core';
-import { Person, PersonSkill, ChildViewComponent } from '../../../models/person.model';
+import { Person, PersonSkill } from '../../../models/person.model';
 import { RestService } from '../../../services/rest.service';
 import { NotificationService } from '../../../services/notification.service';
 import { Observable } from 'rxjs/Observable';

@@ -22,7 +22,6 @@ export class PersonSkill extends RestResource {
   id: number;
   name: string;
   scale: number;
-  //version: number;
 }
 
 export class PersonDocument extends RestResource {
@@ -30,7 +29,6 @@ export class PersonDocument extends RestResource {
   fileName: string;
   uploadTimestamp: Date;
   downloadLink: string
-  //version: number;
 }
 
 export class PersonType {
@@ -41,11 +39,4 @@ export class PersonType {
     static PIVOTAL : string = "Pivotal";
     static PLABS : string = "Pivotal-Labs";
     static VENDOR : string = "Vendor";
-}
-
-export interface ChildViewComponent {
-  loadDataAsync<T>(url: string): Observable<T>;
-  isSaveReady(): boolean;
-  saveAsync<T>(): Observable<T>;
-  save(): void;
 }

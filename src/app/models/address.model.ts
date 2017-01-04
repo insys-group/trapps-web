@@ -8,6 +8,7 @@ export class Address extends RestResource {
     state: string;
     zipCode: string;
     country: string;
+    //version: number;
 
     static getInstance() {
      let _address = new Address();

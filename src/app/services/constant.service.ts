@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import { API_URL } from '../../environments/environment';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class ConstantService {
@@ -9,7 +9,7 @@ ADDRESS_RES: string;
 BUSINESS_RES: string;
 
 constructor() {
-    this.API_ENDPOINT = API_URL;
+    this.API_ENDPOINT = environment.API_URL;
     this.ADDRESS_RES = 'addresses'
     this.BUSINESS_RES = 'businesses'
   }

@@ -1,6 +1,6 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, ViewChild } from '@angular/core';
 import { Person, PersonDocument } from '../../../models/person.model';
-import { UploadProgress } from '../../../models/rest.model';
+import { UploadProgress, Locations } from '../../../models/rest.model';
 import { RestService } from '../../../services/rest.service';
 import { NotificationService } from '../../../services/notification.service';
 import { Observable } from 'rxjs/Observable';
@@ -14,7 +14,7 @@ import { environment } from '../../../../environments/environment';
   styleUrls: ['./person-documents.component.css']
 })
 
-export class PersonDocumentsComponent implements OnInit {
+export class PersonDocumentsComponent implements OnInit, OnChanges {
   @ViewChild('fileInput') fileInput;
 
   constructor(private restService: RestService, private notificationService: NotificationService) { }
@@ -28,7 +28,16 @@ export class PersonDocumentsComponent implements OnInit {
   file: any = {name: ''};
   documentName: string;
 
+  ngOnChanges() {
+    if(this.person && this.person.personDocuments) {
+      this.person.personDocuments.forEach(document => {
+        document.downloadLink=`${Locations.PERSON_DOCUMENT_URL}${this.person.id}/${document.id}`;
+      });
+    }
+  }
+
   ngOnInit() {
+
   }
 
   selectFile(): void {
@@ -45,13 +54,13 @@ export class PersonDocumentsComponent implements OnInit {
       this.file = fi.files[0];
       console.log(`File to be uploaded is ${this.file.name}`);
       this.startUpload();
-      this.restService.uploadFile<PersonDocument>(`${environment.PERSON_DOCUMENT_URL}${this.person.id}/documents`, this.file)
+      this.restService.uploadFile<PersonDocument>(`${Locations.PERSON_DOCUMENT_URL}${this.person.id}/documents`, this.file)
       .subscribe (
         data => {
           if(data instanceof UploadProgress) {
             this.currentValue=data.currentValue; this.maxValue=data.maxValue; this.percentUploaded=`${data.percentUploaded}%`;
           } else {
-            data.downloadLink=`${environment.PERSON_DOCUMENT_URL}${this.person.id}/${data.id}`;
+            data.downloadLink=`${Locations.PERSON_DOCUMENT_URL}${this.person.id}/${data.id}`;
             let index=this.person.personDocuments.findIndex(d => d.fileName===data.fileName);
             if(index>-1) {
               this.person.personDocuments[index]=data;
@@ -76,17 +85,28 @@ export class PersonDocumentsComponent implements OnInit {
   }
 
   deleteFile(document: PersonDocument): void {
-    this.restService.deleteFile<PersonDocument>(`${environment.PERSON_DOCUMENT_URL}${this.person.id}/${document.id}`)
+    console.log('Enter: PersonComponent.delete()');
+    this.notificationService.ask('Deleted documents cannot be recovered. Continue?', ["Yes", "No"])
     .subscribe(
-      (deletedDocument) => {
-        let index=this.person.personDocuments.findIndex(d => d.fileName===deletedDocument.fileName);
-        console.log('Deleted document returned ' + JSON.stringify(deletedDocument) + 'Index is ' + index);
-        if(index>-1) {
-          this.person.personDocuments.splice(index, 1);
-          this.notificationService.info(`Document ${document.fileName} has been deleted successfully`);
+      result => {
+        if (result === 'Yes') {
+          this.restService.deleteFile<PersonDocument>(`${Locations.PERSON_DOCUMENT_URL}${this.person.id}/${document.id}`)
+          .subscribe(
+            (deletedDocument) => {
+              let index=this.person.personDocuments.findIndex(d => d.fileName===deletedDocument.fileName);
+              console.log('Deleted document returned ' + JSON.stringify(deletedDocument) + 'Index is ' + index);
+              if(index>-1) {
+                this.person.personDocuments.splice(index, 1);
+                this.notificationService.info(`Document ${document.fileName} has been deleted successfully`);
+              }
+            },
+            error => this.handleError
+          );
+        } else {
+          console.log('Delete document canceled');
         }
       },
-      error => this.handleError
+      () => null
     );
   }
 

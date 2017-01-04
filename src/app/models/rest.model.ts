@@ -1,3 +1,14 @@
+import { Response } from '@angular/http';
+import { environment } from '../../environments/environment';
+
+export const Locations = {
+  PERSON_URL: environment.API_URL + 'persons/',
+  PERSON_UPDATE_URL: environment.API_URL + 'persons/put/',
+  PERSON_DOCUMENT_URL: environment.API_URL + 'persondocuments/',
+  BUSINESS_URL: environment.API_URL + 'businesses/',
+  STATE_URL: environment.API_URL + 'states/'
+}
+
 export class RestResource {
   links?: Array<Link>;
   content?: Array<any>;
@@ -25,6 +36,19 @@ export class UploadProgress {
   maxValue: number;
   percentUploaded: number;
 }
+
+export class ErrorResponse {
+  url: string; 
+  description: string; 
+  error: Response;
+
+  constructor(url: string, description: string, error: Response) {
+    this.url=url;
+    this.description=description;
+    this.error=error;
+  }
+}
+
 /*
 export class RestLocations {
   static PERSON_URL: string = 'http://localhost:8081/api/v1/persons/';
