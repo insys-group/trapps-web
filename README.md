@@ -16,7 +16,7 @@ npm install
 npm install bootstrap@next
 
 ## Run application
-ng serve --host 0.0.0.0 --port 4201 --live-reload-port 49153
+ng serve --env=local --host 0.0.0.0 --port 4201 --live-reload-port 49153
 
 
 This application will have following hierarchy for models, components and services.
@@ -61,3 +61,15 @@ Import and Inject NotificationService in your components constructor. There are 
 
 ## Using Inmemory Db service
 Add your records into TrappsInMemoryDbService and they will become available as the endpoint.
+
+## Build and push application
+### Build Development  
+ng build --target=development --environment=dev  
+### Build Production  
+ng build --target=production --environment=prod  
+### Push to CF  
+cf push trapps -b https://github.com/cloudfoundry/staticfile-buildpack.git
+
+## Adding a new REST end point
+Add the endpoint in Locations constant in models/rest.models.ts file.
+

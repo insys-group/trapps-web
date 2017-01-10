@@ -33,8 +33,9 @@ export class BusinessListComponent implements OnInit {
     this.businessService.setUrl(this.constantService.API_ENDPOINT + this.constantService.BUSINESS_RES);
     this.businessService.getAll().subscribe(
       businesses =>  {this.businesses=businesses.content;
-        this.businesses.forEach(business=>console.log(`Business is ${JSON.stringify(business)}`));} ,
-      error => this.notificationService.error(error.json().error)
+        this.businesses.forEach(business=>console.log(`Business is ${JSON.stringify(business)}`));} , 
+      //error => this.notificationService.error(error.json().error) Why doesn't this print a stacktrace??
+      error => this.notificationService.error('An Error occured retrieving from backend. ' + error )
     );
     this.select.emit(this.businessTypes[0]);
   }
@@ -51,4 +52,10 @@ export class BusinessListComponent implements OnInit {
   createNewBusiness() {
     console.log('will call new component');
   }
+
+   private handleError(error: any): void {
+    console.error('An error occurred', error);
+    this.notificationService.error('An Error occured ' + error);
+  }
+
 }

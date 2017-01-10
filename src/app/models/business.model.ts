@@ -1,11 +1,12 @@
-import { IResource } from '../resources/crud.resource';
-import { Address } from '../models/address.model';
+import { RestResource } from './rest.model';
+import { Address } from './address.model';
 
-export class Business extends IResource {
+export class Business extends RestResource {
   id: number;
   name: string;
   description: string;
   businessType: string;
+  //version: number;
   addresses: Address[];
 }
 

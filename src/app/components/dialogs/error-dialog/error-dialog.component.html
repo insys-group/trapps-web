@@ -1,0 +1,21 @@
+<div class="container-fluid">
+  <div class="modal-header">
+    <h4 class="modal-title" [ngClass]="data.titleClass">Error</h4>
+  </div>
+  <div class="modal-body">
+    <p [ngClass]="data.messageClass">{{data.error.description}}</p>
+    <div class="collapse" id="errorDetail">
+      <div class="card card-block">
+        <p style="word-wrap: break-word;">Status: {{data.status}}</p>
+        <p style="word-wrap: break-word;">Service URL: {{data.error.url}}</p>
+        <p style="word-wrap: break-word;">Response: {{data.detail}}</p>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <a class="btn btn-primary" data-toggle="collapse" href="#errorDetail" aria-expanded="false" aria-controls="errorDetail">
+      Details
+    </a>
+    <button *ngFor="let button of data.buttons;" type="button" class="btn btn-primary btn-space" (click)="activeModal.close(button)"> {{button}}</button>
+  </div>
+</div>

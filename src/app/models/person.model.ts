@@ -1,8 +1,9 @@
-import { Address } from '../models/address.model';
-import { Business } from '../models/business.model';
-import { IResource } from '../resources/crud.resource';
+import { Address } from './address.model';
+import { Business } from './business.model';
+import { RestResource } from './rest.model';
+import { Observable } from 'rxjs/Observable';
 
-export class Person extends IResource {
+export class Person extends RestResource {
   id: number;
   firstName: string;
   lastName: string;
@@ -10,22 +11,24 @@ export class Person extends IResource {
   email: string;
   personType: string;
   title: string;
-  business: Business;
-  address: Address;
+  //version: number;
+  business: Business = new Business();
+  address: Address = new Address();
+  personDocuments: Array<PersonDocument> = new Array<PersonDocument>();
+  personSkills: Array<PersonSkill>=new Array<PersonSkill>();
 }
 
-export class PersonSkill {
+export class PersonSkill extends RestResource {
   id: number;
-  personId: number;
-  name: string
-}
-
-export class PersonDocument {
-  id: number;
-  personId: number;
   name: string;
+  scale: number;
+}
+
+export class PersonDocument extends RestResource {
+  id: number;
   fileName: string;
-  uploadTimestamp: Date
+  uploadTimestamp: Date;
+  downloadLink: string
 }
 
 export class PersonType {
@@ -34,5 +37,6 @@ export class PersonType {
     static EMPLOYEE : string = "Employee";
     static CANDIDATE : string = "Candidate";
     static PIVOTAL : string = "Pivotal";
+    static PLABS : string = "Pivotal-Labs";
     static VENDOR : string = "Vendor";
 }

@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class ConstantService {
@@ -8,8 +9,7 @@ ADDRESS_RES: string;
 BUSINESS_RES: string;
 
 constructor() {
-    console.log('Instantiating service  ConstantService ****************** ' + Date.now());
-    this.API_ENDPOINT = 'http://localhost:8081/api/v1/';
+    this.API_ENDPOINT = environment.API_URL;
     this.ADDRESS_RES = 'addresses'
     this.BUSINESS_RES = 'businesses'
   }

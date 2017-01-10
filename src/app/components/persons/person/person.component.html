@@ -20,8 +20,8 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="business">Employer</label>
-                                    <select disable="true" class="form-control" id="business" required [(ngModel)]="business" name="business" #personType="ngModel">
-                                        <option *ngFor="let business of businesses" [value]="business">{{business}}</option>
+                                    <select class="form-control" id="business" required [ngModel]="selectedBusiness" name="business" (change)='onChange()' #business="ngModel">
+                                        <option *ngFor="let business of businesses" [ngValue]="business">{{business}}</option>
                                     </select>
                                 </div>
                             </div>
@@ -53,12 +53,14 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="phone">Phone</label>
-                                    <input type="text" class="form-control" id="phone" required pattern="^\d{3}-\d{3}-\d{4}$" [(ngModel)]="person.phone" name="phone" #phone="ngModel" placeholder="999-999-9999">
+                                    <input type="text" class="form-control" id="phone" required
+                                    [(ngModel)]="person.phone" name="phone" #phone="ngModel" placeholder="999-999-9999">
                                 </div>
                                 <div [hidden]="phone.valid || phone.pristine" class="alert alert-danger">
                                     Phone is required in the format 999-999-9999
                                 </div>
                             </div>
+
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="email">Email</label>
@@ -81,7 +83,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-12">
+                            <div class="col-sm-12" style="text-align:center">
                                 <button type="submit" class="btn btn-primary" [disabled]="!personForm.form.valid">Save</button>
                                 <button type="button" class="btn btn-danger" (click)="delete()">Delete</button>
                                 <button type="button" class="btn btn-primary" (click)="cancel()">Close</button>
@@ -94,29 +96,16 @@
     </div>
     <div class="row">
         <div class="col-sm-6">
-            <app-address></app-address>
+            <app-address [address]="person.address"></app-address>
         </div>
-        <div class="col-sm-6" *ngIf="skills===true">
-            <div class="card">
-                <div class="card-header">
-                    Professional Skills
-                </div>
-                <div class="card-block">
-                    <app-person-skills [personId]="person.id"></app-person-skills>
-                </div>
-            </div>
+
+        <div class="col-sm-6">
+            <app-person-skills [person]="person"  *ngIf="skills===true"></app-person-skills>
         </div>
     </div>
     <div class="row" *ngIf="documents===true">
         <div class="col-sm-12">
-            <div class="card">
-                <div class="card-header">
-                    Documents
-                </div>
-                <div class="card-block">
-                    <app-person-documents [personId]="person.id"></app-person-documents>
-                </div>
-            </div>
+            <app-person-documents [person]="person"></app-person-documents>
         </div>
     </div>
 </div>

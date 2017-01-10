@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -9,5 +10,6 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   title = 'Hello Angular with CLI';
+  environment = environment;
   constructor(router:Router) {}
 }
