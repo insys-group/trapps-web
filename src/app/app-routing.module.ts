@@ -13,6 +13,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 const appRoutes: Routes = [
     { path: '', pathMatch: 'full', component: DashboardComponent},
+    { path: 'home', component: DashboardComponent},
 
    // { path: '', pathMatch: 'full', redirectTo: 'persons'},
     { path: 'persons', component: PersonListComponent},
