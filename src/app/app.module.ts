@@ -28,6 +28,7 @@ import { AddressListComponent } from './components/addresses/address-list/addres
 import { AddressListInnerComponent } from './components/addresses/address-list-inner/address-list-inner.component';
 import { RoleComponent } from './components/roles/role/role.component';
 import { RoleListComponent } from './components/roles/role-list/role-list.component';
+import { InterviewComponent } from './components/interviews/interview/interview.component';
 
 import { FilterPersonTypePipe } from './pipes/filter-person-type.pipe';
 import { FilterBusinessTypePipe } from './pipes/filter-business-type.pipe';
@@ -51,6 +52,7 @@ import { ErrorDialogComponent } from './components/dialogs/error-dialog/error-di
     RoleComponent,
     RoleListComponent,
     PersonSkillsComponent,
+    InterviewComponent,
     FilterPersonTypePipe,
     NotificationDialogComponent,
     PersonDocumentsComponent,
