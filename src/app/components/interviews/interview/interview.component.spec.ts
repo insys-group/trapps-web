@@ -10,11 +10,14 @@ describe('InterviewComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ InterviewComponent ]
-    }).compileComponents();
+    })
+    .compileComponents();
   }));
 
   beforeEach(() => {
-
+    fixture = TestBed.createComponent(InterviewComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
   });
 
   it('should create', () => {
