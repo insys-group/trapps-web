@@ -10,6 +10,7 @@ import { RoleListComponent } from './components/roles/role-list/role-list.compon
 import { AddressComponent } from './components/addresses/address/address.component';
 import { AddressListComponent } from './components/addresses/address-list/address-list.component';
 import { InterviewComponent } from './components/interviews/interview/interview.component';
+import { InterviewListComponent } from './components/interviews/interview-list/interview-list.component';
 
 const appRoutes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: 'persons'},
@@ -20,7 +21,7 @@ const appRoutes: Routes = [
     { path: 'roles', component: RoleListComponent},
     { path: 'addresses', component: AddressListComponent},
     { path: 'addresses/:id', component: AddressComponent},
-    { path: 'interviews', component: InterviewComponent}
+    { path: 'interviews', component: InterviewListComponent}
 ];
 
 @NgModule({

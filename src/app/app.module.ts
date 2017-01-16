@@ -38,6 +38,7 @@ import { PersonSkillsComponent } from './components/persons/person-skills/person
 import { PersonDocumentsComponent } from './components/persons/person-documents/person-documents.component';
 import { StorageSizeFormatterPipe } from './pipes/storage-size-formatter.pipe';
 import { ErrorDialogComponent } from './components/dialogs/error-dialog/error-dialog.component';
+import { InterviewListComponent } from './components/interviews/interview-list/interview-list.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { ErrorDialogComponent } from './components/dialogs/error-dialog/error-di
     FilterBusinessTypePipe,
     StorageSizeFormatterPipe,
     ErrorDialogComponent,
-    ErrorDialogComponent
+    ErrorDialogComponent,
+    InterviewListComponent
   ],
   imports: [
     BrowserModule,
