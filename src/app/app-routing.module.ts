@@ -21,7 +21,8 @@ const appRoutes: Routes = [
     { path: 'roles', component: RoleListComponent},
     { path: 'addresses', component: AddressListComponent},
     { path: 'addresses/:id', component: AddressComponent},
-    { path: 'interviews', component: InterviewListComponent}
+    { path: 'interviews', component: InterviewListComponent},
+    { path: 'interviews/:id', component: InterviewComponent}
 ];
 
 @NgModule({

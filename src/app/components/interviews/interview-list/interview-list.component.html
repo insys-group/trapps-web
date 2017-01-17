@@ -1,12 +1,11 @@
 <div class="container">
   <div class="form-group">
-    <button type="button" class="btn btn-primary">Create new interview</button>
+    <button type="button" class="btn btn-primary">New</button>
   </div>
 </div>
 
 <div class="container">
   <div class="list-group">
-   <button type="button" class="list-group-item list-group-item-action"
-			(click)="onSelect(person)">iOS Dev interview</button>
+    <button type="button" class="list-group-item list-group-item-action" *ngFor="let interview of interviews" (click)="onSelect(interview)">{{interview}}
+			</button>
   </div>
-</div>
