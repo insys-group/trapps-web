@@ -22,8 +22,19 @@ import { ViewChild, ContentChildren, ContentChild } from '@angular/core';
 })
 
 export class InterviewComponent implements OnInit {
+submitted = false;
+newInterview = new Interview (0, '', '' );
+
+onSubmit(){
+  this.submitted = true;
+}
+
+cancel(){
+  this.submitted = false
+  this.newInterview = new Interview(0, '', '');
+}
   id: number;
-  interview: Interview = new Interview();
+ // interview: Interview = new Interview();
 
   // lookups
   date: Date = new Date();
@@ -57,9 +68,6 @@ export class InterviewComponent implements OnInit {
 
   }
 
-  cancel(): void {
-
-  }
 
   onChange(): void {
 
