@@ -13,8 +13,7 @@
                 <div id="interviewerName" class="collapse" role="tabpanel" aria-labelledby="interviewer">
                     <div class="card-block">
                         <ul class="list-group">
-                            <li class="list-group-item">Rohit</li>
-                            <li class="list-group-item">Hung</li>
+                            <li class="list-group-item" *ngFor="let interviewers of interviewerss">{{interviewers}}</li>
                         </ul>
                     </div>
                     <div class="container">
@@ -35,13 +34,13 @@
                                         <div class="modal-body">
                                             <div class="form-group">
                                                 <label for="interviewName">Interviewer Name:</label>
-                                                <input type="text" id="interviewerName" name="interviewerName" [(ngModel)]="newInterview.interviewerName" class="form-control"
+                                                <input type="text" id="interviewerName" name="interviewerName" [(ngModel)]="interviewerName" class="form-control"
                                                     required />
                                             </div>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                            <button type="button" class="btn btn-primary" (click)="saveInteviewerName()" data-dismiss="modal">Save changes</button>
                                         </div>
                                     </div>
                                 </div>
@@ -84,8 +83,7 @@
                 <div id="questions" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
                     <div class="card-block">
                         <ul class="list-group">
-                            <li class="list-group-item">How to make NSURLConnection?</li>
-                            <li class="list-group-item">What is Swift?</li>
+                            <li class="list-group-item" *ngFor="let question of questions">{{question}}</li>
                         </ul>
                     </div>
                     <div class="container">
@@ -106,13 +104,13 @@
                                         <div class="modal-body">
                                             <div class="form-group">
                                                 <label for="interviewName">Question:</label>
-                                                <input type="text" id="questions" name="questions" [(ngModel)]="newInterview.interviewerName" class="form-control"
+                                                <input type="text" id="question" name="question" [(ngModel)]="question" class="form-control"
                                                     required />
                                             </div>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                            <button type="button" class="btn btn-primary" (click)="saveQuestion()" data-dismiss="modal">Save changes</button>
                                         </div>
                                     </div>
                                 </div>

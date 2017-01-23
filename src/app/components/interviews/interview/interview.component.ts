@@ -14,6 +14,7 @@ import { RestService } from '../../../services/rest.service';
 import { Router } from '@angular/router';
 import { NotificationService } from '../../../services/notification.service'
 import { ViewChild, ContentChildren, ContentChild } from '@angular/core';
+import { InterviewService } from '../../../services/interview.service';
 
 @Component({
   selector: 'app-interview',
@@ -22,19 +23,24 @@ import { ViewChild, ContentChildren, ContentChild } from '@angular/core';
 })
 
 export class InterviewComponent implements OnInit {
-submitted = false;
-newInterview = new Interview (0, '', '' );
+  questions: string[] = [];
+  interviewerss: string[] = [];
+  interviewerName: string;
+  question: string;
 
-onSubmit(){
-  this.submitted = true;
-}
+  submitted = false;
+  newInterview = new Interview(0, '', '');
 
-cancel(){
-  this.submitted = false
-  this.newInterview = new Interview(0, '', '');
-}
+  onSubmit() {
+    this.submitted = true;
+  }
+
+  cancel() {
+    this.submitted = false
+    this.newInterview = new Interview(0, '', '');
+  }
   id: number;
- // interview: Interview = new Interview();
+  // interview: Interview = new Interview();
 
   // lookups
   date: Date = new Date();
@@ -48,8 +54,9 @@ cancel(){
   @ViewChild(PersonListComponent)
   private interviewers: PersonListComponent;
 
-  constructor() {
-
+  constructor(interviewService: InterviewService) {
+    this.questions = interviewService.getQuestions();
+    this.interviewerss = interviewService.getInterviewers();
   }
 
   ngOnInit(): void {
@@ -58,6 +65,18 @@ cancel(){
 
   private initDefaults(): void {
     // default display options in the html
+  }
+
+  saveInteviewerName(): void {
+    console.log(this.interviewerName);
+    this.interviewerss.push(this.interviewerName);
+    console.log(this.interviewerss);
+  }
+
+  saveQuestion(): void {
+    console.log(this.questions);
+    this.questions.push(this.question);
+    console.log(this.question);
   }
 
   save(): void {

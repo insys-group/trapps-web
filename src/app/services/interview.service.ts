@@ -9,4 +9,12 @@ export class InterviewService {
     return ['iOS Dev', 'Android Dev'];
   } 
 
+    getQuestions() : string []{
+    return ['What is swift?', 'How to make NSURLConnection?'];
+  } 
+
+    getInterviewers() : string []{
+    return ['Rohit', 'Hung'];
+  } 
+
 }
