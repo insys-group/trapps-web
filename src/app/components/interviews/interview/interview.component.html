@@ -2,10 +2,53 @@
     <h2 class="mt-2">Interview details</h2>
     <div class="row">
         <form #interviewForm="ngForm" (ngSubmit)="onSubmit()">
-            <div class="form-group">
-                <label for="interviewName">Interviewer Name:</label>
-                <input type="text" id="interviewName" name="interviewName" [(ngModel)]="newInterview.interviewName" class="form-control"
-                    required />
+            <div class="card">
+                <div class="card-header" role="tab" id="interviewer">
+                    <h5 class="mb-0">
+                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#interviewerName" aria-expanded="false" aria-controls="interviewerName">
+          Interviewer Names:
+        </a>
+                    </h5>
+                </div>
+                <div id="interviewerName" class="collapse" role="tabpanel" aria-labelledby="interviewer">
+                    <div class="card-block">
+                        <ul class="list-group">
+                            <li class="list-group-item">Rohit</li>
+                            <li class="list-group-item">Hung</li>
+                        </ul>
+                    </div>
+                    <div class="container">
+                        <div class="form-group">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#interviewModal">
+  Add
+</button>
+                            <!-- Modal -->
+                            <div class="modal fade" id="interviewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Add Interviewer</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <label for="interviewName">Interviewer Name:</label>
+                                                <input type="text" id="interviewerName" name="interviewerName" [(ngModel)]="newInterview.interviewerName" class="form-control"
+                                                    required />
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="form-group">
@@ -33,14 +76,48 @@
             <div class="card">
                 <div class="card-header" role="tab" id="headingTwo">
                     <h5 class="mb-0">
-                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#questions" aria-expanded="false" aria-controls="questions">
           Questions
         </a>
                     </h5>
                 </div>
-                <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
+                <div id="questions" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
                     <div class="card-block">
-
+                        <ul class="list-group">
+                            <li class="list-group-item">How to make NSURLConnection?</li>
+                            <li class="list-group-item">What is Swift?</li>
+                        </ul>
+                    </div>
+                    <div class="container">
+                        <div class="form-group">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#questionsModal">
+  Add
+</button>
+                            <!-- Modal -->
+                            <div class="modal fade" id="questionsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Add question</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <label for="interviewName">Question:</label>
+                                                <input type="text" id="questions" name="questions" [(ngModel)]="newInterview.interviewerName" class="form-control"
+                                                    required />
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
