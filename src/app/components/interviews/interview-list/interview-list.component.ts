@@ -10,15 +10,23 @@ import { Router } from '@angular/router';
 })
 export class InterviewListComponent implements OnInit {
   interviews;
-  constructor(interviewService: InterviewService, private router: Router) { 
+  constructor(private interviewService: InterviewService, private router: Router) { 
     this.interviews = interviewService.getInterviews();
   }
 
   ngOnInit() {
+    this.getAllInterviews();
   }
 
   onSelect(interview: Interview) {
     this.router.navigate(['/interviews', interview.id]);
   }
-
+  
+  getAllInterviews() {
+    this.interviewService.getInterviewsAPI()
+    .subscribe(
+      data => console.log(JSON.stringify(data)) ,
+      error => console.log()
+    )
+  }
 }

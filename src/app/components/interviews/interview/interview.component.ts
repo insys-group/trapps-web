@@ -60,6 +60,7 @@ export class InterviewComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.interviewerss);
 
   }
 
@@ -79,6 +80,9 @@ export class InterviewComponent implements OnInit {
     console.log(this.question);
   }
 
+  removeInterviewer(): void {
+    this.interviewerss.splice(1);
+  }
   save(): void {
 
   }

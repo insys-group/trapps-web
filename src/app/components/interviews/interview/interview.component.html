@@ -13,7 +13,14 @@
                 <div id="interviewerName" class="collapse" role="tabpanel" aria-labelledby="interviewer">
                     <div class="card-block">
                         <ul class="list-group">
-                            <li class="list-group-item" *ngFor="let interviewers of interviewerss">{{interviewers}}</li>
+                            <li class="list-group-item" *ngFor="let interviewers of interviewerss">{{interviewers}} 
+                                <a href="javascript:void(0)" (click)=removeInterviewer()>
+                      &times;
+                    </a>
+                    <span class="tag tag-default tag-pill float-xs-right"></span>
+                            </li>
+                            
+                            
                         </ul>
                     </div>
                     <div class="container">
