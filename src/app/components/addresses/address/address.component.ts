@@ -4,9 +4,9 @@ import 'rxjs/add/operator/take';
 import { RestService } from '../../../services/rest.service';
 import { NotificationService } from '../../../services/notification.service'
 import { State } from '../../../models/state.model';
-import { environment } from '../../../../environments/environment';
+import {Locations} from "../../../models/rest.model";
 
-export const stateURL = environment.STATE_URL + '?page=0&size=51';
+export const stateURL = Locations.STATE_URL + '?page=0&size=51';
 //need to fix restService.getAll() to return all data and not just the first page
 
 @Component({
