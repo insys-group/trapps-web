@@ -2,13 +2,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { RouterModule, Routes } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
-import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { ResourceModule } from 'ng2-resource-rest';
 
 import { AppComponent } from './app.component';
+import { HomeComponent } from './components/home/home.component';
+
 import { PersonComponent } from './components/persons/person/person.component';
 import { PersonListComponent } from './components/persons/person-list/person-list.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -41,6 +40,7 @@ import { ErrorDialogComponent } from './components/dialogs/error-dialog/error-di
 @NgModule({
   declarations: [
     AppComponent,
+    HomeComponent,
     PersonComponent,
     PersonListComponent,
     BusinessComponent,
