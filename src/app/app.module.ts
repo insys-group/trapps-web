@@ -35,6 +35,7 @@ import { FilterBusinessTypePipe } from './pipes/filter-business-type.pipe';
 import { NotificationDialogComponent } from './components/dialogs/notification-dialog/notification-dialog.component';
 import { PersonSkillsComponent } from './components/persons/person-skills/person-skills.component';
 import { PersonDocumentsComponent } from './components/persons/person-documents/person-documents.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { StorageSizeFormatterPipe } from './pipes/storage-size-formatter.pipe';
 import { ErrorDialogComponent } from './components/dialogs/error-dialog/error-dialog.component';
 
@@ -55,6 +56,7 @@ import { ErrorDialogComponent } from './components/dialogs/error-dialog/error-di
     NotificationDialogComponent,
     PersonDocumentsComponent,
     FilterBusinessTypePipe,
+    DashboardComponent,
     StorageSizeFormatterPipe,
     ErrorDialogComponent,
     ErrorDialogComponent
