@@ -1,15 +1,20 @@
-<div class="container">
-  <div class="form-group">
-    <button type="button" class="btn btn-primary">New</button>
+<div class="row">
+  <div class="col-lg-12">
+    <h1 class="page-header"><i class="fa fa-list-ol fa-fw"></i> Interviews</h1>
   </div>
 </div>
 
-<div class="container">
-  <div class="list-group">
-    <button type="button" class="list-group-item list-group-item-action" *ngFor="let interview of interviews" (click)="onSelect(interview)">{{interview}}
-			</button>
+<div class="row">
+  <div class="col-sm-12">
+
+    <div class="form-group">
+      <button type="button" class="btn btn-primary">New</button>
+    </div>
+
+    <div class="list-group">
+      <button type="button" class="list-group-item list-group-item-action" *ngFor="let interview of interviews" (click)="onSelect(interview)">{{interview}}
+      </button>
+    </div>
+
   </div>
-
-
-
-  
+</div>

@@ -1,176 +1,204 @@
-<div *ngIf="!submitted" class="container">
-    <h2 class="mt-2">Interview details</h2>
-    <div class="row">
-        <form #interviewForm="ngForm" (ngSubmit)="onSubmit()">
+<div class="row">
+  <div class="col-lg-12">
+    <h1 class="page-header"><i class="fa fa-list-ol fa-fw"></i> Interview Details</h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12">
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Personal Information</h3>
+      </div>
+      <div class="panel-body">
+
+        <div *ngIf="!submitted">
+          <form #interviewForm="ngForm" (ngSubmit)="onSubmit()">
             <div class="card">
-                <div class="card-header" role="tab" id="interviewer">
-                    <h5 class="mb-0">
-                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#interviewerName" aria-expanded="false" aria-controls="interviewerName">
-          Interviewer Names:
-        </a>
-                    </h5>
+              <div class="card-header" role="tab" id="interviewer">
+                <h5 class="mb-0">
+                  <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#interviewerName"
+                     aria-expanded="false" aria-controls="interviewerName">
+                    Interviewer Names:
+                  </a>
+                </h5>
+              </div>
+              <div id="interviewerName" class="collapse" role="tabpanel" aria-labelledby="interviewer">
+                <div class="card-block">
+                  <ul class="list-group">
+                    <li class="list-group-item" *ngFor="let interviewers of interviewerss">{{interviewers}}
+                      <a href="javascript:void(0)" (click)=removeInterviewer()>
+                        &times;
+                      </a>
+                      <span class="tag tag-default tag-pill float-xs-right"></span>
+                    </li>
+                  </ul>
                 </div>
-                <div id="interviewerName" class="collapse" role="tabpanel" aria-labelledby="interviewer">
-                    <div class="card-block">
-                        <ul class="list-group">
-                            <li class="list-group-item" *ngFor="let interviewers of interviewerss">{{interviewers}} 
-                                <a href="javascript:void(0)" (click)=removeInterviewer()>
-                      &times;
-                    </a>
-                    <span class="tag tag-default tag-pill float-xs-right"></span>
-                            </li>
-                            
-                            
-                        </ul>
-                    </div>
-                    <div class="container">
-                        <div class="form-group">
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#interviewModal">
-  Add
-</button>
-                            <!-- Modal -->
-                            <div class="modal fade" id="interviewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Add Interviewer</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="form-group">
-                                                <label for="interviewName">Interviewer Name:</label>
-                                                <input type="text" id="interviewerName" name="interviewerName" [(ngModel)]="interviewerName" class="form-control"
-                                                    required />
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary" (click)="saveInteviewerName()" data-dismiss="modal">Save changes</button>
-                                        </div>
-                                    </div>
-                                </div>
+                <div class="container">
+                  <div class="form-group">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#interviewModal">
+                      Add
+                    </button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="interviewModal" tabindex="-1" role="dialog"
+                         aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Add Interviewer</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <div class="form-group">
+                              <label>Interviewer Name:</label>
+                              <input type="text" id="interviewerName" name="interviewerName"
+                                     [(ngModel)]="interviewerName" class="form-control"
+                                     required/>
                             </div>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" (click)="saveInteviewerName()"
+                                    data-dismiss="modal">Save changes
+                            </button>
+                          </div>
                         </div>
+                      </div>
                     </div>
+                  </div>
                 </div>
+              </div>
             </div>
 
             <div class="form-group">
-                <label for="interviewName">Candidate Name:</label>
-                <input type="text" id="candidateName" name="candidateName" [(ngModel)]="newInterview.candidateName" class="form-control"
-                    required />
+              <label>Candidate Name:</label>
+              <input type="text" id="candidateName" name="candidateName" [(ngModel)]="newInterview.candidateName"
+                     class="form-control"
+                     required/>
             </div>
 
             <div class="form-group">
-                <label for="interviewName">Phone number:</label>
-                <input type="text" id="phoneNumber" name="phoneNumber" [(ngModel)]="newInterview.phoneNumber" class="form-control" required
-                />
+              <label>Phone number:</label>
+              <input type="text" id="phoneNumber" name="phoneNumber" [(ngModel)]="newInterview.phoneNumber"
+                     class="form-control" required
+              />
             </div>
 
             <div class="form-group">
-                <label for="interviewName">Role:</label>
-                <input type="text" id="role" name="role" [(ngModel)]="newInterview.role" class="form-control" required />
+              <label>Role:</label>
+              <input type="text" id="role" name="role" [(ngModel)]="newInterview.role" class="form-control" required/>
             </div>
 
             <div class="form-group">
-                <label for="interviewName">Feedback:</label>
-                <input type="text" id="feedback" name="feedback" [(ngModel)]="newInterview.feedback" class="form-control" required />
+              <label>Feedback:</label>
+              <input type="text" id="feedback" name="feedback" [(ngModel)]="newInterview.feedback" class="form-control"
+                     required/>
             </div>
 
             <div class="card">
-                <div class="card-header" role="tab" id="headingTwo">
-                    <h5 class="mb-0">
-                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#questions" aria-expanded="false" aria-controls="questions">
-          Questions
-        </a>
-                    </h5>
+              <div class="card-header" role="tab" id="headingTwo">
+                <h5 class="mb-0">
+                  <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#questions"
+                     aria-expanded="false" aria-controls="questions">
+                    Questions
+                  </a>
+                </h5>
+              </div>
+              <div id="questions" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
+                <div class="card-block">
+                  <ul class="list-group">
+                    <li class="list-group-item" *ngFor="let question of questions">{{question}}</li>
+                  </ul>
                 </div>
-                <div id="questions" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
-                    <div class="card-block">
-                        <ul class="list-group">
-                            <li class="list-group-item" *ngFor="let question of questions">{{question}}</li>
-                        </ul>
-                    </div>
-                    <div class="container">
-                        <div class="form-group">
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#questionsModal">
-  Add
-</button>
-                            <!-- Modal -->
-                            <div class="modal fade" id="questionsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Add question</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="form-group">
-                                                <label for="interviewName">Question:</label>
-                                                <input type="text" id="question" name="question" [(ngModel)]="question" class="form-control"
-                                                    required />
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary" (click)="saveQuestion()" data-dismiss="modal">Save changes</button>
-                                        </div>
-                                    </div>
-                                </div>
+                <div class="container">
+                  <div class="form-group">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#questionsModal">
+                      Add
+                    </button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="questionsModal" tabindex="-1" role="dialog"
+                         aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Add question</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <div class="form-group">
+                              <label>Question:</label>
+                              <input type="text" id="question" name="question" [(ngModel)]="question"
+                                     class="form-control"
+                                     required/>
                             </div>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" (click)="saveQuestion()" data-dismiss="modal">
+                              Save changes
+                            </button>
+                          </div>
                         </div>
+                      </div>
                     </div>
+                  </div>
                 </div>
+              </div>
             </div>
 
             <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-    </div>
+          </form>
 
-</div>
-
-
-<div *ngIf="submitted" class="container">
-    <h2> Submitted: </h2>
-    <div class="form-group row">
-        <label class="col-md-2 col-form-label">Interview Name:</label>
-        <div class="col-md-10 ">
-            <input type="text" class="form-control" placeholder="{{newInterview.interviewName}}" readonly />
         </div>
-    </div>
-    <div class="form-group row">
-        <label class="col-md-2 col-form-label">Candidate Name:</label>
-        <div class="col-md-10 ">
-            <input type="text" class="form-control" placeholder="{{newInterview.candidateName}}" readonly />
+
+        <div *ngIf="submitted">
+          <h2> Submitted: </h2>
+          <div class="form-group row">
+            <label class="col-md-2 col-form-label">Interview Name:</label>
+            <div class="col-md-10 ">
+              <input type="text" class="form-control" placeholder="{{newInterview.interviewName}}" readonly/>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-md-2 col-form-label">Candidate Name:</label>
+            <div class="col-md-10 ">
+              <input type="text" class="form-control" placeholder="{{newInterview.candidateName}}" readonly/>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-md-2 col-form-label">Phone Number:</label>
+            <div class="col-md-10 ">
+              <input type="text" class="form-control" placeholder="{{newInterview.phoneNumber}}" readonly/>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-md-2 col-form-label">Role:</label>
+            <div class="col-md-10 ">
+              <input type="text" class="form-control" placeholder="{{newInterview.role}}" readonly/>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-md-2 col-form-label">Feedback:</label>
+            <div class="col-md-10 ">
+              <input type="text" class="form-control" placeholder="{{newInterview.feedback}}" readonly/>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <button class="btn btn-primary mt-2" (click)="cancel()">Cancel</button>
+          </div>
         </div>
+
+      </div>
     </div>
 
-    <div class="form-group row">
-        <label class="col-md-2 col-form-label">Phone Number:</label>
-        <div class="col-md-10 ">
-            <input type="text" class="form-control" placeholder="{{newInterview.phoneNumber}}" readonly />
-        </div>
-    </div>
-
-    <div class="form-group row">
-        <label class="col-md-2 col-form-label">Role:</label>
-        <div class="col-md-10 ">
-            <input type="text" class="form-control" placeholder="{{newInterview.role}}" readonly />
-        </div>
-    </div>
-
-    <div class="form-group row">
-        <label class="col-md-2 col-form-label">Feedback:</label>
-        <div class="col-md-10 ">
-            <input type="text" class="form-control" placeholder="{{newInterview.feedback}}" readonly />
-        </div>
-    </div>
-
-    <div class="form-group row">
-        <button class="btn btn-primary mt-2" (click)="cancel()">Cancel</button>
-    </div>
+  </div>
 </div>
