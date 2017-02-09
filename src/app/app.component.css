@@ -77,9 +77,9 @@ body {
 .sidebar ul li {
   border-bottom: 1px solid #e7e7e7;
 }
-.sidebar ul li a.active {
-  background-color: #df6130;
-}
+/*.sidebar ul li a.active {*/
+  /*background-color: #df6130;*/
+/*}*/
 .sidebar .arrow {
   float: right;
 }
