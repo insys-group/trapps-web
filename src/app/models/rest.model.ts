@@ -6,7 +6,9 @@ export const Locations = {
   PERSON_UPDATE_URL: environment.API_URL + 'persons/put/',
   PERSON_DOCUMENT_URL: environment.API_URL + 'persondocuments/',
   BUSINESS_URL: environment.API_URL + 'businesses/',
-  STATE_URL: environment.API_URL + 'states/'
+  STATE_URL: environment.API_URL + 'states/',
+  INTERVIEW_URL: environment.API_URL + 'interviews/',
+  ROLE_URL: environment.API_URL + 'roles/',
 }
 
 export class RestResource {

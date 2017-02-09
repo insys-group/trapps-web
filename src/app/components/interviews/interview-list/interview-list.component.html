@@ -8,11 +8,11 @@
   <div class="col-sm-12">
 
     <div class="form-group">
-      <button type="button" class="btn btn-primary">New</button>
+      <button type="button" class="btn btn-primary" (click)="goDetails(0)">New</button>
     </div>
 
     <div class="list-group">
-      <button type="button" class="list-group-item list-group-item-action" *ngFor="let interview of interviews" (click)="onSelect(interview)">{{interview}}
+      <button type="button" class="list-group-item list-group-item-action" *ngFor="let interview of interviews" (click)="onSelect(interview)">{{interview.name}}
       </button>
     </div>
 

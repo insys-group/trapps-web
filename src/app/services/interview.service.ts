@@ -1,32 +1,32 @@
-import { Injectable, OnInit } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
-import { Injector } from '@angular/core';
+import {Injectable, OnInit} from '@angular/core';
+import {Observable} from 'rxjs/Observable';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import {Interview} from "../models/interview/interview.model";
+import {Locations} from "../models/rest.model";
+import {RestService} from "./rest.service";
 
 @Injectable()
 export class InterviewService {
 
-  constructor (private http: Http) { }
-
-  getInterviewsAPI(): Observable<any>{
-      return this.http.get("http://localhost:8081/api/v1/interviews/0/interviewers")
-                .map((res: Response) => res.json())
-                .catch((error:any) => Observable.throw(error.json().error || ' Server error '));
+  constructor(private restService: RestService) {
   }
 
-  getInterviews() : string []{
-    return ['iOS Dev', 'Android Dev'];
-  } 
+  getInterviews(): Observable<Array<Interview>> {
+    return this.restService.getAll<Interview>(Locations.INTERVIEW_URL);
+  }
 
-    getQuestions() : string []{
+  create(interview : Interview){
+    return this.restService.create<Interview>(Locations.INTERVIEW_URL, interview);
+  }
+
+  getQuestions(): string [] {
     return ['What is swift?', 'How to make NSURLConnection?'];
-  } 
+  }
 
-    getInterviewers() : string []{
+  getInterviewers(): string [] {
     return ['Rohit', 'Hung'];
-  } 
+  }
 
 }

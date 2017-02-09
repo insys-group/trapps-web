@@ -38,7 +38,8 @@ import { PersonDocumentsComponent } from './components/persons/person-documents/
 import { StorageSizeFormatterPipe } from './pipes/storage-size-formatter.pipe';
 import { ErrorDialogComponent } from './components/dialogs/error-dialog/error-dialog.component';
 import { InterviewListComponent } from './components/interviews/interview-list/interview-list.component';
-import { InterviewService } from './services/interview.service';;
+import { InterviewService } from './services/interview.service';
+import { RoleService } from './services/role.service';
 
 @NgModule({
   declarations: [
@@ -73,7 +74,7 @@ import { InterviewService } from './services/interview.service';;
     ResourceModule.forRoot(),
     AppRoutingModule
   ],
-  providers: [ConstantService, PersonService, RestService, BusinessService, AddressService, InterviewService, NotificationService],
+  providers: [ConstantService, PersonService, RestService, BusinessService, AddressService, InterviewService, NotificationService, RoleService],
   entryComponents: [NotificationDialogComponent, ErrorDialogComponent],
   bootstrap: [AppComponent]
 })
