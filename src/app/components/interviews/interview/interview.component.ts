@@ -29,7 +29,7 @@ export class InterviewComponent implements OnInit {
   question: string;
 
   submitted = false;
-  newInterview = new Interview(0, '', '');
+  newInterview = new Interview(0, '', '',0,'','');
 
   onSubmit() {
     this.submitted = true;
@@ -37,7 +37,7 @@ export class InterviewComponent implements OnInit {
 
   cancel() {
     this.submitted = false
-    this.newInterview = new Interview(0, '', '');
+    this.newInterview = new Interview(0, '', '',0,'','');
   }
   id: number;
   // interview: Interview = new Interview();
