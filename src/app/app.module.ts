@@ -27,6 +27,7 @@ import { AddressListComponent } from './components/addresses/address-list/addres
 import { AddressListInnerComponent } from './components/addresses/address-list-inner/address-list-inner.component';
 import { RoleComponent } from './components/roles/role/role.component';
 import { RoleListComponent } from './components/roles/role-list/role-list.component';
+import { InterviewComponent } from './components/interviews/interview/interview.component';
 
 import { FilterPersonTypePipe } from './pipes/filter-person-type.pipe';
 import { FilterBusinessTypePipe } from './pipes/filter-business-type.pipe';
@@ -36,6 +37,8 @@ import { PersonSkillsComponent } from './components/persons/person-skills/person
 import { PersonDocumentsComponent } from './components/persons/person-documents/person-documents.component';
 import { StorageSizeFormatterPipe } from './pipes/storage-size-formatter.pipe';
 import { ErrorDialogComponent } from './components/dialogs/error-dialog/error-dialog.component';
+import { InterviewListComponent } from './components/interviews/interview-list/interview-list.component';
+import { InterviewService } from './services/interview.service';;
 
 @NgModule({
   declarations: [
@@ -51,13 +54,15 @@ import { ErrorDialogComponent } from './components/dialogs/error-dialog/error-di
     RoleComponent,
     RoleListComponent,
     PersonSkillsComponent,
+    InterviewComponent,
     FilterPersonTypePipe,
     NotificationDialogComponent,
     PersonDocumentsComponent,
     FilterBusinessTypePipe,
     StorageSizeFormatterPipe,
     ErrorDialogComponent,
-    ErrorDialogComponent
+    ErrorDialogComponent,
+    InterviewListComponent
   ],
   imports: [
     BrowserModule,
@@ -68,7 +73,7 @@ import { ErrorDialogComponent } from './components/dialogs/error-dialog/error-di
     ResourceModule.forRoot(),
     AppRoutingModule
   ],
-  providers: [ConstantService, PersonService, RestService, BusinessService, AddressService, NotificationService],
+  providers: [ConstantService, PersonService, RestService, BusinessService, AddressService, InterviewService, NotificationService],
   entryComponents: [NotificationDialogComponent, ErrorDialogComponent],
   bootstrap: [AppComponent]
 })
