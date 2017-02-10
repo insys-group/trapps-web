@@ -33,13 +33,13 @@
 
           <div class="form-group">
             <label>Role</label>
-            <select class="form-control" id="role" required [(ngModel)]="interview.role"
-                    name="role" #role="ngModel">
+            <select class="form-control" required [(ngModel)]="interview.role" id="role" name="role" #role="ngModel">
               <option *ngFor="let role of roles" [ngValue]="role">{{role.name}}</option>
             </select>
           </div>
 
-          <button type="submit" class="btn btn-primary" [disabled]="!interviewForm.form.valid">Save</button>
+          <a class="btn btn-default" [routerLink]="['/interviews']">Cancel</a>
+          <button type="submit" class="btn btn-primary pull-right" [disabled]="!interviewForm.form.valid">Save</button>
 
         </form>
 

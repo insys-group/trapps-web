@@ -17,7 +17,11 @@ export class InterviewService {
     return this.restService.getAll<Interview>(Locations.INTERVIEW_URL);
   }
 
-  create(interview : Interview){
+  getInterview(id : number): Observable<Interview> {
+    return this.restService.getOne<Interview>(`${Locations.INTERVIEW_URL}${id}`);
+  }
+
+  save(interview : Interview){
     return this.restService.create<Interview>(Locations.INTERVIEW_URL, interview);
   }
 
