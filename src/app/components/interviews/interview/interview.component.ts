@@ -1,17 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-
 import { Interview } from '../../../models/interview/interview.model';
-
-import { PersonComponent } from '../../persons/person/person.component';
-import { PersonListComponent } from '../../persons/person-list/person-list.component';
-import { RoleComponent } from '../../roles/role/role.component';
 
 import {Router, ActivatedRoute} from '@angular/router';
 import { NotificationService } from '../../../services/notification.service'
-import { ViewChild, ContentChildren, ContentChild } from '@angular/core';
 import { InterviewService } from '../../../services/interview.service';
 import {RoleService} from "../../../services/role.service";
-import {Role} from "../../../models/role.model";
+import {PersonService} from "../../../services/person.service";
+import {PersonType, Person} from "../../../models/person.model";
 
 @Component({
   selector: 'app-interview',
@@ -30,6 +25,13 @@ export class InterviewComponent implements OnInit {
   interview = new Interview();
 
   roles;
+  persons;
+
+  interviewId: number;
+  newInterviewer: Person;
+
+  candidate_type: string = PersonType.CANDIDATE;
+  // INTERVIWER: string = PersonType.EMPLOYEE;
 
   onSubmit() {
 
@@ -40,10 +42,9 @@ export class InterviewComponent implements OnInit {
     this.interview = new Interview();
   }
 
-  interviewId: number;
-
   constructor(private interviewService: InterviewService, private router: Router, private route: ActivatedRoute,
-              private notificationService: NotificationService, private roleService: RoleService) {
+              private notificationService: NotificationService, private roleService: RoleService,
+              private personService: PersonService) {
     this.route.params.subscribe(params => {
       this.interviewId = +params['id'];
     });
@@ -51,17 +52,20 @@ export class InterviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.getRoles();
-
+    this.getPersons();
+    this.getInterview();
   }
 
-  save(): void {
+  save(redirect : boolean): void {
     console.log(this.interview);
     this.interviewService.save(this.interview)
       .subscribe(
         interview => {
-          console.log(interview);
-          this.interview = interview;
-          this.router.navigate(['/interviews']);
+          if(redirect){
+            this.router.navigate(['/interviews']);
+          } else {
+            this.getInterview();
+          }
         },
         error => this.notificationService.notifyError(error)
       )
@@ -72,14 +76,8 @@ export class InterviewComponent implements OnInit {
       this.interviewService.getInterview(this.interviewId)
         .subscribe(
           interview => {
-            console.log(interview);
             this.interview = interview;
-            this.roles.forEach(role => {
-              if(role.id === this.interview.role.id){
-                this.interview.role = role
-              }
-              }
-            )
+            this.autopopulateSelects();
           },
           error => this.notificationService.notifyError(error)
         );
@@ -90,12 +88,51 @@ export class InterviewComponent implements OnInit {
     this.roleService.getAll()
       .subscribe(
         roles => {
-          console.log(roles);
           this.roles = roles;
-          this.getInterview();
+          this.autopopulateSelects();
         },
         error => this.notificationService.notifyError(error)
       )
+  }
+
+  getPersons() {
+    this.personService.getPersons()
+      .subscribe(
+        persons => {
+          this.persons = persons;
+          this.autopopulateSelects();
+        },
+        error => this.notificationService.notifyError(error)
+      )
+  }
+
+  autopopulateSelects() {
+    if(this.roles && this.interview.role){
+      this.roles.forEach(role => {
+          if(role.id === this.interview.role.id){
+            this.interview.role = role
+          }
+        }
+      )
+    }
+    if(this.persons && this.interview.candidate){
+      this.persons.forEach(person => {
+          if(person.id === this.interview.candidate.id){
+            this.interview.candidate = person
+          }
+        }
+      )
+    }
+  }
+
+  addInterviewer() {
+    this.interview.interviewers.push(this.newInterviewer);
+    this.save(false);
+  }
+
+  removeInterviewer(index : number) {
+    this.interview.interviewers.splice(index, 1);
+    this.save(false);
   }
 
 }

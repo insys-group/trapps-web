@@ -1,1 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+
+.clickable {
+  cursor: pointer;
+  color: #df6130;
+}
+
+.icon-btn-md {
+  cursor: pointer;
+  color: #df6130;
+  font-size: 18px !important;
+}
+

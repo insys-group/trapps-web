@@ -8,6 +8,8 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import { Person, PersonSkill, PersonDocument } from '../models/person.model';
+import {Locations} from "../models/rest.model";
+import {RestService} from "./rest.service";
 
 @Injectable()
 export class PersonService implements OnInit {
@@ -16,14 +18,12 @@ export class PersonService implements OnInit {
     private personSkillsUrl = '/api/personskills';
     private personDocumentsUrl = '/api/persondocuments';
 
-    constructor(private http: Http) { 
+    constructor(private http: Http, private restService: RestService) {
     }
     ngOnInit() {  }
 
     getPersons(): Observable<Array<Person>> {
-        return this.http.get(this.personsUrl)
-        .map(response =>response.json().data as Person[])
-        .catch(this.handleError);
+        return this.restService.getAll<Person>(Locations.PERSON_URL);
     }
 
     getPerson(id: number): Observable<Person> {
