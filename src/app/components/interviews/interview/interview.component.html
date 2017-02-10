@@ -41,7 +41,7 @@
           <div class="form-group">
             <label>Candidate</label>
             <select class="form-control" required [(ngModel)]="interview.candidate" id="candidate" name="candidate" #candidate="ngModel">
-              <option *ngFor="let person of persons | filterPersonType: candidate_type" [ngValue]="person">{{person.firstName}} {{person.lastName}}</option>
+              <option *ngFor="let person of persons | filterPersonType: CANDIDATE" [ngValue]="person">{{person.firstName}} {{person.lastName}}</option>
             </select>
           </div>
 
@@ -53,17 +53,17 @@
       </div>
     </div>
 
-    <div class="panel panel-default">
+    <div class="panel panel-default" *ngIf="interview.id">
       <div class="panel-heading">
         <h3 class="panel-title">Interviewers</h3>
       </div>
       <div class="panel-body">
 
         <div class="form-group">
-          <label>Select Interviewer</label>
+          <label>Add Interviewer</label>
           <select class="form-control" required [(ngModel)]="newInterviewer" id="interviewer" name="interviewer"
                   #interviewer="ngModel" (change)="addInterviewer()">
-            <option *ngFor="let person of persons | filterPersonType: candidate_type" [ngValue]="person">{{person.firstName}} {{person.lastName}}</option>
+            <option *ngFor="let person of persons | filterPersonType: INTERVIWER" [ngValue]="person">{{person.firstName}} {{person.lastName}}</option>
           </select>
         </div>
 
@@ -83,6 +83,91 @@
             </tr>
           </tbody>
         </table>
+
+      </div>
+    </div>
+
+    <div class="panel panel-default" *ngIf="interview.id">
+      <div class="panel-heading">
+        <h3 class="panel-title">Questions</h3>
+      </div>
+      <div class="panel-body">
+
+        <div class="form-group">
+          <label>Add New Question</label>
+          <div class="row">
+            <div class="col-sm-6">
+              <input class="form-control" required [(ngModel)]="newQuestion.question" id="question" name="question"
+                      #question="ngModel"/>
+            </div>
+            <div class="col-sm-6">
+              <button type="button" class="btn btn-primary" [disabled]="!newQuestion.question" (click)="addQuestion()">Add</button>
+            </div>
+          </div>
+        </div>
+
+        <table class="table table-hover table-striped table-bordered">
+          <thead>
+          <tr>
+            <th>No</th>
+            <th>Question</th>
+            <th>Remove</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let question of interview.questions; let i = index">
+            <td>{{i+1}}</td>
+            <td>{{question.question}}</td>
+            <td class="text-center"><i class="fa fa-times icon-btn-md" (click)="removeQuestion(i)"></i></td>
+          </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+
+    <div class="panel panel-default" *ngIf="interview.id && interview.interviewers && interview.interviewers.length > 0">
+      <div class="panel-heading">
+        <h3 class="panel-title">Feedback</h3>
+      </div>
+      <div class="panel-body">
+
+        <div class="form-group">
+          <label>Add New Feedback</label>
+
+          <div class="row">
+            <div class="col-sm-12">
+              <textarea rows="10" class="form-control" required [(ngModel)]="newFeedback.comment" id="feedback" name="feedback"
+                     #feedback="ngModel">
+              </textarea>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Interviewer</label>
+            <div class="row">
+              <div class="col-sm-6">
+                <select class="form-control" required [(ngModel)]="newFeedback.interviewer" id="interviewer2" name="interviewer2"
+                        #interviewer2="ngModel">
+                  <option *ngFor="let interviewer of interview.interviewers" [ngValue]="interviewer">{{interviewer.firstName}} {{interviewer.lastName}}</option>
+                  </select>
+              </div>
+              <div class="col-sm-6">
+                <button type="button" class="btn btn-primary" [disabled]="!newFeedback.comment || !newFeedback.interviewer" (click)="addFeedback()">Add</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="panel panel-default" *ngFor="let feedback of interview.feedbacks; let i = index">
+          <div class="panel-heading">
+            <h3 class="panel-title">{{feedback.interviewer.firstName}} {{feedback.interviewer.lastName}}</h3>
+          </div>
+          <div class="panel-body">
+            {{feedback.comment}}
+          </div>
+        </div>
 
       </div>
     </div>

@@ -7,6 +7,8 @@ import { InterviewService } from '../../../services/interview.service';
 import {RoleService} from "../../../services/role.service";
 import {PersonService} from "../../../services/person.service";
 import {PersonType, Person} from "../../../models/person.model";
+import {Question} from "../../../models/interview/question.model";
+import {Feedback} from "../../../models/interview/feedback.model";
 
 @Component({
   selector: 'app-interview',
@@ -29,9 +31,11 @@ export class InterviewComponent implements OnInit {
 
   interviewId: number;
   newInterviewer: Person;
+  newQuestion: Question = new Question();
+  newFeedback: Feedback = new Feedback();
 
-  candidate_type: string = PersonType.CANDIDATE;
-  // INTERVIWER: string = PersonType.EMPLOYEE;
+  CANDIDATE: string = PersonType.CANDIDATE;
+  INTERVIWER: string = PersonType.EMPLOYEE;
 
   onSubmit() {
 
@@ -77,6 +81,7 @@ export class InterviewComponent implements OnInit {
         .subscribe(
           interview => {
             this.interview = interview;
+            console.log(this.interview);
             this.autopopulateSelects();
           },
           error => this.notificationService.notifyError(error)
@@ -132,6 +137,21 @@ export class InterviewComponent implements OnInit {
 
   removeInterviewer(index : number) {
     this.interview.interviewers.splice(index, 1);
+    this.save(false);
+  }
+
+  addQuestion() {
+    this.interview.questions.push(this.newQuestion);
+    this.save(false);
+  }
+
+  removeQuestion(index : number) {
+    this.interview.questions.splice(index, 1);
+    this.save(false);
+  }
+
+  addFeedback() {
+    this.interview.feedbacks.push(this.newFeedback);
     this.save(false);
   }
 

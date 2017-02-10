@@ -13,6 +13,6 @@ export class Interview extends RestResource {
   role: Role;
   interviewers: Array<Person> = new Array<Person>();
   questions: Array<Question> = new Array<Question>();
-  feedback: Feedback;
+  feedbacks: Array<Feedback> = new Array<Feedback>();
 
 }
