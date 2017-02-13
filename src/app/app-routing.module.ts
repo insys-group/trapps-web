@@ -9,6 +9,8 @@ import { BusinessListComponent } from './components/businesses/business-list/bus
 import { RoleListComponent } from './components/roles/role-list/role-list.component';
 import { AddressComponent } from './components/addresses/address/address.component';
 import { AddressListComponent } from './components/addresses/address-list/address-list.component';
+import { InterviewComponent } from './components/interviews/interview/interview.component';
+import { InterviewListComponent } from './components/interviews/interview-list/interview-list.component';
 
 const appRoutes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: 'home'},
@@ -19,7 +21,9 @@ const appRoutes: Routes = [
     { path: 'businesses/:id', component: BusinessComponent},
     { path: 'roles', component: RoleListComponent},
     { path: 'addresses', component: AddressListComponent},
-    { path: 'addresses/:id', component: AddressComponent}
+    { path: 'addresses/:id', component: AddressComponent},
+    { path: 'interviews', component: InterviewListComponent},
+    { path: 'interviews/:id', component: InterviewComponent}
 ];
 
 @NgModule({
@@ -28,4 +32,3 @@ const appRoutes: Routes = [
 })
 
 export class AppRoutingModule {}
-
