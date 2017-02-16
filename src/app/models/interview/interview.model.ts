@@ -7,7 +7,7 @@ import { Role } from '../role.model';
 export class Interview extends RestResource {
 
   id: number;
-  date: number = new Date().getDate();
+  date: Date = new Date();
   phone: string;
   candidate: Person;
   role: Role;

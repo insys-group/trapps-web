@@ -6,6 +6,10 @@ import 'rxjs/add/operator/catch';
 import {Interview} from "../models/interview/interview.model";
 import {Locations} from "../models/rest.model";
 import {RestService} from "./rest.service";
+import {Role} from "../models/role.model";
+import {Person} from "../models/person.model";
+import {Question} from "../models/interview/question.model";
+import {Feedback} from "../models/interview/feedback.model";
 
 @Injectable()
 export class InterviewService {
@@ -18,19 +22,19 @@ export class InterviewService {
   }
 
   getInterview(id : number): Observable<Interview> {
-    return this.restService.getOne<Interview>(`${Locations.INTERVIEW_URL}${id}`);
+    return this.restService.getOne<Interview>(Locations.INTERVIEW_DETAILS_URL+id);
   }
 
   save(interview : Interview){
     return this.restService.create<Interview>(Locations.INTERVIEW_URL, interview);
   }
 
-  getQuestions(): string [] {
-    return ['What is swift?', 'How to make NSURLConnection?'];
+  remove(interview : Interview){
+    return this.restService.delete(interview);
   }
 
-  getInterviewers(): string [] {
-    return ['Rohit', 'Hung'];
+  updateFeedback(feedback : Feedback){
+    return this.restService.put(Locations.FEEDBACK_URL, feedback);
   }
 
 }

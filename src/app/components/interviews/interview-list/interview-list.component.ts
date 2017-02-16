@@ -32,8 +32,23 @@ export class InterviewListComponent implements OnInit {
   getInterviews() {
     this.interviewService.getInterviews()
     .subscribe(
-      interviews => this.interviews = interviews,
+      interviews => {
+        this.interviews = interviews;
+        console.log(this.interviews);
+      },
       error => this.notificationService.notifyError(error)
     )
   }
+
+  removeInterview(interview: Interview) {
+    this.interviewService.remove(interview)
+      .subscribe(
+        interviews => {
+          console.log(interviews);
+        },
+        error => this.notificationService.notifyError(error)
+      );
+    this.getInterviews();
+  }
+
 }

@@ -41,6 +41,8 @@ import { InterviewListComponent } from './components/interviews/interview-list/i
 import { InterviewService } from './services/interview.service';
 import { RoleService } from './services/role.service';
 
+import { FroalaEditorModule, FroalaViewModule } from 'angular2-froala-wysiwyg';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -72,7 +74,9 @@ import { RoleService } from './services/role.service';
     NgbModule.forRoot(),
     //InMemoryWebApiModule.forRoot(TrappsInMemoryDbService),
     ResourceModule.forRoot(),
-    AppRoutingModule
+    AppRoutingModule,
+    FroalaEditorModule.forRoot(),
+    FroalaViewModule.forRoot()
   ],
   providers: [ConstantService, PersonService, RestService, BusinessService, AddressService, InterviewService, NotificationService, RoleService],
   entryComponents: [NotificationDialogComponent, ErrorDialogComponent],

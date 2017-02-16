@@ -13,7 +13,7 @@
       </div>
       <div class="panel-body">
 
-        <form (ngSubmit)="save(true)" #interviewForm="ngForm">
+        <form (ngSubmit)="save()" #interviewForm="ngForm">
 
           <div class="form-group">
             <label>Name</label>
@@ -132,15 +132,11 @@
       </div>
       <div class="panel-body">
 
-        <div class="form-group">
+        <div class="form-group" *ngIf="interview.feedbacks.length < interview.interviewers.length">
           <label>Add New Feedback</label>
 
-          <div class="row">
-            <div class="col-sm-12">
-              <textarea rows="10" class="form-control" required [(ngModel)]="newFeedback.comment" id="feedback" name="feedback"
-                     #feedback="ngModel">
-              </textarea>
-            </div>
+          <div class="form-group">
+            <div [froalaEditor] [(froalaModel)]="newFeedback.comment"></div>
           </div>
 
           <div class="form-group">
@@ -160,12 +156,23 @@
 
         </div>
 
-        <div class="panel panel-default" *ngFor="let feedback of interview.feedbacks; let i = index">
+        <div class="panel panel-info" *ngFor="let feedback of interview.feedbacks; let i = index">
           <div class="panel-heading">
-            <h3 class="panel-title">{{feedback.interviewer.firstName}} {{feedback.interviewer.lastName}}</h3>
+            <h3 class="panel-title" *ngIf="feedback.interviewer">{{feedback.interviewer.firstName}} {{feedback.interviewer.lastName}}'s Feedback</h3>
           </div>
           <div class="panel-body">
-            {{feedback.comment}}
+
+            <div class="form-group">
+              <div [froalaEditor] [(froalaModel)]="feedback.comment"></div>
+            </div>
+
+            <button type="button" class="btn btn-danger" (click)="removeFeedback(i)">
+              Remove
+            </button>
+            <button type="button" class="btn btn-primary pull-right" (click)="updateFeedback(feedback)">
+              Save
+            </button>
+
           </div>
         </div>
 

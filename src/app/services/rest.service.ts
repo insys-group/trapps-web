@@ -41,7 +41,7 @@ export class RestService implements OnInit {
   getAll<T>(url: string): Observable<Array<T>> {
     console.log(`Loading resource(s) ${url}`);
     return this.http.get(url, { headers: this.loadHeaders })
-      .map(response => response.json().content as Array<T>)
+      .map(response => response.json().content[0].id ? response.json().content : [] as Array<T>)
       .catch(error => this.handleError(url, error));
   }
 
@@ -91,6 +91,37 @@ export class RestService implements OnInit {
       .delete(url, { headers: this.headers })
       .catch(error => this.handleError(url, error));
   }
+
+  getOneWithChilds<T>(url: string, id: number): Observable<T> {
+    console.log(`Loading resource(s) ${url}`);
+    return this.http.get(url+id+'?projection=inline', { headers: this.loadHeaders })
+      .map(response => response.json() as T)
+      .catch(error => this.handleError(url, error));
+  }
+
+  // getChild<T extends RestResource>(resource: T, childName : string) {
+  //   let link=this.getLink(childName, resource.links);
+  //   if(!link) {
+  //     return Observable.throw(`resurce does not have child link.`);
+  //   }
+  //   let url = link.href;
+  //   console.log(`Loading resource(s) ${url}`);
+  //   return this.http.get(url, { headers: this.loadHeaders })
+  //     .map(response => response.json() as T)
+  //     .catch(error => this.handleError(url, error));
+  // }
+  //
+  // getChilds<T extends RestResource>(resource: T, childName : string) {
+  //   let link=this.getLink(childName, resource.links);
+  //   if(!link) {
+  //     return Observable.throw(`resurce does not have child link.`);
+  //   }
+  //   let url = link.href;
+  //   console.log(`Loading resource(s) ${url}`);
+  //   return this.http.get(url, { headers: this.loadHeaders })
+  //     .map(response => response.json().content[0].id ? response.json().content : [] as Array<T>)
+  //     .catch(error => this.handleError(url, error));
+  // }
 
   /*
   upload(url: string, resource: any): Observable<void> {
