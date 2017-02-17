@@ -60,16 +60,12 @@ export class InterviewComponent implements OnInit {
     this.getInterview();
   }
 
-  save(redirect : boolean): void {
+  save(): void {
     console.log(this.interview);
     this.interviewService.save(this.interview)
       .subscribe(
         interview => {
-          if(redirect){
-            this.router.navigate(['/interviews']);
-          } else {
-            this.getInterview();
-          }
+          this.getInterview();
         },
         error => this.notificationService.notifyError(error)
       )
@@ -80,9 +76,12 @@ export class InterviewComponent implements OnInit {
       this.interviewService.getInterview(this.interviewId)
         .subscribe(
           interview => {
+
             this.interview = interview;
             console.log(this.interview);
-            this.autopopulateSelects();
+            this.autopopulateRole();
+            this.autopopulateCandidate();
+
           },
           error => this.notificationService.notifyError(error)
         );
@@ -94,7 +93,8 @@ export class InterviewComponent implements OnInit {
       .subscribe(
         roles => {
           this.roles = roles;
-          this.autopopulateSelects();
+          // console.log(this.roles);
+          this.autopopulateRole();
         },
         error => this.notificationService.notifyError(error)
       )
@@ -105,25 +105,31 @@ export class InterviewComponent implements OnInit {
       .subscribe(
         persons => {
           this.persons = persons;
-          this.autopopulateSelects();
+          // console.log(this.persons);
+          this.autopopulateCandidate();
         },
         error => this.notificationService.notifyError(error)
       )
   }
 
-  autopopulateSelects() {
+  autopopulateRole() {
     if(this.roles && this.interview.role){
       this.roles.forEach(role => {
           if(role.id === this.interview.role.id){
-            this.interview.role = role
+            this.interview.role = role;
+            // console.log(2, this.interview);
           }
         }
       )
     }
+  }
+
+  autopopulateCandidate() {
     if(this.persons && this.interview.candidate){
       this.persons.forEach(person => {
           if(person.id === this.interview.candidate.id){
-            this.interview.candidate = person
+            this.interview.candidate = person;
+            // console.log(2, this.interview);
           }
         }
       )
@@ -131,28 +137,64 @@ export class InterviewComponent implements OnInit {
   }
 
   addInterviewer() {
+    if(!this.interview.interviewers){
+      this.interview.interviewers = [];
+    }
     this.interview.interviewers.push(this.newInterviewer);
-    this.save(false);
+    this.save();
   }
 
   removeInterviewer(index : number) {
     this.interview.interviewers.splice(index, 1);
-    this.save(false);
+    this.save();
   }
 
   addQuestion() {
+    if(!this.interview.questions){
+      this.interview.questions = [];
+    }
     this.interview.questions.push(this.newQuestion);
-    this.save(false);
+    this.save();
   }
 
   removeQuestion(index : number) {
     this.interview.questions.splice(index, 1);
-    this.save(false);
+    this.save();
   }
 
   addFeedback() {
-    this.interview.feedbacks.push(this.newFeedback);
-    this.save(false);
+    let addIt = true;
+    if(!this.interview.feedbacks){
+      this.interview.feedbacks = [];
+    } else {
+      this.interview.feedbacks.forEach(feedback => {
+          if(feedback.interviewer.id === this.newFeedback.interviewer.id){
+            addIt = false;
+          }
+        }
+      )
+    }
+    if(addIt){
+      this.interview.feedbacks.push(this.newFeedback);
+      this.save();
+    }else {
+      console.log('Interviewer already exists.');
+    }
+  }
+
+  updateFeedback(feedback) {
+    this.interviewService.updateFeedback(feedback)
+      .subscribe(
+        response => {
+          this.getInterview();
+        },
+        error => this.notificationService.notifyError(error)
+      )
+  }
+
+  removeFeedback(index : number) {
+    this.interview.feedbacks.splice(index, 1);
+    this.save();
   }
 
 }

@@ -27,7 +27,7 @@
         <td>{{interview.name}}</td>
         <td>{{interview.date | date: 'MM/dd/yyyy'}}</td>
         <td class="text-center"><i class="fa fa-search-plus icon-btn-md" (click)="onSelect(interview)"></i></td>
-        <td class="text-center"><i class="fa fa-times icon-btn-md" (click)="removeInterview(i)"></i></td>
+        <td class="text-center"><i class="fa fa-times icon-btn-md" (click)="removeInterview(interview)"></i></td>
       </tr>
       </tbody>
     </table>
