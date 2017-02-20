@@ -19,7 +19,7 @@ import { TrappsInMemoryDbService } from './services/trappsdb.service';
 import { BusinessService } from './services/business.service';
 import { NotificationService } from './services/notification.service';
 import { PersonService } from './services/person.service';
-import { AddressService } from './services/address.service';
+//import { AddressService } from './services/address.service';
 import { RestService } from './services/rest.service';
 
 import { AddressComponent } from './components/addresses/address/address.component';
@@ -74,7 +74,8 @@ import { RoleService } from './services/role.service';
     ResourceModule.forRoot(),
     AppRoutingModule
   ],
-  providers: [ConstantService, PersonService, RestService, BusinessService, AddressService, InterviewService, NotificationService, RoleService],
+  //AddressService
+  providers: [ConstantService, PersonService, RestService, BusinessService, InterviewService, NotificationService, RoleService],
   entryComponents: [NotificationDialogComponent, ErrorDialogComponent],
   bootstrap: [AppComponent]
 })

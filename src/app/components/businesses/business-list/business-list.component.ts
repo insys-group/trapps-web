@@ -3,7 +3,7 @@ import {BusinessService} from "../../../services/business.service";
 import {Business, BusinessType} from "../../../models/business.model";
 import {Router} from "@angular/router";
 import {NotificationService} from "../../../services/notification.service";
-import {IResource} from "../../../resources/crud.resource";
+//import {IResource} from "../../../resources/crud.resource";
 import {ConstantService} from "../../../services/constant.service";
 
 @Component({
@@ -15,7 +15,7 @@ import {ConstantService} from "../../../services/constant.service";
 export class BusinessListComponent implements OnInit {
     closeResult: string;
     errorMessage: string;
-    businesses: IResource[];
+    businesses
     businessTypes: string[] = [BusinessType.ALL, BusinessType.CLIENT, BusinessType.PLABS,
         BusinessType.PIVOTAL, BusinessType.VENDOR, BusinessType.INSYS]
     businessType: string = BusinessType.ALL;

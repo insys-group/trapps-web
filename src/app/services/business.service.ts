@@ -12,7 +12,6 @@ import {RestService} from "./rest.service";
 @Injectable()
 export class BusinessService implements OnInit {
     private headers = new Headers({'Content-Type': 'application/json'});
-    private businessesUrl = '/api/businesses';
 
     constructor(private http: Http, private restService: RestService) {
     }
@@ -29,7 +28,6 @@ export class BusinessService implements OnInit {
     }
 
     updateSubRes(business: Business): Observable<Business> {
-        const url = `${Locations.BUSINESS_URL}/${business.id}`;
         return this.restService.update(business);
     }
 
