@@ -21,6 +21,7 @@ import { NotificationService } from './services/notification.service';
 import { PersonService } from './services/person.service';
 //import { AddressService } from './services/address.service';
 import { RestService } from './services/rest.service';
+import { TrainingService } from './services/training.service';
 
 import { AddressComponent } from './components/addresses/address/address.component';
 import { AddressListComponent } from './components/addresses/address-list/address-list.component';
@@ -40,6 +41,8 @@ import { ErrorDialogComponent } from './components/dialogs/error-dialog/error-di
 import { InterviewListComponent } from './components/interviews/interview-list/interview-list.component';
 import { InterviewService } from './services/interview.service';
 import { RoleService } from './services/role.service';
+import { TrainingListComponent } from './components/trainings/training-list/training-list.component';
+import { TrainingComponent } from './components/trainings/training/training.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +66,9 @@ import { RoleService } from './services/role.service';
     StorageSizeFormatterPipe,
     ErrorDialogComponent,
     ErrorDialogComponent,
-    InterviewListComponent
+    InterviewListComponent,
+    TrainingListComponent,
+    TrainingComponent
   ],
   imports: [
     BrowserModule,
@@ -75,7 +80,7 @@ import { RoleService } from './services/role.service';
     AppRoutingModule
   ],
   //AddressService
-  providers: [ConstantService, PersonService, RestService, BusinessService, InterviewService, NotificationService, RoleService],
+  providers: [ConstantService, PersonService, RestService, BusinessService, InterviewService, NotificationService, RoleService, TrainingService],
   entryComponents: [NotificationDialogComponent, ErrorDialogComponent],
   bootstrap: [AppComponent]
 })

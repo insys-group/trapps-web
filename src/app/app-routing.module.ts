@@ -11,6 +11,8 @@ import { AddressComponent } from './components/addresses/address/address.compone
 import { AddressListComponent } from './components/addresses/address-list/address-list.component';
 import { InterviewComponent } from './components/interviews/interview/interview.component';
 import { InterviewListComponent } from './components/interviews/interview-list/interview-list.component';
+import { TrainingComponent } from './components/trainings/training/training.component';
+import { TrainingListComponent } from './components/trainings/training-list/training-list.component';
 
 const appRoutes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: 'home'},
@@ -23,7 +25,9 @@ const appRoutes: Routes = [
     { path: 'addresses', component: AddressListComponent},
     { path: 'addresses/:id', component: AddressComponent},
     { path: 'interviews', component: InterviewListComponent},
-    { path: 'interviews/:id', component: InterviewComponent}
+    { path: 'interviews/:id', component: InterviewComponent},
+    { path: 'trainings', component: TrainingListComponent},
+    { path: 'trainings/:id', component: TrainingComponent}
 ];
 
 @NgModule({

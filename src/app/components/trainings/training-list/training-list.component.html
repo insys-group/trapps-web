@@ -1,0 +1,13 @@
+  <div class="container my-2">
+    <div class="list-group">
+      <button type="button" class="list-group-item list-group-item-action"
+        *ngFor="let training of trainings"
+        (click)="onSelect(training)">{{training.name}}</button>
+    </div>
+  </div>
+
+<div class="container">
+	<div class="form-group">
+		<button type="button" class="btn btn-primary" (click)="create()">Create</button>
+	</div>
+</div>
