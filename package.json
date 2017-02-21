@@ -20,7 +20,7 @@
     "@angular/platform-browser": "2.2.1",
     "@angular/platform-browser-dynamic": "2.2.1",
     "@angular/router": "3.2.1",
-    "@ng-bootstrap/ng-bootstrap": "latest",
+    "@ng-bootstrap/ng-bootstrap": "^1.0.0-alpha.20",
     "angular-in-memory-web-api": "^0.1.17",
     "angular2-datatable": "^0.5.3",
     "angular2-froala-wysiwyg": "^2.4.2-2",
