@@ -42,6 +42,8 @@ import { InterviewService } from './services/interview.service';
 import { RoleService } from './services/role.service';
 
 import { FroalaEditorModule, FroalaViewModule } from 'angular2-froala-wysiwyg';
+import {InterviewTemplateListComponent} from "./components/interviews/interview-template-list/interview-template-list.component";
+import {InterviewTemplateComponent} from "./components/interviews/interview-template/interview-template.component";
 
 @NgModule({
   declarations: [
@@ -65,7 +67,9 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular2-froala-wysiwyg';
     StorageSizeFormatterPipe,
     ErrorDialogComponent,
     ErrorDialogComponent,
-    InterviewListComponent
+    InterviewListComponent,
+    InterviewTemplateListComponent,
+    InterviewTemplateComponent
   ],
   imports: [
     BrowserModule,
