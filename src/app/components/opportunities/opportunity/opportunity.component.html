@@ -1,0 +1,110 @@
+<div class="row">
+  <div class="col-lg-12">
+    <h1 class="page-header"><i class="fa fa-check-circle-o fa-fw"></i> Opportunity Details</h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12">
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Opportunity Information</h3>
+      </div>
+      <div class="panel-body">
+
+        <form (ngSubmit)="save()" #opportunityForm="ngForm">
+
+          <div class="form-group">
+            <label>Name</label>
+            <input type="text" class="form-control" required [(ngModel)]="opportunity.name" #name="ngModel" id="name" name="name">
+            <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+              Name for the opportunity is required
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Business</label>
+            <select class="form-control" required [(ngModel)]="opportunity.business" id="business" name="business" #business="ngModel">
+              <option *ngFor="let business of businesses" [ngValue]="business">{{business.name}}</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Comments</label>
+            <textarea class="form-control" required [(ngModel)]="opportunity.comments" #comments="ngModel" id="comments" name="comments"></textarea>
+            <div [hidden]="comments.valid || comments.pristine" class="alert alert-danger">
+              Comments are required
+            </div>
+          </div>
+
+          <a class="btn btn-default" [routerLink]="['/opportunities']">Cancel</a>
+          <button type="submit" class="btn btn-primary pull-right" [disabled]="!opportunityForm.form.valid">Save</button>
+
+        </form>
+
+      </div>
+    </div>
+
+
+    <div class="panel panel-default" *ngIf="opportunity.id">
+      <div class="panel-heading">
+        <h3 class="panel-title">Opportunity Steps</h3>
+      </div>
+      <div class="panel-body">
+
+        <div class="form-group">
+          <label>Add New Step</label>
+          <div class="row">
+            <div class="col-sm-6">
+              <textarea class="form-control" required [(ngModel)]="newStep.comments" id="step" name="step"
+                        #step="ngModel" placeholder="Comments"></textarea>
+            </div>
+            <div class="col-sm-6">
+              <button type="button" class="btn btn-primary" [disabled]="!newStep.comments" (click)="addStep()">Add</button>
+            </div>
+          </div>
+        </div>
+
+        <ol>
+          <li *ngFor="let step of opportunity.opportunitySteps; let i = index">
+            <b>{{step.stepTimestamp | date: 'MM/dd/yyyy'}}</b>
+            <i class="fa fa-times icon-btn-md" (click)="removeStep(i)"></i>
+            <p>{{step.comments}}</p>
+          </li>
+        </ol>
+
+      </div>
+    </div>
+
+    <div class="panel panel-default" *ngIf="opportunity.id">
+      <div class="panel-heading">
+        <h3 class="panel-title">Opportunity Engagements</h3>
+      </div>
+      <div class="panel-body">
+
+        <div class="form-group">
+          <label>Add New Engagement</label>
+          <div class="row">
+            <div class="col-sm-6">
+              <textarea class="form-control" required [(ngModel)]="newEngagement.comments" id="engagement" name="engagement"
+                        #engagement="ngModel"></textarea>
+            </div>
+            <div class="col-sm-6">
+              <button type="button" class="btn btn-primary" [disabled]="!newEngagement.comments" (click)="addEngagement()">Add</button>
+            </div>
+          </div>
+        </div>
+
+        <ol>
+          <li *ngFor="let engagement of opportunity.engagements; let i = index">
+            <i class="fa fa-times icon-btn-md" (click)="removeEngagement(i)" placeholder="Comments"></i>
+            <p>{{engagement.comments}}</p>
+          </li>
+        </ol>
+
+      </div>
+    </div>
+
+  </div>
+</div>

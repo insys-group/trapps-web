@@ -13,6 +13,8 @@ import { InterviewComponent } from './components/interviews/interview/interview.
 import { InterviewListComponent } from './components/interviews/interview-list/interview-list.component';
 import {InterviewTemplateListComponent} from "./components/interviews/interview-template-list/interview-template-list.component";
 import {InterviewTemplateComponent} from "./components/interviews/interview-template/interview-template.component";
+import {OpportunityListComponent} from "./components/opportunities/opportunity-list/opportunity-list.component";
+import {OpportunityComponent} from "./components/opportunities/opportunity/opportunity.component";
 
 const appRoutes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: 'home'},
@@ -27,7 +29,9 @@ const appRoutes: Routes = [
     { path: 'interviews', component: InterviewListComponent},
     { path: 'interviews/:id', component: InterviewComponent},
     { path: 'interview-templates', component: InterviewTemplateListComponent},
-    { path: 'interview-templates/:id', component: InterviewTemplateComponent}
+    { path: 'interview-templates/:id', component: InterviewTemplateComponent},
+    { path: 'opportunities', component: OpportunityListComponent},
+    { path: 'opportunities/:id', component: OpportunityComponent}
 ];
 
 @NgModule({
