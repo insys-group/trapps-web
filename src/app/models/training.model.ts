@@ -7,14 +7,7 @@ export class Training extends RestResource {
   name: string;
   location: Address = new Address();
   online: boolean;
-  weblink: string;
   tasks: TrainingTask[];
-}
-
-export class ProgressType {
-  static NOT_STARTED: string = "NOT_STARTED";
-  static IN_PROGRESS: string = "IN_PROGRESS";
-  static COMPLETED: string = "COMPLETED";
 }
 
 export class TrainingTask {

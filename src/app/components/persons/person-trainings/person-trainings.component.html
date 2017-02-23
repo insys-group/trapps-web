@@ -9,13 +9,28 @@
           <div class="col-sm-6">
             <div class="form-group">
               <label>Trainings</label>
-              <select class="form-control" required [(ngModel)]="personTraining.trainings" id="training" name="training" #training="ngModel">
-                <option *ngFor="let training of trainings" [ngValue]="training">{{training.name}}</option>
+              <select class="form-control" required [(ngModel)]="selectedTraining" id="training" name="training">
+                <option *ngFor="let selectedTraining of trainings" [ngValue]="selectedTraining">{{selectedTraining.name}}</option>
               </select>
             </div>
           </div>
         </div>
-        <br/>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label>Start Date</label>
+              <input type="text" class="form-control" id="startDate" [(ngModel)]="startDate"
+                     name="startDate">
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label>End Date</label>
+              <input type="text" class="form-control" id="endDate" [(ngModel)]="endDate"
+                     name="endDate">
+            </div>
+          </div>
+        </div>
         <div class="row">
           <div class="col-sm-12" style="text-align:center">
             <button type="button" class="btn btn-primary" (click)="addTraining()" [disabled]="exists || scale===0">Add</button>
@@ -27,12 +42,11 @@
           <div class="col-sm-12">
             <div>
               <ul class="list-group">
-                <li class="list-group-item" *ngFor="let personTraining of person.personTrainings">
-                  <a href="javascript:void(0)" (click)=removeTraining(personTraining.name)>
+                <li class="list-group-item" *ngFor="let personTraining of assignedTrainings">
+                  <a href="javascript:void(0)" (click)=removeTraining(personTraining)>
                     &times;
                   </a>
-                  <span class="tag tag-default tag-pill float-xs-right">{{personTraining.name}}</span>
-                  {{personTraining.name}}
+                  <span class="tag tag-default tag-pill float-xs-right">{{personTraining.training.name}}</span>
                 </li>
               </ul>
             </div>

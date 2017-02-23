@@ -4,7 +4,7 @@ import { Locations } from '../../../models/rest.model';
 import { RestService } from '../../../services/rest.service';
 import { NotificationService } from '../../../services/notification.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Training, ProgressType, TrainingTask } from '../../../models/training.model'
+import { Training, TrainingTask } from '../../../models/training.model'
 import { Address } from '../../../models/address.model';
 import { AddressComponent } from '../../addresses/address/address.component';
 import { Observable } from 'rxjs/Observable';
@@ -38,7 +38,6 @@ export class TrainingComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.id = params['id'];
       if (this.id == this.idOfNewTraining) {
-        this.setProgress(ProgressType.NOT_STARTED);
         this.training.online = true;
         this.training.tasks = [];
       } else {
@@ -108,31 +107,14 @@ export class TrainingComponent implements OnInit {
     this.location.back();
   }
 
-  setProgress(progress: ProgressType): void {
-    console.log(`Progress type set to ${progress}`)
-    // this.training.progress = progress;
-  }
 
   isOnlineChange(state: boolean): void {
     console.log(`Training is online: ${state}`)
     this.training.online = state;
   }
 
-  // onTaskCompletedChange(state: boolean, task: TrainingTask): void {
-  //   console.log(`Task ${JSON.stringify(task)} completed: ${state}`);
-  //   task.completed = state;
-  // }
-
-  onWeblinkChange(link: string, task: TrainingTask) {
-    console.log(`Task ${JSON.stringify(task)} link: ${link}`);
-  }
-
-  onTaskChange(name: string, task: TrainingTask) {
-    console.log(`Task ${JSON.stringify(task)} name: ${name}`);
-  }
-
   addTask() {
-    var task: TrainingTask = new TrainingTask();
+    let task: TrainingTask = new TrainingTask();
     task.name = this.currentTask.name;
     task.description = this.currentTask.description;
     task.weblink = this.currentTask.weblink;

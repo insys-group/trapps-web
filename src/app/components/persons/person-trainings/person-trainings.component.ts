@@ -1,29 +1,31 @@
-import {Component, OnInit} from '@angular/core';
-import {PersonTraining} from '../../../models/person.model';
+import {Component, OnInit, Input, OnChanges, SimpleChanges} from '@angular/core';
 
 import {Router, ActivatedRoute} from '@angular/router';
 import {NotificationService} from '../../../services/notification.service'
 import {PersontrainingService} from '../../../services/persontraining.service';
 import {TrainingService} from "../../../services/training.service";
 import {PersonService} from "../../../services/person.service";
-import {PersonType, Person} from "../../../models/person.model";
+import {Person, PersonTraining} from "../../../models/person.model";
+import {Training} from "../../../models/training.model";
 
 @Component({
     selector: 'app-person-trainings',
     templateUrl: './person-trainings.component.html',
     styleUrls: ['./person-trainings.component.css']
 })
-export class PersonTrainingsComponent implements OnInit {
+export class PersonTrainingsComponent implements OnInit, OnChanges {
 
-    submitted = false;
-    personTraining = new PersonTraining();
+    submitted: boolean = false;
 
-    trainings;
-    persons;
 
-    personTrainingId: number
-    newTrainee: Person;
+    selectedTraining: Training = new Training();
+    startDate: string;
+    endDate: string;
+    trainings: Training[];
+    assignedTrainings: PersonTraining[] = [];
 
+    exists: boolean = false;
+    @Input()
     person: Person;
 
     onSubmit() {
@@ -32,59 +34,63 @@ export class PersonTrainingsComponent implements OnInit {
 
     cancel() {
         this.submitted = false;
-        this.personTraining = new PersonTraining();
     }
 
     constructor(private persontrainingService: PersontrainingService, private router: Router, private route: ActivatedRoute,
                 private notificationService: NotificationService, private trainingService: TrainingService,
                 private personService: PersonService) {
-        this.route.params.subscribe(params => {
-            this.personTrainingId = +params['id'];
-        });
+
     }
 
-    ngOnInit(): void {
+    ngOnInit() {
+        console.log("==== PERSON TRAINING ===== ");
         this.getTrainings();
-        this.getPersonTraining();
+
+
     }
 
-
-    getPersonTraining() {
-        if(this.personTrainingId){
-            this.persontrainingService.getPersonTraining(this.personTrainingId)
-                .subscribe(
-                    personTraining => {
-
-                        this.personTraining = personTraining;
-                    },
-                    error => this.notificationService.notifyError(error)
-                );
+    ngOnChanges(changes: SimpleChanges): void {
+        if (this.person.personTrainings.length > 0) {
+            console.log(`Person has ${this.person.personTrainings.length} assign trainings`);
+            this.person.personTrainings.forEach(personTraining => {
+                let href = personTraining.links.find(link => link.rel === 'training').href;
+                let id = href.substr(href.lastIndexOf('/') + 1);
+                personTraining.training = this.trainings.find(training => training.id == parseInt(id));
+                this.assignedTrainings.push(personTraining);
+            });
         }
     }
+
+
 
     getTrainings() {
         this.trainingService.getTrainings()
             .subscribe(
                 trainings => {
+                    console.log("Downloaded " + trainings.length + " trainings");
                     this.trainings = trainings;
-                    this.autopopulateTrainings();
                 },
                 error => this.notificationService.notifyError(error)
             )
     }
 
-    autopopulateTrainings() {
-        if (this.trainings && this.personTraining.trainings) {
-            this.trainings.forEach(training => {
-                    this.personTraining.trainings.forEach(personTraining => {
-                            if (training.id === personTraining.id) {
-                                this.personTraining.trainings.push(personTraining)
-                            }
-                        }
-                    )
-                }
-            )
-        }
+    addTraining() {
+        let personTraining = new PersonTraining();
+        personTraining.training = this.selectedTraining;
+        personTraining.startDate = new Date(this.startDate).getDate();
+        personTraining.endDate = new Date(this.endDate).getDate();
+        console.log("Added selected training " + this.selectedTraining.name + " with start date " + personTraining.startDate
+            + " and end date " + personTraining.endDate);
+        this.person.personTrainings.push(personTraining);
+        this.assignedTrainings.push(personTraining);
+        this.exists = false;
+        this.startDate = "";
+        this.endDate = "";
+
+    }
+
+    removeTraining(personTraining: PersonTraining) {
+        this.person.personTrainings.slice(this.person.personTrainings.indexOf(personTraining, 0), 1)
     }
 
 

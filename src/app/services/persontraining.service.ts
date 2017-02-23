@@ -5,7 +5,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import {Locations} from "../models/rest.model";
 import {RestService} from "./rest.service";
-import {Training, ProgressType, TrainingTask} from "../models/training.model";
+import {Training, TrainingTask} from "../models/training.model";
 import {Person, PersonTraining} from "../models/person.model";
 
 
