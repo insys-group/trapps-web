@@ -43,6 +43,7 @@ import { InterviewService } from './services/interview.service';
 import { RoleService } from './services/role.service';
 import { TrainingListComponent } from './components/trainings/training-list/training-list.component';
 import { TrainingComponent } from './components/trainings/training/training.component';
+import { PersonTrainingsComponent } from './components/persons/person-trainings/person-trainings.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,9 @@ import { TrainingComponent } from './components/trainings/training/training.comp
     ErrorDialogComponent,
     InterviewListComponent,
     TrainingListComponent,
-    TrainingComponent
+    TrainingComponent,
+    RoleListComponent,
+    PersonTrainingsComponent
   ],
   imports: [
     BrowserModule,

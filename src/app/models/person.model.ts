@@ -1,5 +1,6 @@
 import { Address } from './address.model';
 import { Business } from './business.model';
+import { Training, TrainingTask, ProgressType } from './training.model';
 import { RestResource } from './rest.model';
 import { Observable } from 'rxjs/Observable';
 
@@ -39,4 +40,13 @@ export class PersonType {
     static PIVOTAL : string = "Pivotal";
     static PLABS : string = "Pivotal-Labs";
     static VENDOR : string = "Vendor";
+}
+
+export class PersonTraining {
+    id: number;
+    startdate: string;
+    enddate: number;
+    progress: Array<ProgressType>=new Array<ProgressType>();
+    trainings: Array<Training>=new Array<Training>();
+    completedTasks: Array<TrainingTask>=new Array<TrainingTask>();
 }

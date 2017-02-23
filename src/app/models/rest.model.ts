@@ -5,6 +5,7 @@ export const Locations = {
   PERSON_URL: environment.API_URL + 'persons/',
   PERSON_UPDATE_URL: environment.API_URL + 'persons/put/',
   PERSON_DOCUMENT_URL: environment.API_URL + 'persondocuments/',
+  PERSON_TRAINING_URL: environment.API_URL + 'persontrainings/',
   BUSINESS_URL: environment.API_URL + 'businesses/',
   STATE_URL: environment.API_URL + 'states/',
   INTERVIEW_URL: environment.API_URL + 'interviews/',

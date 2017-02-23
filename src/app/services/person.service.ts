@@ -17,6 +17,7 @@ export class PersonService implements OnInit {
     private personsUrl = '/api/persons';
     private personSkillsUrl = '/api/personskills';
     private personDocumentsUrl = '/api/persondocuments';
+    private personTrainingsUrl = '/api/persontrainings';
 
     constructor(private http: Http, private restService: RestService) {
     }

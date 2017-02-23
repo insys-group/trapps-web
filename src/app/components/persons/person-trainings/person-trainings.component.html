@@ -1,0 +1,44 @@
+<div class="row">
+  <div class="col-sm-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Trainings</h3>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label>Trainings</label>
+              <select class="form-control" required [(ngModel)]="personTraining.trainings" id="training" name="training" #training="ngModel">
+                <option *ngFor="let training of trainings" [ngValue]="training">{{training.name}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <br/>
+        <div class="row">
+          <div class="col-sm-12" style="text-align:center">
+            <button type="button" class="btn btn-primary" (click)="addTraining()" [disabled]="exists || scale===0">Add</button>
+            <button type="button" class="btn btn-primary" (click)="resetTrainings()">Reset</button>
+          </div>
+        </div>
+        <br/>
+        <div class="row">
+          <div class="col-sm-12">
+            <div>
+              <ul class="list-group">
+                <li class="list-group-item" *ngFor="let personTraining of person.personTrainings">
+                  <a href="javascript:void(0)" (click)=removeTraining(personTraining.name)>
+                    &times;
+                  </a>
+                  <span class="tag tag-default tag-pill float-xs-right">{{personTraining.name}}</span>
+                  {{personTraining.name}}
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
