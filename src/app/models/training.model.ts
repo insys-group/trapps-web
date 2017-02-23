@@ -5,13 +5,9 @@ import { Address } from './address.model';
 export class Training extends RestResource {
   id: number;
   name: string;
-  trainees: Person[];
-  progress: ProgressType;
   location: Address = new Address();
   online: boolean;
   weblink: string;
-  startDate: Date;
-  endDate: Date;
   tasks: TrainingTask[];
 }
 
@@ -25,5 +21,5 @@ export class TrainingTask {
     id: number;
     name: string;
     weblink: string;
-    completed: boolean;
+    description: string;
 }

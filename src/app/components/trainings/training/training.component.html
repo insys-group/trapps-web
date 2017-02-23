@@ -1,90 +1,150 @@
-<div class="container my-2">
-  <div class="card">
-    <div class="card-header">
-      Training Information
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header"><i class="fa fa-list-ol fa-fw"></i> Training Details</h1>
     </div>
-    <div class="card-block">
-      <form (ngSubmit)="save()">
-        <div class="form-group">
-          <label for="trainingName">Training Name</label>
-          <input type="text" class="form-control" id="trainingName" required [(ngModel)]="training.name" name="trainingName" #trainingName="ngModel">
-          <div [hidden]="trainingName.valid || trainingName.pristine" class="alert alert-danger">
-            Training name is required
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="progressType">Training progress</label>
-          <div>
-            <div class="btn-group" role="group" aria-label="Training Progress Type" id="progressType">
-              <button type="button" class="btn" [ngClass]="{'btn-primary': training.progress=='NOT_STARTED', 'btn-secondary': training.progress!='NOT_STARTED'}"
-                (click)="setProgress('NOT_STARTED')">Not Started</button>
-                <button type="button" class="btn" [ngClass]="{'btn-primary': training.progress=='IN_PROGRESS', 'btn-secondary': training.progress!='IN_PROGRESS'}"
-                  (click)="setProgress('IN_PROGRESS')">In Progress</button>
-                  <button type="button" class="btn" [ngClass]="{'btn-primary': training.progress=='COMPLETED', 'btn-secondary': training.progress!='COMPLETED'}"
-                    (click)="setProgress('COMPLETED')">Completed</button>
-            </div>
-          </div>
-        </div>
-        <!--<div class="container">
-          <div class="list-group">
-            <button type="button" class="list-group-item list-group-item-action" *ngFor="let person of training.trainees">
-              {{person.firstName}} {{person.lastName}}
-              </button>
-          </div>
-        </div>-->
+</div>
 
-        <div class="form-group">
-          <div class="row">
-            <div class="col-sm-6">
-              <label for="startDate">Start Date</label>
-              <input type="text" class="form-control" id="startDate" [(ngModel)]="training.startDate" name="startDate" #startDate="ngModel">
-            </div>
-            <div class="col-sm-6">
-              <label for="endDate">End Date</label>
-              <input type="text" class="form-control" id="endDate" [(ngModel)]="training.endDate" name="endDate" #endDate="ngModel">
-            </div>
-          </div>
-        </div>
-        <div class="form-group">
-          <input id="online" type="checkbox" [checked]="training.online" (click)="isOnlineChange($event.target.checked)"><label
-            for="online">Is online</label>
-          <app-address [address]="training.location" [hidden]="training.online"></app-address>
-        </div>
-        <div class="form-group">
-          <div class="card">
-            <div class="card-header">
-              Training Tasks
-            </div>
-            <div class="card-block">
-              <table class="table" id="trainingTasks">
-                <thead>
-                  <tr>
-                    <th>Task</th>
-                    <th>Web Link</th>
-                    <th>Completed</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let task of training.tasks; let i = index">
-                    <td contenteditable='true' (input)="task.name=$event.target.outerText" id="{{i}}.task.weblink">{{task.name}}</td>
-                    <td contenteditable='true' (input)="task.weblink=$event.target.outerText" id="{{i}}.task.weblink">{{task.weblink}}</td>
-                    <td><input id="task.id" type="checkbox" [checked]="task.completed" (click)="onTaskCompletedChange($event.target.checked, task)"></td>
-                  </tr>
-                </tbody>
-              </table>
-              <div class="form-group">
-                <button type="button" class="btn btn-primary" (click)="addTask()">Add task</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="form-group">
-          <button type="submit" class="btn btn-primary">Save</button>
-          <button type="button" class="btn btn-danger" (click)="delete()">Delete</button>
-          <button type="button" class="btn btn-primary" (click)="cancel()">Close</button>
-        </div>
-      </form>
+<div class="row">
+    <div class="col-sm-12">
 
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <form (ngSubmit)="save()">
+                    <div class="form-group">
+                        <label for="trainingName">Training Name</label>
+                        <input type="text" class="form-control" id="trainingName" required [(ngModel)]="training.name"
+                               name="trainingName" #trainingName="ngModel">
+                        <div [hidden]="trainingName.valid || trainingName.pristine" class="alert alert-danger">
+                            Training name is required
+                        </div>
+                    </div>
+                    <!--<div class="form-group">
+                        <label for="progressType">Training progress</label>
+                        <div>
+                            <div class="btn-group" role="group" aria-label="Training Progress Type" id="progressType">
+                                <button type="button" class="btn"
+                                        [ngClass]="{'btn-primary': training.progress=='NOT_STARTED', 'btn-secondary': training.progress!='NOT_STARTED'}"
+                                        (click)="setProgress('NOT_STARTED')">Not Started
+                                </button>
+                                <button type="button" class="btn"
+                                        [ngClass]="{'btn-primary': training.progress=='IN_PROGRESS', 'btn-secondary': training.progress!='IN_PROGRESS'}"
+                                        (click)="setProgress('IN_PROGRESS')">In Progress
+                                </button>
+                                <button type="button" class="btn"
+                                        [ngClass]="{'btn-primary': training.progress=='COMPLETED', 'btn-secondary': training.progress!='COMPLETED'}"
+                                        (click)="setProgress('COMPLETED')">Completed
+                                </button>
+                            </div>
+                        </div>
+                    </div>-->
+                    <!--<div class="container">
+                      <div class="list-group">
+                        <button type="button" class="list-group-item list-group-item-action" *ngFor="let person of training.trainees">
+                          {{person.firstName}} {{person.lastName}}
+                          </button>
+                      </div>
+                    </div>-->
+
+                    <!--<div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label for="startDate">Start Date</label>
+                                <input type="text" class="form-control" id="startDate" [(ngModel)]="training.startDate"
+                                       name="startDate" #startDate="ngModel">
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="endDate">End Date</label>
+                                <input type="text" class="form-control" id="endDate" [(ngModel)]="training.endDate"
+                                       name="endDate" #endDate="ngModel">
+                            </div>
+                        </div>
+                    </div>-->
+                    <div class="form-group">
+                        <input id="online" type="checkbox" [checked]="training.online"
+                               (click)="isOnlineChange($event.target.checked)"><label
+                            for="online">Is online</label>
+                        <app-address [address]="training.location" [hidden]="training.online"></app-address>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Tasks</h3>
+                        </div>
+                        <div class="panel-body">
+
+                            <div class="panel panel-default" *ngFor="let task of training.tasks; let i = index">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">{{task.name}}</h4>
+                                </div>
+                                <div class="panel-body">
+                                    <p>{{task.description}}</p>
+                                    <p><b>Weblink:</b> {{task.weblink}}</p>
+                                </div>
+                            </div>
+                            <!--<table class="table" id="trainingTasks">
+                                <thead>
+                                <tr>
+                                    <th>Task</th>
+                                    <th>Web Link</th>
+                                    <th>Completed</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr *ngFor="let task of training.tasks; let i = index">
+                                    <td contenteditable='true' (input)="task.name=$event.target.outerText"
+                                        id="{{i}}.task.weblink2">{{task.name}}
+                                    </td>
+                                    <td contenteditable='true' (input)="task.weblink=$event.target.outerText"
+                                        id="{{i}}.task.weblink">{{task.weblink}}
+                                    </td>
+                                    <td><input id="task.id" type="checkbox" [checked]="task.completed"
+                                               (click)="onTaskCompletedChange($event.target.checked, task)"></td>
+                                </tr>
+                                </tbody>
+                            </table>-->
+                        <form>
+
+                                    <div class="form-group">
+                                <button type="button" class="btn btn-primary" (click)="addTask()">Add task</button>
+                                    </div>
+
+                                <div class="form-group">
+                                        <input class="form-control" type="text" id="current-task-name" name="current-task-name" placeholder="Name" [(ngModel)]="currentTask.name">
+                                </div>
+                                <div class="form-group">
+                                        <input class="form-control" type="text" id="current-task-description" name="current-task-description" placeholder="Description" [(ngModel)]="currentTask.description">
+                                </div>
+                                <div class="form-group">
+                                        <input class="form-control" type="text" id="current-task-weblink" name="current-task-weblink" placeholder="Weblink" [(ngModel)]="currentTask.weblink">
+                                </div>
+                        </form>
+                        </div>
+                    </div>
+
+                                <!--<table class="table table-hover table-striped table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Name</th>
+                                        <th>Description</th>
+                                        <th>Weblink</th>
+                                        <th>Remove</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr *ngFor="let training of trainings; let i = index">
+                                        <td>{{i+1}}</td>
+                                        <td>{{training.name}}</td>
+                                        <td class="text-center"><i class="fa fa-times icon-btn-md" (click)="removeInterview(i)"></i></td>
+                                    </tr>
+                                    </tbody>
+                                </table>-->
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="button" class="btn btn-danger" (click)="delete()">Delete</button>
+                        <button type="button" class="btn btn-primary" (click)="cancel()">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-  </div>
 </div>

@@ -21,6 +21,7 @@ export class TrainingComponent implements OnInit {
 
   id: number;
   training: Training = new Training();
+  currentTask: TrainingTask = new TrainingTask();
 
   constructor(
     private restService: RestService,
@@ -109,7 +110,7 @@ export class TrainingComponent implements OnInit {
 
   setProgress(progress: ProgressType): void {
     console.log(`Progress type set to ${progress}`)
-    this.training.progress = progress;
+    // this.training.progress = progress;
   }
 
   isOnlineChange(state: boolean): void {
@@ -117,10 +118,10 @@ export class TrainingComponent implements OnInit {
     this.training.online = state;
   }
 
-  onTaskCompletedChange(state: boolean, task: TrainingTask): void {
-    console.log(`Task ${JSON.stringify(task)} completed: ${state}`);
-    task.completed = state;
-  }
+  // onTaskCompletedChange(state: boolean, task: TrainingTask): void {
+  //   console.log(`Task ${JSON.stringify(task)} completed: ${state}`);
+  //   task.completed = state;
+  // }
 
   onWeblinkChange(link: string, task: TrainingTask) {
     console.log(`Task ${JSON.stringify(task)} link: ${link}`);
@@ -132,9 +133,13 @@ export class TrainingComponent implements OnInit {
 
   addTask() {
     var task: TrainingTask = new TrainingTask();
-    task.name = "name";
-    task.weblink = "weblink";
-    this.training.tasks.push(task)
+    task.name = this.currentTask.name;
+    task.description = this.currentTask.description;
+    task.weblink = this.currentTask.weblink;
+    this.training.tasks.push(task);
+    this.currentTask.name = "";
+    this.currentTask.description = "";
+    this.currentTask.weblink = "";
   }
 
 }
