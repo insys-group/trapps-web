@@ -7,6 +7,8 @@ import {TrainingService} from "../../../services/training.service";
 import {PersonService} from "../../../services/person.service";
 import {Person, PersonTraining} from "../../../models/person.model";
 import {Training} from "../../../models/training.model";
+import {RestService} from "../../../services/rest.service";
+import {Locations} from "../../../models/rest.model";
 
 @Component({
     selector: 'app-person-trainings',
@@ -16,8 +18,8 @@ import {Training} from "../../../models/training.model";
 export class PersonTrainingsComponent implements OnInit, OnChanges {
 
     submitted: boolean = false;
-    startDate: number = new Date().getDate();
-    endDate: number = new Date().getDate();
+    startDate: string;
+    endDate: string;
 
     selectedTraining: Training = new Training();
     trainings: Training[];
@@ -37,15 +39,13 @@ export class PersonTrainingsComponent implements OnInit, OnChanges {
 
     constructor(private persontrainingService: PersontrainingService, private router: Router, private route: ActivatedRoute,
                 private notificationService: NotificationService, private trainingService: TrainingService,
-                private personService: PersonService) {
+                private personService: PersonService, private restService: RestService) {
 
     }
 
     ngOnInit() {
-        console.log("==== PERSON TRAINING ===== ");
+        console.log("PersonTrainingComponent.ngOnInit() ");
         this.getTrainings();
-
-
     }
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -76,21 +76,22 @@ export class PersonTrainingsComponent implements OnInit, OnChanges {
     addTraining() {
         let personTraining = new PersonTraining();
         personTraining.training = this.selectedTraining;
-        personTraining.startDate = this.startDate;
-        personTraining.endDate = this.endDate;
+        personTraining.startDate = new Date(this.startDate).getDate();
+        personTraining.endDate = new Date(this.endDate).getDate();
         console.log("Added selected training " + this.selectedTraining.name + " with start date " + personTraining.startDate
             + " and end date " + personTraining.endDate);
         this.person.personTrainings.push(personTraining);
         this.assignedTrainings.push(personTraining);
         this.exists = false;
 
+
         //this.personService.updatePerson(this.person);
-        this.persontrainingService.updatePerson(this.person);
+        //this.persontrainingService.updatePerson(this.person);
+        //this.restService.put<Person>(`${Locations.PERSON_UPDATE_URL}${this.person.id}`, this.person);
     }
 
     removeTraining(personTraining: PersonTraining) {
         this.person.personTrainings.slice(this.person.personTrainings.indexOf(personTraining, 0), 1)
     }
-
 
 }
