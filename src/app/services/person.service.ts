@@ -43,7 +43,9 @@ export class PersonService implements OnInit {
     }
 
     updatePerson(person: Person): Observable<Person> {
+        console.log('Enter: PersonService.update()' + JSON.stringify(person));
         const url = `${this.personsUrl}/${person.id}`;
+        console.log('Enter: PersonService.update() url ' + url);
         return this.http
             .put(url, JSON.stringify(person), { headers: this.headers })            
             .map(() => person)

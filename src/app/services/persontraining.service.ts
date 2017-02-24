@@ -30,4 +30,8 @@ export class PersontrainingService {
     remove(personTraining : PersonTraining){
         return this.restService.delete(personTraining);
     }
+
+    updatePerson(person : Person){
+        return this.restService.update<Person>(person);
+    }
 }

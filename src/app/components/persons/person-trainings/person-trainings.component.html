@@ -19,14 +19,14 @@
           <div class="col-sm-6">
             <div class="form-group">
               <label>Start Date</label>
-              <input type="text" class="form-control" id="startDate" [(ngModel)]="startDate"
+              <input type="date" class="form-control" id="startDate" [(ngModel)]="startDate"
                      name="startDate">
             </div>
           </div>
           <div class="col-sm-6">
             <div class="form-group">
               <label>End Date</label>
-              <input type="text" class="form-control" id="endDate" [(ngModel)]="endDate"
+              <input type="date" class="form-control" id="endDate" [(ngModel)]="endDate"
                      name="endDate">
             </div>
           </div>
@@ -46,7 +46,7 @@
                   <a href="javascript:void(0)" (click)=removeTraining(personTraining)>
                     &times;
                   </a>
-                  <span class="tag tag-default tag-pill float-xs-right">{{personTraining.training.name}}</span>
+                  <span class="tag tag-default tag-pill float-xs-right">{{personTraining.training.name}} {{personTraining.startDate | date: 'MM/dd/yyyy'}} {{personTraining.endDate | date: 'MM/dd/yyyy'}}</span>
                 </li>
               </ul>
             </div>

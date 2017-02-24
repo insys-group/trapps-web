@@ -16,11 +16,10 @@ import {Training} from "../../../models/training.model";
 export class PersonTrainingsComponent implements OnInit, OnChanges {
 
     submitted: boolean = false;
-
+    startDate: number = new Date().getDate();
+    endDate: number = new Date().getDate();
 
     selectedTraining: Training = new Training();
-    startDate: string;
-    endDate: string;
     trainings: Training[];
     assignedTrainings: PersonTraining[] = [];
 
@@ -77,16 +76,16 @@ export class PersonTrainingsComponent implements OnInit, OnChanges {
     addTraining() {
         let personTraining = new PersonTraining();
         personTraining.training = this.selectedTraining;
-        personTraining.startDate = new Date(this.startDate).getDate();
-        personTraining.endDate = new Date(this.endDate).getDate();
+        personTraining.startDate = this.startDate;
+        personTraining.endDate = this.endDate;
         console.log("Added selected training " + this.selectedTraining.name + " with start date " + personTraining.startDate
             + " and end date " + personTraining.endDate);
         this.person.personTrainings.push(personTraining);
         this.assignedTrainings.push(personTraining);
         this.exists = false;
-        this.startDate = "";
-        this.endDate = "";
 
+        //this.personService.updatePerson(this.person);
+        this.persontrainingService.updatePerson(this.person);
     }
 
     removeTraining(personTraining: PersonTraining) {
