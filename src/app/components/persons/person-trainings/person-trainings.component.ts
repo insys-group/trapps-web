@@ -7,8 +7,6 @@ import {TrainingService} from "../../../services/training.service";
 import {PersonService} from "../../../services/person.service";
 import {Person, PersonTraining} from "../../../models/person.model";
 import {Training} from "../../../models/training.model";
-import {RestService} from "../../../services/rest.service";
-import {Locations} from "../../../models/rest.model";
 
 @Component({
     selector: 'app-person-trainings',
@@ -39,7 +37,7 @@ export class PersonTrainingsComponent implements OnInit, OnChanges {
 
     constructor(private persontrainingService: PersontrainingService, private router: Router, private route: ActivatedRoute,
                 private notificationService: NotificationService, private trainingService: TrainingService,
-                private personService: PersonService, private restService: RestService) {
+                private personService: PersonService) {
 
     }
 
@@ -84,14 +82,25 @@ export class PersonTrainingsComponent implements OnInit, OnChanges {
         this.assignedTrainings.push(personTraining);
         this.exists = false;
 
+        console.log(`Updates person ${this.person.id} with trainings:`);
+        this.person.personTrainings.forEach(personTraining =>
+            console.log(`- ${personTraining.training.name}`)
+        );
 
-        //this.personService.updatePerson(this.person);
-        //this.persontrainingService.updatePerson(this.person);
-        //this.restService.put<Person>(`${Locations.PERSON_UPDATE_URL}${this.person.id}`, this.person);
+        this.persontrainingService.updatePerson(this.person).subscribe(
+            person => person,
+            error => this.notificationService.notifyError(error)
+        );
     }
 
     removeTraining(personTraining: PersonTraining) {
-        this.person.personTrainings.slice(this.person.personTrainings.indexOf(personTraining, 0), 1)
+        console.log(`Removes training ${personTraining}`);
+        this.assignedTrainings.splice(this.assignedTrainings.indexOf(personTraining,0),1);
+        this.persontrainingService.remove(personTraining, this.person).subscribe(
+            person => person,
+            error => this.notificationService.notifyError(error)
+        );
+
     }
 
 }

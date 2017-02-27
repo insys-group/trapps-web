@@ -32,9 +32,8 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-sm-12" style="text-align:center">
+          <div class="col-sm-12">
             <button type="button" class="btn btn-primary" (click)="addTraining()" [disabled]="exists || scale===0">Add</button>
-            <button type="button" class="btn btn-primary" (click)="resetTrainings()">Reset</button>
           </div>
         </div>
         <br/>
@@ -42,8 +41,8 @@
           <div class="col-sm-12">
             <div>
               <ul class="list-group">
-                <li class="list-group-item" *ngFor="let personTraining of assignedTrainings">
-                  <a href="javascript:void(0)" (click)=removeTraining(personTraining)>
+                <li class="list-group-item" *ngFor="let personTraining of assignedTrainings, let i = index">
+                  <a href="javascript:void(0)" id="{{i}}-remove-link" (click)=removeTraining(personTraining)>
                     &times;
                   </a>
                   <span class="tag tag-default tag-pill float-xs-right">{{personTraining.training.name}} {{personTraining.startDate | date: 'MM/dd/yyyy'}} {{personTraining.endDate | date: 'MM/dd/yyyy'}}</span>

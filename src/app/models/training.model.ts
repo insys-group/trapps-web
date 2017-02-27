@@ -10,7 +10,7 @@ export class Training extends RestResource {
   tasks: TrainingTask[];
 }
 
-export class TrainingTask {
+export class TrainingTask extends RestResource {
     id: number;
     name: string;
     weblink: string;

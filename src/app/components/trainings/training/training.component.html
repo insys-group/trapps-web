@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-lg-12">
-        <h1 class="page-header"><i class="fa fa-list-ol fa-fw"></i> Training Details</h1>
+        <h1 class="page-header"><i class="fa fa-graduation-cap fa-fw"></i> Training Details</h1>
     </div>
 </div>
 
@@ -30,9 +30,9 @@
                         </div>
                         <div class="panel-body">
 
-                            <div class="panel panel-default" *ngFor="let task of training.tasks; let i = index">
+                            <div class="panel panel-default" *ngFor="let task of training.tasks">
                                 <div class="panel-heading">
-                                    <h4 class="panel-title">{{task.name}}</h4>
+                                    <h4 class="panel-title">{{task.name}}<i class="fa fa-times icon-btn-md pull-right" (click)="removeTask(task)"></i></h4>
                                 </div>
                                 <div class="panel-body">
                                     <p>{{task.description}}</p>
@@ -41,23 +41,24 @@
                             </div>
                             <form>
 
-                                <div class="form-group">
-                                    <button type="button" class="btn btn-primary" (click)="addTask()">Add task</button>
-                                </div>
-
-                                <div class="form-group">
-                                    <input class="form-control" type="text" id="current-task-name"
-                                           name="current-task-name" placeholder="Name" [(ngModel)]="currentTask.name">
+                                <div class="form-group panel-default">
+                                    <input class="form-control  panel-heading" type="text" id="current-task-name"
+                                           name="current-task-name" placeholder="Name" [(ngModel)]="currentTask.name" required>
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-control" type="text" id="current-task-description"
+                                    <textarea rows="3" class="form-control" type="text" id="current-task-description"
                                            name="current-task-description" placeholder="Description"
-                                           [(ngModel)]="currentTask.description">
+                                              [(ngModel)]="currentTask.description"></textarea>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group input-group">
+                                    <span class="input-group-addon" id="weblink-addon">Weblink:</span>
                                     <input class="form-control" type="text" id="current-task-weblink"
                                            name="current-task-weblink" placeholder="Weblink"
                                            [(ngModel)]="currentTask.weblink">
+                                </div>
+
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-primary" (click)="addTask()">Add task</button>
                                 </div>
                             </form>
                         </div>
@@ -65,8 +66,8 @@
 
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary">Save</button>
-                        <button type="button" class="btn btn-danger" (click)="delete()">Delete</button>
                         <button type="button" class="btn btn-primary" (click)="cancel()">Close</button>
+                        <button type="button" class="btn btn-danger pull-right" (click)="delete()">Delete</button>
                     </div>
                 </form>
             </div>

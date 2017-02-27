@@ -20,7 +20,6 @@ import { BusinessService } from './services/business.service';
 import { NotificationService } from './services/notification.service';
 import { PersonService } from './services/person.service';
 import { PersontrainingService } from './services/persontraining.service';
-//import { AddressService } from './services/address.service';
 import { RestService } from './services/rest.service';
 import { TrainingService } from './services/training.service';
 
