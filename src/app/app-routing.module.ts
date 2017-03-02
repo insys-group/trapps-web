@@ -13,6 +13,8 @@ import { InterviewComponent } from './components/interviews/interview/interview.
 import { InterviewListComponent } from './components/interviews/interview-list/interview-list.component';
 import { TrainingComponent } from './components/trainings/training/training.component';
 import { TrainingListComponent } from './components/trainings/training-list/training-list.component';
+import {InterviewTemplateListComponent} from "./components/interviews/interview-template-list/interview-template-list.component";
+import {InterviewTemplateComponent} from "./components/interviews/interview-template/interview-template.component";
 
 const appRoutes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: 'home'},
@@ -26,6 +28,8 @@ const appRoutes: Routes = [
     { path: 'addresses/:id', component: AddressComponent},
     { path: 'interviews', component: InterviewListComponent},
     { path: 'interviews/:id', component: InterviewComponent},
+    { path: 'interview-templates', component: InterviewTemplateListComponent},
+    { path: 'interview-templates/:id', component: InterviewTemplateComponent},
     { path: 'trainings', component: TrainingListComponent},
     { path: 'trainings/:id', component: TrainingComponent}
 ];

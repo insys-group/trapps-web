@@ -3,16 +3,18 @@ import { Person } from '../person.model';
 import { Question } from './question.model';
 import { Feedback } from './feedback.model';
 import { Role } from '../role.model';
+import {Answer} from "./answer.model";
 
 export class Interview extends RestResource {
 
   id: number;
-  date: number = new Date().getDate();
+  date: Date = new Date();
+  name: string;
   phone: string;
   candidate: Person;
   role: Role;
   interviewers: Array<Person> = new Array<Person>();
-  questions: Array<Question> = new Array<Question>();
+  answers: Array<Answer> = new Array<Answer>();
   feedbacks: Array<Feedback> = new Array<Feedback>();
 
 }

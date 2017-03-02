@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-lg-12">
-    <h1 class="page-header"><i class="fa fa-list-ol fa-fw"></i> Interviews</h1>
+    <h1 class="page-header"><i class="fa fa-list-ol fa-fw"></i> Interview Templates</h1>
   </div>
 </div>
 
@@ -22,12 +22,12 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let interview of interviews; let i = index">
+      <tr *ngFor="let template of templates; let i = index">
         <td>{{i+1}}</td>
-        <td>{{interview.name}}</td>
-        <td>{{interview.date | date: 'MM/dd/yyyy'}}</td>
-        <td class="text-center"><i class="fa fa-search-plus icon-btn-md" (click)="onSelect(interview)"></i></td>
-        <td class="text-center"><i class="fa fa-times icon-btn-md" (click)="removeInterview(interview)"></i></td>
+        <td>{{template.name}}</td>
+        <td>{{template.date | date: 'MM/dd/yyyy'}}</td>
+        <td class="text-center"><i class="fa fa-search-plus icon-btn-md" (click)="onSelect(template)"></i></td>
+        <td class="text-center"><i class="fa fa-times icon-btn-md" (click)="removeInterview(template)"></i></td>
       </tr>
       </tbody>
     </table>

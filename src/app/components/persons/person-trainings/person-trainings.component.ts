@@ -1,11 +1,9 @@
 import {Component, OnInit, Input, OnChanges, SimpleChanges} from "@angular/core";
 import {NotificationService} from "../../../services/notification.service";
-import {PersontrainingService} from "../../../services/persontraining.service";
 import {TrainingService} from "../../../services/training.service";
 import {Person, PersonTraining} from "../../../models/person.model";
 import {Training, TrainingTask} from "../../../models/training.model";
 import {RestService} from "../../../services/rest.service";
-import {Locations} from "../../../models/rest.model";
 
 @Component({
     selector: 'app-person-trainings',
@@ -37,7 +35,7 @@ export class PersonTrainingsComponent implements OnInit, OnChanges {
         this.submitted = false;
     }
 
-    constructor(private persontrainingService: PersontrainingService, private notificationService: NotificationService,
+    constructor(private notificationService: NotificationService,
                 private trainingService: TrainingService, private restService: RestService) {
 
     }

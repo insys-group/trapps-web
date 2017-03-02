@@ -247,7 +247,15 @@
             <a [routerLink]="['/addresses']"><i class="fa fa-map-marker fa-fw"></i> Address</a>
           </li>
           <li>
-            <a [routerLink]="['/interviews']"><i class="fa fa-list-ol fa-fw"></i> Interviews</a>
+            <a href="#"><i class="fa fa-list-ol fa-fw"></i> Interview<span class="fa arrow"></span></a>
+            <ul class="nav nav-second-level">
+              <li>
+                <a [routerLink]="['/interview-templates']">Templates</a>
+              </li>
+              <li>
+                <a [routerLink]="['/interviews']">Interviews</a>
+              </li>
+            </ul>
           </li>
 
           <li>

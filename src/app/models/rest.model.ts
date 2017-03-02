@@ -5,12 +5,14 @@ export const Locations = {
   PERSON_URL: environment.API_URL + 'persons/',
   PERSON_UPDATE_URL: environment.API_URL + 'persons/put/',
   PERSON_DOCUMENT_URL: environment.API_URL + 'persondocuments/',
-  PERSON_TRAINING_URL: environment.API_URL + 'persontrainings/',
   BUSINESS_URL: environment.API_URL + 'businesses/',
   STATE_URL: environment.API_URL + 'states/',
   INTERVIEW_URL: environment.API_URL + 'interviews/',
   ROLE_URL: environment.API_URL + 'roles/',
-  TRAINING_URL: environment.API_URL + 'trainings/'
+  TRAINING_URL: environment.API_URL + 'trainings/',
+  INTERVIEW_DETAILS_URL: environment.API_URL + 'interview/',
+  FEEDBACK_URL: environment.API_URL + 'feedback/',
+  INTERVIEW_TEMPLATE_URL: environment.API_URL + 'interviewTemplates/'
 }
 
 export class RestResource {

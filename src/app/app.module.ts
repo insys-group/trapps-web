@@ -19,7 +19,6 @@ import { TrappsInMemoryDbService } from './services/trappsdb.service';
 import { BusinessService } from './services/business.service';
 import { NotificationService } from './services/notification.service';
 import { PersonService } from './services/person.service';
-import { PersontrainingService } from './services/persontraining.service';
 import { RestService } from './services/rest.service';
 import { TrainingService } from './services/training.service';
 
@@ -44,6 +43,10 @@ import { RoleService } from './services/role.service';
 import { TrainingListComponent } from './components/trainings/training-list/training-list.component';
 import { TrainingComponent } from './components/trainings/training/training.component';
 import { PersonTrainingsComponent } from './components/persons/person-trainings/person-trainings.component';
+
+import { FroalaEditorModule, FroalaViewModule } from 'angular2-froala-wysiwyg';
+import {InterviewTemplateListComponent} from "./components/interviews/interview-template-list/interview-template-list.component";
+import {InterviewTemplateComponent} from "./components/interviews/interview-template/interview-template.component";
 
 @NgModule({
   declarations: [
@@ -71,7 +74,9 @@ import { PersonTrainingsComponent } from './components/persons/person-trainings/
     TrainingListComponent,
     TrainingComponent,
     RoleListComponent,
-    PersonTrainingsComponent
+    PersonTrainingsComponent,
+    InterviewTemplateListComponent,
+    InterviewTemplateComponent
   ],
   imports: [
     BrowserModule,
@@ -80,7 +85,9 @@ import { PersonTrainingsComponent } from './components/persons/person-trainings/
     NgbModule.forRoot(),
     //InMemoryWebApiModule.forRoot(TrappsInMemoryDbService),
     ResourceModule.forRoot(),
-    AppRoutingModule
+    AppRoutingModule,
+    FroalaEditorModule.forRoot(),
+    FroalaViewModule.forRoot()
   ],
   //AddressService
   providers: [
@@ -91,8 +98,7 @@ import { PersonTrainingsComponent } from './components/persons/person-trainings/
       InterviewService,
       NotificationService,
       RoleService,
-      TrainingService,
-      PersontrainingService
+      TrainingService
   ],
   entryComponents: [NotificationDialogComponent, ErrorDialogComponent],
   bootstrap: [AppComponent]
