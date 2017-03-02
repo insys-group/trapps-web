@@ -7,7 +7,8 @@ export class Training extends RestResource {
   name: string;
   location: Address = new Address();
   online: boolean;
-  tasks: TrainingTask[];
+  tasks: TrainingTask[] = [];
+  trainees: Trainee[] = [];
 }
 
 export class TrainingTask extends RestResource {
@@ -15,4 +16,9 @@ export class TrainingTask extends RestResource {
     name: string;
     weblink: string;
     description: string;
+}
+
+export class Trainee{
+    name: string;
+    progress: number;
 }

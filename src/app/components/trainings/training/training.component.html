@@ -9,7 +9,7 @@
 
         <div class="panel panel-default">
             <div class="panel-body">
-                <form (ngSubmit)="save()">
+                <form (ngSubmit)="save()" #trainingForm="ngForm">
                     <div class="form-group">
                         <label for="trainingName">Training Name</label>
                         <input type="text" class="form-control" id="trainingName" required [(ngModel)]="training.name"
@@ -39,11 +39,15 @@
                                     <p><b>Weblink:</b> {{task.weblink}}</p>
                                 </div>
                             </div>
-                            <form>
+                            <form (ngSubmit)="addTask()" #addTaskForm="ngForm">
+
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary" (click)="addTask()" [disabled]="!addTaskForm.form.valid">Add task</button>
+                                </div>
 
                                 <div class="form-group panel-default">
-                                    <input class="form-control  panel-heading" type="text" id="current-task-name"
-                                           name="current-task-name" placeholder="Name" [(ngModel)]="currentTask.name" required>
+                                    <input class="form-control  panel-heading" type="text" id="training-task-name"
+                                           name="training-task-name" #trainingTaskName="ngModel" placeholder="Name" [(ngModel)]="currentTask.name" required>
                                 </div>
                                 <div class="form-group">
                                     <textarea rows="3" class="form-control" type="text" id="current-task-description"
@@ -56,16 +60,12 @@
                                            name="current-task-weblink" placeholder="Weblink"
                                            [(ngModel)]="currentTask.weblink">
                                 </div>
-
-                                <div class="form-group">
-                                    <button type="button" class="btn btn-primary" (click)="addTask()">Add task</button>
-                                </div>
                             </form>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="submit" class="btn btn-primary" [disabled]="!trainingForm.form.valid">Save</button>
                         <button type="button" class="btn btn-primary" (click)="cancel()">Close</button>
                         <button type="button" class="btn btn-danger pull-right" (click)="delete()">Delete</button>
                     </div>

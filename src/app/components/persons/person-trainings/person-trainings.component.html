@@ -33,22 +33,38 @@
         </div>
         <div class="row">
           <div class="col-sm-12">
-            <button type="button" class="btn btn-primary" (click)="addTraining()" [disabled]="exists || scale===0">Add</button>
+            <button type="button" class="btn btn-primary" [disabled]="checkAddButtonDisabled()" (click)="addTraining()">Add</button>
           </div>
         </div>
         <br/>
-        <div class="row">
-          <div class="col-sm-12">
-            <div>
-              <ul class="list-group">
-                <li class="list-group-item" *ngFor="let personTraining of assignedTrainings, let i = index">
-                  <a href="javascript:void(0)" id="{{i}}-remove-link" (click)=removeTraining(personTraining)>
-                    &times;
-                  </a>
-                  <span class="tag tag-default tag-pill float-xs-right">{{personTraining.training.name}} {{personTraining.startDate | date: 'MM/dd/yyyy'}} {{personTraining.endDate | date: 'MM/dd/yyyy'}}</span>
-                </li>
-              </ul>
-            </div>
+        <div class="panel panel-default" *ngFor="let personTraining of assignedTrainings, let i = index">
+          <div class="panel-heading">
+            <h4 class="panel-title">{{personTraining.training.name}} <i class="fa fa-times icon-btn-md pull-right" (click)="removeTraining(personTraining)"></i></h4>
+          </div>
+          <div class="panel-body">
+            <p><b>Start Date:</b> {{personTraining.startDate | date: 'MM/dd/yyyy'}} <b>End Date: </b> {{personTraining.endDate | date: 'MM/dd/yyyy'}}</p>
+            <table class="table table-hover table-striped table-bordered">
+              <thead>
+              <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Weblink</th>
+                <th>Completed</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let task of personTraining.training.tasks; let i = index">
+                <td>{{task.name}}</td>
+                <td>{{task.description}}</td>
+                <td>{{task.weblink}}</td>
+                <td class="text-center">
+                  <input id="task-{{task.id}}" type="checkbox"
+                         [checked]="isTaskCompleted(personTraining, task)"
+                         (click)="onTaskCompletedChange($event.target.checked, task, personTraining)">
+                </td>
+              </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>

@@ -218,7 +218,7 @@ export class PersonComponent implements OnInit, AfterViewInit {
     if(this.person.id > 0) {
       this.restService.put<Person>(Locations.PERSON_UPDATE_URL+this.person.id, this.person)
       .subscribe(
-        () => this.notificationService.info(`${this.person.personType} saved successfully`),
+        () => {},
         error => this.notificationService.notifyError(error)
       );
     } else {
@@ -231,11 +231,12 @@ export class PersonComponent implements OnInit, AfterViewInit {
           // if(this.person.address) {
           //   this.personAddress.id=this.person.address.id;
           // }
-          this.notificationService.info(`${this.person.personType} saved successfully`);
+
         },
         error => this.notificationService.notifyError(error)
       );
     }
+    this.router.navigate(['/persons']);
   }
 
   delete(): void {
