@@ -1,7 +1,6 @@
 import { Address } from './address.model';
 import { Business } from './business.model';
 import { RestResource } from './rest.model';
-import { Observable } from 'rxjs/Observable';
 
 export class Person extends RestResource {
   id: number;

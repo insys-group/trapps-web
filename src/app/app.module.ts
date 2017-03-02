@@ -22,6 +22,7 @@ import { NotificationService } from './services/notification.service';
 import { PersonService } from './services/person.service';
 import { AddressService } from './services/address.service';
 import { RestService } from './services/rest.service';
+import { LoginService } from './services/login.service';
 
 import { AddressComponent } from './components/addresses/address/address.component';
 import { AddressListComponent } from './components/addresses/address-list/address-list.component';
@@ -37,7 +38,10 @@ import { PersonSkillsComponent } from './components/persons/person-skills/person
 import { PersonDocumentsComponent } from './components/persons/person-documents/person-documents.component';
 import { StorageSizeFormatterPipe } from './pipes/storage-size-formatter.pipe';
 import { ErrorDialogComponent } from './components/dialogs/error-dialog/error-dialog.component';
+import { LoginComponent } from './components/login/login.component';
+import { HomeComponent } from './components/home/home.component';
 
+import { LoginGuard } from './guards/login.guard';
 @NgModule({
   declarations: [
     AppComponent,
@@ -57,7 +61,8 @@ import { ErrorDialogComponent } from './components/dialogs/error-dialog/error-di
     FilterBusinessTypePipe,
     StorageSizeFormatterPipe,
     ErrorDialogComponent,
-    ErrorDialogComponent
+    LoginComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -68,7 +73,7 @@ import { ErrorDialogComponent } from './components/dialogs/error-dialog/error-di
     ResourceModule.forRoot(),
     AppRoutingModule
   ],
-  providers: [ConstantService, PersonService, RestService, BusinessService, AddressService, NotificationService],
+  providers: [LoginService, LoginGuard, ConstantService, PersonService, RestService, BusinessService, AddressService, NotificationService],
   entryComponents: [NotificationDialogComponent, ErrorDialogComponent],
   bootstrap: [AppComponent]
 })

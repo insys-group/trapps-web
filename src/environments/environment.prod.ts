@@ -7,5 +7,6 @@ export const environment = {
   production: true,
   name: 'prod',
   version: '0.0.1',
+  ROOT_URL: 'http://trapps-api.apps.luxoft-pcf.com/',
   API_URL: 'http://trapps-api.apps.luxoft-pcf.com/api/v1/'
 };

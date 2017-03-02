@@ -159,7 +159,7 @@ export class PersonComponent implements OnInit, AfterViewInit {
 
   loadPerson(): Observable<Person> {
     console.log(`Loading person data`);
-    return this.restService.getOne<Person>(`${Locations.PERSON_URL}${this.id}`)
+    return this.restService.getOne<Person>(`${Locations.PERSON_URL}${this.id}/`)
       .do(
       person => {
         this.initPerson(person);

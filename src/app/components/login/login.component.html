@@ -1,0 +1,35 @@
+<div class="container">
+<div class="card">
+    <div class="card-header">
+        User Login
+    </div>
+    <div class="card-block">
+        <div [hidden]="submitted"></div>
+        <form (ngSubmit)="login()" #loginForm="ngForm">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="username">User</label>
+                        <input type="text" class="form-control" id="username" required [(ngModel)]="credentials.username" name="username" #username="ngModel">
+                        <div [hidden]="username.valid || username.pristine" class="alert alert-danger">
+                            User is required
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" [(ngModel)]="credentials.password" name="password" #password="ngModel">
+                    </div>
+                </div>
+            </div>
+          <div class="row">
+            <div class="col-sm-12" style="text-align:center">
+              <button type="submit" class="btn btn-primary" [disabled]="!loginForm.form.valid">Login</button>
+              <button type="button" class="btn btn-primary" (click)="reset()">Reset</button>
+            </div>
+          </div>
+        </form>
+    </div>
+</div>
+</div>

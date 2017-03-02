@@ -7,5 +7,6 @@ export const environment = {
   production: false,
   name: 'local',
   version: '0.0.1',
-  API_URL: 'http://localhost:8081/api/v1/'
+  ROOT_URL: 'http://trapps-local:8081/',
+  API_URL: 'http://trapps-local:8081/api/v1/'
 };

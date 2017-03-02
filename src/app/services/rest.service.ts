@@ -3,29 +3,15 @@ import { Http, Headers, Response } from '@angular/http';
 import { RequestMethod } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
+import { AuthToken } from '../models/login.model'
 import { Link, RestQuery, RestResource, RestPageResource, UploadProgress, ErrorResponse } from '../models/rest.model'
 
 @Injectable()
 export class RestService implements OnInit {
-  private headers = new Headers();
-  private loadHeaders = new Headers();
-  private fileHeaders = new Headers();
+  //private headers = new Headers();
+  //private fileHeaders = new Headers();
 
-  private personsUrl = '/api/persons';
-  private personSkillsUrl = '/api/personskills';
-  private personDocumentsUrl = '/api/persondocuments';
-  
   constructor(private http: Http) {
-    this.headers.append('Content-Type', 'application/json');
-
-    this.loadHeaders.append('Content-Type', 'application/json');
-    //this.loadHeaders.append('If-None-Match', '\"0\"');
-
-    this.fileHeaders.append('Content-Type', 'multipart/form-data');
-    this.fileHeaders.append('Access-Control-Allow-Origin', '*');
-    //this.headers.append('Cache-Control', 'no-cache');
-    //this.headers.append('If-Modified-Since', 'Mon, 26 Jul 1997 05:00:00 GMT');
-    //this.headers.append('Pragma', 'no-cache');
   }
   
   ngOnInit() { }
@@ -40,14 +26,14 @@ export class RestService implements OnInit {
 
   getAll<T>(url: string): Observable<Array<T>> {
     console.log(`Loading resource(s) ${url}`);
-    return this.http.get(url, { headers: this.loadHeaders })
+    return this.http.get(url, { headers: this.getHeaders() })
       .map(response => response.json().content as Array<T>)
       .catch(error => this.handleError(url, error));
   }
 
   getOne<T>(url: string): Observable<T> {
-    console.log(`Loading resource(s) ${url}`);
-    return this.http.get(url, { headers: this.loadHeaders })
+    console.log(`getOne() - Loading resource(s) ${url}`);
+    return this.http.get(url, { headers: this.getHeaders() })
       .map(response => response.json() as T)
       .catch(error => this.handleError(url, error));
   }
@@ -55,7 +41,7 @@ export class RestService implements OnInit {
   create<T>(url: string, resource: T): Observable<T> {
     console.log(`Loading resource(s) ${url}`);
     return this.http
-      .post(url, resource, { headers: this.headers })
+      .post(url, resource, { headers: this.getHeaders() })
       .map(response => response.json() as T)
       .catch(error => this.handleError(url, error));
   }
@@ -68,7 +54,7 @@ export class RestService implements OnInit {
     let url=link.href;
     console.log(`Updating resource at ${url}`);
     return this.http
-      .put(url, resource, { headers: this.headers })
+      .put(url, resource, { headers: this.getHeaders() })
       .map(response => response.json() as T)
       .catch(error => this.handleError(url, error));
   }
@@ -76,7 +62,7 @@ export class RestService implements OnInit {
   put<T extends RestResource>(url: string, resource: T): Observable<void> {
     console.log(`Updating resource at ${url}`);
     return this.http
-      .put(url, resource, { headers: this.headers })
+      .put(url, resource, { headers: this.getHeaders() })
       .catch(error => this.handleError(url, error));
   }
 
@@ -88,7 +74,7 @@ export class RestService implements OnInit {
     let url = link.href;
     console.log(`Deleting resource at ${url}`);
     return this.http
-      .delete(url, { headers: this.headers })
+      .delete(url, { headers: this.getHeaders() })
       .catch(error => this.handleError(url, error));
   }
 
@@ -158,6 +144,7 @@ export class RestService implements OnInit {
       }
       xhr.open("POST", url, true);
       xhr.setRequestHeader("x-filename", file.name);
+      xhr.setRequestHeader('Authorization', this.getAuthHeaderValue());
       xhr.send(formData);
     });
   }
@@ -165,7 +152,7 @@ export class RestService implements OnInit {
   deleteFile<T>(url: string): Observable<T> {
     console.log(`Deleting file at ${url}`);
     return this.http
-      .delete(url, { headers: this.headers })
+      .delete(url, { headers: this.getHeaders() })
       .map(response => response.json() as T)
       .catch(error => this.handleError(url, error));
   }
@@ -184,4 +171,23 @@ export class RestService implements OnInit {
     console.error('RestService.handleError() -> ', JSON.stringify(errorResponse));
     return Observable.throw(errorResponse);
   }
+
+  private getHeaders(): Headers {
+    let headers: Headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Authorization', this.getAuthHeaderValue());
+    return headers;
+  }
+
+  private getAuthHeaderValue():string {
+    let tokenString = localStorage.getItem("auth_token");
+    let token:AuthToken=JSON.parse(tokenString) as AuthToken;
+    if(token != null) {
+      return `${token.tokenType} ${token.accessToken}`;
+    }
+    return '';
+  }
+
+  
+
 }

@@ -7,5 +7,6 @@ export const environment = {
   production: false,
   name: 'source',
   version: '0.0.1',
+  ROOT_URL: 'http://localhost:8081/',
   API_URL: 'http://localhost:8081/api/v1/'
 };
