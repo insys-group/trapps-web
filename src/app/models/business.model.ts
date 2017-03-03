@@ -1,5 +1,6 @@
 import { RestResource } from './rest.model';
 import { Address } from './address.model';
+import { Observable } from 'rxjs/Observable';
 
 export class Business extends RestResource {
   id: number;
@@ -10,7 +11,7 @@ export class Business extends RestResource {
   addresses: Address[];
 }
 
-export class BusinessType {
+export class BusinessType extends RestResource{
   static ALL: string = "All";
   static CLIENT: string = "Client";
   static PLABS: string = "PivotalLabs";

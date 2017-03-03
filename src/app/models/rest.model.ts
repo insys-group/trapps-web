@@ -8,8 +8,9 @@ export const Locations = {
   BUSINESS_URL: environment.API_URL + 'businesses/',
   STATE_URL: environment.API_URL + 'states/',
   INTERVIEW_URL: environment.API_URL + 'interviews/',
-  INTERVIEW_DETAILS_URL: environment.API_URL + 'interview/',
   ROLE_URL: environment.API_URL + 'roles/',
+  TRAINING_URL: environment.API_URL + 'trainings/',
+  INTERVIEW_DETAILS_URL: environment.API_URL + 'interview/',
   FEEDBACK_URL: environment.API_URL + 'feedback/',
   INTERVIEW_TEMPLATE_URL: environment.API_URL + 'interviewTemplates/',
   OPPORTUNITY_URL: environment.API_URL + 'opportunities/'

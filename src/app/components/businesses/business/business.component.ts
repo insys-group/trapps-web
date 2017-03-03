@@ -112,7 +112,7 @@ ngOnInit(): void {
 
   delete(): void {
     console.log('Enter: BusinessComponent.delete()');
-    this.businessService.delete(this.business.id).subscribe(() => this.router.navigate(['/businesses']), this.handleError);
+    this.businessService.delete(this.business).subscribe(() => this.router.navigate(['/businesses']), this.handleError);
   }
 
   cancel(): void {

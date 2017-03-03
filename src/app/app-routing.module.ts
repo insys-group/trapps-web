@@ -11,6 +11,8 @@ import { AddressComponent } from './components/addresses/address/address.compone
 import { AddressListComponent } from './components/addresses/address-list/address-list.component';
 import { InterviewComponent } from './components/interviews/interview/interview.component';
 import { InterviewListComponent } from './components/interviews/interview-list/interview-list.component';
+import { TrainingComponent } from './components/trainings/training/training.component';
+import { TrainingListComponent } from './components/trainings/training-list/training-list.component';
 import {InterviewTemplateListComponent} from "./components/interviews/interview-template-list/interview-template-list.component";
 import {InterviewTemplateComponent} from "./components/interviews/interview-template/interview-template.component";
 import {OpportunityListComponent} from "./components/opportunities/opportunity-list/opportunity-list.component";
@@ -30,6 +32,8 @@ const appRoutes: Routes = [
     { path: 'interviews/:id', component: InterviewComponent},
     { path: 'interview-templates', component: InterviewTemplateListComponent},
     { path: 'interview-templates/:id', component: InterviewTemplateComponent},
+    { path: 'trainings', component: TrainingListComponent},
+    { path: 'trainings/:id', component: TrainingComponent},
     { path: 'opportunities', component: OpportunityListComponent},
     { path: 'opportunities/:id', component: OpportunityComponent}
 ];

@@ -1,3 +1,4 @@
+/*
 import { Injectable } from '@angular/core';
 import { ResourceParams } from 'ng2-resource-rest';
 import { Address } from '../models/address.model';
@@ -15,3 +16,4 @@ export class AddressService extends CRUDResource<Address> {
   }
 }
 
+*/
