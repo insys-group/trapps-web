@@ -47,6 +47,7 @@ export class PersonTraining extends RestResource{
     endDate: number = new Date().getDate();
     progress: ProgressType;
     training: Training;
+    hided: boolean;
     completedTasks: Array<TrainingTask> = [];
 }
 

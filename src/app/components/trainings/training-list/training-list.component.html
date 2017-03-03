@@ -25,27 +25,29 @@
                 <tr>
                     <td>{{i+1}}</td>
                     <td>{{training.name}}</td>
-                    <td class="text-center"><i class="fa fa-caret-square-o-down icon-btn-md" *ngIf="!expandedRows[i]"
-                                               (click)="expandedRows[i] = true"></i>
+                    <td class="text-center"><i class="{{training.trainees==null || training.trainees.length==0?'fa fa-caret-square-o-down icon-btn-md-disabled':'fa fa-caret-square-o-down icon-btn-md'}}" *ngIf="!expandedRows[i]"
+                                               (click)="expandedRows[i] = !(training.trainees==null || training.trainees.length==0)" ></i>
                         <i class="fa fa-caret-square-o-up icon-btn-md" *ngIf="expandedRows[i]"
                            (click)="expandedRows[i] = fasle"></i></td>
                     <td class="text-center"><i class="fa fa-search-plus icon-btn-md" (click)="onSelect(training)"></i>
                     </td>
                 </tr>
                 <ng-container *ngIf="expandedRows[i]">
-                    <tr *ngFor="let trainee of training.trainees">
-                        <td></td>
-                        <td>{{trainee.name}}</td>
-                        <td>
-                            <div class="progress" style="margin-bottom: 0">
-                                <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"
-                                     [style.width.%]="trainee.progress">
-                                    <span class="sr-only">{{trainee.progress}}% Complete</span>
+                    <ng-container *ngFor="let trainee of training.trainees">
+                        <tr *ngIf="!trainee.hided">
+                            <td></td>
+                            <td>{{trainee.name}}</td>
+                            <td>
+                                <div class="progress" style="margin-bottom: 0">
+                                    <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"
+                                         [style.width.%]="trainee.progress">
+                                        <span class="sr-only">{{trainee.progress}}% Complete</span>
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                        <td></td>
-                    </tr>
+                            </td>
+                            <td class="text-center"><i *ngIf="trainee.progress==100" class="fa fa-times icon-btn-md" (click)="hideTrainee(trainee, training)"></i></td>
+                        </tr>
+                    </ng-container>
                 </ng-container>
             </ng-container>
             </tbody>

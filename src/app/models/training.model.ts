@@ -19,6 +19,8 @@ export class TrainingTask extends RestResource {
 }
 
 export class Trainee{
+    id:number;
     name: string;
     progress: number;
+    hided: boolean;
 }
