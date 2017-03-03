@@ -23,6 +23,10 @@ export class BusinessService implements OnInit {
         return this.restService.getAll<Business>(Locations.BUSINESS_URL);
     }
 
+    getBusinesses(): Observable<Array<Business>> {
+        return this.restService.getAll<Business>(Locations.BUSINESS_URL);
+    }
+
     getOne(id: number): Observable<Business> {
         return this.restService.getOne<Business>(`${Locations.BUSINESS_URL}${id}`);
     }
