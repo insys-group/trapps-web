@@ -12,6 +12,7 @@ export const Locations = {
   ROLE_URL: environment.API_URL + 'roles/',
   FEEDBACK_URL: environment.API_URL + 'feedback/',
   INTERVIEW_TEMPLATE_URL: environment.API_URL + 'interviewTemplates/',
+  OPPORTUNITY_URL: environment.API_URL + 'opportunities/'
 }
 
 export class RestResource {

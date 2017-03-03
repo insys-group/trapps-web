@@ -44,6 +44,9 @@ import { RoleService } from './services/role.service';
 import { FroalaEditorModule, FroalaViewModule } from 'angular2-froala-wysiwyg';
 import {InterviewTemplateListComponent} from "./components/interviews/interview-template-list/interview-template-list.component";
 import {InterviewTemplateComponent} from "./components/interviews/interview-template/interview-template.component";
+import {OpportunityComponent} from "./components/opportunities/opportunity/opportunity.component";
+import {OpportunityListComponent} from "./components/opportunities/opportunity-list/opportunity-list.component";
+import {OpportunityService} from "./services/opportunity.service";
 
 @NgModule({
   declarations: [
@@ -69,7 +72,9 @@ import {InterviewTemplateComponent} from "./components/interviews/interview-temp
     ErrorDialogComponent,
     InterviewListComponent,
     InterviewTemplateListComponent,
-    InterviewTemplateComponent
+    InterviewTemplateComponent,
+    OpportunityComponent,
+    OpportunityListComponent
   ],
   imports: [
     BrowserModule,
@@ -82,7 +87,8 @@ import {InterviewTemplateComponent} from "./components/interviews/interview-temp
     FroalaEditorModule.forRoot(),
     FroalaViewModule.forRoot()
   ],
-  providers: [ConstantService, PersonService, RestService, BusinessService, AddressService, InterviewService, NotificationService, RoleService],
+  providers: [ConstantService, PersonService, RestService, BusinessService, AddressService, InterviewService,
+    NotificationService, RoleService, OpportunityService],
   entryComponents: [NotificationDialogComponent, ErrorDialogComponent],
   bootstrap: [AppComponent]
 })
