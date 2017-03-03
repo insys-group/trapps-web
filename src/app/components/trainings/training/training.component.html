@@ -36,7 +36,7 @@
                                 </div>
                                 <div class="panel-body">
                                     <p>{{task.description}}</p>
-                                    <p><b>Weblink:</b> {{task.weblink}}</p>
+                                    <p><b>Weblink:</b> <a href="{{task.weblink}}" target="_blank">{{task.weblink}}</a></p>
                                 </div>
                             </div>
                             <form (ngSubmit)="addTask()" #addTaskForm="ngForm">

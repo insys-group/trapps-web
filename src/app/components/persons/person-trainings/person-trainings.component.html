@@ -56,7 +56,7 @@
               <tr *ngFor="let task of personTraining.training.tasks; let i = index">
                 <td>{{task.name}}</td>
                 <td>{{task.description}}</td>
-                <td>{{task.weblink}}</td>
+                <td><a href="{{task.weblink}}" target="_blank">{{task.weblink}}</a></td>
                 <td class="text-center">
                   <input id="task-{{task.id}}" type="checkbox"
                          [checked]="isTaskCompleted(personTraining, task)"
