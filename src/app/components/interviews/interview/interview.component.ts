@@ -222,7 +222,7 @@ export class InterviewComponent implements OnInit {
 
   /*remove when user connected available*/
   getPerson(){
-    this.personService.getPerson(11)
+    this.personService.getPerson(10)
       .subscribe(
         person => {
           this.person = person;
