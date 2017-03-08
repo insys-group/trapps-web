@@ -26,7 +26,7 @@ jobs:
     file: trapps-web-source/ci/tasks/deploy.yml
 #  - task: npm
 #    file: trapps-web-source/ci/tasks/npm-install.yml
-#  - put: cf-deploy
-#    params:
-#      manifest: trapps-web-source/manifest.yml
-#      path: ./trapps-web-source/dist/
+  - put: cf-deploy
+    params:
+      manifest: trapps-web-source/manifest.yml
+      path: ./trapps-web-source/dist/
