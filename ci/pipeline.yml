@@ -12,13 +12,5 @@ jobs:
   plan:
   - get: trapps-web-source
     trigger: true
-
-- name: build
-  platform: linux
-  image_resource:
-    type: docker-image
-    source: {repository: busybox}
-  inputs:
-  - name: repo
-  run:
-    path: ./ci/build.sh
+  - task: package
+    file: trapps-web-source/ci/tasks/build.yml
