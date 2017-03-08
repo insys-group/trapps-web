@@ -1,3 +1,4 @@
 #!/bin/sh
 
-ls -ll
+cd trapps-web-source
+ng build --target=development --environment=dev
