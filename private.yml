@@ -1,0 +1,5 @@
+pcf-api: api.system.luxoft-pcf.com
+pcf-user: concourse
+pcf-pwd: c1cd@insys
+pcf-org: insys
+pcf-space: development

@@ -28,11 +28,10 @@ jobs:
 - name: deploy-to-pcf
   public: true
   plan:
-  - get: release
+  - get: trapps-web-source
     trigger: true
     passed: [build]
-  - get: trapps-web-source
   - put: cf-deploy
     params:
-      manifest: trapps-api-source/manifest.yml
-      path: release/trapps-api.jar
+      manifest: trapps-web-source/manifest.yml
+      path: dist/
