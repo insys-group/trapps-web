@@ -28,6 +28,7 @@ jobs:
 - name: deploy-to-pcf
   public: true
   plan:
+  - get: trapps-api-source
     trigger: true
     passed: [build]
   - put: cf-deploy
