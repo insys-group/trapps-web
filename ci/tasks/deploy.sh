@@ -1,7 +1,6 @@
 #!/bin/sh
 
-pwd
-ls -ll
 cd trapps-web-source
-pwd
-ls -ll
+mkdir dist
+cp index.html dist/index.html
+mv dist ../../put/trapps-web-source/dist
