@@ -1,0 +1,24 @@
+---
+resources:
+- name: trapps-web-source
+  type: git
+  source:
+    uri: https://github.com/insys-group/trapps-web.git
+    branch: feature/concourse
+
+jobs:
+- name: repo
+  public: true
+  plan:
+  - get: trapps-web-source
+    trigger: true
+
+- name: build
+  platform: linux
+  image_resource:
+    type: docker-image
+    source: {repository: busybox}
+  inputs:
+  - name: repo
+  run:
+    path: ./ci/build.sh

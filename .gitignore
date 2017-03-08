@@ -34,3 +34,7 @@ testem.log
 .DS_Store
 Thumbs.db
 /trapps-web.iml
+
+#Concourse
+Vagrantfile
+.vagrant
