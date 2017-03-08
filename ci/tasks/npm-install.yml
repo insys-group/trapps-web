@@ -3,7 +3,8 @@ platform: linux
 image_resource:
   type: docker-image
   source:
-    repository: nodejs/docker-node
+    repository: djudorange/node-gulp-mocha
+    tag: "latest"
 
 inputs:
   - name: trapps-web-source
