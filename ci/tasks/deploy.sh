@@ -1,4 +1,4 @@
 #!/bin/sh
 
-cd trapps-web-source
+pwd
 ls -ll
