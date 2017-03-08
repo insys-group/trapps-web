@@ -22,10 +22,10 @@ jobs:
   plan:
   - get: trapps-web-source
     trigger: true
-  - task: npm
-    file: trapps-web-source/ci/tasks/npm-install.yml
+  #- task: npm
+  #  file: trapps-web-source/ci/tasks/npm-install.yml
   - task: angular
-      file: trapps-web-source/ci/tasks/angular-cli.yml
+    file: trapps-web-source/ci/tasks/angular-cli.yml
   - put: cf-deploy
     params:
       manifest: trapps-web-source/manifest.yml
