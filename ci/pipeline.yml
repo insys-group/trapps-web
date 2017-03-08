@@ -12,5 +12,7 @@ jobs:
   plan:
   - get: trapps-web-source
     trigger: true
+  - task: install
+    file: trapps-web-source/ci/tasks/npm-install.yml
   - task: package
     file: trapps-web-source/ci/tasks/build.yml
