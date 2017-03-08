@@ -1,7 +1,6 @@
 platform: linux
 image: "docker:///node#4.2.3"
 inputs:
-  - name: sources
-    path: .
+  - name: trapps-web-source
 run:
   path: trapps-web-source/ci/tasks/npm-install.sh
