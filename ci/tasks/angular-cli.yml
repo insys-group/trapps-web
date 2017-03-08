@@ -1,0 +1,12 @@
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: alexsuch/angular-cli
+    tag: "latest"
+
+inputs:
+  - name: trapps-web-source
+run:
+  path: trapps-web-source/ci/tasks/angular-cli.sh
