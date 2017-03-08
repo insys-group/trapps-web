@@ -2,5 +2,5 @@
 
 cd trapps-web-source
 npm install
-npm install angular-cli
+npm install -g angular-cli
 ng build --target=development --environment=dev
