@@ -5,14 +5,34 @@ resources:
   source:
     uri: https://github.com/insys-group/trapps-web.git
     branch: feature/concourse
+- name: cf-deploy
+  type: cf
+  source:
+    buildpack: https://github.com/cloudfoundry/staticfile-buildpack.git
+    api: {{pcf-api}}
+    username: {{pcf-user}}
+    password: {{pcf-pwd}}
+    organization: {{pcf-org}}
+    space: {{pcf-space}}
+    skip_cert_check: true
 
 jobs:
-- name: repo
+- name: build
   public: true
   plan:
   - get: trapps-web-source
     trigger: true
-  - task: install
+  - task: build
     file: trapps-web-source/ci/tasks/npm-install.yml
-  - task: package
-    file: trapps-web-source/ci/tasks/build.yml
+
+- name: deploy-to-pcf
+  public: true
+  plan:
+  - get: release
+    trigger: true
+    passed: [build]
+  - get: trapps-web-source
+  - put: cf-deploy
+    params:
+      manifest: trapps-api-source/manifest.yml
+      path: release/trapps-api.jar
