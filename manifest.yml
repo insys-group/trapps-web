@@ -1,6 +1,5 @@
 applications:
 - name: trapps
   instances: 2
-  path: ./dist/
   buildpack: https://github.com/cloudfoundry/staticfile-buildpack.git
 
