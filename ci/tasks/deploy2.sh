@@ -2,5 +2,5 @@
 
 pwd
 ls -ll
-cd dist
+cd package-output
 ls -ll

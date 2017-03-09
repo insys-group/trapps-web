@@ -1,7 +1,7 @@
 #!/bin/sh
 
 cp trapps-web-source/index.html package-output/index.html
-cd dist
+cd package-output
 ls -ll
 
 echo "Done packaging"

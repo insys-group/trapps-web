@@ -6,15 +6,15 @@ resources:
     uri: https://github.com/insys-group/trapps-web.git
     branch: feature/concourse
 
-- name: deploy-trapps-web
-  type: cf
-  source:
-    api: {{pcf-api}}
-    username: {{pcf-user}}
-    password: {{pcf-pwd}}
-    organization: {{pcf-org}}
-    space: {{pcf-space}}
-    skip_cert_check: true
+#- name: deploy-trapps-web
+#  type: cf
+#  source:
+#    api: {{pcf-api}}
+#    username: {{pcf-user}}
+#    password: {{pcf-pwd}}
+#    organization: {{pcf-org}}
+#    space: {{pcf-space}}
+#    skip_cert_check: true
 
 jobs:
 - name: build
@@ -27,22 +27,22 @@ jobs:
 #  - task: npm
 #    file: trapps-web-source/ci/tasks/npm-install.yml
 
-#- name: build2
-#  public: true
-#  plan:
-#  - get: trapps-web-source
-#    trigger: true
-#    passed: [build]
-#  - task: npm2
-#    file: trapps-web-source/ci/tasks/deploy2.yml
-
-- name: deploy
+- name: build2
   public: true
   plan:
   - get: trapps-web-source
     trigger: true
     passed: [build]
-  - put: deploy-trapps-web
-    params:
-      manifest: trapps-web-source/manifest.yml
-      path: package-output/index.html
+  - task: npm2
+    file: trapps-web-source/ci/tasks/deploy2.yml
+
+#- name: deploy
+#  public: true
+#  plan:
+#  - get: trapps-web-source
+#    trigger: true
+#    passed: [build]
+#  - put: deploy-trapps-web
+#    params:
+#      manifest: trapps-web-source/manifest.yml
+#      path: package-output/index.html
