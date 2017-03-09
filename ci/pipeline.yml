@@ -23,23 +23,8 @@ jobs:
   - get: trapps-web-source
     trigger: true
   - task: npm
-    file: trapps-web-source/ci/tasks/deploy.yml
-#  - task: npm2
-#    file: trapps-web-source/ci/tasks/deploy2.yml
-#  - task: npm
-#    file: trapps-web-source/ci/tasks/npm-install.yml
+    file: trapps-web-source/ci/tasks/npm-install.yml
   - put: deploy-trapps-web
-      params:
-        manifest: trapps-web-source/manifest.yml
-        path: package-output
-        
-#- name: deploy
-#  public: true
-#  plan:
-#  - get: trapps-web-source
-#    trigger: true
-#    passed: [build]
-#  - put: deploy-trapps-web
-#    params:
-#      manifest: trapps-web-source/manifest.yml
-#      path: package-output/index.html
+    params:
+      manifest: trapps-web-source/manifest.yml
+      path: dist
