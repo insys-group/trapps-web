@@ -5,7 +5,7 @@ mkdir dist
 cp index.html dist/index.html
 cp index.html dist/index2.html
 cp index.html dist/index3.html
-cp dist ../dist
+cp -a dist/. ../dist/
 
 cd ..
 cd dist
