@@ -17,7 +17,7 @@ resources:
     skip_cert_check: true
 
 jobs:
-- name: build
+- name: build-and-deploy
   public: true
   plan:
   - get: trapps-web-source

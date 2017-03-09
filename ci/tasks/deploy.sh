@@ -1,12 +1,11 @@
 #!/bin/sh
 
-cp trapps-web-source/index.html package-output/index.html
-cp trapps-web-source/index.html package-output/index2.html
-cp trapps-web-source/index.html package-output/index3.html
-cd package-output
-ls -ll
-cd ..
-ls -ll
+cd trapps-web-source
+mkdir dist
+cp index.html dist/index.html
+cp index.html dist/index2.html
+cp index.html dist/index3.html
+cp dist ../dist
 
 echo "Done packaging"
 exit 0
