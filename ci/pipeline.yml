@@ -24,17 +24,10 @@ jobs:
     trigger: true
   - task: npm
     file: trapps-web-source/ci/tasks/deploy.yml
-#  - task: npm
-#    file: trapps-web-source/ci/tasks/npm-install.yml
-
-- name: build2
-  public: true
-  plan:
-  - get: trapps-web-source
-    trigger: true
-    passed: [build]
   - task: npm2
     file: trapps-web-source/ci/tasks/deploy2.yml
+#  - task: npm
+#    file: trapps-web-source/ci/tasks/npm-install.yml
 
 #- name: deploy
 #  public: true

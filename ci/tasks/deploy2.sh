@@ -2,6 +2,5 @@
 
 pwd
 ls -ll
-
-cd ..
+cd package-output
 ls -ll
