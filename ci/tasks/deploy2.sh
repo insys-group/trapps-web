@@ -2,3 +2,5 @@
 
 pwd
 ls -ll
+cd dist
+ls -ll
