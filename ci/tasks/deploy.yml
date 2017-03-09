@@ -9,7 +9,7 @@ inputs:
 - name: trapps-web-source
 
 outputs:
-- name: dist
+- name: package-output
 
 run:
   path: trapps-web-source/ci/tasks/deploy.sh
