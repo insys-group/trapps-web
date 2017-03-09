@@ -7,3 +7,7 @@ ls -ll
 pwd
 mv dist dist2
 ls -ll
+cd ..
+cd ..
+pwd
+ls -ll
