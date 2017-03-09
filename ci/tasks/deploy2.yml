@@ -9,8 +9,5 @@ inputs:
 - name: trapps-web-source
 - name: package-output
 
-outputs:
-- name: package-output
-
 run:
   path: trapps-web-source/ci/tasks/deploy2.sh
