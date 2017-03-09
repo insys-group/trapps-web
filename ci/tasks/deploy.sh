@@ -11,5 +11,4 @@ cd ..
 mkdir put
 mv dist put/dist
 pwd
-cd put
 ls -ll
