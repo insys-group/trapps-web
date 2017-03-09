@@ -7,5 +7,9 @@ cp index.html dist/index2.html
 cp index.html dist/index3.html
 cp dist ../dist
 
+cd ..
+cd dist
+ls -ll
+
 echo "Done packaging"
 exit 0
