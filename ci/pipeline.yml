@@ -5,16 +5,16 @@ resources:
   source:
     uri: https://github.com/insys-group/trapps-web.git
     branch: feature/concourse
-- name: cf-deploy
-  type: cf
-  source:
-    buildpack: https://github.com/cloudfoundry/staticfile-buildpack.git
-    api: {{pcf-api}}
-    username: {{pcf-user}}
-    password: {{pcf-pwd}}
-    organization: {{pcf-org}}
-    space: {{pcf-space}}
-    skip_cert_check: true
+#- name: cf-deploy
+#  type: cf
+#  source:
+#    buildpack: https://github.com/cloudfoundry/staticfile-buildpack.git
+#    api: {{pcf-api}}
+#    username: {{pcf-user}}
+#    password: {{pcf-pwd}}
+#    organization: {{pcf-org}}
+#    space: {{pcf-space}}
+#    skip_cert_check: true
 
 jobs:
 - name: build-and-deploy
