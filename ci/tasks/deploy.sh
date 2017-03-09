@@ -5,5 +5,8 @@ mkdir dist
 cp index.html dist/index.html
 ls -ll
 pwd
-mkdir ../../put
-mv dist ../../put/trapps-web-source/dist
+mv dist ../../dist
+cd ..
+cd ..
+mkdir put
+mv dist put/dist
