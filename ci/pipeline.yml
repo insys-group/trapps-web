@@ -22,10 +22,8 @@ jobs:
   plan:
   - get: trapps-web-source
     trigger: true
-#  - task: npm
-#    file: trapps-web-source/ci/tasks/npm-install.yml
   - task: npm
-    file: trapps-web-source/ci/tasks/deploy.yml
+    file: trapps-web-source/ci/tasks/npm-install.yml
   - put: deploy-trapps-web
     params:
       manifest: trapps-web-source/manifest.yml
