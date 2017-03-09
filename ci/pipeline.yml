@@ -24,8 +24,8 @@ jobs:
     trigger: true
   - task: npm
     file: trapps-web-source/ci/tasks/deploy.yml
-  - task: npm2
-    file: trapps-web-source/ci/tasks/deploy2.yml
+#  - task: npm2
+#    file: trapps-web-source/ci/tasks/deploy2.yml
 #  - task: npm
 #    file: trapps-web-source/ci/tasks/npm-install.yml
 
