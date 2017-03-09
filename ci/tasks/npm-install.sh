@@ -5,4 +5,8 @@ npm install
 npm install -g angular-cli
 ng build --target=development --environment=dev
 ls -ll
-mv dist ../../put/trapps-web-source/dist
+mv dist ../../dist
+cd ..
+cd ..
+mkdir put
+mv dist put/dist
