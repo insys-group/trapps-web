@@ -37,3 +37,4 @@ Thumbs.db
 #Concourse
 Vagrantfile
 .vagrant
+private.yml
