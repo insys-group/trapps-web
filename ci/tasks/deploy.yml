@@ -11,7 +11,7 @@ inputs:
 - name: trapps-web-source
 
 outputs:
-- name: package-output
+- name: dist
 
 run:
   path: trapps-web-source/ci/tasks/deploy.sh
