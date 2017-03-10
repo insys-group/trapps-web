@@ -4,7 +4,7 @@ resources:
   type: git
   source:
     uri: https://github.com/insys-group/trapps-web.git
-    branch: feature/concourse
+    branch: develop
 
 - name: deploy-trapps-web
   type: cf
