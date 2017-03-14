@@ -13,7 +13,7 @@ export class RestService implements OnInit {
 
   constructor(private http: Http) {
   }
-  
+
   ngOnInit() { }
 
   //TODO
@@ -27,7 +27,7 @@ export class RestService implements OnInit {
   getAll<T>(url: string): Observable<Array<T>> {
     console.log(`Loading resource(s) ${url}`);
     return this.http.get(url, { headers: this.getHeaders() })
-      .map(response => response.json().content as Array<T>)
+      .map(response => response.json().content[0].id ? response.json().content : [] as Array<T>)
       .catch(error => this.handleError(url, error));
   }
 
@@ -79,29 +79,29 @@ export class RestService implements OnInit {
   }
 
   /*
-  upload(url: string, resource: any): Observable<void> {
-    console.log(`Uploading resource ${url}`);
-    return this.http
-      .post(url, resource, { headers: this.fileHeaders })
-      .catch(this.handleError);
-  }
-  var formData: any = new FormData();
-            var xhr = new XMLHttpRequest();
-            for(var i = 0; i < files.length; i++) {
-                formData.append("uploads[]", files[i], files[i].name);
-            }
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState == 4) {
-                    if (xhr.status == 200) {
-                        resolve(JSON.parse(xhr.response));
-                    } else {
-                        reject(xhr.response);
-                    }
-                }
-            }
-            xhr.open("POST", url, true);
-            xhr.send(formData);
-  */ 
+   upload(url: string, resource: any): Observable<void> {
+   console.log(`Uploading resource ${url}`);
+   return this.http
+   .post(url, resource, { headers: this.fileHeaders })
+   .catch(this.handleError);
+   }
+   var formData: any = new FormData();
+   var xhr = new XMLHttpRequest();
+   for(var i = 0; i < files.length; i++) {
+   formData.append("uploads[]", files[i], files[i].name);
+   }
+   xhr.onreadystatechange = function () {
+   if (xhr.readyState == 4) {
+   if (xhr.status == 200) {
+   resolve(JSON.parse(xhr.response));
+   } else {
+   reject(xhr.response);
+   }
+   }
+   }
+   xhr.open("POST", url, true);
+   xhr.send(formData);
+   */
   uploadFile<T>(url: string, file: any): Observable<any> {
     return Observable.create(observer => {
       var formData: any = new FormData();
@@ -188,6 +188,6 @@ export class RestService implements OnInit {
     return '';
   }
 
-  
+
 
 }

@@ -10,10 +10,13 @@ import { ErrorResponse } from '../models/rest.model'
 import { Link, Locations } from '../models/rest.model';
 import { UserInfo } from '../models/user.model';
 import { RestService } from '../services/rest.service';
+import {LocalStorageService} from "./localstorage.service";
 
 @Injectable()
 export class LoginService implements OnInit {
+
   private userLoggedIn: boolean = false;
+  private loginFail: boolean = false;
 
   constructor(private http: Http, private restService: RestService) {
     this.userLoggedIn = !!localStorage.getItem('auth_token');
@@ -22,36 +25,44 @@ export class LoginService implements OnInit {
   getUserInfo(): Observable<any> {
     return this.restService.getOne<UserInfo>(Locations.USER_URL)
     .do(userInfo => {
-      localStorage.setItem('user_info', JSON.stringify(userInfo));
+      LocalStorageService.set('user_info', userInfo);
     })
   }
 
   login(credentials: PasswordCredentials): Observable<AuthToken> {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    
+
+    this.loginFail = false;
     return this.http
       .post(Locations.LOGIN_URL, credentials, { headers: headers })
       .map(response => response.json() as AuthToken)
       .do(authToken => {
         console.debug('Saving token in localstorage ' + JSON.stringify(authToken));
-        localStorage.setItem('auth_token', JSON.stringify(authToken));
+        LocalStorageService.set('auth_token', authToken);
         this.userLoggedIn = true;
       })
       .catch(error => {
-        console.error('Error on login ' + JSON.stringify(error));
+        if(error.status == 401){
+          this.loginFail = true;
+        }
         return this.handleError(Locations.LOGIN_URL, error, error.json() as AuthToken);
       });
   }
 
   logout(): void {
-    localStorage.removeItem('auth_token');
-    localStorage.removeItem('user_info');
+    LocalStorageService.remove('auth_token');
+    LocalStorageService.remove('user_info');
     this.userLoggedIn = false;
+    window.location.href="/login";
   }
 
   isUserLoggedIn(): boolean {
     return this.userLoggedIn;
+  }
+
+  isLoginFail(): boolean {
+    return this.loginFail;
   }
 
   private handleError(url: string, error: Response, authToken: AuthToken): Observable<any> {

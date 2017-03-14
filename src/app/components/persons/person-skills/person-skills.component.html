@@ -1,52 +1,48 @@
-      <div class="card">
-        <div class="card-header">
-            Professional Skills
-        </div>
-        <div class="card-block">
-          <div class="row">
-            <div class="col-sm-6">
-              <!--input class="form-control" type="text" [(ngModel)]="skillName" (input)="onChange($event)"/-->
-              <select class="form-control" [(ngModel)]="skillName" (change)="onChange($event)">
-                  <option *ngFor="let skill of skills" [ngValue]="skill">{{skill}}</option>
-              </select>
+<div class="row">
+  <div class="col-sm-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Professional Skills</h3>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-sm-6">
+            <!--input class="form-control" type="text" [(ngModel)]="skillName" (input)="onChange($event)"/-->
+            <select class="form-control" [(ngModel)]="skillName" (change)="onChange($event)">
+              <option *ngFor="let skill of skills" [ngValue]="skill">{{skill}}</option>
+            </select>
 
-            </div>
-            <div class="col-sm-6">
-              <select class="form-control" [(ngModel)]="scale">
-                  <option *ngFor="let scale of scales" [ngValue]="scale">{{scale}}</option>
-              </select>
+          </div>
+          <div class="col-sm-6">
+            <select class="form-control" [(ngModel)]="scale">
+              <option *ngFor="let scale of scales" [ngValue]="scale">{{scale}}</option>
+            </select>
+          </div>
+        </div>
+        <br/>
+        <div class="row">
+          <div class="col-sm-12" style="text-align:center">
+            <button type="button" class="btn btn-primary" (click)="addSkill()" [disabled]="exists || scale===0">Add</button>
+            <button type="button" class="btn btn-primary" (click)="resetSkills()">Reset</button>
+          </div>
+        </div>
+        <br/>
+        <div class="row">
+          <div class="col-sm-12">
+            <div>
+              <ul class="list-group">
+                <li class="list-group-item" *ngFor="let personSkill of person.personSkills">
+                  <a href="javascript:void(0)" (click)=removeSkill(personSkill.name)>
+                    &times;
+                  </a>
+                  <span class="tag tag-default tag-pill float-xs-right">{{personSkill.scale}}</span>
+                  {{personSkill.name}}
+                </li>
+              </ul>
             </div>
           </div>
-          <br/>
-          <div class="row">
-            <div class="col-sm-12" style="text-align:center">
-              <button type="button" class="btn btn-primary" (click)="addSkill()" [disabled]="exists || scale===0">Add</button>
-              <button type="button" class="btn btn-primary" (click)="resetSkills()">Reset</button>
-            </div>
-          </div>
-          <br/>
-          <div class="row">
-            <div class="col-sm-12">
-              <div>
-                <ul class="list-group">
-                  <li class="list-group-item" *ngFor="let personSkill of person.personSkills">
-                    <a href="javascript:void(0)" (click)=removeSkill(personSkill.name)>
-                      &times;
-                    </a>
-                    <span class="tag tag-default tag-pill float-xs-right">{{personSkill.scale}}</span>
-                    {{personSkill.name}}
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <br/>
         </div>
       </div>
-<!--div class="container">
-  <div class="row">
-    <div class="col-sm-12">
-
     </div>
   </div>
-</div-->
+</div>

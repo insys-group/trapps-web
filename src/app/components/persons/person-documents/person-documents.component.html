@@ -1,75 +1,66 @@
-<div class="card">
-  <div class="card-header">
-    Documents
-  </div>
-  <div class="card-block" *ngIf="!person.id">
-    <p class="text-danger text-center">Please save the {{person.personType}} first before uploading documents.</p>
-  </div>
-  <div class="card-block" *ngIf="person.id">
-    <div class="row" [hidden]="progressHidden">
-      <div class="col-sm-12">
-        <div class="text-xs-center" id="progress-caption">Uploading {{fileName}} {{percentUploaded}}</div>
-        <progress class="progress progress-success" [value]="currentValue" [max]="maxValue"></progress>
+<div class="row">
+  <div class="col-sm-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Documents</h3>
       </div>
-    </div>
+      <div class="panel-body">
 
-    <div class="row">
-      <div class="col-sm-8">
-        <label class="custom-file">
-          <input type="file" #fileInput id="file" class="custom-file-input" (change)="selectFile()">
-          <span class="custom-file-control">{{file.name}}</span>
-        </label>
-      </div>
-      <div class="col-sm-4">
-        <button (click)="uploadFile()" [disabled]="!file.name" class="btn btn-primary">Upload</button>
-      </div>
-    </div>
-      <!--div class="col-sm-6">
-      <input #fileInput type="file"/>
-      <div (click)="uploadFile()" class="btn btn-primary">Submit</div>
-    </div-->
-    <!--<div class="row">
-      <div class="col-sm-12">
-        <div>
-          <ul class="list-group">
-            <li class="list-group-item" *ngFor="let personDocument of person.personDocuments">
-              {{personDocument.uploadTimestamp | date: 'dd/MM/yyyy HH:mm:ss'}} -
-              <a target="_self" [href]="personDocument.downloadLink" [download]="personDocument.fileName">{{personDocument.fileName}}</a>
-              <a href="javascript:void(0)" (click)=deleteFile(personDocument)><span class="float-xs-right">&times;</span></a>
-            </li>
-          </ul>
+        <div class="card-block" *ngIf="!person.id">
+          <p class="text-danger text-center">Please save the {{person.personType}} first before uploading documents.</p>
         </div>
-      </div>
-    </div>-->
-    <div class="row">
-      <div class="col-sm-12">
-        <p class="text-danger text-center" *ngIf="person.id && person.personDocuments.length==0">No documents attached</p>
-        <table class="table" *ngIf="person.personDocuments.length>0">
-          <thead>
-          <tr>
-              <th class="col-sm-1">&nbsp;</th>
-              <th class="col-sm-3">Upload Date</th>
-              <th class="col-sm-6">Document</th>
-              <th class="col-sm-2">Size</th>
-          </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let personDocument of person.personDocuments">
-              <td class="col-sm-1 center-block">
-                <!--<a href="javascript:void(0)" (click)=deleteFile(personDocument)>delete</a>-->
-                <button type="button" class="close" aria-label="Close" (click)=deleteFile(personDocument)>
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </td>
-              <td class="col-sm-3">{{personDocument.uploadTimestamp | date: 'dd/MM/yyyy HH:mm:ss Z'}}</td>
-              <td class="col-sm-6"><a target="_self" [href]="personDocument.downloadLink" [download]="personDocument.fileName">{{personDocument.fileName}}</a></td>
-              <td class="col-sm-2">{{personDocument.fileSize | storageSizeFormatter:1}}</td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="card-block" *ngIf="person.id">
+          <div class="row" [hidden]="progressHidden">
+            <div class="col-sm-12">
+              <div class="text-xs-center" id="progress-caption">Uploading {{fileName}} {{percentUploaded}}</div>
+              <progress class="progress progress-success" [value]="currentValue" [max]="maxValue"></progress>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-8">
+              <label class="custom-file">
+                <input type="file" #fileInput id="file" class="custom-file-input" (change)="selectFile()">
+                <span class="custom-file-control">{{file.name}}</span>
+              </label>
+            </div>
+            <div class="col-sm-4">
+              <button (click)="uploadFile()" [disabled]="!file.name" class="btn btn-primary">Upload</button>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-12">
+              <p class="text-danger text-center" *ngIf="person.id && person.personDocuments.length==0">No documents attached</p>
+              <table class="table" *ngIf="person.personDocuments.length>0">
+                <thead>
+                <tr>
+                  <th class="col-sm-1">&nbsp;</th>
+                  <th class="col-sm-3">Upload Date</th>
+                  <th class="col-sm-6">Document</th>
+                  <th class="col-sm-2">Size</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let personDocument of person.personDocuments">
+                  <td class="col-sm-1 center-block">
+                    <button type="button" class="close" aria-label="Close" (click)=deleteFile(personDocument)>
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </td>
+                  <td class="col-sm-3">{{personDocument.uploadTimestamp | date: 'dd/MM/yyyy HH:mm:ss Z'}}</td>
+                  <td class="col-sm-6"><a target="_self" [href]="personDocument.downloadLink" [download]="personDocument.fileName">{{personDocument.fileName}}</a></td>
+                  <td class="col-sm-2">{{personDocument.fileSize | storageSizeFormatter:1}}</td>
+                </tr>
+                </tbody>
+              </table>
+
+            </div>
+          </div>
+          <br/>
+        </div>
 
       </div>
     </div>
-    <br/>
   </div>
 </div>

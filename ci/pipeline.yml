@@ -1,0 +1,30 @@
+---
+resources:
+- name: trapps-web-source
+  type: git
+  source:
+    uri: https://github.com/insys-group/trapps-web.git
+    branch: develop
+
+- name: deploy-trapps-web
+  type: cf
+  source:
+    api: {{pcf-api}}
+    username: {{pcf-user}}
+    password: {{pcf-pwd}}
+    organization: {{pcf-org}}
+    space: {{pcf-space}}
+    skip_cert_check: true
+
+jobs:
+- name: build-and-deploy
+  public: true
+  plan:
+  - get: trapps-web-source
+    trigger: true
+  - task: npm
+    file: trapps-web-source/ci/tasks/npm-install.yml
+  - put: deploy-trapps-web
+    params:
+      manifest: trapps-web-source/manifest.yml
+      path: dist
