@@ -75,7 +75,7 @@ export class LoginService implements OnInit {
   private handleError(url: string, error: Response, authToken: AuthToken): Observable<any> {
     let errorResponse: ErrorResponse;
     if(error.status===400) {
-      errorResponse=new ErrorResponse(url, `User or password not valid (${authToken.errorDescription})`, error);
+      errorResponse=new ErrorResponse(url, `User or password not valid`, error);
     } else {
       errorResponse=new ErrorResponse(url, `Error occured while communicating with services: ${error.json().error}`, error);
     }

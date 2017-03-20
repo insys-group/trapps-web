@@ -5,12 +5,9 @@ export class LoginCredentials {
 }
 
 export class AuthToken {
-  accessToken: string;
-  refreshToken: string;
-  tokenType: string;
-  expiresIn: number;
-  expiration: Date;
-  scopes: Array<string>;
-  error: string;
-  errorDescription: string;
+  access_token: string;
+  token_type: string;
+  refresh_token: string;
+  expires_in: number;
+  scope: string;
 }

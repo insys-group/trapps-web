@@ -54,7 +54,7 @@ export class InterviewTemplateComponent implements OnInit {
   }
 
   save(): void {
-    console.log(this.template);
+    // console.log(this.template);
     this.interviewService.saveTemplate(this.template)
       .subscribe(
         template => {

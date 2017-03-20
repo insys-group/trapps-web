@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 import { AuthToken } from '../models/login.model'
 import { Link, RestQuery, RestResource, RestPageResource, UploadProgress, ErrorResponse } from '../models/rest.model'
+import {LocalStorageService} from "./localstorage.service";
 
 @Injectable()
 export class RestService implements OnInit {
@@ -180,12 +181,12 @@ export class RestService implements OnInit {
   }
 
   private getAuthHeaderValue():string {
-    let tokenString = localStorage.getItem("auth_token");
-    let token:AuthToken=JSON.parse(tokenString) as AuthToken;
+    let token:AuthToken=LocalStorageService.get('auth_token');;
     if(token != null) {
-      return `${token.tokenType} ${token.accessToken}`;
+      return `${token.token_type} ${token.access_token}`;
+    } else {
+      return '';
     }
-    return '';
   }
 
 
