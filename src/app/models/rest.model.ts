@@ -7,7 +7,7 @@ export const Locations = {
   PERSON_DOCUMENT_URL: environment.API_URL + 'persondocuments/',
   BUSINESS_URL: environment.API_URL + 'businesses/',
   STATE_URL: environment.API_URL + 'states/',
-  LOGIN_URL: environment.ROOT_URL + 'restlogin/',
+  LOGIN_URL: environment.ROOT_URL + 'oauth/token',
   USER_URL: environment.ROOT_URL + 'user/',
   INTERVIEW_URL: environment.API_URL + 'interviews/',
   ROLE_URL: environment.API_URL + 'roles/',

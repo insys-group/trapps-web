@@ -27,7 +27,7 @@ export class RestService implements OnInit {
   getAll<T>(url: string): Observable<Array<T>> {
     console.log(`Loading resource(s) ${url}`);
     return this.http.get(url, { headers: this.getHeaders() })
-      .map(response => response.json().content[0].id ? response.json().content : [] as Array<T>)
+      .map(response => response.json().content as Array<T>)
       .catch(error => this.handleError(url, error));
   }
 

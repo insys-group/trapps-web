@@ -1,6 +1,7 @@
-export class PasswordCredentials {
+export class LoginCredentials {
   username: string;
   password: string;
+  grant_type: string = 'password';
 }
 
 export class AuthToken {

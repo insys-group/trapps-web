@@ -14,7 +14,6 @@ export class LoginGuard implements CanActivate {
 
   checkLogin(url: string): boolean {
     if (this.loginService.isUserLoggedIn()) { return true; }
-    // Navigate to the login page with extras
     this.router.navigate(['/login']);
     return false;
   }

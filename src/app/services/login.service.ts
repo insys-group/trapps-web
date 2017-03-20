@@ -1,9 +1,8 @@
 import { Injectable, OnInit } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
+import {Http, Headers, Response, RequestOptions} from '@angular/http';
 import { RequestMethod } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
-import { AuthToken, PasswordCredentials } from '../models/login.model'
 import { NotificationService } from '../services/notification.service'
 import { environment } from '../../environments/environment';
 import { ErrorResponse } from '../models/rest.model'
@@ -11,6 +10,8 @@ import { Link, Locations } from '../models/rest.model';
 import { UserInfo } from '../models/user.model';
 import { RestService } from '../services/rest.service';
 import {LocalStorageService} from "./localstorage.service";
+import {ConstantService} from "./constant.service";
+import {LoginCredentials, AuthToken} from "../models/login.model";
 
 @Injectable()
 export class LoginService implements OnInit {
@@ -18,27 +19,32 @@ export class LoginService implements OnInit {
   private userLoggedIn: boolean = false;
   private loginFail: boolean = false;
 
-  constructor(private http: Http, private restService: RestService) {
+  constructor(private http: Http, private restService: RestService, private CONSTANTS: ConstantService) {
     this.userLoggedIn = !!localStorage.getItem('auth_token');
   }
 
-  getUserInfo(): Observable<any> {
-    return this.restService.getOne<UserInfo>(Locations.USER_URL)
+  getUserInfo(username: string): Observable<any> {
+    return this.restService.getOne<UserInfo>(Locations.USER_URL+username)
     .do(userInfo => {
       LocalStorageService.set('user_info', userInfo);
     })
   }
 
-  login(credentials: PasswordCredentials): Observable<AuthToken> {
+  login(credentials: LoginCredentials): Observable<AuthToken> {
+
+    let auth = 'Basic ' + window.btoa(this.CONSTANTS.OAUTH_CLIENT_ID + ':' + this.CONSTANTS.OAUTH_SECRET);
+    let authURL = Locations.LOGIN_URL+'?grant_type=password&username='+credentials.username+'&password='+credentials.password;
+
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
+    headers.append('Authorization', auth);
 
     this.loginFail = false;
     return this.http
-      .post(Locations.LOGIN_URL, credentials, { headers: headers })
-      .map(response => response.json() as AuthToken)
+      .post(authURL, {}, { headers: headers })
+      .map(response => response.json())
       .do(authToken => {
-        console.debug('Saving token in localstorage ' + JSON.stringify(authToken));
+        console.debug('Saving token in localstorage ', authToken);
         LocalStorageService.set('auth_token', authToken);
         this.userLoggedIn = true;
       })
@@ -48,6 +54,7 @@ export class LoginService implements OnInit {
         }
         return this.handleError(Locations.LOGIN_URL, error, error.json() as AuthToken);
       });
+
   }
 
   logout(): void {
