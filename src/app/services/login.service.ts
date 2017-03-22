@@ -61,7 +61,7 @@ export class LoginService implements OnInit {
     LocalStorageService.remove('auth_token');
     LocalStorageService.remove('user_info');
     this.userLoggedIn = false;
-    window.location.href="/login";
+    window.location.href="/";
   }
 
   isUserLoggedIn(): boolean {

@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
           userInfo => {
             console.log('Loaded User ', userInfo);
             LocalStorageService.set('user_info', userInfo);
-            window.location.href="/home";
+            window.location.href="/";
           },
           error => this.notificationService.notifyError(error)
         );
