@@ -11,6 +11,7 @@ import {Question} from "../../../models/interview/question.model";
 import {Feedback} from "../../../models/interview/feedback.model";
 import {InterviewTemplate} from "../../../models/interview/interview.template.model";
 import {Answer} from "../../../models/interview/answer.model";
+import {LocalStorageService} from "../../../services/localstorage.service";
 
 @Component({
   selector: 'app-interview',
@@ -19,6 +20,9 @@ import {Answer} from "../../../models/interview/answer.model";
 })
 
 export class InterviewComponent implements OnInit {
+
+  userLoggedIn = LocalStorageService.get('user_info');
+
   submitted = false;
   interview = new Interview();
 
@@ -220,9 +224,8 @@ export class InterviewComponent implements OnInit {
     this.save();
   }
 
-  /*remove when user connected available*/
   getPerson(){
-    this.personService.getPerson(10)
+    this.personService.getPerson(this.userLoggedIn.id)
       .subscribe(
         person => {
           this.person = person;
@@ -231,7 +234,6 @@ export class InterviewComponent implements OnInit {
         error => this.notificationService.notifyError(error)
       );
   }
-  /*remove when user connected available*/
 
   orderFeedbacks() {
     if(this.interview && this.person){

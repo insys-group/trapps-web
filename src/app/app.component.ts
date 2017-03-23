@@ -11,7 +11,8 @@ import {LoginService} from "./services/login.service";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'Hello Angular with CLI';
+
+  title = 'Trapps';
   environment = environment;
   userLoggedIn = LocalStorageService.get('user_info');
 
@@ -19,9 +20,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-    console.log(this.userLoggedIn);
-
+    console.debug(this.userLoggedIn);
   }
 
   logout(): void {

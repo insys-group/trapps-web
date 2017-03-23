@@ -34,8 +34,10 @@ export class InterviewTemplateListComponent implements OnInit {
     this.interviewService.getTemplates()
     .subscribe(
       templates => {
-        this.templates = templates;
-        console.log(this.templates);
+        if(templates[0] && templates[0].id){
+          this.templates = templates;
+          console.log(this.templates);
+        }
       },
       error => this.notificationService.notifyError(error)
     )

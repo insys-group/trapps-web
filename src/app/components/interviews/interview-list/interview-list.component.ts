@@ -33,8 +33,10 @@ export class InterviewListComponent implements OnInit {
     this.interviewService.getInterviews()
     .subscribe(
       interviews => {
-        this.interviews = interviews;
-        console.log(this.interviews);
+        if(interviews[0] && interviews[0].id){
+          this.interviews = interviews;
+          console.log(this.interviews);
+        }
       },
       error => this.notificationService.notifyError(error)
     )
