@@ -19,6 +19,8 @@ import {InterviewTemplateListComponent} from "./components/interviews/interview-
 import {InterviewTemplateComponent} from "./components/interviews/interview-template/interview-template.component";
 import {OpportunityListComponent} from "./components/opportunities/opportunity-list/opportunity-list.component";
 import {OpportunityComponent} from "./components/opportunities/opportunity/opportunity.component";
+import {UserListComponent} from "./components/users/user-list/user-list.component";
+import {UserComponent} from "./components/users/user/user.component";
 
 const appRoutes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: 'home'},
@@ -38,7 +40,9 @@ const appRoutes: Routes = [
     { path: 'trainings', component: TrainingListComponent, canActivate: [LoginGuard]},
     { path: 'trainings/:id', component: TrainingComponent, canActivate: [LoginGuard]},
     { path: 'opportunities', component: OpportunityListComponent, canActivate: [LoginGuard]},
-    { path: 'opportunities/:id', component: OpportunityComponent, canActivate: [LoginGuard]}
+    { path: 'opportunities/:id', component: OpportunityComponent, canActivate: [LoginGuard]},
+    { path: 'users', component: UserListComponent, canActivate: [LoginGuard]},
+    { path: 'users/:id', component: UserComponent, canActivate: [LoginGuard]}
 ];
 
 @NgModule({

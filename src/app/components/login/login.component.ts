@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
 
   credentials: LoginCredentials=new LoginCredentials();
   loginFail: boolean = false;
+  showRegister: boolean = false;
 
   constructor(private loginService: LoginService,
               private notificationService: NotificationService,
@@ -62,6 +63,10 @@ export class LoginComponent implements OnInit {
     this.credentials=new LoginCredentials();
     this.credentials.username='';
     this.credentials.password='';
+  }
+
+  register(){
+
   }
 
 }

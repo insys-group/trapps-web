@@ -7,7 +7,7 @@
         </div>
         <div class="panel-body">
 
-          <form (ngSubmit)="login()" #loginForm="ngForm">
+          <form [hidden]="showRegister" (ngSubmit)="login()" #loginForm="ngForm">
             <img src="../assets/images/insys.jpeg" class="center-block">
             <div class="spacer-md"></div>
             <fieldset>
@@ -34,6 +34,34 @@
                 Login fail, please check credentials.
               </div>
               <button type="submit" class="btn btn-lg btn-primary btn-block" [disabled]="!loginForm.form.valid">Login</button>
+              <!--<p class="text-center"><a class="clickable" (click)="showRegister = true">Register</a></p>-->
+            </fieldset>
+          </form>
+
+          <form *ngIf="showRegister" (ngSubmit)="register()" #registerForm="ngForm">
+            <img src="../assets/images/insys.jpeg" class="center-block">
+            <div class="spacer-md"></div>
+            <fieldset>
+              <div class="form-group">
+                <label>Email</label>
+                <input type="text" class="form-control" id="username" required [(ngModel)]="credentials.username" name="username" #username="ngModel">
+                <div [hidden]="username.valid || username.pristine" class="alert alert-danger">
+                  Email is required
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Password</label>
+                <input type="password" class="form-control" id="password" [(ngModel)]="credentials.password" name="password" #password="ngModel">
+              </div>
+              <div class="form-group">
+                <label>Repeat Password</label>
+                <input type="password" class="form-control" id="repeatPpassword" [(ngModel)]="credentials.repeatPpassword" name="repeatPpassword" #repeatPpassword="ngModel">
+              </div>
+              <div *ngIf="loginFail" class="alert alert-danger">
+                Login fail, please check credentials.
+              </div>
+              <button type="submit" class="btn btn-lg btn-primary btn-block" [disabled]="!registerForm.form.valid">Register</button>
+              <p class="text-center"><a class="clickable" (click)="showRegister = false">Cancel</a></p>
             </fieldset>
           </form>
 

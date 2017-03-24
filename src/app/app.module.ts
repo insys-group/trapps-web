@@ -56,6 +56,9 @@ import {OpportunityService} from "./services/opportunity.service";
 
 import {LoginGuard} from './guards/login.guard';
 import {LocalStorageService} from "./services/localstorage.service";
+import { UserListComponent } from './components/users/user-list/user-list.component';
+import { UserComponent } from './components/users/user/user.component';
+import {UserService} from "./services/user.service";
 
 @NgModule({
   declarations: [
@@ -89,7 +92,9 @@ import {LocalStorageService} from "./services/localstorage.service";
     InterviewTemplateListComponent,
     InterviewTemplateComponent,
     OpportunityComponent,
-    OpportunityListComponent
+    OpportunityListComponent,
+    UserListComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
@@ -115,7 +120,8 @@ import {LocalStorageService} from "./services/localstorage.service";
     RoleService,
     TrainingService,
     OpportunityService,
-    LocalStorageService
+    LocalStorageService,
+    UserService
   ],
   entryComponents: [NotificationDialogComponent, ErrorDialogComponent],
   bootstrap: [AppComponent]

@@ -15,7 +15,9 @@ export const Locations = {
   INTERVIEW_DETAILS_URL: environment.API_URL + 'interview/',
   FEEDBACK_URL: environment.API_URL + 'feedback/',
   INTERVIEW_TEMPLATE_URL: environment.API_URL + 'interviewTemplates/',
-  OPPORTUNITY_URL: environment.API_URL + 'opportunities/'
+  OPPORTUNITY_URL: environment.API_URL + 'opportunities/',
+  USERS_URL: environment.API_URL + 'users/',
+  NEW_USER_URL: environment.API_URL + 'newUser/',
 }
 
 export class RestResource {
