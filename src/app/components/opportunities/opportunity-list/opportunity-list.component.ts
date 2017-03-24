@@ -33,8 +33,10 @@ export class OpportunityListComponent implements OnInit {
     this.opportunityService.getOpportunities()
       .subscribe(
         opportunities => {
-          this.opportunities = opportunities;
-          console.log(this.opportunities);
+          if(opportunities[0] && opportunities[0].id){
+            this.opportunities = opportunities;
+            console.log(this.opportunities);
+          }
         },
         error => this.notificationService.notifyError(error)
       )
