@@ -2,3 +2,4 @@ applications:
 - name: trapps
   instances: 2
   buildpack: https://github.com/cloudfoundry/staticfile-buildpack.git
+  health-check-type: process
