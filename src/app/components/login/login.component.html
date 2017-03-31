@@ -30,9 +30,6 @@
                   <input type="password" class="form-control" id="password" [(ngModel)]="credentials.password" name="password" #password="ngModel">
                 </div>
               </div>
-              <div *ngIf="loginFail" class="alert alert-danger">
-                Login fail, please check credentials.
-              </div>
               <button type="submit" class="btn btn-lg btn-primary btn-block" [disabled]="!loginForm.form.valid">Login</button>
               <!--<p class="text-center"><a class="clickable" (click)="showRegister = true">Register</a></p>-->
             </fieldset>
@@ -56,9 +53,6 @@
               <div class="form-group">
                 <label>Repeat Password</label>
                 <input type="password" class="form-control" id="repeatPpassword" [(ngModel)]="credentials.repeatPpassword" name="repeatPpassword" #repeatPpassword="ngModel">
-              </div>
-              <div *ngIf="loginFail" class="alert alert-danger">
-                Login fail, please check credentials.
               </div>
               <button type="submit" class="btn btn-lg btn-primary btn-block" [disabled]="!registerForm.form.valid">Register</button>
               <p class="text-center"><a class="clickable" (click)="showRegister = false">Cancel</a></p>

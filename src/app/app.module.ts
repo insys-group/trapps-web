@@ -59,6 +59,10 @@ import {LocalStorageService} from "./services/localstorage.service";
 import { UserListComponent } from './components/users/user-list/user-list.component';
 import { UserComponent } from './components/users/user/user.component';
 import {UserService} from "./services/user.service";
+import {LoadingService} from "./services/loading.service";
+import {AlertService} from "./services/alert.service";
+
+import { NglModule } from 'ng-lightning/ng-lightning';
 
 @NgModule({
   declarations: [
@@ -105,7 +109,8 @@ import {UserService} from "./services/user.service";
     ResourceModule.forRoot(),
     AppRoutingModule,
     FroalaEditorModule.forRoot(),
-    FroalaViewModule.forRoot()
+    FroalaViewModule.forRoot(),
+    NglModule.forRoot()
   ],
   //AddressService
   providers: [
@@ -121,7 +126,9 @@ import {UserService} from "./services/user.service";
     TrainingService,
     OpportunityService,
     LocalStorageService,
-    UserService
+    UserService,
+    LoadingService,
+    AlertService
   ],
   entryComponents: [NotificationDialogComponent, ErrorDialogComponent],
   bootstrap: [AppComponent]

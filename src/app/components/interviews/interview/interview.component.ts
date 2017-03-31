@@ -12,6 +12,7 @@ import {Feedback} from "../../../models/interview/feedback.model";
 import {InterviewTemplate} from "../../../models/interview/interview.template.model";
 import {Answer} from "../../../models/interview/answer.model";
 import {LocalStorageService} from "../../../services/localstorage.service";
+import {LoadingService} from "../../../services/loading.service";
 
 @Component({
   selector: 'app-interview',
@@ -57,7 +58,8 @@ export class InterviewComponent implements OnInit {
 
   constructor(private interviewService: InterviewService, private router: Router, private route: ActivatedRoute,
               private notificationService: NotificationService, private roleService: RoleService,
-              private personService: PersonService) {
+              private personService: PersonService,
+              private loadingService: LoadingService) {
     this.route.params.subscribe(params => {
       this.interviewId = +params['id'];
     });
@@ -72,53 +74,74 @@ export class InterviewComponent implements OnInit {
   }
 
   save(): void {
+    this.loadingService.show();
     this.interviewService.save(this.interview)
       .subscribe(
         interview => {
+          this.notificationService.success('Interview saved.');
+          this.loadingService.hide();
           this.router.navigate(['/interviews', interview.id]);
           this.interviewId = + interview.id;
           this.getInterview();
         },
-        error => this.notificationService.notifyError(error)
+        error => {
+          this.loadingService.hide();
+          this.notificationService.notifyError(error)
+        }
       )
   }
 
   getInterview() {
     if(this.interviewId){
+      this.loadingService.show();
       this.interviewService.getInterview(this.interviewId)
         .subscribe(
           interview => {
 
+            this.loadingService.hide();
             this.interview = interview;
             this.autopopulateRole();
             this.autopopulateCandidate();
             this.orderFeedbacks();
 
           },
-          error => this.notificationService.notifyError(error)
+          error => {
+            this.loadingService.hide();
+            this.notificationService.notifyError(error)
+          }
         );
     }
   }
 
   getRoles() {
+    this.loadingService.show();
     this.roleService.getAll()
       .subscribe(
         roles => {
+          this.loadingService.hide();
           this.roles = roles;
           this.autopopulateRole();
         },
-        error => this.notificationService.notifyError(error)
+        error => {
+          this.loadingService.hide();
+          this.notificationService.notifyError(error)
+        }
       )
   }
 
   getPersons() {
+    this.loadingService.show();
     this.personService.getPersons()
       .subscribe(
         persons => {
+          this.loadingService.hide();
           this.persons = persons;
           this.autopopulateCandidate();
         },
-        error => this.notificationService.notifyError(error)
+        error => {
+          this.loadingService.hide();
+          this.notificationService.notifyError(error)
+        }
       )
   }
 
@@ -167,30 +190,42 @@ export class InterviewComponent implements OnInit {
   }
 
   updateFeedback() {
+    this.loadingService.show();
     this.interviewService.updateFeedback(this.myFeedback)
       .subscribe(
         response => {
+          this.loadingService.hide();
           this.getInterview();
         },
-        error => this.notificationService.notifyError(error)
+        error => {
+          this.loadingService.hide();
+          this.notificationService.notifyError(error)
+        }
       )
   }
 
   getTemplates() {
+    this.loadingService.show();
     this.interviewService.getTemplates()
       .subscribe(
         templates => {
+          this.loadingService.hide();
           this.templates = templates;
         },
-        error => this.notificationService.notifyError(error)
+        error => {
+          this.loadingService.hide();
+          this.notificationService.notifyError(error)
+        }
       )
   }
 
   getTemplate() {
+    this.loadingService.show();
     this.interviewService.getTemplate(this.selectedTemplate.id)
       .subscribe(
         template => {
 
+          this.loadingService.hide();
           this.questions = template.questions;
           this.questions.forEach(question => {
             question.selected = true;
@@ -198,7 +233,10 @@ export class InterviewComponent implements OnInit {
           )
 
         },
-        error => this.notificationService.notifyError(error)
+        error => {
+          this.loadingService.hide();
+          this.notificationService.notifyError(error)
+        }
       );
   }
 
@@ -225,13 +263,18 @@ export class InterviewComponent implements OnInit {
   }
 
   getPerson(){
+    this.loadingService.show();
     this.personService.getPerson(this.userLoggedIn.id)
       .subscribe(
         person => {
+          this.loadingService.hide();
           this.person = person;
           this.orderFeedbacks();
         },
-        error => this.notificationService.notifyError(error)
+        error => {
+          this.loadingService.hide();
+          this.notificationService.notifyError(error)
+        }
       );
   }
 

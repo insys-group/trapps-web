@@ -49,7 +49,7 @@ export class LoginService implements OnInit {
         this.userLoggedIn = true;
       })
       .catch(error => {
-        if(error.status == 401){
+        if(error.status == 400){
           this.loginFail = true;
         }
         return this.handleError(Locations.LOGIN_URL, error, error.json() as AuthToken);

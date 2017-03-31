@@ -6,6 +6,7 @@ import { RestService } from '../../services/rest.service'
 import { NotificationService } from '../../services/notification.service'
 import {LocalStorageService} from "../../services/localstorage.service";
 import {Router} from "@angular/router";
+import {LoadingService} from "../../services/loading.service";
 
 @Component({
   selector: 'app-login',
@@ -14,13 +15,14 @@ import {Router} from "@angular/router";
 })
 export class LoginComponent implements OnInit {
 
+  loading: boolean = false;
   credentials: LoginCredentials=new LoginCredentials();
-  loginFail: boolean = false;
   showRegister: boolean = false;
 
   constructor(private loginService: LoginService,
               private notificationService: NotificationService,
-              private router: Router) {
+              private router: Router,
+              private loadingService: LoadingService) {
   }
 
   ngOnInit() {
@@ -28,13 +30,15 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
-    this.loginFail = false;
+    this.loadingService.show();
     this.loginService.login(this.credentials)
     .subscribe(
       result => {
 
+        this.loadingService.hide();
+
         if(this.loginService.isLoginFail()){
-          this.loginFail = true;
+          this.notificationService.error('Login fail, please check credentials.');
         }
 
         this.loginService.getUserInfo(this.credentials.username)
@@ -49,9 +53,10 @@ export class LoginComponent implements OnInit {
 
       },
       error => {
+        this.loadingService.hide();
         console.log('loginService error');
         if(this.loginService.isLoginFail()){
-          this.loginFail = true;
+          this.notificationService.error('Login fail, please check credentials.');
         } else {
           this.notificationService.notifyError(error)
         }

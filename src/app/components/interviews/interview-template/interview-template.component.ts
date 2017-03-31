@@ -10,6 +10,7 @@ import {PersonType, Person} from "../../../models/person.model";
 import {Question} from "../../../models/interview/question.model";
 import {Feedback} from "../../../models/interview/feedback.model";
 import {InterviewTemplate} from "../../../models/interview/interview.template.model";
+import {LoadingService} from "../../../services/loading.service";
 
 @Component({
   selector: 'app-interview-template',
@@ -42,7 +43,8 @@ export class InterviewTemplateComponent implements OnInit {
 
   constructor(private interviewService: InterviewService, private router: Router, private route: ActivatedRoute,
               private notificationService: NotificationService, private roleService: RoleService,
-              private personService: PersonService) {
+              private personService: PersonService,
+              private loadingService: LoadingService) {
     this.route.params.subscribe(params => {
       this.templateId = +params['id'];
     });
@@ -55,42 +57,58 @@ export class InterviewTemplateComponent implements OnInit {
 
   save(): void {
     // console.log(this.template);
+    this.loadingService.show();
     this.interviewService.saveTemplate(this.template)
       .subscribe(
         template => {
+          this.notificationService.success('Template saved.');
+          this.loadingService.hide();
           this.router.navigate(['/interview-templates', template.id]);
           this.templateId = + template.id;
           this.getTemplate();
         },
-        error => this.notificationService.notifyError(error)
+        error => {
+          this.loadingService.hide();
+          this.notificationService.notifyError(error)
+        }
       )
   }
 
   getTemplate() {
     if(this.templateId){
+      this.loadingService.show();
       this.interviewService.getTemplate(this.templateId)
         .subscribe(
           template => {
 
+            this.loadingService.hide();
             this.template = template;
             console.log(this.template);
             this.autopopulateRole();
 
           },
-          error => this.notificationService.notifyError(error)
+          error => {
+            this.loadingService.hide();
+            this.notificationService.notifyError(error)
+          }
         );
     }
   }
 
   getRoles() {
+    this.loadingService.show();
     this.roleService.getAll()
       .subscribe(
         roles => {
+          this.loadingService.hide();
           this.roles = roles;
           // console.log(this.roles);
           this.autopopulateRole();
         },
-        error => this.notificationService.notifyError(error)
+        error => {
+          this.loadingService.hide();
+          this.notificationService.notifyError(error)
+        }
       )
   }
 

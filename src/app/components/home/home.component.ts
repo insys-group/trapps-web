@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {LocalStorageService} from "../../services/localstorage.service";
+import {NotificationService} from "../../services/notification.service";
 
 @Component({
   selector: 'app-home',
@@ -10,7 +11,7 @@ export class HomeComponent implements OnInit {
 
   userLoggedIn = LocalStorageService.get('user_info');
 
-  constructor() { }
+  constructor(private notificationService: NotificationService) { }
 
   ngOnInit() {
   }
