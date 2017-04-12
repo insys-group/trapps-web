@@ -179,7 +179,7 @@
           <div class="panel-body">
 
             <div class="form-group">
-              <div [froalaEditor] [(froalaModel)]="myFeedback.comment"></div>
+              <textarea class="form-control" [(ngModel)]="myFeedback.comment" placeholder="Provide Feedback"></textarea>
             </div>
 
             <button type="button" class="btn btn-primary pull-right" (click)="addFeedback()">

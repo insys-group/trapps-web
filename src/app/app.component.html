@@ -1,10 +1,4 @@
-<span class="slds-notify_container">
-  <ngl-notification *ngIf="objAlert.show" type="alert" severity="{{objAlert.type}}"
-       (nglNotificationClose)="onCloseAlert($event)" timeout="5000"
-       class="slds-theme--alert-texture">
-    <p class="notification">{{objAlert.message}}</p>
-  </ngl-notification>
-</span>
+<simple-notifications [options]="alertOptions"></simple-notifications>
 
 <div id="wrapper" *ngIf="userLoggedIn">
 

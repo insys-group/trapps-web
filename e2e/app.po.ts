@@ -1,6 +1,6 @@
 import { browser, element, by } from 'protractor';
 
-export class TrappsWebPage {
+export class ExamplePage {
   navigateTo() {
     return browser.get('/');
   }

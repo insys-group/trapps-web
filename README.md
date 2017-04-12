@@ -7,17 +7,13 @@ Angular cli has been added to the application.
 brew install npm
 
 ## Install angular cli 
-npm install -g angular-cli
+sudo npm install -g @angular/cli
 
 ## Install all dependencies
 npm install  
 
-## Install bootstrap
-npm install bootstrap@next
-
 ## Run application
 ng serve --env=local --host 0.0.0.0 --port 4201 --live-reload-port 49153
-
 
 This application will have following hierarchy for models, components and services.
 
@@ -58,9 +54,6 @@ Add a route entry in the routes array in the file /app/app-routing.module.ts.
 
 ## Using notifications
 Import and Inject NotificationService in your components constructor. There are three methods in the service, ask(), info() and error(). Please use appropriate method. PersonListCompnent and PersonComponent has the example usage.
-
-## Using Inmemory Db service
-Add your records into TrappsInMemoryDbService and they will become available as the endpoint.
 
 ## Build and push application
 ### Build Development  

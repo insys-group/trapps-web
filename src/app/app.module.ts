@@ -47,7 +47,6 @@ import {TrainingListComponent} from './components/trainings/training-list/traini
 import {TrainingComponent} from './components/trainings/training/training.component';
 import {PersonTrainingsComponent} from './components/persons/person-trainings/person-trainings.component';
 
-import {FroalaEditorModule, FroalaViewModule} from 'angular2-froala-wysiwyg';
 import {InterviewTemplateListComponent} from "./components/interviews/interview-template-list/interview-template-list.component";
 import {InterviewTemplateComponent} from "./components/interviews/interview-template/interview-template.component";
 import {OpportunityComponent} from "./components/opportunities/opportunity/opportunity.component";
@@ -62,7 +61,7 @@ import {UserService} from "./services/user.service";
 import {LoadingService} from "./services/loading.service";
 import {AlertService} from "./services/alert.service";
 
-import { NglModule } from 'ng-lightning/ng-lightning';
+import { SimpleNotificationsModule } from 'angular2-notifications';
 
 @NgModule({
   declarations: [
@@ -108,9 +107,7 @@ import { NglModule } from 'ng-lightning/ng-lightning';
     //InMemoryWebApiModule.forRoot(TrappsInMemoryDbService),
     ResourceModule.forRoot(),
     AppRoutingModule,
-    FroalaEditorModule.forRoot(),
-    FroalaViewModule.forRoot(),
-    NglModule.forRoot()
+    SimpleNotificationsModule.forRoot()
   ],
   //AddressService
   providers: [

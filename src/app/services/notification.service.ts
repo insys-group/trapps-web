@@ -5,11 +5,15 @@ import { ErrorDialogComponent } from '../components/dialogs/error-dialog/error-d
 import { Observable } from 'rxjs/Observable';
 import { ErrorResponse } from '../models/rest.model'
 import {AlertService} from "./alert.service";
+import {NotificationsService} from "angular2-notifications/dist";
 
 @Injectable()
 export class NotificationService {
 
-    constructor(private modalService: NgbModal, private alertService: AlertService) {}
+    constructor(
+      private modalService: NgbModal,
+      private alertService: AlertService,
+      private notificationsService: NotificationsService) {}
 
     ask(message: string, buttons: Array<string>): Observable<any> {
         return Observable.create(observer => {
@@ -31,14 +35,17 @@ export class NotificationService {
 
     info(message: string): void {
         this.alertService.showAlert(true, message, 'info');
+        this.notificationsService.info('Info', message);
     }
 
     success(message: string): void {
         this.alertService.showAlert(true, message, 'success');
+        this.notificationsService.success('Success', message);
     }
 
     error(message: string): void {
         this.alertService.showAlert(true, message, 'error');
+        this.notificationsService.error('Error', message);
     }
     
     notifyError(error: any): void {

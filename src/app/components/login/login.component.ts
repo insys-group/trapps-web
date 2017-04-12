@@ -7,6 +7,7 @@ import { NotificationService } from '../../services/notification.service'
 import {LocalStorageService} from "../../services/localstorage.service";
 import {Router} from "@angular/router";
 import {LoadingService} from "../../services/loading.service";
+import {NotificationsService} from "angular2-notifications/dist";
 
 @Component({
   selector: 'app-login',

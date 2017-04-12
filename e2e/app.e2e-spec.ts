@@ -1,10 +1,10 @@
-import { TrappsWebPage } from './app.po';
+import { ExamplePage } from './app.po';
 
-describe('trapps-web App', function() {
-  let page: TrappsWebPage;
+describe('example App', () => {
+  let page: ExamplePage;
 
   beforeEach(() => {
-    page = new TrappsWebPage();
+    page = new ExamplePage();
   });
 
   it('should display message saying app works', () => {

@@ -26,6 +26,12 @@ export class AppComponent implements OnInit {
               private alertService: AlertService) {
   }
 
+  public alertOptions = {
+    position: ["bottom", "right"],
+    timeOut: 5000,
+    lastOnBottom: false,
+  };
+
   ngOnInit(): void {
     console.debug(this.userLoggedIn);
     this.alertService.alertStatus.subscribe((val: AlertMessage) => {
