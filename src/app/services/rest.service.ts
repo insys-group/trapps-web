@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 import { AuthToken } from '../models/login.model'
 import { Link, RestQuery, RestResource, RestPageResource, UploadProgress, ErrorResponse } from '../models/rest.model'
-import {LocalStorageService} from "./localstorage.service";
+import {LocalStorageService} from "./local.storage.service";
 
 @Injectable()
 export class RestService implements OnInit {

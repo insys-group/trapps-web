@@ -11,7 +11,7 @@ import {Question} from "../../../models/interview/question.model";
 import {Feedback} from "../../../models/interview/feedback.model";
 import {InterviewTemplate} from "../../../models/interview/interview.template.model";
 import {Answer} from "../../../models/interview/answer.model";
-import {LocalStorageService} from "../../../services/localstorage.service";
+import {LocalStorageService} from "../../../services/local.storage.service";
 import {LoadingService} from "../../../services/loading.service";
 
 @Component({

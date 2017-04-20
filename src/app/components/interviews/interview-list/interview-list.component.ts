@@ -35,19 +35,18 @@ export class InterviewListComponent implements OnInit {
   getInterviews() {
     this.loadingService.show();
     this.interviewService.getInterviews()
-    .subscribe(
-      interviews => {
-        this.loadingService.hide();
-        if(interviews[0] && interviews[0].id){
-          this.interviews = interviews;
-          console.log(this.interviews);
+      .subscribe(
+        interviews => {
+          this.loadingService.hide();
+          if(interviews[0] && interviews[0].id){
+            this.interviews = interviews;
+          }
+        },
+        error => {
+          this.loadingService.hide();
+          this.notificationService.notifyError(error)
         }
-      },
-      error => {
-        this.loadingService.hide();
-        this.notificationService.notifyError(error)
-      }
-    )
+      )
   }
 
   removeInterview(interview: Interview) {

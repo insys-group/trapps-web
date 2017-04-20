@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthToken, LoginCredentials } from '../../models/login.model'
-import { Locations } from '../../models/rest.model'
-import { LoginService } from '../../services/login.service'
-import { RestService } from '../../services/rest.service'
+import { AuthService } from '../../services/auth.service'
 import { NotificationService } from '../../services/notification.service'
-import {LocalStorageService} from "../../services/localstorage.service";
+import {LocalStorageService} from "../../services/local.storage.service";
 import {Router} from "@angular/router";
 import {LoadingService} from "../../services/loading.service";
-import {NotificationsService} from "angular2-notifications/dist";
+import {UserService} from "../../services/user.service";
 
 @Component({
   selector: 'app-login',
@@ -20,7 +18,8 @@ export class LoginComponent implements OnInit {
   credentials: LoginCredentials=new LoginCredentials();
   showRegister: boolean = false;
 
-  constructor(private loginService: LoginService,
+  constructor(private authService: AuthService,
+              private userService: UserService,
               private notificationService: NotificationService,
               private router: Router,
               private loadingService: LoadingService) {
@@ -32,17 +31,17 @@ export class LoginComponent implements OnInit {
 
   login(): void {
     this.loadingService.show();
-    this.loginService.login(this.credentials)
+    this.authService.login(this.credentials)
     .subscribe(
       result => {
 
         this.loadingService.hide();
 
-        if(this.loginService.isLoginFail()){
+        if(this.authService.isLoginFail()){
           this.notificationService.error('Login fail, please check credentials.');
         }
 
-        this.loginService.getUserInfo(this.credentials.username)
+        this.userService.getUserInfo(this.credentials.username)
         .subscribe(
           userInfo => {
             console.log('Loaded User ', userInfo);
@@ -55,8 +54,8 @@ export class LoginComponent implements OnInit {
       },
       error => {
         this.loadingService.hide();
-        console.log('loginService error');
-        if(this.loginService.isLoginFail()){
+        console.log('authService error');
+        if(this.authService.isLoginFail()){
           this.notificationService.error('Login fail, please check credentials.');
         } else {
           this.notificationService.notifyError(error)

@@ -5,7 +5,8 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import {Locations} from "../models/rest.model";
 import {RestService} from "./rest.service";
-import {User} from "../models/user.model";
+import {User, UserInfo} from "../models/user.model";
+import {LocalStorageService} from "./local.storage.service";
 
 @Injectable()
 export class UserService {
@@ -31,6 +32,13 @@ export class UserService {
 
   remove(user : User){
     return this.restService.delete(user);
+  }
+
+  getUserInfo(username: string): Observable<any> {
+    return this.restService.getOne<UserInfo>(Locations.USER_URL+username)
+      .do(userInfo => {
+        LocalStorageService.set('user_info', userInfo);
+      })
   }
 
 }

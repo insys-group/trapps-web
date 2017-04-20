@@ -13,7 +13,7 @@ sudo npm install -g @angular/cli
 npm install  
 
 ## Run application
-ng serve --env=local --host 0.0.0.0 --port 4201 --live-reload-port 49153
+ng serve --env=local --host localhost --port 4201 --live-reload-port 49153
 
 This application will have following hierarchy for models, components and services.
 

@@ -7,6 +7,6 @@ export const environment = {
   production: false,
   name: 'dev',
   version: '0.0.1',
-  ROOT_URL: 'https://trapps-api.cfapps.io/',
-  API_URL: 'https://trapps-api.cfapps.io/api/v1/'
+  API_URL: '/api/v1/',
+  OAUTH_URL: '/oauth/token'
 };

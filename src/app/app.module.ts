@@ -1,7 +1,7 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
-import {HttpModule} from '@angular/http';
+import {XHRBackend, RequestOptions, HttpModule, Http} from '@angular/http';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {ResourceModule} from 'ng2-resource-rest';
 
@@ -20,7 +20,7 @@ import {NotificationService} from './services/notification.service';
 import {PersonService} from './services/person.service';
 import {RestService} from './services/rest.service';
 
-import {LoginService} from './services/login.service';
+import {AuthService} from './services/auth.service';
 import {TrainingService} from './services/training.service';
 
 import {AddressComponent} from './components/addresses/address/address.component';
@@ -54,14 +54,14 @@ import {OpportunityListComponent} from "./components/opportunities/opportunity-l
 import {OpportunityService} from "./services/opportunity.service";
 
 import {LoginGuard} from './guards/login.guard';
-import {LocalStorageService} from "./services/localstorage.service";
-import { UserListComponent } from './components/users/user-list/user-list.component';
-import { UserComponent } from './components/users/user/user.component';
+import {LocalStorageService} from "./services/local.storage.service";
+import {UserListComponent} from './components/users/user-list/user-list.component';
+import {UserComponent} from './components/users/user/user.component';
 import {UserService} from "./services/user.service";
 import {LoadingService} from "./services/loading.service";
 import {AlertService} from "./services/alert.service";
 
-import { SimpleNotificationsModule } from 'angular2-notifications';
+import {SimpleNotificationsModule} from 'angular2-notifications';
 
 @NgModule({
   declarations: [
@@ -111,7 +111,7 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
   ],
   //AddressService
   providers: [
-    LoginService,
+    AuthService,
     LoginGuard,
     ConstantService,
     PersonService,

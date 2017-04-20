@@ -2,13 +2,13 @@ import { Response } from '@angular/http';
 import { environment } from '../../environments/environment';
 
 export const Locations = {
+  OAUTH_URL: environment.OAUTH_URL,
   PERSON_URL: environment.API_URL + 'persons/',
   PERSON_UPDATE_URL: environment.API_URL + 'persons/put/',
   PERSON_DOCUMENT_URL: environment.API_URL + 'persondocuments/',
   BUSINESS_URL: environment.API_URL + 'businesses/',
   STATE_URL: environment.API_URL + 'states/',
-  LOGIN_URL: environment.ROOT_URL + 'oauth/token',
-  USER_URL: environment.ROOT_URL + 'user/',
+  USER_URL: environment.API_URL + 'user/',
   INTERVIEW_URL: environment.API_URL + 'interviews/',
   ROLE_URL: environment.API_URL + 'roles/',
   TRAINING_URL: environment.API_URL + 'trainings/',
@@ -18,7 +18,7 @@ export const Locations = {
   OPPORTUNITY_URL: environment.API_URL + 'opportunities/',
   USERS_URL: environment.API_URL + 'users/',
   NEW_USER_URL: environment.API_URL + 'newUser/',
-}
+};
 
 export class RestResource {
   links?: Array<Link>;
