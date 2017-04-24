@@ -1,10 +1,10 @@
-import { Injectable, OnInit } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
-import { RequestMethod } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
-import { Observer } from 'rxjs/Observer';
-import { AuthToken } from '../models/login.model'
-import { Link, RestQuery, RestResource, RestPageResource, UploadProgress, ErrorResponse } from '../models/rest.model'
+import {Injectable, OnInit} from '@angular/core';
+import {Http, Headers, Response} from '@angular/http';
+import {RequestMethod} from '@angular/http';
+import {Observable} from 'rxjs/Observable';
+import {Observer} from 'rxjs/Observer';
+import {AuthToken} from '../models/login.model'
+import {Link, RestQuery, RestResource, RestPageResource, UploadProgress, ErrorResponse} from '../models/rest.model'
 import {LocalStorageService} from "./local.storage.service";
 
 @Injectable()
@@ -15,7 +15,8 @@ export class RestService implements OnInit {
   constructor(private http: Http) {
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+  }
 
   //TODO
   getAllPerPage<T>(url: string, query: RestQuery): Observable<RestPageResource<T>> {
@@ -27,14 +28,14 @@ export class RestService implements OnInit {
 
   getAll<T>(url: string): Observable<Array<T>> {
     console.log(`Loading resource(s) ${url}`);
-    return this.http.get(url, { headers: this.getHeaders() })
+    return this.http.get(url, {headers: this.getHeaders()})
       .map(response => response.json().content as Array<T>)
       .catch(error => this.handleError(url, error));
   }
 
   getOne<T>(url: string): Observable<T> {
     console.log(`getOne() - Loading resource(s) ${url}`);
-    return this.http.get(url, { headers: this.getHeaders() })
+    return this.http.get(url, {headers: this.getHeaders()})
       .map(response => response.json() as T)
       .catch(error => this.handleError(url, error));
   }
@@ -42,20 +43,36 @@ export class RestService implements OnInit {
   create<T>(url: string, resource: T): Observable<T> {
     console.log(`Loading resource(s) ${url}`);
     return this.http
-      .post(url, resource, { headers: this.getHeaders() })
+      .post(url, resource, {headers: this.getHeaders()})
+      .map(response => response.json() as T)
+      .catch(error => this.handleError(url, error));
+  }
+
+  post<T>(url: string, resource: any): Observable<T> {
+    console.log(`Loading resource(s) ${url}`);
+    return this.http
+      .post(url, resource, {headers: this.getHeaders()})
+      .map(response => response.json() as T)
+      .catch(error => this.handleError(url, error));
+  }
+
+  insecurePost<T>(url: string, resource: any): Observable<T> {
+    console.log(`Loading resource(s) ${url}`);
+    return this.http
+      .post(url, resource)
       .map(response => response.json() as T)
       .catch(error => this.handleError(url, error));
   }
 
   update<T extends RestResource>(resource: T): Observable<T> {
-    let link=this.getLink('self', resource.links);
-    if(!link) {
+    let link = this.getLink('self', resource.links);
+    if (!link) {
       return Observable.throw(`resurce does not have 'self' link. Cannot update.`);
     }
-    let url=link.href;
+    let url = link.href;
     console.log(`Updating resource at ${url}`);
     return this.http
-      .put(url, resource, { headers: this.getHeaders() })
+      .put(url, resource, {headers: this.getHeaders()})
       .map(response => response.json() as T)
       .catch(error => this.handleError(url, error));
   }
@@ -63,19 +80,19 @@ export class RestService implements OnInit {
   put<T extends RestResource>(url: string, resource: T): Observable<void> {
     console.log(`Updating resource at ${url}`);
     return this.http
-      .put(url, resource, { headers: this.getHeaders() })
+      .put(url, resource, {headers: this.getHeaders()})
       .catch(error => this.handleError(url, error));
   }
 
   delete<T extends RestResource>(resource: T): Observable<void> {
-    let link=this.getLink('self', resource.links);
-    if(!link) {
+    let link = this.getLink('self', resource.links);
+    if (!link) {
       return Observable.throw(`resurce does not have 'self' link. Cannot update.`);
     }
     let url = link.href;
     console.log(`Deleting resource at ${url}`);
     return this.http
-      .delete(url, { headers: this.getHeaders() })
+      .delete(url, {headers: this.getHeaders()})
       .catch(error => this.handleError(url, error));
   }
 
@@ -111,19 +128,19 @@ export class RestService implements OnInit {
 
       xhr.upload.addEventListener("loadstart", (event: Event) => {
         console.log('loadstart ********** called')
-        let uploadProgress=new UploadProgress();
-        uploadProgress.currentValue=0;
-        uploadProgress.maxValue=100;
-        uploadProgress.percentUploaded=0;
+        let uploadProgress = new UploadProgress();
+        uploadProgress.currentValue = 0;
+        uploadProgress.maxValue = 100;
+        uploadProgress.percentUploaded = 0;
         observer.next(uploadProgress);
       }, false);
       xhr.upload.addEventListener("progress", (event: ProgressEvent) => {
         console.log('progress ********** called');
         if (event.lengthComputable) {
-          let uploadProgress=new UploadProgress();
-          uploadProgress.currentValue=event.loaded;
-          uploadProgress.maxValue=event.total;
-          uploadProgress.percentUploaded=Math.round(event.loaded / event.total * 100);
+          let uploadProgress = new UploadProgress();
+          uploadProgress.currentValue = event.loaded;
+          uploadProgress.maxValue = event.total;
+          uploadProgress.percentUploaded = Math.round(event.loaded / event.total * 100);
           observer.next(uploadProgress);
         }
       }, false);
@@ -153,21 +170,21 @@ export class RestService implements OnInit {
   deleteFile<T>(url: string): Observable<T> {
     console.log(`Deleting file at ${url}`);
     return this.http
-      .delete(url, { headers: this.getHeaders() })
+      .delete(url, {headers: this.getHeaders()})
       .map(response => response.json() as T)
       .catch(error => this.handleError(url, error));
   }
 
   getLink(rel: string, links: Array<Link>): Link {
-    return links.find(link => link.rel===rel);
+    return links.find(link => link.rel === rel);
   }
 
   private handleError(url: string, error: Response): Observable<any> {
     let errorResponse: ErrorResponse;
-    if(error.status===0) {
-      errorResponse=new ErrorResponse(url, 'Application services not available right now. Please try again later.', error);
+    if (error.status === 0) {
+      errorResponse = new ErrorResponse(url, 'Application services not available right now. Please try again later.', error);
     } else {
-      errorResponse=new ErrorResponse(url, `Error occured while communicating with services: ${error.json().error}`, error);
+      errorResponse = new ErrorResponse(url, `Error occured while communicating with services: ${error.json().error}`, error);
     }
     console.error('RestService.handleError() -> ', JSON.stringify(errorResponse));
     return Observable.throw(errorResponse);
@@ -180,15 +197,15 @@ export class RestService implements OnInit {
     return headers;
   }
 
-  private getAuthHeaderValue():string {
-    let token:AuthToken=LocalStorageService.get('auth_token');;
-    if(token != null) {
+  private getAuthHeaderValue(): string {
+    let token: AuthToken = LocalStorageService.get('auth_token');
+    if (token != null) {
       return `${token.token_type} ${token.access_token}`;
     } else {
-      return '';
+      token = LocalStorageService.get('temp_token');
+      return `${token.token_type} ${token.access_token}`;
     }
   }
-
 
 
 }

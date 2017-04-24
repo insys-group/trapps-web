@@ -20,7 +20,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let user of users; let i = index">
+      <tr *ngFor="let person of persons; let i = index">
         <td>{{i+1}}</td>
         <td>{{user.username}}</td>
         <td class="text-center"><i class="fa icon-btn-md" [ngClass]="user.enabled ? 'fa-check' : 'fa-times'"></i></td>

@@ -17,7 +17,9 @@
         <th>No</th>
         <th>Name</th>
         <th>Date</th>
+        <th>Status</th>
         <th>Details</th>
+        <th>Progress</th>
         <th>Remove</th>
       </tr>
       </thead>
@@ -26,7 +28,9 @@
         <td>{{i+1}}</td>
         <td>{{interview.name}}</td>
         <td>{{interview.date | date: 'MM/dd/yyyy'}}</td>
+        <td>{{interview.status | filterInterviewStatus}}</td>
         <td class="text-center"><i class="fa fa-search-plus icon-btn-md" (click)="onSelect(interview)"></i></td>
+        <td class="text-center"><i class="fa fa-play-circle icon-btn-md" (click)="perform(interview)"></i></td>
         <td class="text-center"><i class="fa fa-times icon-btn-md" (click)="removeInterview(interview)"></i></td>
       </tr>
       </tbody>

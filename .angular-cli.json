@@ -22,6 +22,7 @@
         "styles.css",
         "../node_modules/bootstrap/dist/css/bootstrap.css",
         "../node_modules/bootstrap/dist/css/bootstrap-theme.css",
+        "../node_modules/sweetalert2/dist/sweetalert2.css",
         "app/vendor/metisMenu/metisMenu.min.css",
         "app/vendor/font-awesome/css/font-awesome.min.css"
       ],
@@ -29,6 +30,7 @@
         "../node_modules/jquery/dist/jquery.js",
         "../node_modules/tether/dist/js/tether.js",
         "../node_modules/bootstrap/dist/js/bootstrap.js",
+        "../node_modules/sweetalert2/dist/sweetalert2.js",
         "app/vendor/metisMenu/metisMenu.min.js",
         "app/vendor/layout.js"
       ],

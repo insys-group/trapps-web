@@ -1,25 +1,31 @@
 <div class="row">
   <div class="col-lg-12">
-    <h1 class="page-header"><i class="fa fa-male fa-fw"></i> {{person.firstName}} {{person.lastName}}</h1>
+    <h1 class="page-header">
+      <i class="fa fa-male fa-fw"></i>
+      <span [hidden]="person.firstName">New User</span>
+      <span *ngIf="person.firstName">{{person.firstName}} {{person.lastName}}</span>
+    </h1>
   </div>
 </div>
 
 <div class="row">
   <div class="col-sm-12">
 
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">Personal Information</h3>
-      </div>
-      <div class="panel-body">
-        <div [hidden]="submitted"></div>
-        <form (ngSubmit)="save()" #personForm="ngForm">
+    <form (ngSubmit)="save()" #personForm="ngForm">
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Personal Information</h3>
+        </div>
+        <div class="panel-body">
+          <div [hidden]="submitted"></div>
+
           <div class="row">
             <div class="col-sm-6">
               <div class="form-group">
                 <label for="personType">Person Type</label>
                 <select class="form-control" id="personType" required [(ngModel)]="person.personType"
-                        name="personType" #personType="ngModel">
+                        name="personType" #personType="ngModel" (ngModelChange)="onPersonTypeChange($event)">
                   <option *ngFor="let personType of personTypes" [value]="personType">{{personType}}</option>
                 </select>
               </div>
@@ -27,9 +33,9 @@
             <div class="col-sm-6">
               <div class="form-group">
                 <label for="business">Employer</label>
-                <select class="form-control" id="business" required [ngModel]="selectedBusiness" name="business"
-                        (change)='onChange()' #business="ngModel">
-                  <option *ngFor="let business of businesses" [ngValue]="business">{{business}}</option>
+                <select class="form-control" id="business" required [(ngModel)]="person.business" name="business"
+                        #business="ngModel">
+                  <option *ngFor="let business of businesses" [ngValue]="business">{{business.name}}</option>
                 </select>
               </div>
             </div>
@@ -82,6 +88,7 @@
               </div>
             </div>
           </div>
+
           <div class="row">
             <div class="col-sm-6">
               <div class="form-group">
@@ -93,47 +100,58 @@
                 Title is required
               </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-sm-12">
-              <button type="submit" class="btn btn-primary" [disabled]="!personForm.form.valid">Save</button>
-              <button type="button" class="btn btn-primary" (click)="cancel()">Cancel</button>
-              <button type="button" class="btn btn-danger pull-right" (click)="delete()">Delete</button>
+            <div class="col-sm-6">
+              <div class="form-group" *ngIf="person.id && person.personType == 'Employee'">
+                <label><i class="fa fa-user"></i> User</label>
+                <div *ngIf="user">
+                  <input type="text" class="form-control input-md" [(ngModel)]="user.username" name="user" readonly>
+                  <i class="fa fa-times icon-btn-md" (click)="removeUser()"></i>
+                </div>
+                <div [hidden]="user">
+                  <button type="button" class="btn btn-info" (click)="createUser()">Create</button>
+                </div>
+              </div>
             </div>
           </div>
-        </form>
+
+        </div>
+
+        <div class="panel-footer">
+          <div class="row">
+            <div class="col-sm-12">
+              <button type="button" class="btn btn-default" (click)="cancel()">Cancel</button>
+              <button type="submit" class="btn btn-primary pull-right" [disabled]="!personForm.form.valid">Save</button>
+            </div>
+          </div>
+        </div>
+
       </div>
+
+    </form>
+
+  </div>
+</div>
+
+<div *ngIf="person.id">
+  <div class="row">
+    <div class="col-sm-6">
+      <app-address [address]="person.address"></app-address>
     </div>
 
-
-    <!--<div class="card">-->
-      <!--<div class="card-header">-->
-        <!--Personal Information-->
-      <!--</div>-->
-      <!--<div class="card-block">-->
-        <!---->
-      <!--</div>-->
-    <!--</div>-->
-
-
-  </div>
-</div>
-<div class="row">
-  <div class="col-sm-6">
-    <app-address [address]="person.address"></app-address>
+    <div class="col-sm-6">
+      <app-person-skills [person]="person" *ngIf="skills"></app-person-skills>
+    </div>
   </div>
 
-  <div class="col-sm-6">
-    <app-person-skills [person]="person" *ngIf="skills===true"></app-person-skills>
+  <div class="row" *ngIf="documents">
+    <div class="col-sm-12">
+      <app-person-documents [person]="person"></app-person-documents>
+    </div>
   </div>
-</div>
-<div class="row" *ngIf="documents===true">
-  <div class="col-sm-12">
-    <app-person-documents [person]="person"></app-person-documents>
-  </div>
-</div>
-<div class="row" >
-  <div class="col-sm-12">
-    <app-person-trainings [person]="person"></app-person-trainings>
+
+  <div class="row" *ngIf="trainings">
+    <div class="col-sm-12">
+      <app-person-trainings [person]="person"></app-person-trainings>
+    </div>
   </div>
 </div>

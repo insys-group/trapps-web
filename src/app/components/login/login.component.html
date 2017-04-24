@@ -7,7 +7,7 @@
         </div>
         <div class="panel-body">
 
-          <form [hidden]="showRegister" (ngSubmit)="login()" #loginForm="ngForm">
+          <form [hidden]="changePassword || rememberPassword" (ngSubmit)="login()" #loginForm="ngForm">
             <img src="../assets/images/insys.jpeg" class="center-block">
             <div class="spacer-md"></div>
             <fieldset>
@@ -18,9 +18,9 @@
                   </span>
                   <input type="text" class="form-control" id="username" required [(ngModel)]="credentials.username" name="username" #username="ngModel">
                 </div>
-                <div [hidden]="username.valid || username.pristine" class="alert alert-danger">
+                <label [hidden]="username.valid || username.pristine" class="alert alert-danger">
                   User is required
-                </div>
+                </label>
               </div>
               <div class="form-group">
                 <div class="input-group">
@@ -31,31 +31,49 @@
                 </div>
               </div>
               <button type="submit" class="btn btn-lg btn-primary btn-block" [disabled]="!loginForm.form.valid">Login</button>
-              <!--<p class="text-center"><a class="clickable" (click)="showRegister = true">Register</a></p>-->
+              <p class="text-center"><a class="clickable2" (click)="rememberPassword = true">Forgot password?</a></p>
             </fieldset>
           </form>
 
-          <form *ngIf="showRegister" (ngSubmit)="register()" #registerForm="ngForm">
+          <form *ngIf="changePassword" (ngSubmit)="saveNewPassword()" #changePasswordForm="ngForm">
             <img src="../assets/images/insys.jpeg" class="center-block">
             <div class="spacer-md"></div>
             <fieldset>
               <div class="form-group">
-                <label>Email</label>
-                <input type="text" class="form-control" id="username" required [(ngModel)]="credentials.username" name="username" #username="ngModel">
-                <div [hidden]="username.valid || username.pristine" class="alert alert-danger">
-                  Email is required
-                </div>
-              </div>
-              <div class="form-group">
-                <label>Password</label>
-                <input type="password" class="form-control" id="password" [(ngModel)]="credentials.password" name="password" #password="ngModel">
+                <label>New Password</label>
+                <input type="password" class="form-control" id="password" [(ngModel)]="credentials.password" name="password" #password="ngModel" required minlength="8">
               </div>
               <div class="form-group">
                 <label>Repeat Password</label>
-                <input type="password" class="form-control" id="repeatPpassword" [(ngModel)]="credentials.repeatPpassword" name="repeatPpassword" #repeatPpassword="ngModel">
+                <input type="password" class="form-control" id="repeatPassword" [(ngModel)]="credentials.repeatPassword" name="repeatPassword" #repeatPassword="ngModel" required>
               </div>
-              <button type="submit" class="btn btn-lg btn-primary btn-block" [disabled]="!registerForm.form.valid">Register</button>
-              <p class="text-center"><a class="clickable" (click)="showRegister = false">Cancel</a></p>
+              <label *ngIf="password.hasError('required')" class="alert alert-danger">
+                <span>Password is required.</span>
+              </label>
+              <label *ngIf="password.hasError('minlength')" class="alert alert-danger">
+                <span>Password should contain at least 8 characters.</span>
+              </label>
+              <label class="alert alert-danger" *ngIf="credentials.password && credentials.repeatPassword && credentials.password != credentials.repeatPassword">
+                Both password should match.
+              </label>
+              <button type="submit" class="btn btn-lg btn-primary btn-block" [disabled]="!changePasswordForm.form.valid || !validateChangePassword()">Confirm</button>
+              <button type="submit" class="btn btn-lg btn-default btn-block" (click)="changePassword = false">Cancel</button>
+            </fieldset>
+          </form>
+
+          <form *ngIf="rememberPassword" (ngSubmit)="resetPassword()" #rememberPasswordForm="ngForm">
+            <img src="../assets/images/insys.jpeg" class="center-block">
+            <div class="spacer-md"></div>
+            <fieldset>
+              <div class="form-group">
+                <label>User</label>
+                <input type="text" class="form-control" id="username" required [(ngModel)]="credentials.username" name="username" #username="ngModel">
+              </div>
+              <label [hidden]="username.valid || username.pristine" class="alert alert-danger">
+                Email is required
+              </label>
+              <button type="submit" class="btn btn-lg btn-primary btn-block" [disabled]="!rememberPasswordForm.form.valid">Remember</button>
+              <button type="submit" class="btn btn-lg btn-default btn-block" (click)="rememberPassword = false">Cancel</button>
             </fieldset>
           </form>
 

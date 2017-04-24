@@ -10,6 +10,10 @@ import 'rxjs/add/observable/throw';
 import {Person, PersonSkill, PersonDocument} from '../models/person.model';
 import {Locations} from "../models/rest.model";
 import {RestService} from "./rest.service";
+import {BusinessService} from "./business.service";
+import {Business} from "../models/business.model";
+import {forEach} from "@angular/router/src/utils/collection";
+import {Address} from "../models/address.model";
 
 @Injectable()
 export class PersonService implements OnInit {
@@ -32,27 +36,36 @@ export class PersonService implements OnInit {
     return this.restService.getOne<Person>(Locations.PERSON_URL + id);
   }
 
-  createPerson(person: Person): Observable<Person> {
-    console.log('Enter: PersonService.create()' + JSON.stringify(person));
-    return this.http
-      .post(this.personsUrl, person, {headers: this.headers})
-      .map(response => response.json().data as Person)
-      .catch(this.handleError);
+  getBusiness(person: Person): Observable<Business> {
+    let url = '';
+    person.links.forEach(function(link) {
+      if(link.rel == 'business'){
+        url = link.href;
+      }
+    });
+    return this.restService.getOne<Business>(url);
   }
 
-  updatePerson(person: Person): Observable<Person> {
-    const url = `${this.personsUrl}/${person.id}`;
-    return this.http
-      .put(url, JSON.stringify(person), {headers: this.headers})
-      .map(() => person)
-      .catch(this.handleError);
+  getAdress(person: Person): Observable<Address> {
+    let url = '';
+    person.links.forEach(function(link) {
+      if(link.rel == 'adress'){
+        url = link.href;
+      }
+    });
+    return this.restService.getOne<Address>(url);
   }
 
-  deletePerson(id: number): Observable<void> {
-    const url = `${this.personsUrl}/${id}`;
-    return this.http
-      .delete(url, {headers: this.headers})
-      .catch(this.handleError);
+  getChilds(id: number): Observable<Person> {
+    return this.restService.getOne<Person>(Locations.PERSON_URL + id);
+  }
+
+  savePerson(person : Person){
+    return this.restService.create<Person>(Locations.PERSON_URL, person);
+  }
+
+  removePerson(person: Person): Observable<void> {
+    return this.restService.delete(person);
   }
 
   getPersonSkills(personId: number): Observable<Array<PersonSkill>> {

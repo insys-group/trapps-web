@@ -8,5 +8,5 @@ export const environment = {
   name: 'local',
   version: '0.0.1',
   API_URL: 'http://trapps-local:8081/api/v1/',
-  OAUTH_URL: 'http://trapps-local:8081/oauth/token'
+  ABSOLUTE_API_URL: 'http://trapps-local:8081/'
 };

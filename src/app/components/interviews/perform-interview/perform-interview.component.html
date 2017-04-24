@@ -1,0 +1,125 @@
+<div class="row">
+  <div class="col-lg-12">
+    <h1 class="page-header"><i class="fa fa-list-ol fa-fw"></i> {{interview.name}}</h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12">
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Details</h3>
+      </div>
+      <div class="panel-body">
+
+        <p>Name: {{interview.name}}</p>
+        <p>Status: {{interview.status | filterInterviewStatus}}</p>
+        <p *ngIf="interview.candidate">Candidate: {{interview.candidate.firstName}} {{interview.candidate.lastName}}</p>
+        <p *ngIf="interview.role">Role: {{interview.role.name}}</p>
+        <span>
+          Interviewers:
+          <ul>
+            <li *ngFor="let interviewer of interview.interviewers">{{interviewer.firstName}} {{interviewer.lastName}}</li>
+          </ul>
+        </span>
+
+      </div>
+
+      <div class="panel-footer">
+        <div class="row">
+          <div class="col-sm-12">
+            <a class="btn btn-default" [routerLink]="['/interviews']">Cancel</a>
+            <button type="button" class="btn btn-primary pull-right"
+                    *ngIf="allowEdition && interview.status == CONSTANTS.INTERVIEW_STATUS.OPEN"
+                    (click)="start()">Start Interview</button>
+            <button type="button" class="btn btn-primary pull-right"
+                    *ngIf="allowEdition && interview.status == CONSTANTS.INTERVIEW_STATUS.IN_PROGRESS"
+                    (click)="complete()">Complete Interview</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div *ngIf="allowEdition && interview.status != CONSTANTS.INTERVIEW_STATUS.OPEN">
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Questions</h3>
+        </div>
+        <div class="panel-body">
+
+          <div class="form-group" *ngIf="interview.status == CONSTANTS.INTERVIEW_STATUS.IN_PROGRESS">
+            <label>Add New Question</label>
+            <div class="row">
+              <div class="col-sm-6">
+                <input class="form-control" required [(ngModel)]="newAnswer.question.question" id="question" name="question"
+                       #question="ngModel" />
+              </div>
+              <div class="col-sm-6">
+                <button type="button" class="btn btn-primary" [disabled]="!newAnswer.question.question" (click)="addQuestion()">Add</button>
+              </div>
+            </div>
+          </div>
+
+          <ol>
+            <li *ngFor="let answer of interview.answers; let i = index">
+              <b>{{answer.question.question}}</b> <i class="fa fa-times icon-btn-md" (click)="removeQuestion(i)"></i>
+              <br/>
+              <textarea class="form-control" [(ngModel)]="answer.answer" placeholder="Enter Answer"
+                        [readonly]="interview.status != CONSTANTS.INTERVIEW_STATUS.IN_PROGRESS"></textarea>
+            </li>
+          </ol>
+
+          <button type="button" class="btn btn-primary pull-right"
+                  *ngIf="interview.status == CONSTANTS.INTERVIEW_STATUS.IN_PROGRESS" (click)="save()">
+            Save
+          </button>
+
+        </div>
+      </div>
+
+      <div class="panel panel-default" *ngIf="interview.id && interview.interviewers && interview.interviewers.length > 0">
+        <div class="panel-heading">
+          <h3 class="panel-title">Feedback</h3>
+        </div>
+        <div class="panel-body">
+
+          <div class="panel panel-info">
+
+            <div class="panel-heading">
+              <h3 class="panel-title">My Feedback</h3>
+            </div>
+            <div class="panel-body">
+
+              <div class="form-group">
+                <textarea class="form-control" [(ngModel)]="myFeedback.comment" placeholder="Provide Feedback"
+                          [readonly]="interview.status != CONSTANTS.INTERVIEW_STATUS.IN_PROGRESS"></textarea>
+              </div>
+
+              <button type="button" class="btn btn-primary pull-right"
+                      *ngIf="interview.status == CONSTANTS.INTERVIEW_STATUS.IN_PROGRESS" (click)="addFeedback()">
+                Save
+              </button>
+
+            </div>
+
+          </div>
+
+          <div class="panel panel-info" *ngFor="let feedback of elseFeedbacks; let i = index">
+
+            <div class="panel-heading">
+              <h3 class="panel-title" *ngIf="feedback.interviewer">{{feedback.interviewer.firstName}} {{feedback.interviewer.lastName}}'s Feedback</h3>
+            </div>
+            <div class="panel-body" [innerHTML]="feedback.comment"></div>
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>

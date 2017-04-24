@@ -6,6 +6,8 @@ import {Locations} from '../models/rest.model';
 import {LocalStorageService} from "./local.storage.service";
 import {ConstantService} from "./constant.service";
 import {LoginCredentials, AuthToken} from "../models/login.model";
+import {RestService} from "./rest.service";
+import {User} from "../models/user.model";
 
 @Injectable()
 export class AuthService implements OnInit {
@@ -13,11 +15,27 @@ export class AuthService implements OnInit {
   private userLoggedIn: boolean = false;
   private loginFail: boolean = false;
 
-  constructor(private http: Http, private CONSTANTS: ConstantService) {
+  constructor(private http: Http,
+              private CONSTANTS: ConstantService,
+              private restService: RestService,
+  ) {
     this.userLoggedIn = !!localStorage.getItem('auth_token');
   }
 
   ngOnInit() {
+  }
+
+  saveToken(authToken) {
+    LocalStorageService.remove('temp_token');
+    LocalStorageService.set('auth_token', authToken);
+    this.userLoggedIn = true;
+  }
+
+  saveTempToken(authToken) {
+    LocalStorageService.remove('auth_token');
+    LocalStorageService.remove('user_info');
+    LocalStorageService.set('temp_token', authToken);
+    this.userLoggedIn = false;
   }
 
   login(credentials: LoginCredentials): Observable<AuthToken> {
@@ -34,12 +52,10 @@ export class AuthService implements OnInit {
       .post(authURL, {}, {headers: headers})
       .map(response => response.json())
       .do(authToken => {
-        console.debug('Saving token in localstorage ', authToken);
-        LocalStorageService.set('auth_token', authToken);
-        this.userLoggedIn = true;
+        //
       })
       .catch(error => {
-        if (error.status == 401) {
+        if (error.status == 400 || error.status == 401) {
           this.loginFail = true;
         }
         return this.handleError(authURL, error, error.json() as AuthToken);
@@ -77,6 +93,7 @@ export class AuthService implements OnInit {
   }
 
   logout(): void {
+    LocalStorageService.remove('temp_token');
     LocalStorageService.remove('auth_token');
     LocalStorageService.remove('user_info');
     this.userLoggedIn = false;
@@ -100,6 +117,14 @@ export class AuthService implements OnInit {
     }
     console.error('RestService.handleError() -> ', JSON.stringify(errorResponse));
     return Observable.throw(errorResponse);
+  }
+
+  saveNewPassword(credentials : LoginCredentials){
+    return this.restService.post<User>(Locations.CHANGE_PASSWORD_URL, credentials);
+  }
+
+  resetPassword(credentials : LoginCredentials){
+    return this.restService.insecurePost<User>(Locations.RESET_PASSWORD_URL, credentials);
   }
 
 }

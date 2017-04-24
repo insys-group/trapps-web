@@ -11,8 +11,8 @@ export class Person extends RestResource {
   email: string;
   personType: string;
   title: string;
-  business: Business = new Business();
-  address: Address = new Address();
+  business: Business;
+  address: Address;
   personDocuments: Array<PersonDocument> = [];
   personSkills: Array<PersonSkill>=[];
   personTrainings: Array<PersonTraining>=[];

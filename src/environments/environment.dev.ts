@@ -8,5 +8,5 @@ export const environment = {
   name: 'dev',
   version: '0.0.1',
   API_URL: '/api/v1/',
-  OAUTH_URL: '/oauth/token'
+  ABSOLUTE_API_URL: '/'
 };

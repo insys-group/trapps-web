@@ -1,6 +1,7 @@
 export class LoginCredentials {
   username: string;
   password: string;
+  repeatPassword: string;
   grant_type: string = 'password';
 }
 

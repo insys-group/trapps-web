@@ -7,17 +7,16 @@
 <div class="row">
   <div class="col-sm-12">
 
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">Personal Information</h3>
-      </div>
-      <div class="panel-body">
-
-        <form (ngSubmit)="save()" #interviewForm="ngForm">
+    <form (ngSubmit)="save()" #interviewForm="ngForm">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Basic Information</h3>
+        </div>
+        <div class="panel-body">
 
           <div class="form-group">
             <label>Name</label>
-            <input type="text" class="form-control" required [(ngModel)]="interview.name" #name="ngModel" id="name" name="name">
+            <input type="text" class="form-control" required [(ngModel)]="interview.name" #name="ngModel" id="name" name="name" [readonly]="interview.status != CONSTANTS.INTERVIEW_STATUS.OPEN">
             <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
               Name for the interview is required
             </div>
@@ -25,7 +24,7 @@
 
           <div class="form-group">
             <label>Phone</label>
-            <input type="text" class="form-control" required [(ngModel)]="interview.phone" #phone="ngModel" id="phone" name="phone">
+            <input type="text" class="form-control" required [(ngModel)]="interview.phone" #phone="ngModel" id="phone" name="phone" [readonly]="interview.status != CONSTANTS.INTERVIEW_STATUS.OPEN">
             <div [hidden]="phone.valid || phone.pristine" class="alert alert-danger">
               Phone for the interview is required
             </div>
@@ -45,15 +44,24 @@
             </select>
           </div>
 
-          <a class="btn btn-default" [routerLink]="['/interviews']">Cancel</a>
-          <button type="submit" class="btn btn-primary pull-right" [disabled]="!interviewForm.form.valid">Save</button>
+        </div>
 
-        </form>
+        <div class="panel-footer">
+          <div class="row">
+            <div class="col-sm-12">
+              <a class="btn btn-default" [routerLink]="['/interviews']">Cancel</a>
+              <button type="submit" class="btn btn-primary pull-right"
+                      *ngIf="interview.status == CONSTANTS.INTERVIEW_STATUS.OPEN"
+                      [disabled]="!interviewForm.form.valid">Save</button>
+            </div>
+          </div>
+        </div>
 
       </div>
-    </div>
+    </form>
 
-    <div class="panel panel-default" *ngIf="interview.id">
+
+    <div class="panel panel-default" *ngIf="interview.id && interview.status == CONSTANTS.INTERVIEW_STATUS.OPEN">
       <div class="panel-heading">
         <h3 class="panel-title">Load Template</h3>
       </div>
@@ -89,8 +97,8 @@
         </table>
 
         <div class="form-group">
-          <button type="button" class="btn btn-primary pull-right" (click)="assignQuestions()">
-            Save
+          <button type="button" class="btn btn-primary pull-right" (click)="assignQuestions()" [disabled]="!questions || questions.length < 1">
+            Assign Questions to Interview
           </button>
         </div>
 
@@ -103,7 +111,7 @@
       </div>
       <div class="panel-body">
 
-        <div class="form-group">
+        <div class="form-group" *ngIf="interview.status == CONSTANTS.INTERVIEW_STATUS.OPEN" >
           <label>Add Interviewer</label>
           <select class="form-control" required [(ngModel)]="newInterviewer" id="interviewer" name="interviewer"
                   #interviewer="ngModel" (change)="addInterviewer()">
@@ -116,14 +124,16 @@
             <tr>
               <th>No</th>
               <th>Name</th>
-              <th>Remove</th>
+              <th *ngIf="interview.status == CONSTANTS.INTERVIEW_STATUS.OPEN">Remove</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let interviewer of interview.interviewers; let i = index">
               <td>{{i+1}}</td>
               <td>{{interviewer.firstName}} {{interviewer.lastName}}</td>
-              <td class="text-center"><i class="fa fa-times icon-btn-md" (click)="removeInterviewer(i)"></i></td>
+              <td class="text-center" *ngIf="interview.status == CONSTANTS.INTERVIEW_STATUS.OPEN">
+                <i class="fa fa-times icon-btn-md" (click)="removeInterviewer(i)"></i>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -137,7 +147,7 @@
       </div>
       <div class="panel-body">
 
-        <div class="form-group">
+        <div class="form-group" *ngIf="interview.status == CONSTANTS.INTERVIEW_STATUS.OPEN">
           <label>Add New Question</label>
           <div class="row">
             <div class="col-sm-6">
@@ -152,52 +162,15 @@
 
         <ol>
           <li *ngFor="let answer of interview.answers; let i = index">
-            <b>{{answer.question.question}}</b> <i class="fa fa-times icon-btn-md" (click)="removeQuestion(i)"></i>
-            <br/>
-            <textarea class="form-control" [(ngModel)]="answer.answer" placeholder="Enter Answer"></textarea>
+            <b>{{answer.question.question}}</b>
+            <i class="fa fa-times icon-btn-md" (click)="removeQuestion(i)"
+               *ngIf="interview.status == CONSTANTS.INTERVIEW_STATUS.OPEN"></i>
           </li>
         </ol>
 
-        <button type="button" class="btn btn-primary pull-right" (click)="save()">
+        <button type="button" class="btn btn-primary pull-right" (click)="save()" *ngIf="interview.status == CONSTANTS.INTERVIEW_STATUS.OPEN">
           Save
         </button>
-
-      </div>
-    </div>
-
-    <div class="panel panel-default" *ngIf="interview.id && interview.interviewers && interview.interviewers.length > 0">
-      <div class="panel-heading">
-        <h3 class="panel-title">Feedback</h3>
-      </div>
-      <div class="panel-body">
-
-        <div class="panel panel-info">
-
-          <div class="panel-heading">
-            <h3 class="panel-title">My Feedback</h3>
-          </div>
-          <div class="panel-body">
-
-            <div class="form-group">
-              <textarea class="form-control" [(ngModel)]="myFeedback.comment" placeholder="Provide Feedback"></textarea>
-            </div>
-
-            <button type="button" class="btn btn-primary pull-right" (click)="addFeedback()">
-              Save
-            </button>
-
-          </div>
-
-        </div>
-
-        <div class="panel panel-info" *ngFor="let feedback of elseFeedbacks; let i = index">
-
-          <div class="panel-heading">
-            <h3 class="panel-title" *ngIf="feedback.interviewer">{{feedback.interviewer.firstName}} {{feedback.interviewer.lastName}}'s Feedback</h3>
-          </div>
-          <div class="panel-body" [innerHTML]="feedback.comment"></div>
-
-        </div>
 
       </div>
     </div>

@@ -26,8 +26,8 @@ export class UserService {
     return this.restService.create<User>(Locations.USERS_URL, user);
   }
 
-  new(user : User){
-    return this.restService.create<User>(Locations.NEW_USER_URL, user);
+  create(personId : number){
+    return this.restService.post<User>(Locations.NEW_USER_URL, personId);
   }
 
   remove(user : User){
@@ -35,10 +35,11 @@ export class UserService {
   }
 
   getUserInfo(username: string): Observable<any> {
-    return this.restService.getOne<UserInfo>(Locations.USER_URL+username)
-      .do(userInfo => {
-        LocalStorageService.set('user_info', userInfo);
-      })
+    return this.restService.getOne<UserInfo>(Locations.USER_URL+username);
+  }
+
+  getUserByPersonId(personId : number): Observable<any> {
+    return this.restService.getOne<User>(Locations.USER_BY_PERSON_URL+personId);
   }
 
 }

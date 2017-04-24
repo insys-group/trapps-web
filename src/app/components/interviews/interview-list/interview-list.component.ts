@@ -4,6 +4,7 @@ import { Interview } from '../../../models/interview/interview.model';
 import { Router } from '@angular/router';
 import {NotificationService} from "../../../services/notification.service";
 import {LoadingService} from "../../../services/loading.service";
+import {ConfirmService} from "../../../services/confirm.service";
 
 @Component({
   selector: 'app-interview-list',
@@ -17,7 +18,8 @@ export class InterviewListComponent implements OnInit {
   constructor(private interviewService: InterviewService,
               private router: Router,
               private notificationService: NotificationService,
-              private loadingService: LoadingService) {
+              private loadingService: LoadingService,
+              private confirmService: ConfirmService) {
   }
 
   ngOnInit() {
@@ -50,19 +52,30 @@ export class InterviewListComponent implements OnInit {
   }
 
   removeInterview(interview: Interview) {
-    this.loadingService.show();
-    this.interviewService.remove(interview)
-      .subscribe(
-        interviews => {
-          this.loadingService.hide();
-          console.log(interviews);
-        },
-        error => {
-          this.loadingService.hide();
-          this.notificationService.notifyError(error)
-        }
-      );
-    this.getInterviews();
+
+    let self = this;
+    this.confirmService.confirm(
+      'Are you sure you want to remove the interview?',
+      '',
+      function () {
+        self.loadingService.show();
+        self.interviewService.remove(interview)
+          .subscribe(
+            interviews => {
+              self.loadingService.hide();
+              self.getInterviews();
+            },
+            error => {
+              self.loadingService.hide();
+              self.notificationService.notifyError(error)
+            }
+          );
+      }
+    );
+  }
+
+  perform(interview: Interview) {
+    this.router.navigate(['/interviews/perform/', interview.id]);
   }
 
 }

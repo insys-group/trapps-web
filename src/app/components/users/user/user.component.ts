@@ -43,7 +43,7 @@ export class UserComponent implements OnInit {
 
   save(): void {
     this.user.personId = this.userPerson.id;
-    this.userService.new(this.user)
+    this.userService.save(this.user)
       .subscribe(
         user => {
           if(user.username){

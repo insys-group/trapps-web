@@ -2,7 +2,7 @@ import { Response } from '@angular/http';
 import { environment } from '../../environments/environment';
 
 export const Locations = {
-  OAUTH_URL: environment.OAUTH_URL,
+  OAUTH_URL: environment.ABSOLUTE_API_URL + 'oauth/token',
   PERSON_URL: environment.API_URL + 'persons/',
   PERSON_UPDATE_URL: environment.API_URL + 'persons/put/',
   PERSON_DOCUMENT_URL: environment.API_URL + 'persondocuments/',
@@ -17,7 +17,10 @@ export const Locations = {
   INTERVIEW_TEMPLATE_URL: environment.API_URL + 'interviewTemplates/',
   OPPORTUNITY_URL: environment.API_URL + 'opportunities/',
   USERS_URL: environment.API_URL + 'users/',
-  NEW_USER_URL: environment.API_URL + 'newUser/',
+  NEW_USER_URL: environment.API_URL + 'user/create/',
+  USER_BY_PERSON_URL: environment.API_URL + 'user/person/',
+  CHANGE_PASSWORD_URL: environment.API_URL + 'changepassword/',
+  RESET_PASSWORD_URL: environment.ABSOLUTE_API_URL + 'api/resetpassword/',
 };
 
 export class RestResource {

@@ -11,6 +11,7 @@ export class Interview extends RestResource {
   date: Date = new Date();
   name: string;
   phone: string;
+  status: number;
   candidate: Person;
   role: Role;
   interviewers: Array<Person> = new Array<Person>();

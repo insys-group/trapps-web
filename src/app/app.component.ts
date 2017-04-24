@@ -63,7 +63,6 @@ export class AppComponent implements OnInit {
         this.refreshToken();
       });
     }
-
   }
 
   logout(): void {

@@ -62,6 +62,9 @@ import {LoadingService} from "./services/loading.service";
 import {AlertService} from "./services/alert.service";
 
 import {SimpleNotificationsModule} from 'angular2-notifications';
+import {ConfirmService} from "./services/confirm.service";
+import {PerformInterviewComponent} from "./components/interviews/perform-interview/perform-interview.component";
+import {FilterInterviewStatusPipe} from "./pipes/filter-interview-status.pipe";
 
 @NgModule({
   declarations: [
@@ -97,7 +100,9 @@ import {SimpleNotificationsModule} from 'angular2-notifications';
     OpportunityComponent,
     OpportunityListComponent,
     UserListComponent,
-    UserComponent
+    UserComponent,
+    PerformInterviewComponent,
+    FilterInterviewStatusPipe
   ],
   imports: [
     BrowserModule,
@@ -125,7 +130,8 @@ import {SimpleNotificationsModule} from 'angular2-notifications';
     LocalStorageService,
     UserService,
     LoadingService,
-    AlertService
+    AlertService,
+    ConfirmService
   ],
   entryComponents: [NotificationDialogComponent, ErrorDialogComponent],
   bootstrap: [AppComponent]

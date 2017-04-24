@@ -13,21 +13,24 @@ import {User} from "../../../models/user.model";
 })
 export class UserListComponent implements OnInit {
 
-  users: Array<User>;
+  persons: Array<Person>;
 
-  constructor(private router: Router, private userService: UserService, private notificationService: NotificationService) { }
+  constructor(private router: Router,
+              private userService: UserService,
+              private personService: PersonService,
+              private notificationService: NotificationService) { }
 
   ngOnInit() {
     this.getUsers();
   }
 
   getUsers(){
-    this.userService.getUsers()
+    this.personService.getPersons()
       .subscribe(
-        users => {
-          if(users[0] && users[0].username){
-            this.users = users;
-            console.log(this.users);
+        persons => {
+          if(persons[0] && persons[0].id){
+            this.persons = persons;
+            console.log(this.persons);
           }
         },
         error => this.notificationService.notifyError(error)

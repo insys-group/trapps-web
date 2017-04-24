@@ -81,6 +81,10 @@
   color: #df6130;
 }
 
+.clickable2 {
+  cursor: pointer;
+}
+
 .icon-md {
   font-size: 18px !important;
 }
@@ -119,4 +123,13 @@
 .notification {
   margin: 10px 0;
   font-weight: bold;
+}
+
+.input-md {
+  width: 150px !important;
+  display: inline-block !important;
+}
+
+.error{
+  color: red;
 }

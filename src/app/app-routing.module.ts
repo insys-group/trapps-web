@@ -21,6 +21,7 @@ import {OpportunityListComponent} from "./components/opportunities/opportunity-l
 import {OpportunityComponent} from "./components/opportunities/opportunity/opportunity.component";
 import {UserListComponent} from "./components/users/user-list/user-list.component";
 import {UserComponent} from "./components/users/user/user.component";
+import {PerformInterviewComponent} from "./components/interviews/perform-interview/perform-interview.component";
 
 const appRoutes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: 'home'},
@@ -35,6 +36,7 @@ const appRoutes: Routes = [
     { path: 'addresses/:id', component: AddressComponent, canActivate: [LoginGuard]},
     { path: 'interviews', component: InterviewListComponent, canActivate: [LoginGuard]},
     { path: 'interviews/:id', component: InterviewComponent, canActivate: [LoginGuard]},
+    { path: 'interviews/perform/:id', component: PerformInterviewComponent, canActivate: [LoginGuard]},
     { path: 'interview-templates', component: InterviewTemplateListComponent, canActivate: [LoginGuard]},
     { path: 'interview-templates/:id', component: InterviewTemplateComponent, canActivate: [LoginGuard]},
     { path: 'trainings', component: TrainingListComponent, canActivate: [LoginGuard]},
