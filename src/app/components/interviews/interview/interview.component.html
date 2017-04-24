@@ -16,7 +16,7 @@
 
           <div class="form-group">
             <label>Name</label>
-            <input type="text" class="form-control" required [(ngModel)]="interview.name" #name="ngModel" id="name" name="name" [readonly]="interview.status != CONSTANTS.INTERVIEW_STATUS.OPEN">
+            <input type="text" class="form-control" required [(ngModel)]="interview.name" #name="ngModel" id="name" name="name" [readonly]="interview.status && interview.status != CONSTANTS.INTERVIEW_STATUS.OPEN">
             <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
               Name for the interview is required
             </div>
@@ -24,7 +24,7 @@
 
           <div class="form-group">
             <label>Phone</label>
-            <input type="text" class="form-control" required [(ngModel)]="interview.phone" #phone="ngModel" id="phone" name="phone" [readonly]="interview.status != CONSTANTS.INTERVIEW_STATUS.OPEN">
+            <input type="text" class="form-control" required [(ngModel)]="interview.phone" #phone="ngModel" id="phone" name="phone" [readonly]="interview.status && interview.status != CONSTANTS.INTERVIEW_STATUS.OPEN">
             <div [hidden]="phone.valid || phone.pristine" class="alert alert-danger">
               Phone for the interview is required
             </div>
@@ -51,7 +51,7 @@
             <div class="col-sm-12">
               <a class="btn btn-default" [routerLink]="['/interviews']">Cancel</a>
               <button type="submit" class="btn btn-primary pull-right"
-                      *ngIf="interview.status == CONSTANTS.INTERVIEW_STATUS.OPEN"
+                      *ngIf="!interview.status || interview.status == CONSTANTS.INTERVIEW_STATUS.OPEN"
                       [disabled]="!interviewForm.form.valid">Save</button>
             </div>
           </div>

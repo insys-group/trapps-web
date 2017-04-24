@@ -76,6 +76,7 @@ export class InterviewComponent implements OnInit {
   }
 
   save(): void {
+    this.interview.status = this.CONSTANTS.INTERVIEW_STATUS.OPEN;
     this.loadingService.show();
     this.interviewService.save(this.interview)
       .subscribe(
