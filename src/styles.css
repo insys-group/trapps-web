@@ -133,3 +133,8 @@
 .error{
   color: red;
 }
+
+.highlighted {
+  background-color: #cccccc !important;
+  color: #fff !important;
+}

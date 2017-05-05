@@ -11,6 +11,8 @@ export const Locations = {
   USER_URL: environment.API_URL + 'user/',
   INTERVIEW_URL: environment.API_URL + 'interviews/',
   ROLE_URL: environment.API_URL + 'roles/',
+  SKILL_URL: environment.API_URL + 'skills/',
+  ROLE_SKILL_URL: environment.API_URL + 'role/skill',
   TRAINING_URL: environment.API_URL + 'trainings/',
   INTERVIEW_DETAILS_URL: environment.API_URL + 'interview/',
   FEEDBACK_URL: environment.API_URL + 'feedback/',

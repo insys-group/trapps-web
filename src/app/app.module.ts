@@ -89,7 +89,6 @@ import {FilterInterviewStatusPipe} from "./pipes/filter-interview-status.pipe";
     ErrorDialogComponent,
     LoginComponent,
     HomeComponent,
-    ErrorDialogComponent,
     InterviewListComponent,
     TrainingListComponent,
     TrainingComponent,

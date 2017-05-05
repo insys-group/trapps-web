@@ -9,4 +9,5 @@ export class Role extends RestResource {
 export class Skill extends RestResource {
     id: number;
     name: string;
+    selected: boolean;
 }
