@@ -96,6 +96,7 @@ export class AuthService implements OnInit {
     LocalStorageService.remove('temp_token');
     LocalStorageService.remove('auth_token');
     LocalStorageService.remove('user_info');
+    LocalStorageService.remove('notifications');
     this.userLoggedIn = false;
     window.location.href = "/";
   }

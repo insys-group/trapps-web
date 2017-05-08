@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
 import {PersonService} from "../../../services/person.service";
-import {Person} from "../../../models/person.model";
 import {NotificationService} from "../../../services/notification.service";
 import {UserService} from "../../../services/user.service";
 import {User} from "../../../models/user.model";
@@ -13,7 +12,7 @@ import {User} from "../../../models/user.model";
 })
 export class UserListComponent implements OnInit {
 
-  persons: Array<Person>;
+  users: Array<User>;
 
   constructor(private router: Router,
               private userService: UserService,
@@ -25,12 +24,12 @@ export class UserListComponent implements OnInit {
   }
 
   getUsers(){
-    this.personService.getPersons()
+    this.userService.getUsers()
       .subscribe(
-        persons => {
-          if(persons[0] && persons[0].id){
-            this.persons = persons;
-            console.log(this.persons);
+        users => {
+          if(users[0] && users[0].username){
+            this.users = users;
+            console.log(this.users);
           }
         },
         error => this.notificationService.notifyError(error)

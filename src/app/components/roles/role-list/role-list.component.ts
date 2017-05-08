@@ -103,9 +103,9 @@ export class RoleListComponent implements OnInit {
             },
             error => {
               self.loadingService.hide();
-              if(error.error._body.indexOf('foreign key constraint fails')){
-                self.notificationService.error('The role can\'t be removed, it has a relation with a Person/Interview/Skill.');
-              }else {
+              if (error.error._body.indexOf('foreign key constraint fails') != -1) {
+                self.notificationService.error('The role can\'t be removed, it has a relation with a Candidate/Interview/Skill.');
+              } else {
                 self.notificationService.notifyError(error);
               }
             }
@@ -121,7 +121,7 @@ export class RoleListComponent implements OnInit {
 
   //*************************************** SKILLS *************************************** 
 
-  getSkills() {
+  getSkills(skill?: Skill) {
     this.loadingService.show();
     this.roleService.getAllSkills()
       .subscribe(
@@ -129,6 +129,10 @@ export class RoleListComponent implements OnInit {
           this.loadingService.hide();
           if (skills[0] && skills[0].id) {
             this.skills = skills;
+          }
+          if (this.newRole && this.newRole.id && skill) {
+            this.compareSkills(skill);
+            this.saveSkills();
           }
         },
         error => {
@@ -145,7 +149,7 @@ export class RoleListComponent implements OnInit {
         skill => {
           this.loadingService.hide();
           this.newSkill = new Skill();
-          this.getSkills();
+          this.getSkills(skill);
         },
         error => {
           this.loadingService.hide();
@@ -189,9 +193,9 @@ export class RoleListComponent implements OnInit {
             },
             error => {
               self.loadingService.hide();
-              if(error.error._body.indexOf('foreign key constraint fails')){
+              if (error.error._body.indexOf('foreign key constraint fails')) {
                 self.notificationService.error('The skill can\'t be removed, it has a relation with a Role.');
-              }else {
+              } else {
                 self.notificationService.notifyError(error);
               }
             }
@@ -221,12 +225,14 @@ export class RoleListComponent implements OnInit {
       )
   }
 
-  compareSkills(){
+  compareSkills(savedSkill?: Skill) {
     let self = this;
-    if(this.skills && this.skills.length > 0){
-      this.skills.forEach(function(skill){
+    if (this.skills && this.skills.length > 0) {
+      this.skills.forEach(function (skill) {
         skill.selected = false;
-        if(this.skillsFromRole && this.skillsFromRole.length > 0) {
+        if (savedSkill && savedSkill.id == skill.id) {
+          skill.selected = true;
+        } else if (self.skillsFromRole && self.skillsFromRole.length > 0) {
           self.skillsFromRole.forEach(function (skillAux) {
             if (skill.id == skillAux.id) {
               skill.selected = true;
@@ -240,8 +246,8 @@ export class RoleListComponent implements OnInit {
   saveSkills() {
 
     let skills = [];
-    this.skills.forEach(function(skill){
-      if(skill.selected){
+    this.skills.forEach(function (skill) {
+      if (skill.selected) {
         skills.push(skill);
       }
     });
@@ -254,16 +260,13 @@ export class RoleListComponent implements OnInit {
         role => {
           this.loadingService.hide();
           this.newRole = role;
-          // this.newSkill = new Skill();
-          // this.getRoles();
-          // this.getSkills();
         },
         error => {
           this.loadingService.hide();
           this.notificationService.notifyError(error)
         }
       );
-    // console.log(this.newRole);
+    
   }
 
 }

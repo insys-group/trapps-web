@@ -1,55 +1,61 @@
-import { Injectable, OnInit } from '@angular/core';
+import {Injectable, OnInit} from '@angular/core';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import { NotificationDialogComponent } from '../components/dialogs/notification-dialog/notification-dialog.component';
-import { ErrorDialogComponent } from '../components/dialogs/error-dialog/error-dialog.component';
-import { Observable } from 'rxjs/Observable';
-import { ErrorResponse } from '../models/rest.model'
+import {NotificationDialogComponent} from '../components/dialogs/notification-dialog/notification-dialog.component';
+import {ErrorDialogComponent} from '../components/dialogs/error-dialog/error-dialog.component';
+import {Observable} from 'rxjs/Observable';
+import {ErrorResponse} from '../models/rest.model'
 import {AlertService} from "./alert.service";
 import {NotificationsService} from "angular2-notifications/dist";
+import {Observer, Subject} from "rxjs";
+import {LocalStorageService} from "./local.storage.service";
 
 @Injectable()
 export class NotificationService {
 
-    constructor(
-      private modalService: NgbModal,
-      private alertService: AlertService,
-      private notificationsService: NotificationsService) {}
+  private notifStack;
+  private notifications = new Subject<any>();
 
-    ask(message: string, buttons: Array<string>): Observable<any> {
-        return Observable.create(observer => {
-            const modalRef = this.modalService.open(NotificationDialogComponent);
-            modalRef.componentInstance.data = {
-                body: message,
-                buttons: buttons,
-                'messageClass': 'text-warning',
-                'titleClass': 'text-danger'};
-            modalRef.result.then(
-                result => {
-                    console.log('Returned is ' + result);
-                    observer.next(result)
-                },
-                reason => null
-            );
-        });
+  constructor(private modalService: NgbModal,
+              private alertService: AlertService,
+              private notificationsService: NotificationsService) {
+    if(LocalStorageService.get('notifications')){
+      this.notifStack = LocalStorageService.get('notifications');
+    }else {
+      this.notifStack = [];
     }
+  }
 
-    info(message: string): void {
-        this.alertService.showAlert(true, message, 'info');
-        this.notificationsService.info('Info', message);
-    }
+  private pushNotif(classs, message){
+    // this.notifStack.push({class: classs, message: message});
+    this.notifStack.splice(0, 0, {class: classs, message: message});
+    LocalStorageService.set('notifications', this.notifStack);
+    this.notifications.next(this.notifStack);
+  }
 
-    success(message: string): void {
-        this.alertService.showAlert(true, message, 'success');
-        this.notificationsService.success('Success', message);
-    }
+  info(message: string): void {
+    this.alertService.showAlert(true, message, 'info');
+    this.notificationsService.info('Info', message);
+    this.pushNotif('notification-info', message);
+  }
 
-    error(message: string): void {
-        this.alertService.showAlert(true, message, 'error');
-        this.notificationsService.error('Error', message);
-    }
-    
-    notifyError(error: any): void {
-        console.log(`This is error object *********** ${JSON.stringify(error.error)}`);
-        this.error(JSON.stringify(error.error));
-    }
+  success(message: string): void {
+    this.alertService.showAlert(true, message, 'success');
+    this.notificationsService.success('Success', message);
+    this.pushNotif('notification-success', message);
+  }
+
+  error(message: string): void {
+    this.alertService.showAlert(true, message, 'error');
+    this.notificationsService.error('Error', message);
+    this.pushNotif('notification-error', message);
+  }
+
+  notifyError(error: any): void {
+    this.error(error.error);
+  }
+
+  getMessage(): Observable<any> {
+    return this.notifications.asObservable();
+  }
+
 }

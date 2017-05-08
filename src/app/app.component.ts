@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { environment } from 'environments/environment';
@@ -9,13 +9,14 @@ import {AlertService, AlertMessage} from "./services/alert.service";
 import {IntervalObservable} from "rxjs/observable/IntervalObservable";
 import {ConstantService} from "./services/constant.service";
 import {NotificationService} from "./services/notification.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
 
   title = 'Trapps';
   environment = environment;
@@ -24,12 +25,24 @@ export class AppComponent implements OnInit {
 
   objAlert: AlertMessage;
 
+  notifications: any;
+  subscription: Subscription;
+
   constructor(private router: Router,
               private authService: AuthService,
               private loadingService: LoadingService,
               private alertService: AlertService,
               private CONSTANTS: ConstantService,
               private notificationService: NotificationService) {
+
+    this.subscription = this.notificationService.getMessage().subscribe(notifications => { this.notifications = notifications; });
+
+    if(LocalStorageService.get('notifications')){
+      this.notifications = LocalStorageService.get('notifications');
+    }else {
+      this.notifications = [];
+    }
+
   }
 
   public alertOptions = {
@@ -52,7 +65,6 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.debug(this.userLoggedIn);
     this.alertService.alertStatus.subscribe((val: AlertMessage) => {
       this.objAlert = { show: val.show, message: val.message, type: val.type };
     });
@@ -63,6 +75,7 @@ export class AppComponent implements OnInit {
         this.refreshToken();
       });
     }
+    console.log(this.userLoggedIn);
   }
 
   logout(): void {
@@ -72,6 +85,10 @@ export class AppComponent implements OnInit {
   onCloseAlert(reason: string) {
     let objCloseAlert: AlertMessage = { show: false, message: '', type: ''};
     this.alertService.showAlert(false, null, null);
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 }

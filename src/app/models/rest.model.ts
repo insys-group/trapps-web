@@ -4,6 +4,7 @@ import { environment } from '../../environments/environment';
 export const Locations = {
   OAUTH_URL: environment.ABSOLUTE_API_URL + 'oauth/token',
   PERSON_URL: environment.API_URL + 'persons/',
+  CHECK_EMAIL_URL: environment.API_URL + 'person/email/exists/',
   PERSON_UPDATE_URL: environment.API_URL + 'persons/put/',
   PERSON_DOCUMENT_URL: environment.API_URL + 'persondocuments/',
   BUSINESS_URL: environment.API_URL + 'businesses/',

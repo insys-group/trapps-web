@@ -35,7 +35,10 @@
                     (click)="start()">Start Interview</button>
             <button type="button" class="btn btn-primary pull-right"
                     *ngIf="allowEdition && interview.status == CONSTANTS.INTERVIEW_STATUS.IN_PROGRESS"
-                    (click)="complete()">Complete Interview</button>
+                    (click)="complete()"
+                    [disabled]="!interview.answers || interview.answers.length == 0 || !interview.feedbacks || interview.feedbacks.length == 0">
+              Complete Interview
+            </button>
           </div>
         </div>
       </div>

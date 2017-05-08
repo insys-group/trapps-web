@@ -138,3 +138,21 @@
   background-color: #cccccc !important;
   color: #fff !important;
 }
+
+.notifications-li{
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #e7e7e7;
+}
+
+.notification-info {
+  color: #03A9F4 !important;
+}
+
+.notification-error {
+  color: red !important;
+}
+
+.notification-success {
+  color: green !important;
+}

@@ -173,6 +173,27 @@ export class PersonComponent implements OnInit {
     if(this.isAddressEmpty()){
       delete this.person.address;
     }
+
+    this.loadingService.show();
+    this.personService.checkEmail(this.person)
+      .subscribe(
+        exists => {
+          this.loadingService.hide();
+          if(exists){
+            this.notificationService.error('The email is already occupied by another user.');
+          } else {
+            this.persist();
+          }
+        },
+        error => {
+          this.loadingService.hide();
+          this.notificationService.notifyError(error);
+        }
+      );
+
+  }
+
+  persist(): void {
     this.loadingService.show();
     this.personService.savePerson(this.person)
       .subscribe(

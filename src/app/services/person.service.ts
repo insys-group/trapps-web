@@ -60,6 +60,10 @@ export class PersonService implements OnInit {
     return this.restService.getOne<Person>(Locations.PERSON_URL + id);
   }
 
+  checkEmail(person : Person){
+    return this.restService.post<boolean>(Locations.CHECK_EMAIL_URL, person);
+  }
+
   savePerson(person : Person){
     return this.restService.create<Person>(Locations.PERSON_URL, person);
   }

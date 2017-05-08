@@ -9,6 +9,8 @@ import {Address} from '../../../models/address.model';
 import {AddressComponent} from '../../addresses/address/address.component';
 import {Observable} from 'rxjs/Observable';
 import {AfterViewInit, AfterViewChecked, ViewChildren, ViewChild, ContentChildren, ContentChild} from '@angular/core';
+import {ConfirmService} from "../../../services/confirm.service";
+import {LoadingService} from "../../../services/loading.service";
 
 @Component({
     selector: 'app-training',
@@ -27,7 +29,9 @@ export class TrainingComponent implements OnInit {
                 private router: Router,
                 private route: ActivatedRoute,
                 private location: Location,
-                private notificationService: NotificationService) {
+                private loadingService: LoadingService,
+                private notificationService: NotificationService,
+                private confirmService: ConfirmService) {
     }
 
     @ViewChild(AddressComponent)
@@ -79,21 +83,17 @@ export class TrainingComponent implements OnInit {
     }
 
     delete(): void {
-        console.log('Enter: TrainingComponent.delete()');
-        this.notificationService.ask(`Do you really want to delete ${this.training.name}?`, ["Yes", "No"])
-            .subscribe(
-                result => {
-                    if (result === 'Yes') {
-                        this.restService.delete(this.training).subscribe(
-                            () => this.router.navigate(['/trainings']),
-                            error => this.notificationService.notifyError(error)
-                        )
-                    } else {
-                        console.log('Deletion was cancelled');
-                    }
-                },
-                () => null
-            );
+        let self = this;
+        this.confirmService.confirm(
+          `Do you really want to delete ${this.training.name}?`,
+          '',
+          function () {
+              self.restService.delete(self.training).subscribe(
+                () => self.router.navigate(['/trainings']),
+                error => self.notificationService.notifyError(error)
+              );
+          }
+        );
     }
 
     cancel(): void {
