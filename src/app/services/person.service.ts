@@ -36,6 +36,10 @@ export class PersonService implements OnInit {
     return this.restService.getOne<Person>(Locations.PERSON_URL + id);
   }
 
+  getPersonDetails(id: number): Observable<Person> {
+    return this.restService.getOne<Person>(Locations.PERSON_DETAILS_URL + id);
+  }
+
   getBusiness(person: Person): Observable<Business> {
     let url = '';
     person.links.forEach(function(link) {
@@ -70,27 +74,6 @@ export class PersonService implements OnInit {
 
   removePerson(person: Person): Observable<void> {
     return this.restService.delete(person);
-  }
-
-  getPersonSkills(personId: number): Observable<Array<PersonSkill>> {
-    return null;
-  }
-
-  createSkill(personSkill: PersonSkill): Observable<PersonSkill> {
-    console.log('Enter: PersonService.createSkill()' + JSON.stringify(personSkill));
-    return null;
-  }
-
-  createSkills(personSkills: PersonSkill[]): Observable<PersonSkill[]> {
-    return null;
-  }
-
-  deleteSkill(id: number): Observable<void> {
-    return null;
-  }
-
-  getPersonDocuments(personId: number): Observable<Array<PersonDocument>> {
-    return null;
   }
 
   private handleError(error: Response): Observable<any> {

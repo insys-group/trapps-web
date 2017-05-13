@@ -2,6 +2,7 @@ import { Address } from './address.model';
 import { Business } from './business.model';
 import { Training, TrainingTask } from './training.model';
 import { RestResource } from './rest.model';
+import {Skill} from "./role.model";
 
 export class Person extends RestResource {
   id: number;
@@ -19,8 +20,8 @@ export class Person extends RestResource {
 }
 
 export class PersonSkill extends RestResource {
-  id: number;
-  name: string;
+  person: Person;
+  skill: Skill;
   scale: number;
 }
 

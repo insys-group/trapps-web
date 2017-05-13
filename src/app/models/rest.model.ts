@@ -4,6 +4,7 @@ import { environment } from '../../environments/environment';
 export const Locations = {
   OAUTH_URL: environment.ABSOLUTE_API_URL + 'oauth/token',
   PERSON_URL: environment.API_URL + 'persons/',
+  PERSON_DETAILS_URL: environment.API_URL + 'person/',
   CHECK_EMAIL_URL: environment.API_URL + 'person/email/exists/',
   PERSON_UPDATE_URL: environment.API_URL + 'persons/put/',
   PERSON_DOCUMENT_URL: environment.API_URL + 'persondocuments/',
@@ -65,12 +66,3 @@ export class ErrorResponse {
     this.error=error;
   }
 }
-
-/*
-export class RestLocations {
-  static PERSON_URL: string = 'http://localhost:8081/api/v1/persons/';
-  static PERSON_UPDATE_URL: string = 'http://localhost:8081/api/v1/persons/put/';
-  static PERSON_DOCUMENT_URL: string = 'http://localhost:8081/api/v1/persondocuments/';
-  static BUSINESS_URL: string = 'http://localhost:8081/api/v1/businesses/';
-}
-*/

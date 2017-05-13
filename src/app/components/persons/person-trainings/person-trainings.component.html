@@ -33,11 +33,11 @@
         </div>
         <div class="row">
           <div class="col-sm-12">
-            <button type="button" class="btn btn-primary" [disabled]="checkAddButtonDisabled()" (click)="addTraining()">Add</button>
+            <button type="button" class="btn btn-primary" [disabled]="!selectedTraining || !startDate || !endDate" (click)="addTraining()">Add</button>
           </div>
         </div>
         <br/>
-        <div class="panel panel-default" *ngFor="let personTraining of assignedTrainings, let i = index">
+        <div class="panel panel-default" *ngFor="let personTraining of person.personTrainings, let i = index">
           <div class="panel-heading">
             <h4 class="panel-title">{{personTraining.training.name}} <i class="fa fa-times icon-btn-md pull-right" (click)="removeTraining(personTraining)"></i></h4>
           </div>

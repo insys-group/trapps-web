@@ -122,25 +122,13 @@ export class PersonComponent implements OnInit {
 
   loadPerson() {
     this.loadingService.show();
-    this.personService.getPerson(this.id)
+    this.personService.getPersonDetails(this.id)
       .subscribe(
         person => {
           console.log(person);
-          // this.loadingService.hide();
+          this.loadingService.hide();
           this.person = person;
-          //Get person business
-          this.personService.getBusiness(this.person)
-            .subscribe(
-              business => {
-                this.loadingService.hide();
-                this.person.business = business;
-                this.autopopulateEmployer();
-              },
-              error => {
-                this.loadingService.hide();
-                this.notificationService.notifyError(error);
-              }
-            );
+          this.autopopulateEmployer();
           this.initDefaults();
           this.getUser();
         },
@@ -169,7 +157,7 @@ export class PersonComponent implements OnInit {
   }
 
   save(): void {
-    // console.log(this.person);
+    console.log(this.person);
     if(this.isAddressEmpty()){
       delete this.person.address;
     }
