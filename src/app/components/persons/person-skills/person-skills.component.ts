@@ -1,4 +1,7 @@
-import { Component, Input, OnInit, OnChanges, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewChecked } from '@angular/core';
+import {
+  Component, Input, OnInit, OnChanges, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit,
+  AfterViewChecked, Output, EventEmitter
+} from '@angular/core';
 import { Person, PersonSkill } from '../../../models/person.model';
 import { RestService } from '../../../services/rest.service';
 import { NotificationService } from '../../../services/notification.service';
@@ -27,6 +30,13 @@ export class PersonSkillsComponent implements OnInit {
 
   @Input()
   person: Person;
+
+  @Output()
+  persistPerson:EventEmitter<string> = new EventEmitter();
+
+  save() {
+    this.persistPerson.emit();
+  }
 
   skills;
   scales = [10,9,8,7,6,5,4,3,2,1];
@@ -61,28 +71,14 @@ export class PersonSkillsComponent implements OnInit {
     newSkill.skill = this.currentSkill;
     newSkill.scale = this.scale;
     this.person.personSkills.push(newSkill);
-    this.persist();
+    this.save();
     delete this.currentSkill;
     delete this.scale;
   }
 
   removeSkill(index): void {
     this.person.personSkills.splice(index, 1);
-    this.persist();
-  }
-
-  persist(): void {
-    this.loadingService.show();
-    this.personService.savePerson(this.person)
-      .subscribe(
-        person => {
-          this.loadingService.hide();
-        },
-        error => {
-          this.loadingService.hide();
-          this.notificationService.notifyError(error);
-        }
-      );
+    this.save();
   }
 
 }

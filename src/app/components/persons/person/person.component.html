@@ -135,11 +135,11 @@
 <div *ngIf="person.id">
   <div class="row">
     <div class="col-sm-6">
-      <app-address [address]="person.address"></app-address>
+      <app-address [address]="person.address" (persistPerson)="save($event)"></app-address>
     </div>
 
-    <div class="col-sm-6">
-      <app-person-skills [person]="person" *ngIf="skills"></app-person-skills>
+    <div class="col-sm-6" *ngIf="skills">
+      <app-person-skills [person]="person" (persistPerson)="save()"></app-person-skills>
     </div>
   </div>
 
@@ -151,7 +151,8 @@
 
   <div class="row" *ngIf="trainings">
     <div class="col-sm-12">
-      <app-person-trainings [person]="person"></app-person-trainings>
+      <app-person-trainings [person]="person" (persistPerson)="save()"></app-person-trainings>
     </div>
   </div>
+
 </div>

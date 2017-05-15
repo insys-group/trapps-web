@@ -6,10 +6,7 @@
       </div>
       <div class="panel-body">
 
-        <div class="card-block" *ngIf="!person.id">
-          <p class="text-danger text-center">Please save the {{person.personType}} first before uploading documents.</p>
-        </div>
-        <div class="card-block" *ngIf="person.id">
+        <div class="card-block">
           <div class="row" [hidden]="progressHidden">
             <div class="col-sm-12">
               <div class="text-xs-center" id="progress-caption">Uploading {{fileName}} {{percentUploaded}}</div>
@@ -31,8 +28,8 @@
 
           <div class="row">
             <div class="col-sm-12">
-              <p class="text-danger text-center" *ngIf="person.id && person.personDocuments.length==0">No documents attached</p>
-              <table class="table" *ngIf="person.personDocuments.length>0">
+              <p class="text-danger text-center" *ngIf="!person.personDocuments || person.personDocuments.length == 0">No documents attached</p>
+              <table class="table" *ngIf="person.personDocuments && person.personDocuments.length > 0">
                 <thead>
                 <tr>
                   <th class="col-sm-1">&nbsp;</th>

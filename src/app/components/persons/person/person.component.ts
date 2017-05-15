@@ -82,9 +82,6 @@ export class PersonComponent implements OnInit {
 
   private initDefaults(): void {
     this.address = true;
-    if(this.id && !this.person.address){
-      this.person.address = new Address();
-    }
     if (this.person.personType === PersonType.EMPLOYEE) {
       this.skills = true;
       this.documents = true;
@@ -156,11 +153,12 @@ export class PersonComponent implements OnInit {
       );
   }
 
-  save(): void {
-    console.log(this.person);
-    if(this.isAddressEmpty()){
-      delete this.person.address;
+  save(address? : Address): void {
+
+    if(address){
+      this.person.address = address;
     }
+    this.validateAddress();
 
     this.loadingService.show();
     this.personService.checkEmail(this.person)
@@ -178,7 +176,6 @@ export class PersonComponent implements OnInit {
           this.notificationService.notifyError(error);
         }
       );
-
   }
 
   persist(): void {
@@ -258,10 +255,10 @@ export class PersonComponent implements OnInit {
     );
   }
 
-  isAddressEmpty() {
-    return !this.person.address ||
-      (!this.person.address.address1 && !this.person.address.address2 || !this.person.address.city
-      || !this.person.address.state || !this.person.address.zipCode)
+  validateAddress() {
+    if(this.person.address && !this.person.address.address1){
+      delete this.person.address;
+    }
   }
 
 }

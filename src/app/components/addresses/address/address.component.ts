@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 import {Address} from '../../../models/address.model';
 import 'rxjs/add/operator/take';
 import {RestService} from '../../../services/rest.service';
@@ -6,9 +6,6 @@ import {NotificationService} from '../../../services/notification.service'
 import {State} from '../../../models/state.model';
 import {Locations} from "../../../models/rest.model";
 import {Person} from "../../../models/person.model";
-
-export const stateURL = Locations.STATE_URL + '?page=0&size=51';
-//need to fix restService.getAll() to return all data and not just the first page
 
 @Component({
   selector: 'app-address',
@@ -23,8 +20,7 @@ export class AddressComponent implements OnInit {
 
   @Input()
   set address(address: Address) {
-    console.log(`Enter: AddressComponent.set ${address}`);
-    if (address) {
+    if(address){
       this._address = address;
     } else {
       this._address = new Address();
@@ -35,13 +31,18 @@ export class AddressComponent implements OnInit {
     return this._address;
   }
 
+  @Output()
+  persistPerson:EventEmitter<Address> = new EventEmitter();
+
+  save() {
+    this.persistPerson.emit(this.address);
+  }
+
   constructor(private restService: RestService,
               private notificationService: NotificationService) {
-    console.log('AddressComponent constructor');
   }
 
   ngOnInit(): void {
-    console.log(`Enter: AddressComponent.ngOnInit()`);
     if (this._states.length === 0) {
       this.loadStates();
     }
@@ -49,8 +50,7 @@ export class AddressComponent implements OnInit {
 
   private loadStates(): void {
     console.log(`Loading states data`);
-    //this.restService.getAll<State>(environment.STATE_URL) see comment on stateURL above
-    this.restService.getAll<State>(stateURL)
+    this.restService.getAll<State>(Locations.STATE_URL)
       .subscribe(
         states => {
           this._states = states.map(state => state.stateCode);

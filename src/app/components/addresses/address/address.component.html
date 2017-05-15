@@ -1,12 +1,15 @@
 <div class="row">
   <div class="col-sm-12">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">Address Information</h3>
-      </div>
-      <div class="panel-body">
-        <div [hidden]="submitted"></div>
-        <form (ngSubmit)="save()" #addressForm="ngForm">
+    <form (ngSubmit)="save()" #addressForm="ngForm">
+
+      <div class="panel panel-default">
+
+        <div class="panel-heading">
+          <h3 class="panel-title">Address Information</h3>
+        </div>
+
+        <div class="panel-body">
+          <div [hidden]="submitted"></div>
           <div class="row">
             <div class="col-sm-6">
               <div class="form-group">
@@ -30,13 +33,18 @@
                 <label for="city">City</label>
                 <input type="text" class="form-control" id="city" required [(ngModel)]="address.city" name="city"
                        #city="ngModel">
+                <div [hidden]="city.valid || city.pristine" class="alert alert-danger">
+                  City is required
+                </div>
               </div>
             </div>
             <div class="col-sm-6">
               <div class="form-group" *ngIf="address.country !== 'USA'">
                 <label for="state">State</label>
-                <input type="text" class="form-control" id="state" required
-                       [(ngModel)]="address.state" name="state" #state="ngModel">
+                <input type="text" class="form-control" id="state" required [(ngModel)]="address.state" name="state" #state="ngModel">
+                <div [hidden]="state.valid || state.pristine" class="alert alert-danger">
+                  State is required
+                </div>
               </div>
               <div class="form-group" *ngIf="address.country === 'USA'">
                 <label for="state">State</label>
@@ -44,26 +52,43 @@
                         #state="ngModel">
                   <option *ngFor="let state of _states" [value]="state">{{state}}</option>
                 </select>
+                <div [hidden]="state.valid || state.pristine" class="alert alert-danger">
+                  State is required
+                </div>
               </div>
             </div>
 
             <div class="col-sm-6">
               <div class="form-group">
                 <label for="zipcode">Zip Code</label>
-                <input type="text" class="form-control" id="zipcode" required [(ngModel)]="address.zipCode"
-                       name="zipcode" #zipcode="ngModel">
+                <input type="text" class="form-control" id="zipcode" required [(ngModel)]="address.zipCode" name="zipcode" #zipcode="ngModel">
+                <div [hidden]="zipcode.valid || zipcode.pristine" class="alert alert-danger">
+                  Zip Code is required
+                </div>
               </div>
             </div>
             <div class="col-sm-6">
               <div class="form-group">
                 <label for="country">Country</label>
-                <input type="text" class="form-control" id="country" required [(ngModel)]="address.country"
-                       name="country" #country="ngModel">
+                <input type="text" class="form-control" id="country" required [(ngModel)]="address.country" name="country" #country="ngModel">
+                <div [hidden]="country.valid || country.pristine" class="alert alert-danger">
+                  Country is required
+                </div>
               </div>
             </div>
           </div>
-        </form>
+        </div>
+
+        <div class="panel-footer">
+          <div class="row">
+            <div class="col-sm-12">
+              <button type="submit" class="btn btn-primary pull-right" [disabled]="!addressForm.form.valid">Save</button>
+            </div>
+          </div>
+        </div>
+
       </div>
-    </div>
+
+    </form>
   </div>
 </div>
