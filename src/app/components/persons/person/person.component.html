@@ -143,11 +143,11 @@
     </div>
   </div>
 
-  <!--<div class="row" *ngIf="documents">-->
-    <!--<div class="col-sm-12">-->
-      <!--<app-person-documents [person]="person"></app-person-documents>-->
-    <!--</div>-->
-  <!--</div>-->
+  <div class="row" *ngIf="documents">
+    <div class="col-sm-12">
+      <app-person-documents [person]="person" (persistPerson)="loadPerson()"></app-person-documents>
+    </div>
+  </div>
 
   <div class="row" *ngIf="trainings">
     <div class="col-sm-12">

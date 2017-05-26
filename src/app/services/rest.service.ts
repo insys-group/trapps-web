@@ -1,5 +1,5 @@
 import {Injectable, OnInit} from '@angular/core';
-import {Http, Headers, Response} from '@angular/http';
+import {Http, Headers, Response, ResponseContentType} from '@angular/http';
 import {RequestMethod} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import {Observer} from 'rxjs/Observer';
@@ -159,7 +159,8 @@ export class RestService implements OnInit {
             observer.complete();
           }
         }
-      }
+      };
+
       xhr.open("POST", url, true);
       xhr.setRequestHeader("x-filename", file.name);
       xhr.setRequestHeader('Authorization', this.getAuthHeaderValue());
@@ -168,11 +169,16 @@ export class RestService implements OnInit {
   }
 
   deleteFile<T>(url: string): Observable<T> {
-    console.log(`Deleting file at ${url}`);
     return this.http
       .delete(url, {headers: this.getHeaders()})
       .map(response => response.json() as T)
       .catch(error => this.handleError(url, error));
+  }
+
+  downloadFile(url: string) {
+    return this.http.get(url, {headers: this.getHeaders(), responseType: ResponseContentType.Blob})
+      .map(res => res.blob())
+      .catch(error => this.handleError(url, error))
   }
 
   getLink(rel: string, links: Array<Link>): Link {

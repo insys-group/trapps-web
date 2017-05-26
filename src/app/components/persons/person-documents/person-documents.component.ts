@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, OnChanges, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, OnChanges, ViewChild, Output, EventEmitter} from '@angular/core';
 import {Person, PersonDocument} from '../../../models/person.model';
 import {UploadProgress, Locations} from '../../../models/rest.model';
 import {RestService} from '../../../services/rest.service';
@@ -8,6 +8,9 @@ import {Observer} from 'rxjs/Observer';
 import 'rxjs/add/observable/merge';
 import {environment} from '../../../../environments/environment';
 import {ConfirmService} from "../../../services/confirm.service";
+import {LoadingService} from "../../../services/loading.service";
+import {PersonService} from "../../../services/person.service";
+import * as FileSaver from 'file-saver';
 
 @Component({
   selector: 'app-person-documents',
@@ -15,10 +18,11 @@ import {ConfirmService} from "../../../services/confirm.service";
   styleUrls: ['./person-documents.component.css']
 })
 
-export class PersonDocumentsComponent implements OnInit, OnChanges {
+export class PersonDocumentsComponent implements OnInit {
   @ViewChild('fileInput') fileInput;
 
-  constructor(private restService: RestService,
+  constructor(private loadingService: LoadingService,
+              private personService: PersonService,
               private confirmService: ConfirmService,
               private notificationService: NotificationService) {
   }
@@ -26,20 +30,15 @@ export class PersonDocumentsComponent implements OnInit, OnChanges {
   @Input()
   person: Person;
 
+  @Output()
+  persistPerson: EventEmitter<string> = new EventEmitter();
+
   currentValue: number = 0;
   maxValue: number = 100;
   percentUploaded: string = '0%';
   progressHidden: boolean = true;
   file: any = {name: ''};
   documentName: string;
-
-  ngOnChanges() {
-    if (this.person && this.person.personDocuments) {
-      this.person.personDocuments.forEach(document => {
-        document.downloadLink = `${Locations.PERSON_DOCUMENT_URL}${this.person.id}/${document.id}`;
-      });
-    }
-  }
 
   ngOnInit() {
 
@@ -53,65 +52,80 @@ export class PersonDocumentsComponent implements OnInit, OnChanges {
   }
 
   uploadFile() {
-    console.log('Enter: uploadFile');
-    let fi = this.fileInput.nativeElement;
-    if (fi.files && fi.files[0]) {
-      this.file = fi.files[0];
-      console.log(`File to be uploaded is ${this.file.name}`);
-      this.startUpload();
-      this.restService.uploadFile<PersonDocument>(`${Locations.PERSON_DOCUMENT_URL}${this.person.id}/documents`, this.file)
-        .subscribe(
-          data => {
-            if (data instanceof UploadProgress) {
-              this.currentValue = data.currentValue;
-              this.maxValue = data.maxValue;
-              this.percentUploaded = `${data.percentUploaded}%`;
-            } else {
-              data.downloadLink = `${Locations.PERSON_DOCUMENT_URL}${this.person.id}/${data.id}`;
-              let index = this.person.personDocuments.findIndex(d => d.fileName === data.fileName);
-              if (index > -1) {
-                this.person.personDocuments[index] = data;
-              } else {
-                this.person.personDocuments.push(data);
-              }
-              console.log('Person Document added is ' + JSON.stringify(this.person.personDocuments));
-            }
-          },
-          error => {
-            this.handleError;
-            this.stopUpload();
-          },
-          () => {
-            console.log('File has been saved successfully');
-            setTimeout(() => {
-              this.stopUpload();
-            }, 1000);
-          }
-        );
-    } else {
-      this.notificationService.info('Please the file first');
-    }
-  }
-
-  deleteFile(document: PersonDocument): void {
 
     let self = this;
-    this.confirmService.confirm(
-      'Deleted documents cannot be recovered. Continue?',
-      '',
-      function () {
-        self.restService.deleteFile<PersonDocument>(`${Locations.PERSON_DOCUMENT_URL}${self.person.id}/${document.id}`)
+    let fileExists = false;
+    this.person.personDocuments.forEach(function (personDocument) {
+      if (self.file.name == personDocument.fileName) {
+        fileExists = true;
+      }
+    });
+
+    if (fileExists) {
+      this.notificationService.error('File with that name \'' + self.file.name + '\' already exists, please rename or remove first.')
+    } else {
+      let fi = this.fileInput.nativeElement;
+      if (fi.files && fi.files[0]) {
+        this.file = fi.files[0];
+        console.log(`File to be uploaded is ${this.file.name}`);
+        this.startUpload();
+
+        this.personService.uploadFile(this.person.id, this.file)
           .subscribe(
-            (deletedDocument) => {
-              let index = self.person.personDocuments.findIndex(d => d.fileName === deletedDocument.fileName);
-              console.log('Deleted document returned ' + JSON.stringify(deletedDocument) + 'Index is ' + index);
-              if (index > -1) {
-                self.person.personDocuments.splice(index, 1);
-                self.notificationService.info(`Document ${document.fileName} has been deleted successfully`);
+            data => {
+              if (data instanceof UploadProgress) {
+                this.currentValue = data.currentValue;
+                this.maxValue = data.maxValue;
+                this.percentUploaded = `${data.percentUploaded}%`;
+              } else {
+                this.persistPerson.emit();
+                this.notificationService.success('Document successfuly uploaded.');
               }
             },
-            error => self.handleError
+            error => {
+              this.stopUpload();
+              this.notificationService.notifyError(error);
+            },
+            () => {
+              console.log('File has been saved successfully');
+              setTimeout(() => {
+                this.stopUpload();
+              }, 1000);
+            }
           );
+
+      } else {
+        this.notificationService.info('No file selected');
+      }
+    }
+
+  }
+
+  deleteFile(personDocument: PersonDocument): void {
+    let self = this;
+    this.confirmService.confirm(
+      'Confirm',
+      'Are you sure you want to remove ' + personDocument.fileName + '?',
+      function () {
+
+        self.loadingService.show();
+        self.personService.deleteFile(personDocument.id)
+          .subscribe(
+            deleted => {
+              self.loadingService.hide();
+              if (deleted) {
+                self.notificationService.success('Document successfuly deleted.');
+                self.persistPerson.emit();
+              } else {
+                self.notificationService.error('Error deleting the document.');
+              }
+            },
+            error => {
+              self.loadingService.hide();
+              self.notificationService.notifyError(error);
+            }
+          );
+
       }
     );
   }
@@ -125,9 +139,27 @@ export class PersonDocumentsComponent implements OnInit, OnChanges {
     this.file = {name: ''};
   }
 
-  private handleError(error: any): void {
-    console.error('An error occurred', error);
-    this.notificationService.error('Error occured: ' + error);
+  download(personDocument: PersonDocument) {
+    this.loadingService.show();
+
+    let reader = new FileReader();
+
+    this.personService.downloadFile(personDocument.id)
+      .subscribe(
+        blob => {
+          this.loadingService.hide();
+          FileSaver.saveAs(blob, personDocument.fileName);
+        },
+        error => {
+          this.loadingService.hide();
+          this.notificationService.notifyError(error);
+        }
+      );
+
+    reader.onloadend = function (e) {
+      window.open(reader.result);
+    }
+
   }
 
 }

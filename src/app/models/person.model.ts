@@ -28,8 +28,9 @@ export class PersonSkill extends RestResource {
 export class PersonDocument extends RestResource {
   id: number;
   fileName: string;
-  uploadTimestamp: Date;
-  downloadLink: string
+  fileSize: number;
+  date: Date;
+  s3key: string;
 }
 
 export class PersonType {

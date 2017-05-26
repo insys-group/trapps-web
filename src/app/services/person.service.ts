@@ -42,8 +42,8 @@ export class PersonService implements OnInit {
 
   getBusiness(person: Person): Observable<Business> {
     let url = '';
-    person.links.forEach(function(link) {
-      if(link.rel == 'business'){
+    person.links.forEach(function (link) {
+      if (link.rel == 'business') {
         url = link.href;
       }
     });
@@ -52,8 +52,8 @@ export class PersonService implements OnInit {
 
   getAdress(person: Person): Observable<Address> {
     let url = '';
-    person.links.forEach(function(link) {
-      if(link.rel == 'adress'){
+    person.links.forEach(function (link) {
+      if (link.rel == 'adress') {
         url = link.href;
       }
     });
@@ -64,16 +64,28 @@ export class PersonService implements OnInit {
     return this.restService.getOne<Person>(Locations.PERSON_URL + id);
   }
 
-  checkEmail(person : Person){
+  checkEmail(person: Person) {
     return this.restService.post<boolean>(Locations.CHECK_EMAIL_URL, person);
   }
 
-  savePerson(person : Person){
+  savePerson(person: Person) {
     return this.restService.create<Person>(Locations.PERSON_URL, person);
   }
 
   removePerson(person: Person): Observable<void> {
     return this.restService.delete(person);
+  }
+
+  uploadFile(personId: number, file: any): Observable<any> {
+    return this.restService.uploadFile(Locations.PERSON_DOCUMENT_URL + personId, file);
+  }
+
+  downloadFile(id: number): Observable<any> {
+    return this.restService.downloadFile(Locations.PERSON_DOCUMENT_URL + id);
+  }
+
+  deleteFile(id: number): Observable<any> {
+    return this.restService.deleteFile(Locations.PERSON_DOCUMENT_URL + id);
   }
 
   private handleError(error: Response): Observable<any> {
