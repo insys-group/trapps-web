@@ -109,7 +109,7 @@ export class PersonDocumentsComponent implements OnInit {
       function () {
 
         self.loadingService.show();
-        self.personService.deleteFile(personDocument.id)
+        self.personService.deleteFile(self.person.id, personDocument.id)
           .subscribe(
             deleted => {
               self.loadingService.hide();

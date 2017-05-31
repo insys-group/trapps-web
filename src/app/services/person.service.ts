@@ -84,8 +84,8 @@ export class PersonService implements OnInit {
     return this.restService.downloadFile(Locations.PERSON_DOCUMENT_URL + id);
   }
 
-  deleteFile(id: number): Observable<any> {
-    return this.restService.deleteFile(Locations.PERSON_DOCUMENT_URL + id);
+  deleteFile(personId: number, documentId: number): Observable<any> {
+    return this.restService.deleteFile(Locations.PERSON_DOCUMENT_URL + personId + '/' + documentId);
   }
 
   private handleError(error: Response): Observable<any> {
