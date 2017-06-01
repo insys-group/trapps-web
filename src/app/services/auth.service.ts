@@ -80,7 +80,8 @@ export class AuthService implements OnInit {
       .post(authURL, {}, {headers: headers})
       .map(response => response.json())
       .do(authToken => {
-        LocalStorageService.set('auth_token', authToken);
+        let token: AuthToken = authToken;
+        LocalStorageService.set('auth_token', token);
         console.debug('Token refreshed.');
       })
       .catch(error => {
