@@ -76,7 +76,7 @@ export class AppComponent implements OnInit, OnDestroy {
         });
 
         if (this.authToken) {
-            if (this.authToken.local_expires_date > new Date(Date.now() - 100)) {
+            if (this.authToken.local_expires_date > new Date(Date.now())) {
                 this.refreshToken();
             } else {
                 this.authService.clearToken();
