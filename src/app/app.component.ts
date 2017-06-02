@@ -79,7 +79,7 @@ export class AppComponent implements OnInit, OnDestroy {
             if (this.authToken.local_expires_date > new Date(Date.now() - 100)) {
                 this.refreshToken();
             } else {
-                this.logout();
+                this.authService.clearToken();
             }
         }
         IntervalObservable.create(this.CONSTANTS.TOKEN_REFRESH_INTERVAL).subscribe(n => {
