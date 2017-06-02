@@ -56,7 +56,9 @@ export class AppComponent implements OnInit, OnDestroy {
 
     private refreshToken(): void {
         this.authToken = LocalStorageService.get('auth_token');
+        console.log('refreshToken start');
         if (this.authToken) {
+            console.log('this.authService.refreshToken() start');
             this.authService.refreshToken()
                 .subscribe(
                     token => {
@@ -76,6 +78,7 @@ export class AppComponent implements OnInit, OnDestroy {
         });
 
         if (this.authToken) {
+            console.log(`this.authToken.local_expires_date = ${this.authToken.local_expires_date} > ${new Date(Date.now())}`);
             if (this.authToken.local_expires_date && this.authToken.local_expires_date > new Date(Date.now())) {
                 this.refreshToken();
             } else {
