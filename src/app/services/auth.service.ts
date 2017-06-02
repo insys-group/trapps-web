@@ -100,6 +100,7 @@ export class AuthService implements OnInit {
 
 
   clearToken(): void {
+    console.debug('Clear up token...');
     LocalStorageService.remove('temp_token');
     LocalStorageService.remove('auth_token');
     LocalStorageService.remove('user_info');
