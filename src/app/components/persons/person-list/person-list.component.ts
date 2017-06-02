@@ -74,6 +74,7 @@ export class PersonListComponent implements OnInit {
           .subscribe(
             persons => {
               self.loadingService.hide();
+              self.notificationService.success('Person removed.');
               self.refresh();
             },
             error => {

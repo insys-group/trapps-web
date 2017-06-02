@@ -11,6 +11,7 @@
       <label for="businessType">Business Type</label>
       <div>
         <select class="form-control"  #sel  (change)="select.emit(sel.value)"  [(ngModel)]="businessType">
+          <option selected=selected></option>
           <option *ngFor="let businessType of businessTypes">{{businessType}}</option>
         </select>
       </div>

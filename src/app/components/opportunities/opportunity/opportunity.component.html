@@ -26,6 +26,7 @@
           <div class="form-group">
             <label>Business</label>
             <select class="form-control" required [(ngModel)]="opportunity.business" id="business" name="business" #business="ngModel">
+              <option selected=selected></option>
               <option *ngFor="let business of businesses" [ngValue]="business">{{business.name}}</option>
             </select>
           </div>

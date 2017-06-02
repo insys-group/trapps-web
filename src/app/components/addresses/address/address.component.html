@@ -50,6 +50,7 @@
                 <label for="state">State</label>
                 <select class="form-control" id="states" required [(ngModel)]="address.state" name="state"
                         #state="ngModel">
+                  <option selected=selected></option>
                   <option *ngFor="let state of _states" [value]="state">{{state}}</option>
                 </select>
                 <div [hidden]="state.valid || state.pristine" class="alert alert-danger">

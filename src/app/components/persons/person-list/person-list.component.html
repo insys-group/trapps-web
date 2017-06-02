@@ -11,6 +11,7 @@
       <label>Person Type</label>
       <div>
         <select class="form-control" #sel (change)="select.emit(sel.value)" [(ngModel)]="personType">
+          <option selected=selected></option>
           <option *ngFor="let personType of personTypes">{{personType}}</option>
         </select>
       </div>

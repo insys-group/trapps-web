@@ -8,11 +8,13 @@
         <div class="row">
           <div class="col-sm-5">
             <select class="form-control" [(ngModel)]="currentSkill">
+              <option selected=selected value=""></option>
               <option *ngFor="let skill of skills" [ngValue]="skill">{{skill.name}}</option>
             </select>
           </div>
           <div class="col-sm-5">
             <select class="form-control" [(ngModel)]="scale">
+              <option selected=selected></option>
               <option *ngFor="let scale of scales" [ngValue]="scale">{{scale}}</option>
             </select>
           </div>

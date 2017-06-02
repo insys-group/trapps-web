@@ -17,6 +17,7 @@
             <label>Employee</label>
             <select class="form-control" required [(ngModel)]="userPerson" id="person" name="person"
                     #person="ngModel" (ngModelChange)="setUsername($event)">
+              <option selected=selected></option>
               <option *ngFor="let person of persons | filterPersonType: EMPLOYEE" [ngValue]="person">{{person.firstName}} {{person.lastName}}</option>
             </select>
             <div [hidden]="person.valid || person.pristine" class="alert alert-danger">

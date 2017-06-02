@@ -33,6 +33,7 @@
           <div class="form-group">
             <label>Role</label>
             <select class="form-control" required [(ngModel)]="interview.role" id="role" name="role" #role="ngModel">
+              <option selected=selected></option>
               <option *ngFor="let role of roles" [ngValue]="role">{{role.name}}</option>
             </select>
           </div>
@@ -40,6 +41,7 @@
           <div class="form-group">
             <label>Candidate</label>
             <select class="form-control" required [(ngModel)]="interview.candidate" id="candidate" name="candidate" #candidate="ngModel">
+              <option selected=selected></option>
               <option *ngFor="let person of persons | filterPersonType: CANDIDATE" [ngValue]="person">{{person.firstName}} {{person.lastName}}</option>
             </select>
           </div>
@@ -71,6 +73,7 @@
           <label>Select Template</label>
           <select class="form-control" required [(ngModel)]="selectedTemplate" id="template" name="template"
                   #template="ngModel" (change)="getTemplate()">
+            <option selected=selected></option>
             <option *ngFor="let template of templates" [ngValue]="template">{{template.name}}</option>
           </select>
         </div>
@@ -115,6 +118,7 @@
           <label>Add Interviewer</label>
           <select class="form-control" required [(ngModel)]="newInterviewer" id="interviewer" name="interviewer"
                   #interviewer="ngModel" (change)="addInterviewer()">
+            <option selected=selected></option>
             <option *ngFor="let person of persons | filterPersonType: INTERVIWER" [ngValue]="person">{{person.firstName}} {{person.lastName}}</option>
           </select>
         </div>

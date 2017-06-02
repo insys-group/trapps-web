@@ -26,6 +26,7 @@
           <div class="form-group">
             <label>Role</label>
             <select class="form-control" required [(ngModel)]="template.role" id="role" name="role" #role="ngModel">
+              <option selected=selected></option>
               <option *ngFor="let role of roles" [ngValue]="role">{{role.name}}</option>
             </select>
           </div>

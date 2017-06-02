@@ -26,6 +26,7 @@
                 <label for="personType">Person Type</label>
                 <select class="form-control" id="personType" required [(ngModel)]="person.personType"
                         name="personType" #personType="ngModel" (ngModelChange)="onPersonTypeChange($event)">
+                  <option selected=selected></option>
                   <option *ngFor="let personType of personTypes" [value]="personType">{{personType}}</option>
                 </select>
               </div>
@@ -35,6 +36,7 @@
                 <label for="business">Employer</label>
                 <select class="form-control" id="business" required [(ngModel)]="person.business" name="business"
                         #business="ngModel">
+                  <option selected=selected></option>
                   <option *ngFor="let business of businesses" [ngValue]="business">{{business.name}}</option>
                 </select>
               </div>

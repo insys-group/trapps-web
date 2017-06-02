@@ -10,6 +10,7 @@
             <div class="form-group">
               <label>Trainings</label>
               <select class="form-control" required [(ngModel)]="selectedTraining" id="training" name="training">
+                <option selected=selected></option>
                 <option *ngFor="let selectedTraining of trainings" [ngValue]="selectedTraining">{{selectedTraining.name}}</option>
               </select>
             </div>
