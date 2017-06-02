@@ -55,7 +55,7 @@ export class AppComponent implements OnInit, OnDestroy {
     };
 
     private refreshToken(): void {
-        console.debug('refreshToken start');
+        console.log('refreshToken start');
         this.authToken = LocalStorageService.get('auth_token');
         if (this.authToken) {
             console.debug('this.authService.refreshToken() start');
@@ -84,10 +84,10 @@ export class AppComponent implements OnInit, OnDestroy {
             let duration = eventStartTime.valueOf() - eventEndTime.valueOf();
             console.debug(`this.authToken.local_expires_date = ${eventStartTime} | ${eventEndTime} | ${duration}`);
             if (duration > 0) {
-                console.debug("refreshToken()");
+                console.log("refreshToken()");
                 this.refreshToken();
             } else {
-                console.debug("clearToken()");
+                console.log("clearToken()");
                 this.logout();
             }
         }
