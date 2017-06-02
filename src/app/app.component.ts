@@ -55,16 +55,19 @@ export class AppComponent implements OnInit, OnDestroy {
     };
 
     private refreshToken(): void {
-        this.authService.refreshToken()
-            .subscribe(
-                token => {
-                    this.loadingService.hide();
-                },
-                error => {
-                    this.loadingService.hide();
-                    this.notificationService.notifyError(error)
-                }
-            );
+        this.authToken = LocalStorageService.get('auth_token');
+        if (this.authToken) {
+            this.authService.refreshToken()
+                .subscribe(
+                    token => {
+                        this.loadingService.hide();
+                    },
+                    error => {
+                        this.loadingService.hide();
+                        this.notificationService.notifyError(error)
+                    }
+                );
+        }
     }
 
     ngOnInit(): void {
@@ -72,10 +75,12 @@ export class AppComponent implements OnInit, OnDestroy {
             this.objAlert = {show: val.show, message: val.message, type: val.type};
         });
 
-        if (this.authToken && this.authToken.local_expires_date > new Date(Date.now() - 100)) {
-            this.refreshToken();
-        } else {
-            this.logout();
+        if (this.authToken) {
+            if (this.authToken.local_expires_date > new Date(Date.now() - 100)) {
+                this.refreshToken();
+            } else {
+                this.logout();
+            }
         }
         IntervalObservable.create(this.CONSTANTS.TOKEN_REFRESH_INTERVAL).subscribe(n => {
             this.refreshToken();
