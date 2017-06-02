@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
             .subscribe(
                 authToken => {
                     let token: AuthToken = authToken;
-                    token.local_expires_date = new Date(Date.now() + token.expires_in);
+                    token.local_expires_date = new Date(Date.now().valueOf() + token.expires_in);
 
                     this.loadingService.hide();
 

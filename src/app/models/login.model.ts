@@ -19,6 +19,6 @@ export class AuthToken {
     this.refresh_token = refresh_token;
     this.expires_in = expires_in;
     this.scope = scope;
-    this.local_expires_date = new Date(Date.now() + expires_in);
+    this.local_expires_date = new Date(Date.now().valueOf() + expires_in);
   }
 }

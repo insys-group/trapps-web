@@ -55,10 +55,10 @@ export class AppComponent implements OnInit, OnDestroy {
     };
 
     private refreshToken(): void {
+        console.debug('refreshToken start');
         this.authToken = LocalStorageService.get('auth_token');
-        console.log('refreshToken start');
         if (this.authToken) {
-            console.log('this.authService.refreshToken() start');
+            console.debug('this.authService.refreshToken() start');
             this.authService.refreshToken()
                 .subscribe(
                     token => {
@@ -78,11 +78,17 @@ export class AppComponent implements OnInit, OnDestroy {
         });
 
         if (this.authToken) {
-            console.log(`this.authToken.local_expires_date = ${this.authToken.local_expires_date} > ${new Date(Date.now())}`);
-            if (this.authToken.local_expires_date && this.authToken.local_expires_date > new Date(Date.now())) {
+            console.debug(`this.authToken = ${JSON.stringify(this.authToken)}`);
+            let eventStartTime = new Date(this.authToken.local_expires_date);
+            let eventEndTime = new Date(Date.now());
+            let duration = eventStartTime.valueOf() - eventEndTime.valueOf();
+            console.debug(`this.authToken.local_expires_date = ${eventStartTime} | ${eventEndTime} | ${duration}`);
+            if (duration > 0) {
+                console.debug("refreshToken()");
                 this.refreshToken();
             } else {
-                this.authService.clearToken();
+                console.debug("clearToken()");
+                this.logout();
             }
         }
         IntervalObservable.create(this.CONSTANTS.TOKEN_REFRESH_INTERVAL).subscribe(n => {

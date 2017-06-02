@@ -65,7 +65,7 @@ export class AuthService implements OnInit {
 
   refreshToken(): Observable<any> {
 
-    console.debug('Refreshing token...');
+    console.log('Refreshing token...');
 
     let token = LocalStorageService.get('auth_token');
 
@@ -94,13 +94,13 @@ export class AuthService implements OnInit {
   }
 
   logout(): void {
-    this. clearToken();
+    this.clearToken();
     window.location.href = "/";
   }
 
 
   clearToken(): void {
-    console.debug('Clear up token...');
+    console.log('Clear up token...');
     LocalStorageService.remove('temp_token');
     LocalStorageService.remove('auth_token');
     LocalStorageService.remove('user_info');
