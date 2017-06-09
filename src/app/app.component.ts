@@ -78,11 +78,11 @@ export class AppComponent implements OnInit, OnDestroy {
         });
 
         if (this.authToken) {
-            console.debug(`this.authToken = ${JSON.stringify(this.authToken)}`);
+            console.log(`this.authToken = ${JSON.stringify(this.authToken)}`);
             let eventStartTime = new Date(this.authToken.local_expires_date);
             let eventEndTime = new Date(Date.now());
             let duration = eventStartTime.valueOf() - eventEndTime.valueOf();
-            console.debug(`this.authToken.local_expires_date = ${eventStartTime} | ${eventEndTime} | ${duration}`);
+            console.log(`this.authToken.local_expires_date = ${eventStartTime} | ${eventEndTime} | ${duration}`);
             if (duration > 0) {
                 console.log("refreshToken()");
                 this.refreshToken();

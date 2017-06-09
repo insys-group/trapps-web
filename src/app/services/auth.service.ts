@@ -27,7 +27,9 @@ export class AuthService implements OnInit {
 
   saveToken(authToken) {
     LocalStorageService.remove('temp_token');
-    LocalStorageService.set('auth_token', authToken);
+    let token: AuthToken = authToken;
+    token.local_expires_date = new Date(Date.now().valueOf() + token.expires_in * 1000);
+    LocalStorageService.set('auth_token', token);
     this.userLoggedIn = true;
   }
 
@@ -80,8 +82,7 @@ export class AuthService implements OnInit {
       .post(authURL, {}, {headers: headers})
       .map(response => response.json())
       .do(authToken => {
-        let token: AuthToken = authToken;
-        LocalStorageService.set('auth_token', token);
+        this.saveToken(authToken);
         console.debug('Token refreshed.');
       })
       .catch(error => {

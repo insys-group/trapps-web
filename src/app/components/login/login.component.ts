@@ -36,13 +36,8 @@ export class LoginComponent implements OnInit {
         this.authService.login(this.credentials)
             .subscribe(
                 authToken => {
-                    let token: AuthToken = authToken;
-
-                    token.local_expires_date = new Date(Date.now().valueOf() + token.expires_in * 1000);
-
                     this.loadingService.hide();
-
-                    this.authService.saveTempToken(token);
+                    this.authService.saveTempToken(authToken);
 
                     if (this.authService.isLoginFail()) {
                         this.notificationService.error('Login fail, please check credentials.');
@@ -53,7 +48,7 @@ export class LoginComponent implements OnInit {
                             userInfo => {
                                 console.log('Loaded User ', userInfo);
                                 if (userInfo.passwordChanged) {
-                                    this.authService.saveToken(token);
+                                    this.authService.saveToken(authToken);
                                     LocalStorageService.set('user_info', userInfo);
                                     window.location.href = "/";
                                 } else {
