@@ -83,12 +83,13 @@ export class AuthService implements OnInit {
       .map(response => response.json())
       .do(authToken => {
         this.saveToken(authToken);
-        console.debug('Token refreshed.');
+        console.log('Token refreshed.');
       })
       .catch(error => {
         if (error.status == 401) {
           this.loginFail = true;
         }
+        console.log('Token refreshed Fail');
         return this.handleError(authURL, error, error.json() as AuthToken);
       });
 

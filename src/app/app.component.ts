@@ -58,17 +58,30 @@ export class AppComponent implements OnInit, OnDestroy {
         console.log('refreshToken start');
         this.authToken = LocalStorageService.get('auth_token');
         if (this.authToken) {
-            console.debug('this.authService.refreshToken() start');
-            this.authService.refreshToken()
-                .subscribe(
-                    token => {
-                        this.loadingService.hide();
-                    },
-                    error => {
-                        this.loadingService.hide();
-                        this.notificationService.notifyError(error)
-                    }
-                );
+            console.log(`this.authToken = ${JSON.stringify(this.authToken)}`);
+            let eventStartTime = new Date(this.authToken.local_expires_date);
+            let eventEndTime = new Date(Date.now());
+            let duration = eventStartTime.valueOf() - eventEndTime.valueOf();
+            console.log(`this.authToken.local_expires_date = ${eventStartTime} | ${eventEndTime} | ${duration}`);
+            if (duration > 0) {
+                console.log("refreshToken()");
+                this.authService.refreshToken()
+                    .subscribe(
+                        token => {
+                            this.loadingService.hide();
+                        },
+                        error => {
+                            this.loadingService.hide();
+                            this.notificationService.notifyError(error)
+                        }
+                    );
+            } else {
+                console.log("clearToken()");
+                this.logout();
+            }
+        } else {
+            console.log("clearToken()");
+            this.logout();
         }
     }
 
@@ -77,20 +90,7 @@ export class AppComponent implements OnInit, OnDestroy {
             this.objAlert = {show: val.show, message: val.message, type: val.type};
         });
 
-        if (this.authToken) {
-            console.log(`this.authToken = ${JSON.stringify(this.authToken)}`);
-            let eventStartTime = new Date(this.authToken.local_expires_date);
-            let eventEndTime = new Date(Date.now());
-            let duration = eventStartTime.valueOf() - eventEndTime.valueOf();
-            console.log(`this.authToken.local_expires_date = ${eventStartTime} | ${eventEndTime} | ${duration}`);
-            if (duration > 0) {
-                console.log("refreshToken()");
-                this.refreshToken();
-            } else {
-                console.log("clearToken()");
-                this.logout();
-            }
-        }
+        this.refreshToken();
         IntervalObservable.create(this.CONSTANTS.TOKEN_REFRESH_INTERVAL).subscribe(n => {
             this.refreshToken();
         });
