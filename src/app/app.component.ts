@@ -79,9 +79,6 @@ export class AppComponent implements OnInit, OnDestroy {
                 console.log("clearToken()");
                 this.logout();
             }
-        } else {
-            console.log("clearToken()");
-            this.logout();
         }
     }
 
