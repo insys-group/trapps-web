@@ -8,7 +8,6 @@ import {ResourceModule} from 'ng2-resource-rest';
 import {AppComponent} from './app.component';
 import {HomeComponent} from './components/home/home.component';
 
-import {PersonComponent} from './components/persons/person/person.component';
 import {PersonListComponent} from './components/persons/person-list/person-list.component';
 import {AppRoutingModule} from './app-routing.module';
 import {BusinessListComponent} from './components/businesses/business-list/business-list.component';
@@ -65,12 +64,15 @@ import {SimpleNotificationsModule} from 'angular2-notifications';
 import {ConfirmService} from "./services/confirm.service";
 import {PerformInterviewComponent} from "./components/interviews/perform-interview/perform-interview.component";
 import {FilterInterviewStatusPipe} from "./pipes/filter-interview-status.pipe";
+import {PersonDetailsComponent} from "./components/persons/person-details/person-details.component";
+import {PersonModalComponent} from "./components/persons/person-modal/person-modal.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    PersonComponent,
+    PersonDetailsComponent,
+    PersonModalComponent,
     PersonListComponent,
     BusinessComponent,
     BusinessListComponent,

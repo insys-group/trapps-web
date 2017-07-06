@@ -22,14 +22,15 @@ import {User} from "../../../models/user.model";
 import {ConfirmService} from "../../../services/confirm.service";
 import {BusinessService} from "../../../services/business.service";
 import {PersonService} from "../../../services/person.service";
+import {NgForm} from "@angular/forms";
 
 @Component({
-  selector: 'app-person',
-  templateUrl: './person.component.html',
-  styleUrls: ['./person.component.css']
+  selector: 'app-person-details',
+  templateUrl: './person-details.component.html',
+  styleUrls: ['./person-details.component.css']
 })
 
-export class PersonComponent implements OnInit {
+export class PersonDetailsComponent implements OnInit {
   //used when navigation is used
   id: number;
   personType: string;
@@ -39,6 +40,7 @@ export class PersonComponent implements OnInit {
   user: User;
 
   //lookups
+  personTypeCatalog = PersonType;
   personTypes: string[] = [PersonType.EMPLOYEE, PersonType.CANDIDATE, PersonType.CLIENT, PersonType.VENDOR, PersonType.PIVOTAL];
   businesses: Array<Business>;
   selectedBusiness: string;
@@ -48,6 +50,10 @@ export class PersonComponent implements OnInit {
   trainings: boolean;
   documents: boolean;
   address: boolean;
+
+  submitted = false;
+
+  @ViewChild('personForm') personForm: NgForm;
 
   //all child views
   @ViewChild(AddressComponent)
@@ -153,29 +159,41 @@ export class PersonComponent implements OnInit {
       );
   }
 
+  validatePerson(): void {
+    this.submitted = true;
+
+  }
+
   save(address? : Address): void {
 
-    if(address){
-      this.person.address = address;
-    }
-    this.validateAddress();
+    this.submitted = true;
 
-    this.loadingService.show();
-    this.personService.checkEmail(this.person)
-      .subscribe(
-        exists => {
-          this.loadingService.hide();
-          if(exists){
-            this.notificationService.error('The email is already occupied by another user.');
-          } else {
-            this.persist();
+    if(this.personForm.valid){
+      if(address){
+        this.person.address = address;
+      }
+      this.validateAddress();
+
+      this.loadingService.show();
+      this.personService.checkEmail(this.person)
+        .subscribe(
+          exists => {
+            this.loadingService.hide();
+            if(exists){
+              this.notificationService.error('The email is already occupied by another user.');
+            } else {
+              this.persist();
+            }
+          },
+          error => {
+            this.loadingService.hide();
+            this.notificationService.notifyError(error);
           }
-        },
-        error => {
-          this.loadingService.hide();
-          this.notificationService.notifyError(error);
-        }
-      );
+        );
+    } else {
+      this.notificationService.error('Please fix specified errors.');
+    }
+
   }
 
   persist(): void {

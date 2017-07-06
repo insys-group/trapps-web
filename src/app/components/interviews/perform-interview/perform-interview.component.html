@@ -7,13 +7,18 @@
 <div class="row">
   <div class="col-sm-12">
 
+    <a class="btn btn-default" [routerLink]="['/interviews']">
+      <i class="fa fa-arrow-left" aria-hidden="true"></i> Inteviews List
+    </a>
+    <div class="spacer-md"></div>
+
     <div class="panel panel-default">
       <div class="panel-heading">
         <h3 class="panel-title">Details</h3>
       </div>
       <div class="panel-body">
 
-        <p>Name: {{interview.name}}</p>
+        <p>Interview Name: {{interview.name}}</p>
         <p>Status: {{interview.status | filterInterviewStatus}}</p>
         <p *ngIf="interview.candidate">Candidate: {{interview.candidate.firstName}} {{interview.candidate.lastName}}</p>
         <p *ngIf="interview.role">Role: {{interview.role.name}}</p>
@@ -23,21 +28,30 @@
             <li *ngFor="let interviewer of interview.interviewers">{{interviewer.firstName}} {{interviewer.lastName}}</li>
           </ul>
         </span>
+        <p>
+          {{contactLabel}}:
+          <span *ngIf="interview.contactType !== contactTypeCatalog.ZOOM">{{interview.contact}}</span>
+          <a *ngIf="interview.contactType === contactTypeCatalog.ZOOM" href="{{interview.contact}}">{{interview.contact}}</a>
+        </p>
 
       </div>
 
       <div class="panel-footer">
         <div class="row">
           <div class="col-sm-12">
-            <a class="btn btn-default" [routerLink]="['/interviews']">Cancel</a>
+            <a class="btn btn-default" [routerLink]="['/interviews']">
+              <i class="fa fa-ban" aria-hidden="true"></i> Cancel
+            </a>
             <button type="button" class="btn btn-primary pull-right"
                     *ngIf="allowEdition && interview.status == CONSTANTS.INTERVIEW_STATUS.OPEN"
-                    (click)="start()">Start Interview</button>
+                    (click)="start()">
+              <i class="fa fa-play-circle"></i> Start Interview
+            </button>
             <button type="button" class="btn btn-primary pull-right"
                     *ngIf="allowEdition && interview.status == CONSTANTS.INTERVIEW_STATUS.IN_PROGRESS"
                     (click)="complete()"
                     [disabled]="!interview.answers || interview.answers.length == 0 || !interview.feedbacks || interview.feedbacks.length == 0">
-              Complete Interview
+              <i class="fa fa-check" aria-hidden="true"></i> Complete Interview
             </button>
           </div>
         </div>
@@ -66,20 +80,65 @@
             </div>
           </div>
 
+          <div class="panel panel-default">
+            <div class="panel-heading clickable" (click)="toggleHelp()">
+              <h3 class="panel-title"><i class="fa fa-question-circle" aria-hidden="true"></i> Rates</h3>
+            </div>
+            <div class="panel-body" [hidden]="!showHelp">
+              <div class="row">
+                <div class="col-sm-4">
+                  <p><ngb-rating max="5" rate="0" class="raiting" readonly="true"></ngb-rating> Not Used</p>
+                </div>
+                <div class="col-sm-4">
+                  <p><ngb-rating max="5" rate="1" class="raiting" readonly="true"></ngb-rating> Poor</p>
+                </div>
+                <div class="col-sm-4">
+                  <p><ngb-rating max="5" rate="2" class="raiting" readonly="true"></ngb-rating> Fair</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-4">
+                  <p><ngb-rating max="5" rate="3" class="raiting" readonly="true"></ngb-rating> Average</p>
+                </div>
+                <div class="col-sm-4">
+                  <p><ngb-rating max="5" rate="4" class="raiting" readonly="true"></ngb-rating> Good</p>
+                </div>
+                <div class="col-sm-4">
+                  <p><ngb-rating max="5" rate="5" class="raiting" readonly="true"></ngb-rating> Excelent!</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <ol>
             <li *ngFor="let answer of interview.answers; let i = index">
-              <b>{{answer.question.question}}</b> <i class="fa fa-times icon-btn-md" (click)="removeQuestion(i)"></i>
-              <br/>
+              <p class="question">
+                <b>{{answer.question.question}}</b> <i class="fa fa-times icon-btn-md" (click)="removeQuestion(i)"></i>
+              </p>
               <textarea class="form-control" [(ngModel)]="answer.answer" placeholder="Enter Answer"
                         [readonly]="interview.status != CONSTANTS.INTERVIEW_STATUS.IN_PROGRESS"></textarea>
+
+              <ngb-rating max="5" [(ngModel)]="answer.rate" class="raiting"></ngb-rating>
+              <label [hidden]="!answer.rate || answer.rate !== 0">Not Used</label>
+              <label [hidden]="!answer.rate || answer.rate !== 1">Poor</label>
+              <label [hidden]="!answer.rate || answer.rate !== 2">Fair</label>
+              <label [hidden]="!answer.rate || answer.rate !== 3">Average</label>
+              <label [hidden]="!answer.rate || answer.rate !== 4">Good</label>
+              <label [hidden]="!answer.rate || answer.rate !== 5">Excelent!</label>
+
             </li>
           </ol>
 
-          <button type="button" class="btn btn-primary pull-right"
-                  *ngIf="interview.status == CONSTANTS.INTERVIEW_STATUS.IN_PROGRESS" (click)="save()">
-            Save
-          </button>
-
+        </div>
+        <div class="panel-footer">
+          <div class="row">
+            <div class="col-sm-12">
+              <button type="button" class="btn btn-primary pull-right"
+                      *ngIf="interview.status == CONSTANTS.INTERVIEW_STATUS.IN_PROGRESS" (click)="save()">
+                Save
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 

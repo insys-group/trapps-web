@@ -8,9 +8,10 @@ import {Answer} from "./answer.model";
 export class Interview extends RestResource {
 
   id: number;
-  date: Date = new Date();
   name: string;
-  phone: string;
+  date: Date = new Date();
+  contactType: ContactType;
+  contact: string;
   status: number;
   candidate: Person;
   role: Role;
@@ -18,4 +19,11 @@ export class Interview extends RestResource {
   answers: Array<Answer> = new Array<Answer>();
   feedbacks: Array<Feedback> = new Array<Feedback>();
 
+}
+
+export class ContactType {
+  static PHONE : string = "Phone";
+  static CANDIDATE_PHONE : string = "CandidatePhone";
+  static CANDIDATE_SKYPE : string = "CandidateSkype";
+  static ZOOM : string = "Zoom";
 }

@@ -7,6 +7,7 @@ export class Answer extends RestResource {
   interview: Interview;
   question: Question = new Question();
   answer: string;
+  rate: number;
   comment: string;
   quality: QualityType;
 }

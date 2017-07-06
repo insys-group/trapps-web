@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { HomeComponent } from "./components/home/home.component";
-import { PersonComponent } from './components/persons/person/person.component';
 import { PersonListComponent } from './components/persons/person-list/person-list.component';
 import { BusinessComponent } from './components/businesses/business/business.component';
 import { BusinessListComponent } from './components/businesses/business-list/business-list.component';
@@ -22,13 +21,14 @@ import {OpportunityComponent} from "./components/opportunities/opportunity/oppor
 import {UserListComponent} from "./components/users/user-list/user-list.component";
 import {UserComponent} from "./components/users/user/user.component";
 import {PerformInterviewComponent} from "./components/interviews/perform-interview/perform-interview.component";
+import {PersonDetailsComponent} from "./components/persons/person-details/person-details.component";
 
 const appRoutes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: 'home'},
     { path: 'login', component: LoginComponent},
     { path: 'home', component: HomeComponent, canActivate: [LoginGuard]},
     { path: 'persons', component: PersonListComponent, canActivate: [LoginGuard]},
-    { path: 'persons/:id', component: PersonComponent, canActivate: [LoginGuard]},
+    { path: 'persons/:id', component: PersonDetailsComponent, canActivate: [LoginGuard]},
     { path: 'businesses', component: BusinessListComponent, canActivate: [LoginGuard]},
     { path: 'businesses/:id', component: BusinessComponent, canActivate: [LoginGuard]},
     { path: 'roles', component: RoleListComponent, canActivate: [LoginGuard]},

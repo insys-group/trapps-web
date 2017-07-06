@@ -7,6 +7,11 @@
 <div class="row">
   <div class="col-sm-12">
 
+    <a class="btn btn-default" [routerLink]="['/interviews']">
+      <i class="fa fa-arrow-left" aria-hidden="true"></i> Inteviews List
+    </a>
+    <div class="spacer-md"></div>
+
     <form (ngSubmit)="save()" #interviewForm="ngForm">
       <div class="panel panel-default">
         <div class="panel-heading">
@@ -14,36 +19,85 @@
         </div>
         <div class="panel-body">
 
-          <div class="form-group">
-            <label>Name</label>
-            <input type="text" class="form-control" required [(ngModel)]="interview.name" #name="ngModel" id="name" name="name" [readonly]="interview.status && interview.status != CONSTANTS.INTERVIEW_STATUS.OPEN">
-            <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
-              Name for the interview is required
+          <div class="row">
+            <div class="col-sm-offset-2 col-sm-8">
+
+              <div class="form-group">
+                <label>Interview Name</label>
+                <input type="text" class="form-control" required [(ngModel)]="interview.name" #name="ngModel"
+                       id="name" name="name" [readonly]="true">
+                <label [hidden]="name.valid || (name.pristine && !submitted)" class="invalid">
+                  Name for the interview is required
+                </label>
+              </div>
+
+              <div class="form-group">
+                <label>Candidate</label>
+
+                <div class="row">
+                  <div class="col-sm-8">
+                    <select class="form-control" required [(ngModel)]="interview.candidate" id="candidate"
+                            name="candidate" #candidate="ngModel" (change)="onChangeCandidate()"
+                            [disabled]="interview.status > CONSTANTS.INTERVIEW_STATUS.OPEN">
+                      <option selected=selected></option>
+                      <option *ngFor="let person of persons | filterPersonType: CANDIDATE" [ngValue]="person">
+                        {{person.firstName}} {{person.lastName}}
+                      </option>
+                    </select>
+                    <label [hidden]="candidate.valid || (candidate.pristine && !submitted)" class="invalid">
+                      Candidate is required
+                    </label>
+                  </div>
+                  <div class="col-sm-4 no-padding-left">
+                    <button *ngIf="!interview.id || interview.status == CONSTANTS.INTERVIEW_STATUS.OPEN" type="button"
+                            class="btn btn-primary btn-sm" id="basic-addon1" (click)="modal.show(); initCandidate();">
+                      <i class="fa fa-plus" aria-hidden="true"></i> New Candidate
+                    </button>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="form-group">
+                <label>Role</label>
+                <select class="form-control" required [(ngModel)]="interview.role" id="role" name="role"
+                        #role="ngModel" (change)="setInterviewName()"
+                        [disabled]="interview.status > CONSTANTS.INTERVIEW_STATUS.OPEN">
+                  <option selected=selected></option>
+                  <option *ngFor="let role of roles" [ngValue]="role">{{role.name}}</option>
+                </select>
+                <label [hidden]="role.valid || (role.pristine && !submitted)" class="invalid">
+                  Role is required
+                </label>
+              </div>
+
+              <div class="form-group">
+                <label for="contactType">Contact Type</label>
+                <select class="form-control" id="contactType" required [(ngModel)]="interview.contactType"
+                        name="contactType" #contactType="ngModel" (ngModelChange)="onContactTypeChange()"
+                        [disabled]="interview.status > CONSTANTS.INTERVIEW_STATUS.OPEN">
+                  <option selected=selected></option>
+                  <option *ngFor="let contactType of contactTypes" [value]="contactType">{{contactType}}</option>
+                </select>
+                <label [hidden]="contactType.valid || (contactType.pristine && !submitted)" class="invalid">
+                  Contact Type is required
+                </label>
+              </div>
+
+              <div class="form-group">
+                <label>{{this.contactLabel}}</label>
+                <input type="text" class="form-control" required [(ngModel)]="interview.contact" #contact="ngModel"
+                       id="contact" name="contact"
+                       [readonly]="interview.status > CONSTANTS.INTERVIEW_STATUS.OPEN
+                       || interview.contactType === contactTypeCatalog.CANDIDATE_PHONE
+                       || interview.contactType === contactTypeCatalog.CANDIDATE_SKYPE
+                       || interview.status && interview.status != CONSTANTS.INTERVIEW_STATUS.OPEN">
+                <label [hidden]="contact.valid || (contact.pristine && !submitted)" class="invalid">
+                  Phone for the interview is required
+                </label>
+              </div>
+
             </div>
-          </div>
-
-          <div class="form-group">
-            <label>Phone</label>
-            <input type="text" class="form-control" required [(ngModel)]="interview.phone" #phone="ngModel" id="phone" name="phone" [readonly]="interview.status && interview.status != CONSTANTS.INTERVIEW_STATUS.OPEN">
-            <div [hidden]="phone.valid || phone.pristine" class="alert alert-danger">
-              Phone for the interview is required
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label>Role</label>
-            <select class="form-control" required [(ngModel)]="interview.role" id="role" name="role" #role="ngModel">
-              <option selected=selected></option>
-              <option *ngFor="let role of roles" [ngValue]="role">{{role.name}}</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label>Candidate</label>
-            <select class="form-control" required [(ngModel)]="interview.candidate" id="candidate" name="candidate" #candidate="ngModel">
-              <option selected=selected></option>
-              <option *ngFor="let person of persons | filterPersonType: CANDIDATE" [ngValue]="person">{{person.firstName}} {{person.lastName}}</option>
-            </select>
           </div>
 
         </div>
@@ -51,10 +105,13 @@
         <div class="panel-footer">
           <div class="row">
             <div class="col-sm-12">
-              <a class="btn btn-default" [routerLink]="['/interviews']">Cancel</a>
+              <a class="btn btn-default" [routerLink]="['/interviews']">
+                <i class="fa fa-ban" aria-hidden="true"></i> Cancel
+              </a>
               <button type="submit" class="btn btn-primary pull-right"
-                      *ngIf="!interview.status || interview.status == CONSTANTS.INTERVIEW_STATUS.OPEN"
-                      [disabled]="!interviewForm.form.valid">Save</button>
+                      [disabled]="interview.status > CONSTANTS.INTERVIEW_STATUS.OPEN">
+                <i class="fa fa-floppy-o" aria-hidden="true"></i> Save
+              </button>
             </div>
           </div>
         </div>
@@ -100,7 +157,8 @@
         </table>
 
         <div class="form-group">
-          <button type="button" class="btn btn-primary pull-right" (click)="assignQuestions()" [disabled]="!questions || questions.length < 1">
+          <button type="button" class="btn btn-primary pull-right" (click)="assignQuestions()"
+                  [disabled]="!questions || questions.length < 1">
             Assign Questions to Interview
           </button>
         </div>
@@ -114,31 +172,33 @@
       </div>
       <div class="panel-body">
 
-        <div class="form-group" *ngIf="interview.status == CONSTANTS.INTERVIEW_STATUS.OPEN" >
+        <div class="form-group" *ngIf="interview.status == CONSTANTS.INTERVIEW_STATUS.OPEN">
           <label>Add Interviewer</label>
           <select class="form-control" required [(ngModel)]="newInterviewer" id="interviewer" name="interviewer"
                   #interviewer="ngModel" (change)="addInterviewer()">
             <option selected=selected></option>
-            <option *ngFor="let person of persons | filterPersonType: INTERVIWER" [ngValue]="person">{{person.firstName}} {{person.lastName}}</option>
+            <option *ngFor="let person of persons | filterPersonType: INTERVIWER" [ngValue]="person">
+              {{person.firstName}} {{person.lastName}}
+            </option>
           </select>
         </div>
 
         <table class="table table-hover table-striped table-bordered">
           <thead>
-            <tr>
-              <th>No</th>
-              <th>Name</th>
-              <th *ngIf="interview.status == CONSTANTS.INTERVIEW_STATUS.OPEN">Remove</th>
-            </tr>
+          <tr>
+            <th>No</th>
+            <th>Name</th>
+            <th *ngIf="interview.status == CONSTANTS.INTERVIEW_STATUS.OPEN">Remove</th>
+          </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let interviewer of interview.interviewers; let i = index">
-              <td>{{i+1}}</td>
-              <td>{{interviewer.firstName}} {{interviewer.lastName}}</td>
-              <td class="text-center" *ngIf="interview.status == CONSTANTS.INTERVIEW_STATUS.OPEN">
-                <i class="fa fa-times icon-btn-md" (click)="removeInterviewer(i)"></i>
-              </td>
-            </tr>
+          <tr *ngFor="let interviewer of interview.interviewers; let i = index">
+            <td>{{i+1}}</td>
+            <td>{{interviewer.firstName}} {{interviewer.lastName}}</td>
+            <td class="text-center" *ngIf="interview.status == CONSTANTS.INTERVIEW_STATUS.OPEN">
+              <i class="fa fa-times icon-btn-md" (click)="removeInterviewer(i)"></i>
+            </td>
+          </tr>
           </tbody>
         </table>
 
@@ -155,29 +215,144 @@
           <label>Add New Question</label>
           <div class="row">
             <div class="col-sm-6">
-              <input class="form-control" required [(ngModel)]="newAnswer.question.question" id="question" name="question"
+              <input class="form-control" required [(ngModel)]="newAnswer.question.question" id="question"
+                     name="question"
                      #question="ngModel"/>
             </div>
             <div class="col-sm-6">
-              <button type="button" class="btn btn-primary" [disabled]="!newAnswer.question.question" (click)="addQuestion()">Add</button>
+              <button type="button" class="btn btn-primary" [disabled]="!newAnswer.question.question"
+                      (click)="addQuestion()">Add
+              </button>
             </div>
           </div>
         </div>
 
         <ol>
           <li *ngFor="let answer of interview.answers; let i = index">
-            <b>{{answer.question.question}}</b>
-            <i class="fa fa-times icon-btn-md" (click)="removeQuestion(i)"
-               *ngIf="interview.status == CONSTANTS.INTERVIEW_STATUS.OPEN"></i>
+            <p class="question">
+              <b>{{answer.question.question}}</b>
+              <i class="fa fa-times icon-btn-md" (click)="removeQuestion(i)" *ngIf="interview.status == CONSTANTS.INTERVIEW_STATUS.OPEN"></i>
+            </p>
           </li>
         </ol>
-
-        <button type="button" class="btn btn-primary pull-right" (click)="save()" *ngIf="interview.status == CONSTANTS.INTERVIEW_STATUS.OPEN">
-          Save
-        </button>
 
       </div>
     </div>
 
+    <div class="row" *ngIf="interview.id">
+      <div class="col-sm-offset-2 col-sm-8">
+        <label [hidden]="interview.interviewers && interview.interviewers.length > 0" class="invalid">
+          Please assign at least one interviewer to be able to start the interview.
+        </label>
+        <button *ngIf="interview.status === CONSTANTS.INTERVIEW_STATUS.OPEN" type="button"
+                class="btn btn-primary start-interview" (click)="startInterview()"
+                [disabled]="!interview.interviewers || interview.interviewers.length === 0">
+          <i class="fa fa-play-circle"></i> Start Interview
+        </button>
+        <button *ngIf="interview.status > CONSTANTS.INTERVIEW_STATUS.OPEN" type="button"
+                class="btn btn-primary start-interview" (click)="interviewProcess()">
+          <i class="fa fa-play-circle"></i> Go to Interview Process
+        </button>
+      </div>
+    </div>
+
+    <div class="spacer-md"></div>
+
   </div>
 </div>
+
+<!-- Person Modal -->
+
+<app-person-modal #modal (saveCandidate)="saveCandidate()">
+
+  <div class="app-modal-header">
+    <h3>New Candidate</h3>
+  </div>
+  <div class="app-modal-body">
+
+    <form #candidateForm="ngForm">
+
+      <div class="row" [hidden]="!candidateError">
+        <div class="col-sm-offset-2 col-sm-8">
+          <label class="invalid">
+            Please fix specified errors.
+          </label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-offset-2 col-sm-8">
+          <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input type="text" class="form-control" id="firstName" required [(ngModel)]="newCandidate.firstName"
+                   name="firstName" #firstName="ngModel">
+            <label [hidden]="firstName.valid || (firstName.pristine && !newCandidateSubmitted)" class="invalid">
+              First name is required
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-offset-2 col-sm-8">
+          <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input type="text" class="form-control" id="lastName" required [(ngModel)]="newCandidate.lastName"
+                   name="lastName" #lastName="ngModel">
+            <label [hidden]="lastName.valid || (lastName.pristine && !newCandidateSubmitted)" class="invalid">
+              Last name is required
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-offset-2 col-sm-8">
+          <div class="form-group">
+            <label for="phone">Phone</label>
+            <input type="text" class="form-control" id="phone" required
+                   [(ngModel)]="newCandidate.phone" name="phone" #phone="ngModel" placeholder="999-999-9999">
+            <label [hidden]="phone.valid || (phone.pristine && !newCandidateSubmitted)" class="invalid">
+              Phone is required in the format 999-999-9999
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-offset-2 col-sm-8">
+          <div class="form-group">
+            <label for="skype">Skype</label>
+            <input type="text" class="form-control" id="skype"
+                   [(ngModel)]="newCandidate.skype" name="skype" #skype="ngModel">
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-offset-2 col-sm-8">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" class="form-control" id="email" [(ngModel)]="newCandidate.email" name="email"
+                   #email="ngModel">
+            <label [hidden]="!emailTaken" class="invalid">
+              The email is already linked to another account.
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12 mod-footer">
+          <button type="button" class="btn btn-default" (click)="modal.hide()">Close</button>
+          <button type="button" class="btn btn-primary pull-right" (click)="modal.save()">Save</button>
+          <!--<button type="submit" class="btn btn-primary pull-right">Save</button>-->
+        </div>
+      </div>
+
+    </form>
+
+  </div>
+
+
+</app-person-modal>

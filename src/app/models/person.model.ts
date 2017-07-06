@@ -10,6 +10,7 @@ export class Person extends RestResource {
   lastName: string;
   phone: string;
   email: string;
+  skype: string;
   personType: string;
   title: string;
   business: Business;

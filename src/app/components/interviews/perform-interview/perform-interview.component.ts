@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { Interview } from '../../../models/interview/interview.model';
+import {Component, OnInit} from '@angular/core';
+import {ContactType, Interview} from '../../../models/interview/interview.model';
 
 import {Router, ActivatedRoute} from '@angular/router';
-import { NotificationService } from '../../../services/notification.service'
-import { InterviewService } from '../../../services/interview.service';
+import {NotificationService} from '../../../services/notification.service'
+import {InterviewService} from '../../../services/interview.service';
 import {RoleService} from "../../../services/role.service";
 import {PersonService} from "../../../services/person.service";
 import {PersonType, Person} from "../../../models/person.model";
@@ -39,6 +39,11 @@ export class PerformInterviewComponent implements OnInit {
   person: Person;
 
   allowEdition: boolean = false;
+
+  showHelp: boolean = false;
+
+  contactTypeCatalog = ContactType;
+  contactLabel: string = 'Contact';
 
   onSubmit() {
 
@@ -78,11 +83,11 @@ export class PerformInterviewComponent implements OnInit {
           this.loadingService.hide();
           this.notificationService.notifyError(error)
         }
-      )
+      );
   }
 
   getInterview() {
-    if(this.interviewId){
+    if (this.interviewId) {
       this.loadingService.show();
       this.interviewService.getInterview(this.interviewId)
         .subscribe(
@@ -92,6 +97,7 @@ export class PerformInterviewComponent implements OnInit {
             this.interview = interview;
             this.orderFeedbacks();
             this.checkIfAllowEdition();
+            this.onContactTypeChange();
 
           },
           error => {
@@ -102,8 +108,30 @@ export class PerformInterviewComponent implements OnInit {
     }
   }
 
+  onContactTypeChange() {
+    switch (this.interview.contactType) {
+      case ContactType.CANDIDATE_PHONE : {
+        this.contactLabel = 'Candidate Phone';
+        break;
+      }
+      case ContactType.CANDIDATE_SKYPE : {
+        this.contactLabel = 'Candidate Skype';
+        break;
+      }
+      case ContactType.ZOOM : {
+        this.contactLabel = 'Zoom';
+        break;
+      }
+      case ContactType.PHONE :
+      default : {
+        this.contactLabel = 'Phone';
+        break;
+      }
+    }
+  }
+
   addFeedback() {
-    if(!this.interview.feedbacks){
+    if (!this.interview.feedbacks) {
       this.interview.feedbacks = [];
     }
     this.myFeedback.interviewer = this.person;
@@ -132,12 +160,12 @@ export class PerformInterviewComponent implements OnInit {
     this.newAnswer = new Answer();
   }
 
-  removeQuestion(index : number) {
+  removeQuestion(index: number) {
     this.interview.answers.splice(index, 1);
     this.save();
   }
 
-  getPerson(){
+  getPerson() {
     this.loadingService.show();
     this.personService.getPerson(this.userLoggedIn.id)
       .subscribe(
@@ -154,10 +182,10 @@ export class PerformInterviewComponent implements OnInit {
   }
 
   orderFeedbacks() {
-    if(this.interview && this.person){
+    if (this.interview && this.person) {
       this.elseFeedbacks = [];
       this.interview.feedbacks.forEach(feedback => {
-        if(this.person.id == feedback.interviewer.id){
+        if (this.person.id == feedback.interviewer.id) {
           this.myFeedback = feedback;
         } else {
           this.elseFeedbacks.push(feedback);
@@ -193,12 +221,16 @@ export class PerformInterviewComponent implements OnInit {
   checkIfAllowEdition() {
     let self = this;
     this.interview.interviewers.forEach(
-      function(interviewer){
-        if(self.userLoggedIn.id == interviewer.id){
+      function (interviewer) {
+        if (self.userLoggedIn.id == interviewer.id) {
           self.allowEdition = true;
         }
       }
     );
+  }
+
+  toggleHelp() {
+    this.showHelp = !this.showHelp;
   }
 
 }

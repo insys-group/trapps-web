@@ -1,15 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 
-.busy{
+.busy {
   height: 100%;
   width: 100%;
-  position:fixed;
+  position: fixed;
   padding-top: 20px;
-  top:0px;
-  left:0px;
-  right:0px;
-  bottom:0px;
-  z-index:9999;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  z-index: 9999;
   background-color: #696969;
   opacity: .75;
 }
@@ -104,15 +104,15 @@
   font-size: 18px !important;
 }
 
-.spacer-sm{
+.spacer-sm {
   margin-bottom: 10px;
 }
 
-.spacer-md{
+.spacer-md {
   margin-bottom: 20px;
 }
 
-.spacer-lg{
+.spacer-lg {
   margin-bottom: 40px;
 }
 
@@ -130,7 +130,7 @@
   display: inline-block !important;
 }
 
-.error{
+.error {
   color: red;
 }
 
@@ -139,7 +139,7 @@
   color: #fff !important;
 }
 
-.notifications-li{
+.notifications-li {
   padding-top: 5px;
   padding-bottom: 5px;
   border-bottom: 1px solid #e7e7e7;
@@ -166,4 +166,68 @@ input[type="file"] {
   display: inline-block;
   padding: 6px 12px;
   cursor: pointer;
+}
+
+.ng-valid[required], .ng-valid.required {
+  border-left: 5px solid rgb(66, 169, 72);
+}
+
+.ng-invalid:not(form) {
+  border-left: 5px solid rgb(169, 68, 66);
+}
+
+.invalid {
+  margin-top: 5px;
+  color: rgb(169, 68, 66);
+}
+
+.modal {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.no-margin-bottom {
+  margin-bottom: 0 !important;
+}
+
+.group-btn {
+  cursor: pointer;
+  color: #fff !important;
+  background-image: linear-gradient(to bottom, #337ab7 0%, #265a88 100%);
+  background-repeat: repeat-x;
+  border: 1px solid transparent !important;
+  border-radius: 4px !important;
+}
+
+.group-btn:hover {
+  background-image: linear-gradient(to bottom, #265a88 0%, #337ab7 100%);
+}
+
+.mod-footer {
+  border-top: 1px solid #e5e5e5;
+  padding-top: 20px;
+}
+
+.no-padding-left {
+  padding-left: 0 !important;
+}
+
+.btn-sm {
+  height: 32px;
+}
+
+.start-interview {
+  width: 100%;
+  font-size: 26px !important;
+}
+
+.question {
+  padding-top: 10px;
+  padding-bottom: 5px;
+  margin-bottom: 0;
+}
+
+.raiting {
+  font-size: 18px;
+  color: #df6130;
+  outline: none;
 }
